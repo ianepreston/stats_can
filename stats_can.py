@@ -21,6 +21,7 @@ import warnings
 import zipfile
 import datetime as dt
 import pandas as pd
+import numpy as np
 import requests
 SC_URL = 'https://www150.statcan.gc.ca/t1/wds/rest/'
 
@@ -44,6 +45,54 @@ def parse_tables(tables):
     return [parse_table(t) for t in tables]
 
 
+def parse_vectors(vectors):
+    """
+    Strip out V from V#s. If input is a string return a list with one entity
+    Similar to parse tables, this by no means guarantees a valid entry, just
+    helps with some standard input formats
+    """
+    def parse_vector(vector):
+        """Strip string to numeric elements only"""
+        if isinstance(vector, int):  # Already parsed earlier
+            return vector
+        return int(re.sub(r'\D', '', vector))
+
+    if isinstance(vectors, str):
+        return [parse_vector(vectors)]
+    return [parse_vector(v) for v in vectors]
+
+
+def get_tables_for_vectors(vectors):
+    """
+    Takes a list of StatsCan vector numbers and returns
+    a dictionary mapping them to their corresponding table, along with
+    a key to a list of all tables used by the vectors
+    """
+    vectors = parse_vectors(vectors)
+    v_json = get_series_info_from_vector(vectors)
+    v_json = [j['object'] for j in v_json]
+    tables_list = {j['vectorId']: str(j['productId']) for j in v_json}
+    tables_list['all_tables'] = []
+    for vector in vectors:
+        if tables_list[vector] not in tables_list['all_tables']:
+            tables_list['all_tables'].append(tables_list[vector])
+    return tables_list
+
+
+def table_subsets_from_vectors(vectors):
+    """
+    Another way to parse tables from StatsCan vectors
+    takes a list of vectors and returns a dictionary of tables
+    keyed to a list of vectors that have been requested
+    """
+    start_tables_dict = get_tables_for_vectors(vectors)
+    tables_dict = {t: [] for t in start_tables_dict['all_tables']}
+    vecs = list(start_tables_dict.keys())[:-1]  # all but the all_tables key
+    for vec in vecs:
+        tables_dict[start_tables_dict[vec]].append(vec)
+    return tables_dict
+
+
 def get_cube_metadata(tables):
     """
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-1
@@ -54,6 +103,18 @@ def get_cube_metadata(tables):
     tables = [{'productId': t} for t in tables]
     url = SC_URL + 'getCubeMetadata'
     result = requests.post(url, json=tables)
+    result.raise_for_status()
+    return result.json()
+
+
+def get_series_info_from_vector(vectors):
+    """
+    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-3
+    """
+    vectors = parse_vectors(vectors)
+    vectors = [{'vectorId': v} for v in vectors]
+    url = SC_URL + 'getSeriesInfoFromVector'
+    result = requests.post(url, json=vectors)
     result.raise_for_status()
     return result.json()
 
@@ -201,11 +262,51 @@ def table_to_dataframe(table, path):
                 parse_dates=['REF_DATE']
                 )
     possible_cats = [
-        'GEO', 'DGUID', 'Supplementary unemployment rates', 'Sex', 'Age group',
+        'GEO', 'DGUID', 'STATUS', 'SYMBOL', 'TERMINATED', 'DECIMALS',
         'UOM', 'UOM_ID', 'SCALAR_FACTOR', 'SCALAR_ID', 'VECTOR', 'COORDINATE',
-        'STATUS', 'SYMBOL', 'TERMINATED', 'DECIMALS'
+        'Wages', 'National Occupational Classification for Statistics (NOC-S)',
+        'Supplementary unemployment rates', 'Sex', 'Age group'
         ]
     actual_cats = [col for col in possible_cats if col in col_names]
     df[actual_cats] = df[actual_cats].astype('category')
     os.chdir(oldpath)
     return df
+
+
+def get_classic_vector_format_df(vectors, path, start_date=None):
+    """
+    Like oldschool CANSIM, this will return a single dataframe with V numbers
+    as columns, indexed on date
+    Inputs:
+        vectors: list of vectors to be read in
+        path: path to zipped StatsCan tables
+        start_date: optional earliest reference date to include
+    Returns: A DataFrame as described above
+    """
+    # Preserve an initial copy of the list for ordering, parsed and then
+    # converted to string for consistency in naming
+    vectors_ordered = parse_vectors(vectors)
+    vectors_ordered = ['v' + str(v) for v in vectors_ordered]
+    table_vec_dict = table_subsets_from_vectors(vectors)
+    tables = list(table_vec_dict.keys())
+    tables_dfs = {}
+    columns = ['REF_DATE', 'VECTOR', 'VALUE']
+    for table in tables:
+        tables_dfs[table] = table_to_dataframe(table, path)[columns]
+        df = tables_dfs[table]  # save me some typing
+        vec_list = ['v' + str(v) for v in table_vec_dict[table]]
+        df = df[df['VECTOR'].isin(vec_list)]
+        if start_date is not None:
+            start_date = np.datetime64(start_date)
+            df = df[df['REF_DATE'] >= start_date]
+        df = df.pivot(index='REF_DATE', columns='VECTOR', values='VALUE')
+        df.columns = list(df.columns)  # remove categorical index
+        tables_dfs[table] = df
+    final_df = tables_dfs[tables[0]]
+    for table in tables[1:]:
+        final_df = pd.merge(
+            final_df, tables_dfs[table],
+            how='outer',
+            left_index=True, right_index=True
+            )
+    return final_df
