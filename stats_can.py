@@ -309,4 +309,5 @@ def get_classic_vector_format_df(vectors, path, start_date=None):
             how='outer',
             left_index=True, right_index=True
             )
+    final_df = final_df[vectors_ordered]
     return final_df
