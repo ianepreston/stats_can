@@ -110,13 +110,22 @@ def get_cube_metadata(tables):
 def get_series_info_from_vector(vectors):
     """
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-3
+    Maxes out at 300 values so have to chunk it out
+    https://bit.ly/2sn5RS9
     """
-    vectors = parse_vectors(vectors)
-    vectors = [{'vectorId': v} for v in vectors]
     url = SC_URL + 'getSeriesInfoFromVector'
-    result = requests.post(url, json=vectors)
-    result.raise_for_status()
-    return result.json()
+    vectors = parse_vectors(vectors)
+    max_chunk = 300
+    chunks = [
+        vectors[i:i + max_chunk] for i in range(0, len(vectors), max_chunk)
+        ]
+    final_list = []
+    for chunk in chunks:
+        vectors = [{'vectorId': v} for v in chunk]
+        result = requests.post(url, json=vectors)
+        result.raise_for_status()
+        final_list += result.json()
+    return final_list
 
 
 def get_full_table_download(table):
