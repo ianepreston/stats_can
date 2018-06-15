@@ -243,7 +243,7 @@ def update_tables(path=os.getcwd()):
     return update_table_list
 
 
-def table_to_dataframe(table, path):
+def table_to_dataframe(table, path=os.getcwd()):
     """
     Reads a StatsCan table into a pandas DataFrame
     If a zip file of the table does not exist in path, downloads it
@@ -274,7 +274,8 @@ def table_to_dataframe(table, path):
         'GEO', 'DGUID', 'STATUS', 'SYMBOL', 'TERMINATED', 'DECIMALS',
         'UOM', 'UOM_ID', 'SCALAR_FACTOR', 'SCALAR_ID', 'VECTOR', 'COORDINATE',
         'Wages', 'National Occupational Classification for Statistics (NOC-S)',
-        'Supplementary unemployment rates', 'Sex', 'Age group'
+        'Supplementary unemployment rates', 'Sex', 'Age group',
+        'Labour force characteristics', 'Statistics', 'Data type'
         ]
     actual_cats = [col for col in possible_cats if col in col_names]
     df[actual_cats] = df[actual_cats].astype('category')
