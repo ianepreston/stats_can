@@ -167,8 +167,13 @@ def get_bulk_vector_data_by_range(
 ):
     """
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5
+    
+    ToDo: Add chunking to handle over 300 vectors
     """
     url = SC_URL + 'getBulkVectorDataByRange'
+    start_release_date = str(start_release_date) + "T13:00"
+    end_release_date = str(end_release_date) + "T13:00"
+    vector_ids = parse_vectors(vector_ids)
     result = requests.post(
         url,
         json={
@@ -178,6 +183,26 @@ def get_bulk_vector_data_by_range(
             }
         )
     return result.json()
+
+
+def vectors_to_df(vectors, start_release_date, end_release_date):
+    """
+    Wrapper on get_bulk_vector_data_by_range function to turn the resulting
+    list of JSONs into a DataFrame
+    """
+    df = pd.DataFrame()
+    start_list = get_bulk_vector_data_by_range(
+        vectors, start_release_date, end_release_date
+        )
+    for vec in start_list:
+        obj = vec['object']
+        name = "v" + str(obj['vectorId'])
+        ser = pd.DataFrame(obj['vectorDataPoint'])
+        ser.set_index('refPer', inplace=True)
+        ser.rename(columns={'value': name}, inplace=True)
+        ser = ser[name]
+        df = pd.concat([df, ser], axis=1, sort=True)
+    return df
 
 
 def download_tables(tables, path=os.getcwd()):
