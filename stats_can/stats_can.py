@@ -9,9 +9,6 @@ Hence functions with cube in the function name will take tables as an argument
 I'm not sure which is less confusing, it's annoying they weren't just
 consistent.
 
-# noqa on some function definitions as they don't pass pylint, but I want to
-keep the long function names that match the actual WDS
-
 
 Attributes
 ----------
@@ -119,7 +116,7 @@ def get_cube_metadata(tables):
     return [r['object'] for r in result]
 
 
-def get_series_info_from_cube_pid_coord():  # noqa
+def get_series_info_from_cube_pid_coord():
     """ Not implemented yet
 
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-2"""
@@ -147,21 +144,21 @@ def get_series_info_from_vector(vectors):
     return final_list
 
 
-def get_changed_series_data_from_cube_pid_coord():  # noqa
+def get_changed_series_data_from_cube_pid_coord():
     """ Not implemented yet
 
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-1"""
     pass
 
 
-def get_changed_series_data_from_vector():  # noqa
+def get_changed_series_data_from_vector():
     """ Not implemented yet
 
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-2"""
     pass
 
 
-def get_data_from_cube_pid_coord_and_latest_n_periods():  # noqa
+def get_data_from_cube_pid_coord_and_latest_n_periods():
     """ Not implemented yet
 
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-3
@@ -169,7 +166,7 @@ def get_data_from_cube_pid_coord_and_latest_n_periods():  # noqa
     pass
 
 
-def get_data_from_vectors_and_latest_n_periods():  # noqa
+def get_data_from_vectors_and_latest_n_periods():
     """ Not implemented, next on my to do list
 
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-4
@@ -237,6 +234,7 @@ def check_status(results):
         JSON from an API call parsed as a dictionary
     """
     def check_one_status(result):
+        """Do the check on an individual result"""
         if result['status'] != 'SUCCESS':
             raise RuntimeError(str(result['object']))
     if isinstance(results, list):
