@@ -35,6 +35,9 @@ If it works and is reasonably space efficient it would save processing time
 Functions that are still just returning JSON should return a dict or
 something nicer
 
+Extend getChangedCubeList with a function that returns all tables updated
+within a date range
+
 The whole thing only works in English right now. Add French support
 
 @author: Ian Preston
@@ -52,19 +55,46 @@ SC_URL = 'https://www150.statcan.gc.ca/t1/wds/rest/'
 
 
 def get_changed_series_list():
-    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a10-1"""
+    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a10-1
+
+    Gets all series that were updated today.
+
+    Returns
+    -------
+    list of dicts
+        one for each vector and when it was released
+    """
     url = SC_URL + 'getChangedSeriesList'
     result = requests.get(url)
     result.raise_for_status()
-    return result.json()
+    # This might be redundant
+    result = result.json()
+    if result['status'] != 'SUCCESS':
+        raise RuntimeError("StatsCan WDS failed")
+    return result['object']
 
 
 def get_changed_cube_list(date=dt.date.today()):
-    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a10-2"""
+    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a10-2
+
+    Parameters
+    ----------
+    date : datetime.date
+        Date to check for table changes, defaults to current date
+
+    Returns
+    -------
+    list of dicts
+        one for each table and when it was updated
+    """
     url = SC_URL + 'getChangedCubeList' + '/' + str(date)
     result = requests.get(url)
     result.raise_for_status()
-    return result
+    # This might be redundant
+    result = result.json()
+    if result['status'] != 'SUCCESS':
+        raise RuntimeError("StatsCan WDS failed")
+    return result['object']
 
 
 def get_cube_metadata(tables):
@@ -72,13 +102,27 @@ def get_cube_metadata(tables):
 
     Take a list of tables and return a list of dictionaries with their
     metadata
+
+    Parameters
+    ----------
+    tables : str or list of str
+        IDs of tables to get metadata for
+
+    Returns
+    -------
+    list of dicts
+        one for each table with its metadata
     """
     tables = parse_tables(tables)
     tables = [{'productId': t} for t in tables]
     url = SC_URL + 'getCubeMetadata'
     result = requests.post(url, json=tables)
     result.raise_for_status()
-    return result.json()
+    result = result.json()
+    for r in result:
+        if r['status'] != 'SUCCESS':
+            raise RuntimeError("StatsCan WDS failed")
+    return [r['object'] for r in result]
 
 
 def get_series_info_from_cube_pid_coord():  # noqa
@@ -217,7 +261,7 @@ def parse_tables(tables):
         return re.sub(r'\D', '', table)[:8]
 
     if isinstance(tables, str):
-        return parse_table(tables)
+        return [parse_table(tables)]
     return [parse_table(t) for t in tables]
 
 
@@ -309,11 +353,7 @@ def download_tables(tables, path=os.getcwd()):
     os.chdir(path)
     metas = get_cube_metadata(tables)
     for meta in metas:
-        if meta['status'] != 'SUCCESS':
-            warnings.warn(str(meta['object']))
-            return
-        obj = meta['object']
-        product_id = obj['productId']
+        product_id = meta['productId']
         csv_url = get_full_table_download(product_id)
         csv_file = product_id + '-eng.zip'
         # Thanks http://evanhahn.com/python-requests-library-useragent/
@@ -329,7 +369,7 @@ def download_tables(tables, path=os.getcwd()):
                     handle.write(chunk)
         json_file = product_id + '.json'
         with open(json_file, 'w') as outfile:
-            json.dump(obj, outfile)
+            json.dump(meta, outfile)
     os.chdir(oldpath)
 
 
@@ -352,7 +392,6 @@ def update_tables(path=os.getcwd()):
                 local_jsons.append(json.load(f_name))
     tables = [j['productId'] for j in local_jsons]
     remote_jsons = get_cube_metadata(tables)
-    remote_jsons = [j['object'] for j in remote_jsons]
     update_table_list = []
     for local, remote in zip(local_jsons, remote_jsons):
         if local['cubeEndDate'] != remote['cubeEndDate']:
