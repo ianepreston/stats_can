@@ -45,7 +45,6 @@ The whole thing only works in English right now. Add French support
 import re
 import os
 import json
-import warnings
 import zipfile
 import datetime as dt
 import pandas as pd
@@ -69,8 +68,7 @@ def get_changed_series_list():
     result.raise_for_status()
     # This might be redundant
     result = result.json()
-    if result['status'] != 'SUCCESS':
-        raise RuntimeError("StatsCan WDS failed")
+    check_status(result)
     return result['object']
 
 
@@ -90,10 +88,8 @@ def get_changed_cube_list(date=dt.date.today()):
     url = SC_URL + 'getChangedCubeList' + '/' + str(date)
     result = requests.get(url)
     result.raise_for_status()
-    # This might be redundant
     result = result.json()
-    if result['status'] != 'SUCCESS':
-        raise RuntimeError("StatsCan WDS failed")
+    check_status(result)
     return result['object']
 
 
@@ -119,9 +115,7 @@ def get_cube_metadata(tables):
     result = requests.post(url, json=tables)
     result.raise_for_status()
     result = result.json()
-    for r in result:
-        if r['status'] != 'SUCCESS':
-            raise RuntimeError("StatsCan WDS failed")
+    check_status(result)
     return [r['object'] for r in result]
 
 
@@ -210,12 +204,11 @@ def get_full_table_download(table):
 
     Take a table name and return a url to a zipped CSV of that table
     """
-    table = parse_tables(table)
+    table = parse_tables(table)[0]
     url = SC_URL + 'getFullTableDownloadCSV/' + table + '/en'
     result = requests.get(url)
     result = result.json()
-    if result['status'] != 'SUCCESS':
-        warnings.warn(str(result['object']))
+    check_status(result)
     return result['object']
 
 
@@ -233,6 +226,24 @@ def get_code_sets():
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a13-1
     """
     pass
+
+
+def check_status(results):
+    """Make sure list of results succeeded
+
+    Parameters
+    ----------
+    results : list of dicts, or dict
+        JSON from an API call parsed as a dictionary
+    """
+    def check_one_status(result):
+        if result['status'] != 'SUCCESS':
+            raise RuntimeError(str(result['object']))
+    if isinstance(results, list):
+        for result in results:
+            check_one_status(result)
+    else:
+        check_one_status(results)
 
 
 def parse_tables(tables):
