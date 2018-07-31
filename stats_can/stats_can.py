@@ -35,6 +35,10 @@ something nicer
 Extend getChangedCubeList with a function that returns all tables updated
 within a date range
 
+Should probably build some tests
+
+getBulkvectorfromrange should be extended to a method that returns a df
+
 The whole thing only works in English right now. Add French support
 
 @author: Ian Preston
@@ -62,10 +66,7 @@ def get_changed_series_list():
     """
     url = SC_URL + 'getChangedSeriesList'
     result = requests.get(url)
-    result.raise_for_status()
-    # This might be redundant
-    result = result.json()
-    check_status(result)
+    result = check_status(result)
     return result['object']
 
 
@@ -84,9 +85,7 @@ def get_changed_cube_list(date=dt.date.today()):
     """
     url = SC_URL + 'getChangedCubeList' + '/' + str(date)
     result = requests.get(url)
-    result.raise_for_status()
-    result = result.json()
-    check_status(result)
+    result = check_status(result)
     return result['object']
 
 
@@ -111,8 +110,7 @@ def get_cube_metadata(tables):
     url = SC_URL + 'getCubeMetadata'
     result = requests.post(url, json=tables)
     result.raise_for_status()
-    result = result.json()
-    check_status(result)
+    result = check_status(result)
     return [r['object'] for r in result]
 
 
@@ -126,11 +124,18 @@ def get_series_info_from_cube_pid_coord():
 def get_series_info_from_vector(vectors):
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-3
 
-    Maxes out at 300 values so have to chunk it out
-    https://bit.ly/2sn5RS9
+    Parameters
+    ----------
+    vectors: str or list of str
+        vector numbers to get info for
+
+    Returns
+    -------
+    List of dicts containing metadata for each v#
     """
     url = SC_URL + 'getSeriesInfoFromVector'
     vectors = parse_vectors(vectors)
+    # Maxes out at 300 values so have to chunk it out https://bit.ly/2sn5RS9
     max_chunk = 300
     chunks = [
         vectors[i:i + max_chunk] for i in range(0, len(vectors), max_chunk)
@@ -139,9 +144,9 @@ def get_series_info_from_vector(vectors):
     for chunk in chunks:
         vectors = [{'vectorId': v} for v in chunk]
         result = requests.post(url, json=vectors)
-        result.raise_for_status()
-        final_list += result.json()
-    return final_list
+        result = check_status(result)
+        final_list += result
+    return [r['object'] for r in final_list]
 
 
 def get_changed_series_data_from_cube_pid_coord():
@@ -193,7 +198,8 @@ def get_bulk_vector_data_by_range(
             "endDataPointReleaseDate": end_release_date
             }
         )
-    return result.json()
+    result = check_status(result)
+    return [r['object'] for r in result]
 
 
 def get_full_table_download(table):
@@ -204,8 +210,7 @@ def get_full_table_download(table):
     table = parse_tables(table)[0]
     url = SC_URL + 'getFullTableDownloadCSV/' + table + '/en'
     result = requests.get(url)
-    result = result.json()
-    check_status(result)
+    result = check_status(result)
     return result['object']
 
 
@@ -233,6 +238,9 @@ def check_status(results):
     results : list of dicts, or dict
         JSON from an API call parsed as a dictionary
     """
+    results.raise_for_status()
+    results = results.json()
+
     def check_one_status(result):
         """Do the check on an individual result"""
         if result['status'] != 'SUCCESS':
@@ -242,6 +250,7 @@ def check_status(results):
             check_one_status(result)
     else:
         check_one_status(results)
+    return results
 
 
 def parse_tables(tables):
@@ -297,6 +306,8 @@ def parse_vectors(vectors):
         return int(re.sub(r'\D', '', vector))
 
     if isinstance(vectors, str):
+        return [parse_vector(vectors)]
+    elif isinstance(vectors, int):
         return [parse_vector(vectors)]
     return [parse_vector(v) for v in vectors]
 
@@ -418,7 +429,8 @@ def table_to_dataframe(table, path=os.getcwd()):
     """
     oldpath = os.getcwd()
     os.chdir(path)
-    table = parse_tables(table)
+    # Parse tables returns a list, can only do one table at a time here though
+    table = parse_tables(table)[0]
     table_zip = table + '-eng.zip'
     if not os.path.isfile(table_zip):
         download_tables([table], path)
