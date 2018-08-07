@@ -320,7 +320,6 @@ def get_tables_for_vectors(vectors):
     """
     vectors = parse_vectors(vectors)
     v_json = get_series_info_from_vector(vectors)
-    v_json = [j['object'] for j in v_json]
     tables_list = {j['vectorId']: str(j['productId']) for j in v_json}
     tables_list['all_tables'] = []
     for vector in vectors:
