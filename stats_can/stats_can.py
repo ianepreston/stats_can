@@ -23,21 +23,18 @@ Missing api implementations:
     GetChangedSeriesDataFromCubePidCoord
     GetChangedSeriesDataFromVector
     GetDataFromCubePidCoordAndLatestNPeriods
-    GetDataFromVectorsAndLatestNPeriods (Next on my list)
     GetFullTableDownloadSDMX
     GetCodeSets
 I'd like to look into saving downloaded tables as hdf rather than csv/json
 If it works and is reasonably space efficient it would save processing time
-
-Functions that are still just returning JSON should return a dict or
-something nicer
 
 Extend getChangedCubeList with a function that returns all tables updated
 within a date range
 
 Should probably build some tests
 
-getBulkvectorfromrange should be extended to a method that returns a df
+getBulkvectorfromrange should be extended to a method that returns a df,
+same for vectors and n periods function
 
 The whole thing only works in English right now. Add French support
 
@@ -182,6 +179,10 @@ def get_data_from_vectors_and_latest_n_periods(vectors, periods):
     Returns
     -------
     List of dicts containing data for each vector
+
+    ToDo
+    ----
+    Add chunking to handle over 300 vectors
     """
     url = SC_URL + 'getDataFromVectorsAndLatestNPeriods'
     vectors = parse_vectors(vectors)
@@ -199,8 +200,18 @@ def get_bulk_vector_data_by_range(
         vector_ids, start_release_date, end_release_date
 ):
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5
+    Parameters
+    ----------
+    vectors: str or list of str
+        vector numbers to get info for
 
-    ToDo: Add chunking to handle over 300 vectors
+    Returns
+    -------
+    List of dicts containing data for each vector
+
+    ToDo
+    ----
+    Add chunking to handle over 300 vectors
     """
     url = SC_URL + 'getBulkVectorDataByRange'
     start_release_date = str(start_release_date) + "T13:00"
@@ -218,24 +229,27 @@ def get_bulk_vector_data_by_range(
     return [r['object'] for r in result]
 
 
-def get_full_table_download(table):
+def get_full_table_download(table, csv=True):
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-6
+    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-7
 
-    Take a table name and return a url to a zipped CSV of that table
+    Take a table name and return a url to a zipped file of that table
+
+    Parameters
+    ----------
+    table: str
+        table name to download
+    csv: boolean, default True
+        download in CSV format, if not download SDMX
     """
     table = parse_tables(table)[0]
-    url = SC_URL + 'getFullTableDownloadCSV/' + table + '/en'
+    if csv:
+        url = SC_URL + 'getFullTableDownloadCSV/' + table + '/en'
+    else:
+        url = SC_URL + 'getFullTableDownloadSDMX/' + table
     result = requests.get(url)
     result = check_status(result)
     return result['object']
-
-
-def get_full_table_download_sdmx():
-    """ Not implemented yet
-
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-7
-    """
-    pass
 
 
 def get_code_sets():
