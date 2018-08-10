@@ -171,12 +171,28 @@ def get_data_from_cube_pid_coord_and_latest_n_periods():
     pass
 
 
-def get_data_from_vectors_and_latest_n_periods():
-    """ Not implemented, next on my to do list
+def get_data_from_vectors_and_latest_n_periods(vectors, periods):
+    """ https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-4
 
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-4
+    Parameters
+    ----------
+    vectors: str or list of str
+        vector numbers to get info for
+
+    Returns
+    -------
+    List of dicts containing data for each vector
     """
-    pass
+    url = SC_URL + 'getDataFromVectorsAndLatestNPeriods'
+    vectors = parse_vectors(vectors)
+    periods = [periods for i in range(len(vectors))]
+    json = [
+        {'vectorId': v, 'latestN': n} for v, n in zip(vectors, periods)
+        ]
+    result = requests.post(url, json=json)
+    result = check_status(result)
+    result = [r['object'] for r in result]
+    return result
 
 
 def get_bulk_vector_data_by_range(
