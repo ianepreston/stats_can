@@ -372,7 +372,7 @@ def table_subsets_from_vectors(vectors):
     return tables_dict
 
 
-def vectors_to_df(vectors, start_release_date, end_release_date):
+def vectors_to_df_by_release(vectors, start_release_date, end_release_date):
     """
     Wrapper on get_bulk_vector_data_by_range function to turn the resulting
     list of JSONs into a DataFrame
@@ -382,10 +382,10 @@ def vectors_to_df(vectors, start_release_date, end_release_date):
         vectors, start_release_date, end_release_date
         )
     for vec in start_list:
-        obj = vec['object']
-        name = "v" + str(obj['vectorId'])
-        ser = pd.DataFrame(obj['vectorDataPoint'])
+        name = "v" + str(vec['vectorId'])
+        ser = pd.DataFrame(vec['vectorDataPoint'])
         ser.set_index('refPer', inplace=True)
+        ser.index = pd.to_datetime(ser.index)
         ser.rename(columns={'value': name}, inplace=True)
         ser = ser[name]
         df = pd.concat([df, ser], axis=1, sort=True)
