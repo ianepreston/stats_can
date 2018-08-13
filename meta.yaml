@@ -8,6 +8,8 @@ source:
     path: ./
 
 build:
+    noarch: python
+    number: 1
     script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
@@ -24,4 +26,3 @@ about:
     license: {{ setup_py.get('license') }}
     license_file: LICENSE
     summary: {{ setup_py.get('description') }}
-	
