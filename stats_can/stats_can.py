@@ -175,6 +175,8 @@ def get_data_from_vectors_and_latest_n_periods(vectors, periods):
     ----------
     vectors: str or list of str
         vector numbers to get info for
+    periods: int
+        number of periods (starting at latest) to retrieve data for
 
     Returns
     -------
@@ -204,6 +206,10 @@ def get_bulk_vector_data_by_range(
     ----------
     vectors: str or list of str
         vector numbers to get info for
+    start_release_date: datetime.date
+        start release date for the data
+    end_release_date: datetime.date
+        end release date for the data
 
     Returns
     -------
@@ -343,10 +349,18 @@ def parse_vectors(vectors):
 
 
 def get_tables_for_vectors(vectors):
-    """
-    Takes a list of StatsCan vector numbers and returns
-    a dictionary mapping them to their corresponding table, along with
-    a key to a list of all tables used by the vectors
+    """ get a list of dicts mapping vectors to tables
+
+    Parameters
+    ----------
+    vectors : list of str or str
+        Vectors to find tables for
+
+    Returns
+    -------
+    list of dict
+        keys for each vector number return the table, plus a key for
+        'all_tables' that has a list of unique tables used by vectors
     """
     vectors = parse_vectors(vectors)
     v_json = get_series_info_from_vector(vectors)
@@ -359,10 +373,17 @@ def get_tables_for_vectors(vectors):
 
 
 def table_subsets_from_vectors(vectors):
-    """
-    Another way to parse tables from StatsCan vectors
-    takes a list of vectors and returns a dictionary of tables
-    keyed to a list of vectors that have been requested
+    """get a list of dicts mapping tables to vectors
+
+    Parameters
+    ----------
+    vectors : list of str or str
+        Vectors to find tables for
+
+    Returns
+    -------
+    list of dict
+        keys for each table used by the vectors, matched to a list of vectors
     """
     start_tables_dict = get_tables_for_vectors(vectors)
     tables_dict = {t: [] for t in start_tables_dict['all_tables']}
@@ -373,9 +394,23 @@ def table_subsets_from_vectors(vectors):
 
 
 def vectors_to_df_by_release(vectors, start_release_date, end_release_date):
-    """
+    """data frame of vectors with data over range of release dates
+
     Wrapper on get_bulk_vector_data_by_range function to turn the resulting
     list of JSONs into a DataFrame
+
+    Parameters
+    ----------
+    vectors: str or list of str
+        vector numbers to get info for
+    start_release_date: datetime.date
+        start release date for the data
+    end_release_date: datetime.date
+        end release date for the data
+
+    Returns
+    -------
+    DataFrame with vectors as columns and ref_date as the index (not release)
     """
     df = pd.DataFrame()
     start_list = get_bulk_vector_data_by_range(
