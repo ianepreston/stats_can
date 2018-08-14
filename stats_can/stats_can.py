@@ -530,9 +530,9 @@ def table_to_dataframe(table, path=os.getcwd()):
                 )
             df = pd.read_csv(
                 myfile,
-                dtype=types_dict,
-                parse_dates=['REF_DATE']
+                dtype=types_dict
                 )
+
     possible_cats = [
         'GEO', 'DGUID', 'STATUS', 'SYMBOL', 'TERMINATED', 'DECIMALS',
         'UOM', 'UOM_ID', 'SCALAR_FACTOR', 'SCALAR_ID', 'VECTOR', 'COORDINATE',
@@ -542,6 +542,10 @@ def table_to_dataframe(table, path=os.getcwd()):
         ]
     actual_cats = [col for col in possible_cats if col in col_names]
     df[actual_cats] = df[actual_cats].astype('category')
+    try:
+        df['REF_DATE'] = pd.to_datetime(df['REF_DATE'], format='%Y-%m')
+    except TypeError:
+        df['REF_DATE'] = pd.to_datetime(df['REF_DATE'])
     os.chdir(oldpath)
     return df
 
