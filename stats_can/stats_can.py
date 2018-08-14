@@ -131,12 +131,7 @@ def get_series_info_from_vector(vectors):
     List of dicts containing metadata for each v#
     """
     url = SC_URL + 'getSeriesInfoFromVector'
-    vectors = parse_vectors(vectors)
-    # Maxes out at 300 values so have to chunk it out https://bit.ly/2sn5RS9
-    max_chunk = 300
-    chunks = [
-        vectors[i:i + max_chunk] for i in range(0, len(vectors), max_chunk)
-        ]
+    chunks = chunk_vectors(vectors)
     final_list = []
     for chunk in chunks:
         vectors = [{'vectorId': v} for v in chunk]
@@ -187,19 +182,21 @@ def get_data_from_vectors_and_latest_n_periods(vectors, periods):
     Add chunking to handle over 300 vectors
     """
     url = SC_URL + 'getDataFromVectorsAndLatestNPeriods'
-    vectors = parse_vectors(vectors)
-    periods = [periods for i in range(len(vectors))]
-    json = [
-        {'vectorId': v, 'latestN': n} for v, n in zip(vectors, periods)
-        ]
-    result = requests.post(url, json=json)
-    result = check_status(result)
-    result = [r['object'] for r in result]
-    return result
+    chunks = chunk_vectors(vectors)
+    final_list = []
+    for chunk in chunks:
+        periods_l = [periods for i in range(len(chunk))]
+        json = [
+            {'vectorId': v, 'latestN': n} for v, n in zip(chunk, periods_l)
+            ]
+        result = requests.post(url, json=json)
+        result = check_status(result)
+        final_list += [r['object'] for r in result]
+    return final_list
 
 
 def get_bulk_vector_data_by_range(
-        vector_ids, start_release_date, end_release_date
+        vectors, start_release_date, end_release_date
 ):
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5
     Parameters
@@ -214,25 +211,24 @@ def get_bulk_vector_data_by_range(
     Returns
     -------
     List of dicts containing data for each vector
-
-    ToDo
-    ----
-    Add chunking to handle over 300 vectors
     """
     url = SC_URL + 'getBulkVectorDataByRange'
     start_release_date = str(start_release_date) + "T13:00"
     end_release_date = str(end_release_date) + "T13:00"
-    vector_ids = parse_vectors(vector_ids)
-    result = requests.post(
-        url,
-        json={
-            "vectorIds": vector_ids,
-            "startDataPointReleaseDate": start_release_date,
-            "endDataPointReleaseDate": end_release_date
-            }
-        )
-    result = check_status(result)
-    return [r['object'] for r in result]
+    chunks = chunk_vectors(vectors)
+    final_list = []
+    for vector_ids in chunks:
+        result = requests.post(
+            url,
+            json={
+                "vectorIds": vector_ids,
+                "startDataPointReleaseDate": start_release_date,
+                "endDataPointReleaseDate": end_release_date
+                }
+            )
+        result = check_status(result)
+        final_list += [r['object'] for r in result]
+    return final_list
 
 
 def get_full_table_download(table, csv=True):
@@ -346,6 +342,16 @@ def parse_vectors(vectors):
     elif isinstance(vectors, int):
         return [parse_vector(vectors)]
     return [parse_vector(v) for v in vectors]
+
+
+def chunk_vectors(vectors):
+    """api calls max out at 300 vectors so break list into chunks"""
+    MAX_CHUNK = 250
+    vectors = parse_vectors(vectors)
+    chunks = [
+        vectors[i:i + MAX_CHUNK] for i in range(0, len(vectors), MAX_CHUNK)
+        ]
+    return chunks
 
 
 def get_tables_for_vectors(vectors):
