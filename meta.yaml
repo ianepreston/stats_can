@@ -6,6 +6,7 @@ package:
 
 source:
     path: ./
+    
 
 build:
     noarch: python
@@ -23,6 +24,7 @@ requirements:
         - setuptools
 
 about:
+    home: https://github.com/ianepreston/stats_can
     license: {{ setup_py.get('license') }}
     license_file: LICENSE
     summary: {{ setup_py.get('description') }}
