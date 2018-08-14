@@ -80,7 +80,7 @@ def test_gdfcpcalnp():
 
 def test_gdfvalnp():
     """test get data from vectors and latest n periods"""
-    r = stats_can.get_data_from_vectors_and_latest_n_periods(vs, 5)
+    r = stats_can.stats_can.get_data_from_vectors_and_latest_n_periods(vs, 5)
     assert len(r) == len(vs)
     r0v = r[0]['vectorDataPoint']
     assert len(r0v) == 5
@@ -93,7 +93,7 @@ def test_gdfvalnp():
 
 def test_gbvdbr():
     """test get bulk vector data by range"""
-    r = stats_can.get_bulk_vector_data_by_range(
+    r = stats_can.stats_can.get_bulk_vector_data_by_range(
         vs, dt.date(2018, 1, 1), dt.date(2018, 5, 1)
         )
     assert len(r) == len(vs)
@@ -165,9 +165,22 @@ def test_table_subsets_from_vectors():
 
 def test_vectors_to_df_by_release():
     """test one vector to df method"""
-    r = stats_can.vectors_to_df_by_release(
-        vs, dt.date(2018, 1, 1), dt.date(2018, 5, 1)
+    r = stats_can.vectors_to_df(
+        vs,
+        start_release_date=dt.date(2018, 1, 1),
+        end_release_date=dt.date(2018, 5, 1)
         )
     assert r.shape == (13, 2)
     assert list(r.columns) == ['v41692457', 'v74804']
     assert isinstance(r.index, pd.DatetimeIndex)
+
+
+def test_vectors_to_df_by_periods():
+    """test the other vector to df method"""
+    r = stats_can.vectors_to_df(vs, 5)
+    for v in vs:
+        assert v in r.columns
+    for col in r.columns:
+        assert r[col].count() == 5
+    assert isinstance(r.index, pd.DatetimeIndex)
+
