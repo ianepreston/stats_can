@@ -393,16 +393,25 @@ def table_subsets_from_vectors(vectors):
     return tables_dict
 
 
-def vectors_to_df_by_release(vectors, start_release_date, end_release_date):
-    """data frame of vectors with data over range of release dates
+def test():
+    print("right module")
 
-    Wrapper on get_bulk_vector_data_by_range function to turn the resulting
+
+def vectors_to_df(
+    vectors, periods=1, start_release_date=None, end_release_date=None
+):
+    """data frame of vectors with n periods data or over range of release dates
+
+    Wrapper on get_bulk_vector_data_by_range and
+    get_data_from_vectors_and_latest_n_periods function to turn the resulting
     list of JSONs into a DataFrame
 
     Parameters
     ----------
     vectors: str or list of str
         vector numbers to get info for
+    periods: int
+        number of periods to retrieve data for
     start_release_date: datetime.date
         start release date for the data
     end_release_date: datetime.date
@@ -413,9 +422,14 @@ def vectors_to_df_by_release(vectors, start_release_date, end_release_date):
     DataFrame with vectors as columns and ref_date as the index (not release)
     """
     df = pd.DataFrame()
-    start_list = get_bulk_vector_data_by_range(
-        vectors, start_release_date, end_release_date
-        )
+    if ((end_release_date is None) | (start_release_date is None)):
+        start_list = get_data_from_vectors_and_latest_n_periods(
+            vectors, periods
+            )
+    else:
+        start_list = get_bulk_vector_data_by_range(
+            vectors, start_release_date, end_release_date
+            )
     for vec in start_list:
         name = "v" + str(vec['vectorId'])
         ser = pd.DataFrame(vec['vectorDataPoint'])
