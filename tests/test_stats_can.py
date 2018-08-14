@@ -12,7 +12,7 @@ import stats_can
 vs = ['v74804', 'v41692457']
 v = '41692452'
 t = '271-000-22-01'
-ts = ['271-000-22-01', '271-000-22-01']
+ts = ['271-000-22-01', '18100204']
 
 
 def test_gcsl():
@@ -135,7 +135,7 @@ def test_parse_tables():
     t2 = stats_can.stats_can.parse_tables(ts)
     t3 = stats_can.stats_can.parse_tables('10100132')
     assert t1 == ['27100022']
-    assert t2 == ['27100022', '27100022']
+    assert t2 == ['27100022', '18100204']
     assert t3 == ['10100132']
 
 
@@ -183,4 +183,3 @@ def test_vectors_to_df_by_periods():
     for col in r.columns:
         assert r[col].count() == 5
     assert isinstance(r.index, pd.DatetimeIndex)
-
