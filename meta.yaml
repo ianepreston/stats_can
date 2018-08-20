@@ -18,8 +18,8 @@ requirements:
         - pandas >=0.23
         - numpy >=1.15
         - requests >=2.19
-        - h5py >= 2.8.0
-        - pytables >= 3.4.4
+        - h5py >=2.8.0
+        - pytables >=3.4.4
     build:
         - python 3
         - setuptools
