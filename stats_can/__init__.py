@@ -8,7 +8,7 @@ Logging
 
 French support
 '''
-__version__ = '0.2'
+__version__ = '1.0'
 
 from .scwds import get_changed_series_list
 from .scwds import get_changed_cube_list
