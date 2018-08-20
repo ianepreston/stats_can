@@ -21,3 +21,5 @@ from .sc import download_tables
 from .sc import zip_update_tables
 from .sc import zip_table_to_dataframe
 from .sc import get_classic_vector_format_df
+from .sc import tables_to_h5
+from .sc import h5_update_tables

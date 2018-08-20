@@ -3,8 +3,6 @@
 
 TODO
 ----
-HDF5 implementation
-
 Extend getChangedCubeList with a function that returns all tables updated
 within a date range
 
@@ -13,6 +11,7 @@ within a date range
 import os
 import json
 import zipfile
+import h5py
 import pandas as pd
 import numpy as np
 import requests
@@ -231,6 +230,67 @@ def zip_table_to_dataframe(table, path=os.getcwd()):
     except TypeError:
         df['REF_DATE'] = pd.to_datetime(df['REF_DATE'])
     return df
+
+
+def tables_to_h5(tables, h5file='stats_can.h5', path=os.getcwd()):
+    """Take a table and its metadata and put it in an hdf5 file
+
+    Parameters
+    ----------
+    tables: list of str
+        tables to add to the h5file
+    h5file: str, default stats_can.h5
+        name of the h5file to store the tables in
+    path: str or path, default = current working directory
+        path to the h5file
+    """
+    h5file = os.path.join(path, h5file)
+    tables = parse_tables(tables)
+    for table in tables:
+        hkey = 'table_' + table
+        jkey = 'json_' + table
+        zip_name = table + '-eng.zip'
+        zip_file = os.path.join(path, zip_name)
+        json_name = table + '.json'
+        json_file = os.path.join(path, json_name)
+        if not os.path.isfile(json_file):
+            download_tables([table], path)
+        df = zip_table_to_dataframe(table, path=path)
+        with open(json_file) as f_name:
+            df_json = json.load(f_name)
+        df.to_hdf(h5file, key=hkey, format='table', complevel=1)
+        with h5py.File(h5file, 'a') as hfile:
+            if jkey in hfile.keys():
+                del hfile[jkey]
+            hfile.create_dataset(jkey, data=json.dumps(df_json))
+        os.remove(zip_file)
+        os.remove(json_file)
+
+
+def h5_update_tables(h5file='stats_can.h5', path=os.getcwd()):
+    """update any stats_can tables contained in an h5 file
+
+     Parameters
+    ----------
+    h5file: str, default stats_can.h5
+        name of the h5file to store the tables in
+    path: str or path, default = current working directory
+        path to the h5file
+    """
+    oldpath = os.getcwd()
+    os.chdir(path)
+    with h5py.File(h5file) as f:
+        keys = [key for key in f.keys() if key.startswith('json')]
+        local_jsons = [json.loads(f[key][()]) for key in keys]
+    tables = [j['productId'] for j in local_jsons]
+    remote_jsons = get_cube_metadata(tables)
+    update_table_list = []
+    for local, remote in zip(local_jsons, remote_jsons):
+        if local['cubeEndDate'] != remote['cubeEndDate']:
+            update_table_list.append(local['productId'])
+    tables_to_h5(update_table_list, h5file=h5file, path=path)
+    os.chdir(oldpath)
+    return update_table_list
 
 
 def get_classic_vector_format_df(vectors, path, start_date=None):
