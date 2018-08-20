@@ -114,7 +114,18 @@ def parse_vectors(vectors):
 
 
 def chunk_vectors(vectors):
-    """api calls max out at 300 vectors so break list into chunks"""
+    """api calls max out at 300 vectors so break list into chunks
+
+    Parameters
+    ----------
+    vectors : list of str or str
+        A string or list of strings of vector names to be parsed
+
+    Returns
+    -------
+    list of lists of str
+        lists of vectors in chunks
+    """
     MAX_CHUNK = 250
     vectors = parse_vectors(vectors)
     chunks = [
@@ -248,10 +259,6 @@ def get_data_from_vectors_and_latest_n_periods(vectors, periods):
     Returns
     -------
     List of dicts containing data for each vector
-
-    ToDo
-    ----
-    Add chunking to handle over 300 vectors
     """
     url = SC_URL + 'getDataFromVectorsAndLatestNPeriods'
     chunks = chunk_vectors(vectors)
@@ -315,6 +322,11 @@ def get_full_table_download(table, csv=True):
         table name to download
     csv: boolean, default True
         download in CSV format, if not download SDMX
+
+    Returns
+    -------
+    str:
+        path to the file download
     """
     table = parse_tables(table)[0]
     if csv:
@@ -332,3 +344,4 @@ def get_code_sets():
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a13-1
     """
     pass
+
