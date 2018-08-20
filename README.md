@@ -12,6 +12,4 @@ https://anaconda.org/ian.e.preston/stats_can
 I'll slowly be building this up, mostly to meet my personal needs (hence English only for now)
 Right now it's functional for pulling table data into a dictionary, downloading a list of tables to a folder, checking all downloaded tables in a folder for updates, and updating if appropriate, and reading a table into a pandas DataFrame
 
-This is my first git repo, so I don't really know how to properly package this to make it useful for others.
-I'm running anaconda to build it, so if you have that it should be fine. 
-If anyone with more experience wants to help out with making this functional for the broader community that would be great.
+This is my first git repo, I think if you have anaconda the link above should make installing easy, but if anything is messed up please let me know.
