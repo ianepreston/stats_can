@@ -4,8 +4,9 @@ TODO
 ----
 More comprehensive tests
 
-French support
+Logging
 
+French support
 '''
 __version__ = '0.2'
 

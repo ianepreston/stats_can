@@ -5,8 +5,6 @@ TODO
 ----
 HDF5 implementation
 
-all the os.chdir stuff should be handled as appending paths instead I think
-
 Extend getChangedCubeList with a function that returns all tables updated
 within a date range
 
@@ -122,13 +120,12 @@ def download_tables(tables, path=os.getcwd()):
     Input: a list of tables
     Output: Null, but it saves json and CSV files to path for each table
     """
-    oldpath = os.getcwd()
-    os.chdir(path)
     metas = get_cube_metadata(tables)
     for meta in metas:
         product_id = meta['productId']
         csv_url = get_full_table_download(product_id)
         csv_file = product_id + '-eng.zip'
+        csv_path = os.path.join(path, csv_file)
         # Thanks http://evanhahn.com/python-requests-library-useragent/
         response = requests.get(
             csv_url,
@@ -136,14 +133,13 @@ def download_tables(tables, path=os.getcwd()):
             headers={'user-agent': None}
             )
         # Thanks https://bit.ly/2sPYPYw
-        with open(csv_file, 'wb') as handle:
+        with open(csv_path, 'wb') as handle:
             for chunk in response.iter_content(chunk_size=512):
                 if chunk:  # filter out keep-alive new chunks
                     handle.write(chunk)
         json_file = product_id + '.json'
         with open(json_file, 'w') as outfile:
             json.dump(meta, outfile)
-    os.chdir(oldpath)
 
 
 def zip_update_tables(path=os.getcwd()):
@@ -156,10 +152,8 @@ def zip_update_tables(path=os.getcwd()):
     capture what I want
     Returns a list of the tables that were updated
     """
-    oldpath = os.getcwd()
-    os.chdir(path)
     local_jsons = []
-    for file in os.listdir():
+    for file in os.listdir(path=path):
         if file.endswith('.json'):
             with open(file) as f_name:
                 local_jsons.append(json.load(f_name))
@@ -170,7 +164,6 @@ def zip_update_tables(path=os.getcwd()):
         if local['cubeEndDate'] != remote['cubeEndDate']:
             update_table_list.append(local['productId'])
     download_tables(update_table_list, path)
-    os.chdir(oldpath)
     return update_table_list
 
 
@@ -180,15 +173,14 @@ def zip_table_to_dataframe(table, path=os.getcwd()):
     If a zip file of the table does not exist in path, downloads it
     returns
     """
-    oldpath = os.getcwd()
-    os.chdir(path)
     # Parse tables returns a list, can only do one table at a time here though
     table = parse_tables(table)[0]
     table_zip = table + '-eng.zip'
-    if not os.path.isfile(table_zip):
+    table_zip_path = os.path.join(path, table_zip)
+    if not os.path.isfile(table_zip_path):
         download_tables([table], path)
     csv_file = table + '.csv'
-    with zipfile.ZipFile(table_zip) as myzip:
+    with zipfile.ZipFile(table_zip_path) as myzip:
         with myzip.open(csv_file) as myfile:
             col_names = pd.read_csv(myfile, nrows=0).columns
         # reopen the file or it misses the first row
@@ -215,7 +207,6 @@ def zip_table_to_dataframe(table, path=os.getcwd()):
         df['REF_DATE'] = pd.to_datetime(df['REF_DATE'], format='%Y-%m')
     except TypeError:
         df['REF_DATE'] = pd.to_datetime(df['REF_DATE'])
-    os.chdir(oldpath)
     return df
 
 
