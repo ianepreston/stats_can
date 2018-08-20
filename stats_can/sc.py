@@ -115,10 +115,14 @@ def vectors_to_df(
 
 
 def download_tables(tables, path=os.getcwd()):
-    """
-    Download a json file and zip of CSVs for a list of tables to path
-    Input: a list of tables
-    Output: Null, but it saves json and CSV files to path for each table
+    """Download a json file and zip of CSVs for a list of tables to path
+
+    Parameters
+    ----------
+    tables: list of str
+        tables to be downloaded
+    path: str, default: current working directory when module is loaded
+        where to download the tables
     """
     metas = get_cube_metadata(tables)
     for meta in metas:
@@ -143,14 +147,23 @@ def download_tables(tables, path=os.getcwd()):
 
 
 def zip_update_tables(path=os.getcwd()):
-    """
+    """check local json, update zips of outdated tables
+
     Grabs the json files in path, checks them against the metadata on
     StatsCan and grabs updated tables where there have been changes
     There isn't actually a "last modified date" part to the metadata
     What I'm doing is comparing the latest reference period. Almost all
     data changes will at least include incremental releases, so this should
     capture what I want
-    Returns a list of the tables that were updated
+
+    Parameters
+    ----------
+    path: str, default: current working directory when module is loaded
+        where to look for tables to update
+
+    Returns
+    -------
+    list of the tables that were updated
     """
     local_jsons = []
     for file in os.listdir(path=path):
@@ -168,10 +181,20 @@ def zip_update_tables(path=os.getcwd()):
 
 
 def zip_table_to_dataframe(table, path=os.getcwd()):
-    """
-    Reads a StatsCan table into a pandas DataFrame
+    """Reads a StatsCan table into a pandas DataFrame
+
     If a zip file of the table does not exist in path, downloads it
-    returns
+
+    Parameters
+    ----------
+    table: str
+        the table to load to dataframe from zipped csv
+    path: str, default: current working directory when module is loaded
+        where to download the tables or load them
+
+    Returns:
+    df: pandas.DataFrame
+        the table as a dataframe
     """
     # Parse tables returns a list, can only do one table at a time here though
     table = parse_tables(table)[0]
