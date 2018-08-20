@@ -1,4 +1,12 @@
-'''Read StatsCan Data into python, mostly pandas dataframes'''
+'''Read StatsCan Data into python, mostly pandas dataframes
+
+TODO
+----
+More comprehensive tests
+
+French support
+
+'''
 __version__ = '0.2'
 
 from .scwds import get_changed_series_list

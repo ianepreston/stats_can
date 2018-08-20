@@ -10,13 +10,6 @@ all the os.chdir stuff should be handled as appending paths instead I think
 Extend getChangedCubeList with a function that returns all tables updated
 within a date range
 
-More comprehensive tests
-
-getBulkvectorfromrange should be extended to a method that returns a df,
-same for vectors and n periods function
-
-French support
-
 @author Ian Preston
 """
 import os
