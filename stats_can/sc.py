@@ -267,7 +267,63 @@ def tables_to_h5(tables, h5file='stats_can.h5', path=os.getcwd()):
         os.remove(json_file)
 
 
-def h5_update_tables(h5file='stats_can.h5', path=os.getcwd()):
+def table_from_h5(table, h5file='stats_can.h5', path=os.getcwd()):
+    """Read a table from h5 to a dataframe
+
+    Parameters
+    ----------
+    table: str
+        name of the table to read
+    h5file: str, default stats_can.h5
+        name of the h5file to retrieve the table from
+    path: str or path, default = current working directory
+        path to the h5file
+
+    Returns
+    -------
+    df: pd.DataFrame
+        table in dataframe format
+    """
+    table = 'table_' + parse_tables(table)[0]
+    h5file = os.path.join(path, h5file)
+    try:
+        df = pd.read_hdf(h5file, key=table)
+    except KeyError:
+        print("Couldn't find table " + table)
+        return None
+    return df
+
+
+def metadata_from_h5(tables, h5file='stats_can.h5', path=os.getcwd()):
+    """Read table metadata from h5
+
+    Parameters
+    ----------
+    table: str or list of str
+        name of the tables to read
+    h5file: str, default stats_can.h5
+        name of the h5file to retrieve the table from
+    path: str or path, default = current working directory
+        path to the h5file
+
+    Returns
+    -------
+    list of local table metadata
+    """
+    h5file = os.path.join(path, h5file)
+    tables = ['json_' + tbl for tbl in parse_tables(tables)]
+    jsons = []
+    with h5py.File(h5file, 'r') as f:
+        for tbl in tables:
+            try:
+                table_json = json.loads(f[tbl][()])
+                jsons += [table_json]
+            except KeyError:
+                print("Couldn't find table " + tbl)
+    return jsons
+
+
+def h5_update_tables(h5file='stats_can.h5', path=os.getcwd(), tables=None):
     """update any stats_can tables contained in an h5 file
 
      Parameters
@@ -276,12 +332,16 @@ def h5_update_tables(h5file='stats_can.h5', path=os.getcwd()):
         name of the h5file to store the tables in
     path: str or path, default = current working directory
         path to the h5file
+    tables: str or list of str, optional, default None
+        If included will only update the subset of tables already in the file
+        and in the tables parameter
     """
-    oldpath = os.getcwd()
-    os.chdir(path)
-    with h5py.File(h5file) as f:
-        keys = [key for key in f.keys() if key.startswith('json')]
-        local_jsons = [json.loads(f[key][()]) for key in keys]
+    if tables:
+        local_jsons = metadata_from_h5(tables, h5file=h5file, path=path)
+    else:
+        with h5py.File(h5file) as f:
+            keys = [key for key in f.keys() if key.startswith('json')]
+            local_jsons = [json.loads(f[key][()]) for key in keys]
     tables = [j['productId'] for j in local_jsons]
     remote_jsons = get_cube_metadata(tables)
     update_table_list = []
@@ -289,8 +349,28 @@ def h5_update_tables(h5file='stats_can.h5', path=os.getcwd()):
         if local['cubeEndDate'] != remote['cubeEndDate']:
             update_table_list.append(local['productId'])
     tables_to_h5(update_table_list, h5file=h5file, path=path)
-    os.chdir(oldpath)
     return update_table_list
+
+
+def h5_included_keys(h5file='stats_can.h5', path=os.getcwd()):
+    """Return a list of keys in an h5 file
+
+     Parameters
+    ----------
+    h5file: str, default stats_can.h5
+        name of the h5file to store the tables in
+    path: str or path, default = current working directory
+        path to the h5file
+
+    Returns
+    -------
+    keys: list
+        list of keys in the hdf5 file
+    """
+    h5file = os.path.join(path, h5file)
+    with h5py.File(h5file, 'r') as f:
+        keys = [key for key in f.keys()]
+    return keys
 
 
 def get_classic_vector_format_df(vectors, path, start_date=None):

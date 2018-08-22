@@ -8,7 +8,7 @@ Logging
 
 French support
 '''
-__version__ = '1.0'
+__version__ = '1.1'
 
 from .scwds import get_changed_series_list
 from .scwds import get_changed_cube_list
@@ -22,4 +22,7 @@ from .sc import zip_update_tables
 from .sc import zip_table_to_dataframe
 from .sc import get_classic_vector_format_df
 from .sc import tables_to_h5
+from .sc import table_from_h5
+from .sc import metadata_from_h5
 from .sc import h5_update_tables
+from .sc import h5_included_keys
