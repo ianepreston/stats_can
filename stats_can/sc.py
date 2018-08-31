@@ -141,6 +141,7 @@ def download_tables(tables, path=os.getcwd()):
                 if chunk:  # filter out keep-alive new chunks
                     handle.write(chunk)
         json_file = product_id + '.json'
+        json_file = os.path.join(path, json_file)
         with open(json_file, 'w') as outfile:
             json.dump(meta, outfile)
 
@@ -221,7 +222,8 @@ def zip_table_to_dataframe(table, path=os.getcwd()):
         'UOM', 'UOM_ID', 'SCALAR_FACTOR', 'SCALAR_ID', 'VECTOR', 'COORDINATE',
         'Wages', 'National Occupational Classification for Statistics (NOC-S)',
         'Supplementary unemployment rates', 'Sex', 'Age group',
-        'Labour force characteristics', 'Statistics', 'Data type'
+        'Labour force characteristics', 'Statistics', 'Data type',
+        'Job permanency', 'Union coverage'
         ]
     actual_cats = [col for col in possible_cats if col in col_names]
     df[actual_cats] = df[actual_cats].astype('category')
@@ -283,6 +285,10 @@ def table_from_h5(table, h5file='stats_can.h5', path=os.getcwd()):
     -------
     df: pd.DataFrame
         table in dataframe format
+
+    TODO
+    ----
+    Add a boolean to download tables and add them first if they're missing
     """
     table = 'table_' + parse_tables(table)[0]
     h5file = os.path.join(path, h5file)
@@ -335,6 +341,12 @@ def h5_update_tables(h5file='stats_can.h5', path=os.getcwd(), tables=None):
     tables: str or list of str, optional, default None
         If included will only update the subset of tables already in the file
         and in the tables parameter
+
+    TODO
+    ----
+    Add a boolean where if given a list of tables and the boolean is true,
+    download any tables in tables that aren't in the h5file already,
+    or should that just be default behaviour?
     """
     if tables:
         local_jsons = metadata_from_h5(tables, h5file=h5file, path=path)
@@ -373,20 +385,23 @@ def h5_included_keys(h5file='stats_can.h5', path=os.getcwd()):
     return keys
 
 
-def get_classic_vector_format_df(vectors, path, start_date=None):
-    """
-    Like oldschool CANSIM, this will return a single dataframe with V numbers
-    as columns, indexed on date
-    Inputs:
-        vectors: list of vectors to be read in
-        path: path to zipped StatsCan tables
-        start_date: optional earliest reference date to include
-    TODO
-    ----
-    Either refactor significantly or maybe get rid of. I think the retrieve
-    vectors for n periods satisfies this use case for the most part
-    If I do keep it add in HDF5 support
-    Returns: A DataFrame as described above
+def get_classic_vector_format_df(
+    vectors, path, start_date=None, h5file=None
+):
+    """Like oldschool CANSIM, return a single dataframe with Vector columns
+
+    indexed on date
+    Parameters
+    ----------
+    vectors: list
+        list of vectors to be read in
+    path: str or os path
+        path to StatsCan tables
+    start_date: datetime, optional, default None
+        optional earliest reference date to include
+    h5file: str, default none
+        if specified will extract dataframes from an hdf5file instead of
+        zipped csv tables
     """
     # Preserve an initial copy of the list for ordering, parsed and then
     # converted to string for consistency in naming
@@ -397,7 +412,12 @@ def get_classic_vector_format_df(vectors, path, start_date=None):
     tables_dfs = {}
     columns = ['REF_DATE', 'VECTOR', 'VALUE']
     for table in tables:
-        tables_dfs[table] = zip_table_to_dataframe(table, path)[columns]
+        if h5file is not None:
+            tables_dfs[table] = table_from_h5(
+                table, h5file=h5file, path=path
+                )
+        else:
+            tables_dfs[table] = zip_table_to_dataframe(table, path)[columns]
         df = tables_dfs[table]  # save me some typing
         vec_list = ['v' + str(v) for v in table_vec_dict[table]]
         df = df[df['VECTOR'].isin(vec_list)]
