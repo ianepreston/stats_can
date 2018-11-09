@@ -1,6 +1,9 @@
 # Instructions just for me
 how_to_build.txt
 
+#hdf5 files
+*.h5
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
