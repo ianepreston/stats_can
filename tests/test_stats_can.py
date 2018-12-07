@@ -38,12 +38,12 @@ def test_gcmd():
     r = stats_can.get_cube_metadata(t)
     assert isinstance(r, list)
     assert list(r[0].keys()) == [
-        'responseStatusCode', 'productId', 'cansimId', 'cubeTitleEn',
-        'cubeTitleFr', 'cubeStartDate', 'cubeEndDate', 'nbSeriesCube',
-        'nbDatapointsCube', 'archiveStatusCode', 'archiveStatusEn',
-        'archiveStatusFr', 'subjectCode', 'surveyCode', 'dimension',
-        'footnote', 'correction'
-        ]
+            'responseStatusCode', 'productId', 'cansimId', 'cubeTitleEn',
+            'cubeTitleFr', 'cubeStartDate', 'cubeEndDate', 'frequencyCode',
+            'nbSeriesCube', 'nbDatapointsCube', 'releaseTime',
+            'archiveStatusCode', 'archiveStatusEn', 'archiveStatusFr',
+            'subjectCode', 'surveyCode', 'dimension', 'footnote', 'correction'
+            ]
 
 
 def test_gsifcpc():
