@@ -18,19 +18,21 @@ def test_gcsl():
     """test get changed series list"""
     r = stats_can.get_changed_series_list()
     assert isinstance(r, list)
-    assert list(r[0].keys()) == [
-        'responseStatusCode', 'vectorId', 'productId', 'coordinate',
-        'releaseTime'
-        ]
+    if len(r) > 0:
+        assert list(r[0].keys()) == [
+                'responseStatusCode', 'vectorId', 'productId', 'coordinate',
+                'releaseTime'
+                ]
 
 
 def test_gccl():
     """test get changed cube list"""
     r = stats_can.get_changed_cube_list()
     assert isinstance(r, list)
-    assert list(r[0].keys()) == [
-        'responseStatusCode', 'productId', 'releaseTime'
-        ]
+    if len(r) > 0:
+        assert list(r[0].keys()) == [
+                'responseStatusCode', 'productId', 'releaseTime'
+                ]
 
 
 def test_gcmd():
