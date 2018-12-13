@@ -332,7 +332,7 @@ def metadata_from_h5(tables, h5file='stats_can.h5', path=os.getcwd()):
 def h5_update_tables(h5file='stats_can.h5', path=os.getcwd(), tables=None):
     """update any stats_can tables contained in an h5 file
 
-     Parameters
+    Parameters
     ----------
     h5file: str, default stats_can.h5
         name of the h5file to store the tables in
