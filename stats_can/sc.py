@@ -367,7 +367,7 @@ def h5_update_tables(h5file='stats_can.h5', path=os.getcwd(), tables=None):
 def h5_included_keys(h5file='stats_can.h5', path=os.getcwd()):
     """Return a list of keys in an h5 file
 
-     Parameters
+    Parameters
     ----------
     h5file: str, default stats_can.h5
         name of the h5file to store the tables in
@@ -388,9 +388,8 @@ def h5_included_keys(h5file='stats_can.h5', path=os.getcwd()):
 def get_classic_vector_format_df(
     vectors, path, start_date=None, h5file=None
 ):
-    """Like oldschool CANSIM, return a single dataframe with Vector columns
+    """Make a dataframe with vector columns indexed on date
 
-    indexed on date
     Parameters
     ----------
     vectors: list
