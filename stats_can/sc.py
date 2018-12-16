@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Use the api to get useful things
+"""Functionality that extends on what the base StatsCan api returns in some way
 
 TODO
 ----
 Extend getChangedCubeList with a function that returns all tables updated
 within a date range
-
-@author Ian Preston
 """
 import os
 import json
@@ -38,7 +36,6 @@ def get_tables_for_vectors(vectors):
         keys for each vector number return the table, plus a key for
         'all_tables' that has a list of unique tables used by vectors
     """
-    vectors = parse_vectors(vectors)
     v_json = get_series_info_from_vector(vectors)
     tables_list = {j['vectorId']: str(j['productId']) for j in v_json}
     tables_list['all_tables'] = []
