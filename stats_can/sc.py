@@ -122,38 +122,49 @@ def vectors_to_df(
     return df
 
 
-def download_tables(tables, path=None):
-    """Download a json file and zip of CSVs for a list of tables to path
+def download_tables(tables, path=None, csv=True):
+    """Download a json file and zip of data for a list of tables to path
 
     Parameters
     ----------
     tables: list of str
         tables to be downloaded
     path: str, default: None (will do current directory)
+    csv: boolean, default True
+        download in CSV format, if not download SDMX
 
+    Returns
+    -------
+    downloaded: list
+        list of tables that were downloaded
     """
     metas = get_cube_metadata(tables)
     for meta in metas:
         product_id = meta['productId']
-        csv_url = get_full_table_download(product_id)
-        csv_file = product_id + '-eng.zip'
+        zip_url = get_full_table_download(product_id, csv=csv)
+        if csv:
+            zip_file = product_id + '-eng.zip'
+        else:
+            zip_file = product_id + '.zip'
         json_file = product_id + '.json'
         if path:
-            csv_file = os.path.join(path, csv_file)
+            zip_file = os.path.join(path, zip_file)
             json_file = os.path.join(path, json_file)
         # Thanks http://evanhahn.com/python-requests-library-useragent/
         response = requests.get(
-            csv_url,
+            zip_url,
             stream=True,
             headers={'user-agent': None}
             )
         # Thanks https://bit.ly/2sPYPYw
         with open(json_file, 'w') as outfile:
             json.dump(meta, outfile)
-        with open(csv_file, 'wb') as handle:
+        with open(zip_file, 'wb') as handle:
             for chunk in response.iter_content(chunk_size=512):
                 if chunk:  # filter out keep-alive new chunks
                     handle.write(chunk)
+    downloaded = [meta['productId'] for meta in metas]
+    return downloaded
 
 
 def zip_update_tables(path=None):
@@ -174,6 +185,10 @@ def zip_update_tables(path=None):
     Returns
     -------
     list of the tables that were updated
+
+    TODO
+    ----
+    Make this handle SDMX too I guess
     """
     local_jsons = []
     for file in os.listdir(path=path):
