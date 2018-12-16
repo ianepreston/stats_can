@@ -2,6 +2,8 @@
 
 TODO
 ----
+make an api module
+
 More comprehensive tests
 
 Logging

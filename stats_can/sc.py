@@ -3,6 +3,10 @@
 
 TODO
 ----
+Finish removing os.getcwd
+
+wrapper functions that abstract from zip/h5 tradeoff
+
 Extend getChangedCubeList with a function that returns all tables updated
 within a date range
 """
