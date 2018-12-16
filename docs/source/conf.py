@@ -43,7 +43,7 @@ release = find_version('stats_can', '__init__.py')
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'spinx.ext.viewcode'
+    'sphinx.ext.viewcode'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
