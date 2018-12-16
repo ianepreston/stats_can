@@ -15,13 +15,13 @@ import h5py
 import pandas as pd
 import numpy as np
 import requests
-from .scwds import get_series_info_from_vector
-from .scwds import get_data_from_vectors_and_latest_n_periods
-from .scwds import get_bulk_vector_data_by_range
-from .scwds import get_cube_metadata
-from .scwds import get_full_table_download
-from .scwds import parse_tables
-from .scwds import parse_vectors
+from stats_can.scwds import get_series_info_from_vector
+from stats_can.scwds import get_data_from_vectors_and_latest_n_periods
+from stats_can.scwds import get_bulk_vector_data_by_range
+from stats_can.scwds import get_cube_metadata
+from stats_can.scwds import get_full_table_download
+from stats_can.scwds import parse_tables
+from stats_can.scwds import parse_vectors
 
 
 def get_tables_for_vectors(vectors):
