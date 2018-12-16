@@ -118,8 +118,7 @@ def download_tables(tables, path=None):
     ----------
     tables: list of str
         tables to be downloaded
-    path: str, default: current working directory when module is loaded
-        where to download the tables
+    path: str, default: None (will do current directory)
     """
     metas = get_cube_metadata(tables)
     for meta in metas:
@@ -145,7 +144,7 @@ def download_tables(tables, path=None):
                     handle.write(chunk)
 
 
-def zip_update_tables(path=os.getcwd()):
+def zip_update_tables(path=None):
     """check local json, update zips of outdated tables
 
     Grabs the json files in path, checks them against the metadata on
@@ -166,6 +165,8 @@ def zip_update_tables(path=os.getcwd()):
     """
     local_jsons = []
     for file in os.listdir(path=path):
+        if path:
+            file = os.path.join(path, file)
         if file.endswith('.json'):
             with open(file) as f_name:
                 local_jsons.append(json.load(f_name))
