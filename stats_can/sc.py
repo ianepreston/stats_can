@@ -7,6 +7,10 @@ Finish removing os.getcwd
 
 wrapper functions that abstract from zip/h5 tradeoff
 
+have all functions return at least something
+
+Download tables to handle SDMX
+
 Extend getChangedCubeList with a function that returns all tables updated
 within a date range
 """
@@ -123,6 +127,7 @@ def download_tables(tables, path=None):
     tables: list of str
         tables to be downloaded
     path: str, default: None (will do current directory)
+
     """
     metas = get_cube_metadata(tables)
     for meta in metas:
