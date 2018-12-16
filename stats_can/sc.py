@@ -20,8 +20,8 @@ from stats_can.scwds import get_data_from_vectors_and_latest_n_periods
 from stats_can.scwds import get_bulk_vector_data_by_range
 from stats_can.scwds import get_cube_metadata
 from stats_can.scwds import get_full_table_download
-from stats_can.scwds import parse_tables
-from stats_can.scwds import parse_vectors
+from stats_can.helpers import parse_tables
+from stats_can.helpers import parse_vectors
 
 
 def get_tables_for_vectors(vectors):
