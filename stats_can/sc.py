@@ -111,7 +111,7 @@ def vectors_to_df(
     return df
 
 
-def download_tables(tables, path=os.getcwd()):
+def download_tables(tables, path=None):
     """Download a json file and zip of CSVs for a list of tables to path
 
     Parameters
@@ -126,7 +126,10 @@ def download_tables(tables, path=os.getcwd()):
         product_id = meta['productId']
         csv_url = get_full_table_download(product_id)
         csv_file = product_id + '-eng.zip'
-        csv_path = os.path.join(path, csv_file)
+        json_file = product_id + '.json'
+        if path:
+            csv_file = os.path.join(path, csv_file)
+            json_file = os.path.join(path, json_file)
         # Thanks http://evanhahn.com/python-requests-library-useragent/
         response = requests.get(
             csv_url,
@@ -134,14 +137,12 @@ def download_tables(tables, path=os.getcwd()):
             headers={'user-agent': None}
             )
         # Thanks https://bit.ly/2sPYPYw
-        with open(csv_path, 'wb') as handle:
+        with open(json_file, 'w') as outfile:
+            json.dump(meta, outfile)
+        with open(csv_file, 'wb') as handle:
             for chunk in response.iter_content(chunk_size=512):
                 if chunk:  # filter out keep-alive new chunks
                     handle.write(chunk)
-        json_file = product_id + '.json'
-        json_file = os.path.join(path, json_file)
-        with open(json_file, 'w') as outfile:
-            json.dump(meta, outfile)
 
 
 def zip_update_tables(path=os.getcwd()):
