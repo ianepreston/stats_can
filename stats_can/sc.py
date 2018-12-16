@@ -97,7 +97,8 @@ def vectors_to_df(
 
     Returns
     -------
-    DataFrame with vectors as columns and ref_date as the index (not release)
+    df: DataFrame
+        vectors as columns and ref_date as the index (not release date)
     """
     df = pd.DataFrame()
     if ((end_release_date is None) | (start_release_date is None)):
@@ -110,11 +111,13 @@ def vectors_to_df(
             )
     for vec in start_list:
         name = "v" + str(vec['vectorId'])
-        ser = pd.DataFrame(vec['vectorDataPoint'])
-        ser.set_index('refPer', inplace=True)
-        ser.index = pd.to_datetime(ser.index)
-        ser.rename(columns={'value': name}, inplace=True)
-        ser = ser[name]
+        ser = (
+            pd.DataFrame(vec['vectorDataPoint'])
+            .assign(refPer=lambda x: pd.to_datetime(x['refPer']))
+            .set_index('refPer')
+            .rename(columns={'value': name})
+            .filter([name])
+        )
         df = pd.concat([df, ser], axis=1, sort=True)
     return df
 
