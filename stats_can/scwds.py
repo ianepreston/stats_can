@@ -8,7 +8,6 @@ Hence functions with cube in the function name will take tables as an argument
 I'm not sure which is less confusing, it's annoying they weren't just
 consistent.
 
-
 Attributes
 ----------
 SC_URL : str
@@ -27,6 +26,8 @@ Missing api implementations:
 import datetime as dt
 import requests
 from stats_can.helpers import check_status, parse_tables, chunk_vectors
+
+
 SC_URL = 'https://www150.statcan.gc.ca/t1/wds/rest/'
 
 
@@ -46,7 +47,7 @@ def get_changed_series_list():
     return result['object']
 
 
-def get_changed_cube_list(date=dt.date.today()):
+def get_changed_cube_list(date=None):
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a10-2
 
     Parameters
@@ -59,6 +60,9 @@ def get_changed_cube_list(date=dt.date.today()):
     list of dicts
         one for each table and when it was updated
     """
+    print('ok it actually updated')
+    if not date:
+        date = dt.date.today()
     url = SC_URL + 'getChangedCubeList' + '/' + str(date)
     result = requests.get(url)
     result = check_status(result)
@@ -174,6 +178,7 @@ def get_bulk_vector_data_by_range(
         vectors, start_release_date, end_release_date
 ):
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5
+    
     Parameters
     ----------
     vectors: str or list of str
