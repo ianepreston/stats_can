@@ -130,6 +130,7 @@ def download_tables(tables, path=None, csv=True):
     tables: list of str
         tables to be downloaded
     path: str, default: None (will do current directory)
+        Where to download the table and json
     csv: boolean, default True
         download in CSV format, if not download SDMX
 
@@ -167,7 +168,7 @@ def download_tables(tables, path=None, csv=True):
     return downloaded
 
 
-def zip_update_tables(path=None):
+def zip_update_tables(path=None,):
     """check local json, update zips of outdated tables
 
     Grabs the json files in path, checks them against the metadata on
@@ -179,12 +180,13 @@ def zip_update_tables(path=None):
 
     Parameters
     ----------
-    path: str, default: current working directory when module is loaded
+    path: str, default: None
         where to look for tables to update
 
     Returns
     -------
-    list of the tables that were updated
+    update_table_list: list
+        list of the tables that were updated
 
     TODO
     ----
