@@ -40,7 +40,7 @@ def get_tables_for_vectors(vectors):
 
     Returns
     -------
-    list of dict
+    tables_list: list of dict
         keys for each vector number return the table, plus a key for
         'all_tables' that has a list of unique tables used by vectors
     """
@@ -64,7 +64,7 @@ def table_subsets_from_vectors(vectors):
 
     Returns
     -------
-    list of dict
+    tables_dict: list of dict
         keys for each table used by the vectors, matched to a list of vectors
     """
     start_tables_dict = get_tables_for_vectors(vectors)
