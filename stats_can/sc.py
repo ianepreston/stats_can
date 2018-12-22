@@ -168,7 +168,7 @@ def download_tables(tables, path=None, csv=True):
     return downloaded
 
 
-def zip_update_tables(path=None,):
+def zip_update_tables(path=None, csv=True):
     """check local json, update zips of outdated tables
 
     Grabs the json files in path, checks them against the metadata on
@@ -182,15 +182,14 @@ def zip_update_tables(path=None,):
     ----------
     path: str, default: None
         where to look for tables to update
+    csv: boolean, default: True
+        Downloads updates in CSV form by default, SDMX if false
 
     Returns
     -------
     update_table_list: list
         list of the tables that were updated
 
-    TODO
-    ----
-    Make this handle SDMX too I guess
     """
     local_jsons = []
     for file in os.listdir(path=path):
@@ -205,7 +204,7 @@ def zip_update_tables(path=None,):
     for local, remote in zip(local_jsons, remote_jsons):
         if local['cubeEndDate'] != remote['cubeEndDate']:
             update_table_list.append(local['productId'])
-    download_tables(update_table_list, path)
+    download_tables(update_table_list, path, csv=csv)
     return update_table_list
 
 
