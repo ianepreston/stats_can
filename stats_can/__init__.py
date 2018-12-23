@@ -10,7 +10,7 @@ Logging
 
 French support
 '''
-__version__ = '1.1.3'
+__version__ = '1.1.4'
 
 from stats_can.scwds import get_changed_series_list
 from stats_can.scwds import get_changed_cube_list
