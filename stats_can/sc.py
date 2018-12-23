@@ -208,7 +208,7 @@ def zip_update_tables(path=None, csv=True):
     return update_table_list
 
 
-def zip_table_to_dataframe(table, path=os.getcwd()):
+def zip_table_to_dataframe(table, path=None):
     """Reads a StatsCan table into a pandas DataFrame
 
     If a zip file of the table does not exist in path, downloads it
@@ -227,11 +227,12 @@ def zip_table_to_dataframe(table, path=os.getcwd()):
     # Parse tables returns a list, can only do one table at a time here though
     table = parse_tables(table)[0]
     table_zip = table + '-eng.zip'
-    table_zip_path = os.path.join(path, table_zip)
-    if not os.path.isfile(table_zip_path):
+    if path:
+        table_zip = os.path.join(path, table_zip)
+    if not os.path.isfile(table_zip):
         download_tables([table], path)
     csv_file = table + '.csv'
-    with zipfile.ZipFile(table_zip_path) as myzip:
+    with zipfile.ZipFile(table_zip) as myzip:
         with myzip.open(csv_file) as myfile:
             col_names = pd.read_csv(myfile, nrows=0).columns
         # reopen the file or it misses the first row
