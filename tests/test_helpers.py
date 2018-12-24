@@ -7,6 +7,16 @@ t = '271-000-22-01'
 ts = ['271-000-22-01', '18100204']
 
 
+def test_check_status():
+    """not implemented, not sure if I will, it's only used internally
+
+    works on json returned from various API calls. I probably should figure
+    out how to test it but at least I'll know if it breaks since it'll break
+    most of my other methods
+    """
+    pass
+
+
 def test_parse_tables_one_string():
     """test parsing a table of one string"""
     assert stats_can.helpers.parse_tables(t) == ['27100022']
