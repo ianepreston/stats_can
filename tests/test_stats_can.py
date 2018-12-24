@@ -130,24 +130,6 @@ def test_check_status():
     pass
 
 
-def test_parse_tables():
-    """test table string parsing"""
-    t1 = stats_can.helpers.parse_tables(t)
-    t2 = stats_can.helpers.parse_tables(ts)
-    t3 = stats_can.helpers.parse_tables('10100132')
-    assert t1 == ['27100022']
-    assert t2 == ['27100022', '18100204']
-    assert t3 == ['10100132']
-
-
-def test_parse_vectors():
-    """test vector string parsing"""
-    v1 = stats_can.helpers.parse_vectors(v)
-    v2 = stats_can.helpers.parse_vectors(vs)
-    assert v1 == [41692452]
-    assert v2 == [74804, 41692457]
-
-
 def test_get_tables_for_vectors():
     """test tables for vectors method"""
     tv1 = stats_can.get_tables_for_vectors(vs)
