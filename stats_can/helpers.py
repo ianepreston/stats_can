@@ -79,8 +79,6 @@ def parse_vectors(vectors):
 
     if isinstance(vectors, str):
         return [parse_vector(vectors)]
-    elif isinstance(vectors, int):
-        return [parse_vector(vectors)]
     return [parse_vector(v) for v in vectors]
 
 
