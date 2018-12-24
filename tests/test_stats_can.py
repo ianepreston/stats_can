@@ -1,4 +1,6 @@
 """Tests for the sc module"""
+import os
+import shutil
 import datetime as dt
 import pandas as pd
 import stats_can
@@ -45,3 +47,14 @@ def test_vectors_to_df_by_periods():
     for col in r.columns:
         assert r[col].count() == 5
     assert isinstance(r.index, pd.DatetimeIndex)
+
+
+def test_download_table(tmpdir):
+    t = '18100204'
+    t_json = os.path.join(tmpdir, t + '.json')
+    t_zip = os.path.join(tmpdir, t + '-eng.zip')
+    assert not os.path.isfile(t_json)
+    assert not os.path.isfile(t_zip)
+    stats_can.sc.download_tables(t, path=tmpdir)
+    assert os.path.isfile(t_json)
+    assert os.path.isfile(t_zip)
