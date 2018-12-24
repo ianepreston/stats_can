@@ -58,3 +58,30 @@ def test_download_table(tmpdir):
     stats_can.sc.download_tables(t, path=tmpdir)
     assert os.path.isfile(t_json)
     assert os.path.isfile(t_zip)
+
+
+def test_zip_update_tables(tmpdir):
+    src = 'test_files'
+    files = ['18100204.json', '18100204-eng.zip']
+    for f in files:
+        src_file = os.path.join(src, f)
+        dest_file = os.path.join(tmpdir, f)
+        shutil.copyfile(src_file, dest_file)
+        assert os.path.isfile(src_file)
+        assert os.path.isfile(dest_file)
+    updater = stats_can.sc.zip_update_tables(path=tmpdir)
+    assert updater == ['18100204']
+
+
+def test_zip_table_to_dataframe(tmpdir):
+    src = 'test_files'
+    files = ['18100204.json', '18100204-eng.zip']
+    for f in files:
+        src_file = os.path.join(src, f)
+        dest_file = os.path.join(tmpdir, f)
+        shutil.copyfile(src_file, dest_file)
+        assert os.path.isfile(src_file)
+        assert os.path.isfile(dest_file)
+    df = stats_can.sc.zip_table_to_dataframe('18100204', path=tmpdir)
+    assert df.shape == (11804, 15)
+    assert df.columns[0] == 'REF_DATE'
