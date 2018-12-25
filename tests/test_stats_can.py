@@ -1,6 +1,7 @@
 """Tests for the sc module"""
 import os
 import shutil
+import pytest
 import datetime as dt
 import pandas as pd
 import stats_can
@@ -11,6 +12,7 @@ t = '271-000-22-01'
 ts = ['271-000-22-01', '18100204']
 
 
+@pytest.mark.slow
 def test_get_tables_for_vectors():
     """test tables for vectors method"""
     tv1 = stats_can.get_tables_for_vectors(vs)
@@ -21,12 +23,14 @@ def test_get_tables_for_vectors():
         }
 
 
+@pytest.mark.slow
 def test_table_subsets_from_vectors():
     """test table subsets from vectors method"""
     tv1 = stats_can.table_subsets_from_vectors(vs)
     assert tv1 == {'23100216': [74804], '18100004': [41692457]}
 
 
+@pytest.mark.slow
 def test_vectors_to_df_by_release():
     """test one vector to df method"""
     r = stats_can.vectors_to_df(
@@ -39,6 +43,7 @@ def test_vectors_to_df_by_release():
     assert isinstance(r.index, pd.DatetimeIndex)
 
 
+@pytest.mark.slow
 def test_vectors_to_df_by_periods():
     """test the other vector to df method"""
     r = stats_can.vectors_to_df(vs, 5)
@@ -49,6 +54,7 @@ def test_vectors_to_df_by_periods():
     assert isinstance(r.index, pd.DatetimeIndex)
 
 
+@pytest.mark.slow
 def test_download_table(tmpdir):
     t = '18100204'
     t_json = os.path.join(tmpdir, t + '.json')

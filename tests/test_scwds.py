@@ -1,5 +1,6 @@
 """Tests for the scwds module"""
 import datetime as dt
+import pytest
 import pandas as pd
 import stats_can
 
@@ -9,6 +10,7 @@ t = '271-000-22-01'
 ts = ['271-000-22-01', '18100204']
 
 
+@pytest.mark.slow
 def test_gcsl():
     """test get changed series list"""
     r = stats_can.get_changed_series_list()
@@ -20,6 +22,7 @@ def test_gcsl():
                 ]
 
 
+@pytest.mark.slow
 def test_gccl():
     """test get changed cube list"""
     r = stats_can.get_changed_cube_list()
@@ -30,6 +33,7 @@ def test_gccl():
                 ]
 
 
+@pytest.mark.slow
 def test_gcmd():
     """test get cube metadata"""
     r = stats_can.get_cube_metadata(t)
@@ -43,11 +47,13 @@ def test_gcmd():
             ]
 
 
+@pytest.mark.slow
 def test_gsifcpc():
     """test get series info from cube pid coord"""
     pass
 
 
+@pytest.mark.slow
 def test_gsifv():
     """test get series info from vector"""
     r = stats_can.get_series_info_from_vector(v)
@@ -59,21 +65,25 @@ def test_gsifv():
         ]
 
 
+@pytest.mark.slow
 def test_gcsdfcpc():
     """test get changed series data from cube pid coord"""
     pass
 
 
+@pytest.mark.slow
 def test_gcsdfv():
     """test get get changed series data from vector"""
     pass
 
 
+@pytest.mark.slow
 def test_gdfcpcalnp():
     """test get data from cube pid coord and latest n periods"""
     pass
 
 
+@pytest.mark.slow
 def test_gdfvalnp():
     """test get data from vectors and latest n periods"""
     r = stats_can.scwds.get_data_from_vectors_and_latest_n_periods(vs, 5)
@@ -87,6 +97,7 @@ def test_gdfvalnp():
         ]
 
 
+@pytest.mark.slow
 def test_gbvdbr():
     """test get bulk vector data by range"""
     r = stats_can.scwds.get_bulk_vector_data_by_range(
@@ -102,6 +113,7 @@ def test_gbvdbr():
         ]
 
 
+@pytest.mark.slow
 def test_gftd():
     """test get full table download"""
     rc = stats_can.scwds.get_full_table_download(t, csv=True)
@@ -110,6 +122,7 @@ def test_gftd():
     assert rs == 'https://www150.statcan.gc.ca/n1/tbl/sdmx/27100022-SDMX.zip'
 
 
+@pytest.mark.slow
 def test_gcs():
     """test get code sets"""
     pass
