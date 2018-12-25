@@ -15,7 +15,7 @@ ts = ['271-000-22-01', '18100204']
 @pytest.mark.slow
 def test_get_tables_for_vectors():
     """test tables for vectors method"""
-    tv1 = stats_can.get_tables_for_vectors(vs)
+    tv1 = stats_can.sc.get_tables_for_vectors(vs)
     assert tv1 == {
         41692457: '18100004',
         74804: '23100216',
@@ -26,14 +26,14 @@ def test_get_tables_for_vectors():
 @pytest.mark.slow
 def test_table_subsets_from_vectors():
     """test table subsets from vectors method"""
-    tv1 = stats_can.table_subsets_from_vectors(vs)
+    tv1 = stats_can.sc.table_subsets_from_vectors(vs)
     assert tv1 == {'23100216': [74804], '18100004': [41692457]}
 
 
 @pytest.mark.slow
 def test_vectors_to_df_by_release():
     """test one vector to df method"""
-    r = stats_can.vectors_to_df(
+    r = stats_can.sc.vectors_to_df(
         vs,
         start_release_date=dt.date(2018, 1, 1),
         end_release_date=dt.date(2018, 5, 1)
@@ -46,7 +46,7 @@ def test_vectors_to_df_by_release():
 @pytest.mark.slow
 def test_vectors_to_df_by_periods():
     """test the other vector to df method"""
-    r = stats_can.vectors_to_df(vs, 5)
+    r = stats_can.sc.vectors_to_df(vs, 5)
     for v in vs:
         assert v in r.columns
     for col in r.columns:
