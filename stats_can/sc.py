@@ -263,7 +263,7 @@ def zip_table_to_dataframe(table, path=None):
     return df
 
 
-def tables_to_h5(tables, h5file='stats_can.h5', path=os.getcwd()):
+def tables_to_h5(tables, h5file='stats_can.h5', path=None):
     """Take a table and its metadata and put it in an hdf5 file
 
     Parameters
@@ -274,16 +274,23 @@ def tables_to_h5(tables, h5file='stats_can.h5', path=os.getcwd()):
         name of the h5file to store the tables in
     path: str or path, default = current working directory
         path to the h5file
+    
+    Returns
+    -------
+    tables: list
+        list of tables loaded into the file
     """
-    h5file = os.path.join(path, h5file)
+    if path:
+        h5file = os.path.join(path, h5file)
     tables = parse_tables(tables)
     for table in tables:
         hkey = 'table_' + table
         jkey = 'json_' + table
-        zip_name = table + '-eng.zip'
-        zip_file = os.path.join(path, zip_name)
-        json_name = table + '.json'
-        json_file = os.path.join(path, json_name)
+        zip_file = table + '-eng.zip'
+        json_file = table + '.json'
+        if path:
+            zip_file = os.path.join(path, zip_file)
+            json_file = os.path.join(path, json_file)
         if not os.path.isfile(json_file):
             download_tables([table], path)
         df = zip_table_to_dataframe(table, path=path)
@@ -296,7 +303,7 @@ def tables_to_h5(tables, h5file='stats_can.h5', path=os.getcwd()):
             hfile.create_dataset(jkey, data=json.dumps(df_json))
         os.remove(zip_file)
         os.remove(json_file)
-
+    return tables
 
 def table_from_h5(table, h5file='stats_can.h5', path=os.getcwd()):
     """Read a table from h5 to a dataframe

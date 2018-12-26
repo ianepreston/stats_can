@@ -91,3 +91,33 @@ def test_zip_table_to_dataframe(tmpdir):
     df = stats_can.sc.zip_table_to_dataframe('18100204', path=tmpdir)
     assert df.shape == (11804, 15)
     assert df.columns[0] == 'REF_DATE'
+
+
+def test_table_to_new_h5(tmpdir):
+    src = 'test_files'
+    files = ['18100204.json', '18100204-eng.zip']
+    for f in files:
+        src_file = os.path.join(src, f)
+        assert os.path.isfile(src_file)
+        dest_file = os.path.join(tmpdir, f)
+        shutil.copyfile(src_file, dest_file)
+        assert os.path.isfile(dest_file)
+    h5file = os.path.join(tmpdir, 'stats_can.h5')
+    assert not os.path.isfile(h5file)
+    stats_can.sc.tables_to_h5('18100204', path=tmpdir)
+    assert os.path.isfile(h5file)
+
+def test_table_to_new_h5_no_path(tmpdir):
+    src = 'test_files'
+    files = ['18100204.json', '18100204-eng.zip']
+    for f in files:
+        src_file = os.path.join(src, f)
+        assert os.path.isfile(src_file)
+        dest_file = os.path.join(tmpdir, f)
+        shutil.copyfile(src_file, dest_file)
+        assert os.path.isfile(dest_file)
+    h5file = os.path.join(tmpdir, 'stats_can.h5')
+    assert not os.path.isfile(h5file)
+    os.chdir(tmpdir)
+    stats_can.sc.tables_to_h5('18100204')
+    assert os.path.isfile(h5file)
