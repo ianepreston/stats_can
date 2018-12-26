@@ -60,7 +60,6 @@ def get_changed_cube_list(date=None):
     list of dicts
         one for each table and when it was updated
     """
-    print('ok it actually updated')
     if not date:
         date = dt.date.today()
     url = SC_URL + 'getChangedCubeList' + '/' + str(date)
