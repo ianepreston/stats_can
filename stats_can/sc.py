@@ -305,7 +305,7 @@ def tables_to_h5(tables, h5file='stats_can.h5', path=None):
         os.remove(json_file)
     return tables
 
-def table_from_h5(table, h5file='stats_can.h5', path=os.getcwd()):
+def table_from_h5(table, h5file='stats_can.h5', path=None):
     """Read a table from h5 to a dataframe
 
     Parameters
@@ -327,7 +327,8 @@ def table_from_h5(table, h5file='stats_can.h5', path=os.getcwd()):
     Add a boolean to download tables and add them first if they're missing
     """
     table = 'table_' + parse_tables(table)[0]
-    h5file = os.path.join(path, h5file)
+    if path:
+        h5file = os.path.join(path, h5file)
     try:
         df = pd.read_hdf(h5file, key=table)
     except KeyError:

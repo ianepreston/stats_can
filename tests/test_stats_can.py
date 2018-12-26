@@ -118,6 +118,35 @@ def test_table_to_new_h5_no_path(tmpdir):
         assert os.path.isfile(dest_file)
     h5file = os.path.join(tmpdir, 'stats_can.h5')
     assert not os.path.isfile(h5file)
+    oldpath = os.getcwd()
     os.chdir(tmpdir)
     stats_can.sc.tables_to_h5('18100204')
     assert os.path.isfile(h5file)
+    os.chdir(oldpath)
+
+
+def test_table_from_h5(tmpdir):
+    src = 'test_files'
+    file = 'stats_can.h5'
+    src_file = os.path.join(src, file)
+    dest_file = os.path.join(tmpdir, file)
+    shutil.copyfile(src_file, dest_file)
+    tbl = '18100204'
+    df = stats_can.sc.table_from_h5(tbl, path=tmpdir)
+    assert df.shape == (11804, 15)
+    assert df.columns[0] == 'REF_DATE'
+
+
+def test_table_from_h5_no_path(tmpdir):
+    src = 'test_files'
+    file = 'stats_can.h5'
+    src_file = os.path.join(src, file)
+    dest_file = os.path.join(tmpdir, file)
+    shutil.copyfile(src_file, dest_file)
+    tbl = '18100204'
+    oldpath = os.getcwd()
+    os.chdir(tmpdir)
+    df = stats_can.sc.table_from_h5(tbl)
+    assert df.shape == (11804, 15)
+    assert df.columns[0] == 'REF_DATE'
+    os.chdir(oldpath)
