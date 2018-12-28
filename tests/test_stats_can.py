@@ -233,3 +233,21 @@ def test_h5_update_tables_no_path(tmpdir):
     result = stats_can.sc.h5_update_tables(tables='18100204')
     os.chdir(oldpath)
     assert result == []
+
+
+def test_h5_included_keys():
+    src = 'test_files'
+    keys = stats_can.sc.h5_included_keys(path=src)
+    assert keys == [
+        'json_18100204', 'json_27100022', 'table_18100204', 'table_27100022'
+        ]
+
+
+def test_h5_included_keys_no_path():
+    oldpath = os.getcwd()
+    os.chdir('test_files')
+    keys = stats_can.sc.h5_included_keys()  
+    os.chdir(oldpath)  
+    assert keys == [
+        'json_18100204', 'json_27100022', 'table_18100204', 'table_27100022'
+        ]    

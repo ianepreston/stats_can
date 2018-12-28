@@ -406,7 +406,7 @@ def h5_update_tables(h5file='stats_can.h5', path=None, tables=None):
     return update_table_list
 
 
-def h5_included_keys(h5file='stats_can.h5', path=os.getcwd()):
+def h5_included_keys(h5file='stats_can.h5', path=None):
     """Return a list of keys in an h5 file
 
     Parameters
@@ -421,7 +421,8 @@ def h5_included_keys(h5file='stats_can.h5', path=os.getcwd()):
     keys: list
         list of keys in the hdf5 file
     """
-    h5file = os.path.join(path, h5file)
+    if path:
+        h5file = os.path.join(path, h5file)
     with h5py.File(h5file, 'r') as f:
         keys = [key for key in f.keys()]
     return keys
