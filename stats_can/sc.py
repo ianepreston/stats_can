@@ -337,7 +337,7 @@ def table_from_h5(table, h5file='stats_can.h5', path=None):
     return df
 
 
-def metadata_from_h5(tables, h5file='stats_can.h5', path=os.getcwd()):
+def metadata_from_h5(tables, h5file='stats_can.h5', path=None):
     """Read table metadata from h5
 
     Parameters
@@ -353,7 +353,8 @@ def metadata_from_h5(tables, h5file='stats_can.h5', path=os.getcwd()):
     -------
     list of local table metadata
     """
-    h5file = os.path.join(path, h5file)
+    if path:
+        h5file = os.path.join(path, h5file)
     tables = ['json_' + tbl for tbl in parse_tables(tables)]
     jsons = []
     with h5py.File(h5file, 'r') as f:
