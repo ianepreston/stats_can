@@ -251,3 +251,33 @@ def test_h5_included_keys_no_path():
     assert keys == [
         'json_18100204', 'json_27100022', 'table_18100204', 'table_27100022'
         ]    
+
+
+def test_get_classic_vector_format_defaults(tmpdir):
+    src = 'test_files'
+    files = [
+        '18100204.json', '18100204-eng.zip',
+        '23100216.json', '23100216-eng.zip'
+        ]
+    for file in files:
+        src_file = os.path.join(src, file)
+        dest_file = os.path.join(tmpdir, file)
+        shutil.copyfile(src_file, dest_file)
+    df = stats_can.sc.get_classic_vector_format_df(
+        vectors=['v107792885', 'V74804'],
+        path=tmpdir
+    )
+    assert df.shape == (454, 2)
+
+
+def test_get_classic_vector_format_h5(tmpdir):
+    src = 'test_files'
+    h5 = 'stats_can.h5'
+    src_file = os.path.join(src, h5)
+    dest_file = os.path.join(tmpdir, h5)
+    shutil.copyfile(src_file, dest_file)
+    df = stats_can.sc.get_classic_vector_format_df(
+        vectors=['v107792885', 'V74804'],
+        path=tmpdir,
+        h5file=h5
+    )
