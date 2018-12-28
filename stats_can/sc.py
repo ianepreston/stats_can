@@ -367,7 +367,7 @@ def metadata_from_h5(tables, h5file='stats_can.h5', path=None):
     return jsons
 
 
-def h5_update_tables(h5file='stats_can.h5', path=os.getcwd(), tables=None):
+def h5_update_tables(h5file='stats_can.h5', path=None, tables=None):
     """update any stats_can tables contained in an h5 file
 
     Parameters
@@ -389,7 +389,11 @@ def h5_update_tables(h5file='stats_can.h5', path=os.getcwd(), tables=None):
     if tables:
         local_jsons = metadata_from_h5(tables, h5file=h5file, path=path)
     else:
-        with h5py.File(h5file) as f:
+        if path:
+            h5 = os.path.join(path, h5file)
+        else:
+            h5 = h5file
+        with h5py.File(h5) as f:
             keys = [key for key in f.keys() if key.startswith('json')]
             local_jsons = [json.loads(f[key][()]) for key in keys]
     tables = [j['productId'] for j in local_jsons]

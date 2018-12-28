@@ -121,8 +121,8 @@ def test_table_to_new_h5_no_path(tmpdir):
     oldpath = os.getcwd()
     os.chdir(tmpdir)
     stats_can.sc.tables_to_h5('18100204')
-    assert os.path.isfile(h5file)
     os.chdir(oldpath)
+    assert os.path.isfile(h5file)
 
 
 def test_table_from_h5(tmpdir):
@@ -147,9 +147,9 @@ def test_table_from_h5_no_path(tmpdir):
     oldpath = os.getcwd()
     os.chdir(tmpdir)
     df = stats_can.sc.table_from_h5(tbl)
+    os.chdir(oldpath)
     assert df.shape == (11804, 15)
     assert df.columns[0] == 'REF_DATE'
-    os.chdir(oldpath)
 
 
 def test_missing_table_from_h5(tmpdir, capsys):
@@ -186,8 +186,8 @@ def test_metadata_from_h5_no_path(tmpdir):
     oldpath = os.getcwd()
     os.chdir(tmpdir)
     meta = stats_can.sc.metadata_from_h5(tbl)
-    assert meta[0]['cansimId'] == '329-0079'
     os.chdir(oldpath)
+    assert meta[0]['cansimId'] == '329-0079'
 
 
 def test_missing_h5_metadata(tmpdir, capsys):
@@ -201,3 +201,35 @@ def test_missing_h5_metadata(tmpdir, capsys):
     captured = capsys.readouterr()
     assert captured.out == "Couldn't find table json_123\n"
 
+
+def test_h5_update_tables(tmpdir):
+    src = 'test_files'
+    file = 'stats_can.h5'
+    src_file = os.path.join(src, file)
+    dest_file = os.path.join(tmpdir, file)
+    shutil.copyfile(src_file, dest_file)
+    result = stats_can.sc.h5_update_tables(path=tmpdir)
+    assert result == []
+
+
+def test_h5_update_tables_list(tmpdir):
+    src = 'test_files'
+    file = 'stats_can.h5'
+    src_file = os.path.join(src, file)
+    dest_file = os.path.join(tmpdir, file)
+    shutil.copyfile(src_file, dest_file)
+    result = stats_can.sc.h5_update_tables(path=tmpdir, tables='18100204')
+    assert result == []
+
+
+def test_h5_update_tables_no_path(tmpdir):
+    src = 'test_files'
+    file = 'stats_can.h5'
+    src_file = os.path.join(src, file)
+    dest_file = os.path.join(tmpdir, file)
+    shutil.copyfile(src_file, dest_file)
+    oldpath = os.getcwd()
+    os.chdir(tmpdir)
+    result = stats_can.sc.h5_update_tables(tables='18100204')
+    os.chdir(oldpath)
+    assert result == []
