@@ -258,6 +258,7 @@ def tables_to_h5(tables, h5file='stats_can.h5', path=None):
         os.remove(json_file)
     return tables
 
+
 def table_from_h5(table, h5file='stats_can.h5', path=None):
     """Read a table from h5 to a dataframe
 
@@ -492,3 +493,39 @@ def get_classic_vector_format_df(
             )
     final_df = final_df[vectors_ordered]
     return final_df
+
+
+def update_tables(path=None, h5file='stats_can.h5', tables=None, csv=True):
+    """Update downloaded tables where required
+
+    Reads local metadata, either from json files or stored in an h5 file,
+    compares it to the metadata on the StatsCan website and downloads those
+    tables that don't have matching metadata
+
+    Just a wrapper for zip_update tables and h5_update_tables functions
+
+    Parameters
+    ----------
+    path: str or path, default None
+        Path where local tables are stored, assumes current directory if None
+    h5file: str, default 'stats_can.h5'
+        Name of the h5 file storing StatsCan tables, set to None for zips
+    tables: list of str, default None
+        For hdf5 only, update only a subset of tables that are both in the file
+        and specified by this argument, None means update all tables
+    csv: boolean, default True
+        If updating zips this determines whether to update zipped CSV or SDMX
+    
+    Returns
+    -------
+    update_table_list: list of str
+        list of updated tables
+    """
+    if h5file:
+        return h5_update_tables(
+            h5file=h5file,
+            path=path,
+            tables=tables
+        )
+    else:
+        return zip_update_tables(path=path, csv=csv)

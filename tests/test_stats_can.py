@@ -79,6 +79,18 @@ def test_zip_update_tables(tmpdir):
     assert updater == ['18100204']
 
 
+def test_zip_update_tables_from_update_tables(tmpdir):
+    src = 'test_files'
+    files = ['18100204.json', '18100204-eng.zip']
+    for f in files:
+        src_file = os.path.join(src, f)
+        dest_file = os.path.join(tmpdir, f)
+        shutil.copyfile(src_file, dest_file)
+        assert os.path.isfile(src_file)
+        assert os.path.isfile(dest_file)
+    updater = stats_can.sc.update_tables(path=tmpdir, h5file=None)
+    assert updater == ['18100204']
+
 def test_zip_table_to_dataframe(tmpdir):
     src = 'test_files'
     files = ['18100204.json', '18100204-eng.zip']
@@ -212,6 +224,16 @@ def test_h5_update_tables(tmpdir):
     assert result == []
 
 
+def test_h5_update_tables_from_update_tables(tmpdir):
+    src = 'test_files'
+    file = 'stats_can.h5'
+    src_file = os.path.join(src, file)
+    dest_file = os.path.join(tmpdir, file)
+    shutil.copyfile(src_file, dest_file)
+    result = stats_can.sc.update_tables(path=tmpdir)
+    assert result == []    
+
+
 def test_h5_update_tables_list(tmpdir):
     src = 'test_files'
     file = 'stats_can.h5'
@@ -222,6 +244,16 @@ def test_h5_update_tables_list(tmpdir):
     assert result == []
 
 
+def test_h5_update_tables_list_from_update_tables(tmpdir):
+    src = 'test_files'
+    file = 'stats_can.h5'
+    src_file = os.path.join(src, file)
+    dest_file = os.path.join(tmpdir, file)
+    shutil.copyfile(src_file, dest_file)
+    result = stats_can.sc.update_tables(path=tmpdir, tables='18100204')
+    assert result == []
+    
+
 def test_h5_update_tables_no_path(tmpdir):
     src = 'test_files'
     file = 'stats_can.h5'
@@ -231,6 +263,19 @@ def test_h5_update_tables_no_path(tmpdir):
     oldpath = os.getcwd()
     os.chdir(tmpdir)
     result = stats_can.sc.h5_update_tables(tables='18100204')
+    os.chdir(oldpath)
+    assert result == []
+
+
+def test_h5_update_tables_no_path_from_update_tables(tmpdir):
+    src = 'test_files'
+    file = 'stats_can.h5'
+    src_file = os.path.join(src, file)
+    dest_file = os.path.join(tmpdir, file)
+    shutil.copyfile(src_file, dest_file)
+    oldpath = os.getcwd()
+    os.chdir(tmpdir)
+    result = stats_can.sc.update_tables(tables='18100204')
     os.chdir(oldpath)
     assert result == []
 

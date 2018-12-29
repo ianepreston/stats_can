@@ -2,15 +2,11 @@
 
 TODO
 ----
-make an api module
-
-More comprehensive tests
-
 Logging
 
 French support
 '''
-__version__ = '1.1.4'
+__version__ = '1.2.0'
 
 from stats_can.scwds import get_changed_series_list
 from stats_can.scwds import get_changed_cube_list
