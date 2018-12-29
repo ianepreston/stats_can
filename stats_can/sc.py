@@ -75,53 +75,6 @@ def table_subsets_from_vectors(vectors):
     return tables_dict
 
 
-def vectors_to_df(
-    vectors, periods=1, start_release_date=None, end_release_date=None
-):
-    """data frame of vectors with n periods data or over range of release dates
-
-    Wrapper on get_bulk_vector_data_by_range and
-    get_data_from_vectors_and_latest_n_periods function to turn the resulting
-    list of JSONs into a DataFrame
-
-    Parameters
-    ----------
-    vectors: str or list of str
-        vector numbers to get info for
-    periods: int
-        number of periods to retrieve data for
-    start_release_date: datetime.date
-        start release date for the data
-    end_release_date: datetime.date
-        end release date for the data
-
-    Returns
-    -------
-    df: DataFrame
-        vectors as columns and ref_date as the index (not release date)
-    """
-    df = pd.DataFrame()
-    if ((end_release_date is None) | (start_release_date is None)):
-        start_list = get_data_from_vectors_and_latest_n_periods(
-            vectors, periods
-            )
-    else:
-        start_list = get_bulk_vector_data_by_range(
-            vectors, start_release_date, end_release_date
-            )
-    for vec in start_list:
-        name = "v" + str(vec['vectorId'])
-        ser = (
-            pd.DataFrame(vec['vectorDataPoint'])
-            .assign(refPer=lambda x: pd.to_datetime(x['refPer']))
-            .set_index('refPer')
-            .rename(columns={'value': name})
-            .filter([name])
-        )
-        df = pd.concat([df, ser], axis=1, sort=True)
-    return df
-
-
 def download_tables(tables, path=None, csv=True):
     """Download a json file and zip of data for a list of tables to path
 
@@ -426,6 +379,53 @@ def h5_included_keys(h5file='stats_can.h5', path=None):
     with h5py.File(h5file, 'r') as f:
         keys = [key for key in f.keys()]
     return keys
+
+
+def vectors_to_df(
+    vectors, periods=1, start_release_date=None, end_release_date=None
+):
+    """data frame of vectors with n periods data or over range of release dates
+
+    Wrapper on get_bulk_vector_data_by_range and
+    get_data_from_vectors_and_latest_n_periods function to turn the resulting
+    list of JSONs into a DataFrame
+
+    Parameters
+    ----------
+    vectors: str or list of str
+        vector numbers to get info for
+    periods: int
+        number of periods to retrieve data for
+    start_release_date: datetime.date
+        start release date for the data
+    end_release_date: datetime.date
+        end release date for the data
+
+    Returns
+    -------
+    df: DataFrame
+        vectors as columns and ref_date as the index (not release date)
+    """
+    df = pd.DataFrame()
+    if ((end_release_date is None) | (start_release_date is None)):
+        start_list = get_data_from_vectors_and_latest_n_periods(
+            vectors, periods
+            )
+    else:
+        start_list = get_bulk_vector_data_by_range(
+            vectors, start_release_date, end_release_date
+            )
+    for vec in start_list:
+        name = "v" + str(vec['vectorId'])
+        ser = (
+            pd.DataFrame(vec['vectorDataPoint'])
+            .assign(refPer=lambda x: pd.to_datetime(x['refPer']))
+            .set_index('refPer')
+            .rename(columns={'value': name})
+            .filter([name])
+        )
+        df = pd.concat([df, ser], axis=1, sort=True)
+    return df
 
 
 def get_classic_vector_format_df(
