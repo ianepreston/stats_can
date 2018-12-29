@@ -457,11 +457,24 @@ def get_classic_vector_format_df(
     tables = list(table_vec_dict.keys())
     tables_dfs = {}
     columns = ['REF_DATE', 'VECTOR', 'VALUE']
+    if h5file:
+        meta = metadata_from_h5(
+            tables,
+            h5file=h5file,
+            path=path
+        )
+        existing_tables = [t['productId'] for t in meta]
+        to_download_tables = list(set(tables) - set(existing_tables))
+        tables_to_h5(
+            to_download_tables,
+            h5file=h5file,
+            path=path
+            )
     for table in tables:
-        if h5file is not None:
+        if h5file:
             tables_dfs[table] = table_from_h5(
                 table, h5file=h5file, path=path
-                )
+                )[columns]
         else:
             tables_dfs[table] = zip_table_to_dataframe(table, path)[columns]
         df = tables_dfs[table]  # save me some typing

@@ -269,8 +269,17 @@ def test_get_classic_vector_format_defaults(tmpdir):
     )
     assert df.shape == (454, 2)
 
+@pytest.mark.slow
+def test_get_classic_vector_format_missing_tables_no_h5(tmpdir):
+    df = stats_can.sc.get_classic_vector_format_df(
+        vectors=['v107792885', 'v74804'],
+        path=tmpdir
+    )
+    assert df.shape[1] == 2
+    assert df.shape[0] > 450
+    assert list(df.columns) == ['v107792885', 'v74804']
 
-def test_get_classic_vector_format_h5(tmpdir):
+def test_get_classic_vector_format_missing_tablesh5(tmpdir):
     src = 'test_files'
     h5 = 'stats_can.h5'
     src_file = os.path.join(src, h5)
@@ -281,3 +290,6 @@ def test_get_classic_vector_format_h5(tmpdir):
         path=tmpdir,
         h5file=h5
     )
+    assert df.shape[1] == 2
+    assert df.shape[0] > 450
+    assert list(df.columns) == ['v107792885', 'v74804']
