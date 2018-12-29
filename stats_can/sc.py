@@ -445,9 +445,6 @@ def get_classic_vector_format_df(
         if specified will extract dataframes from an hdf5file instead of
         zipped csv tables
     
-    TODO
-    ----
-    Fix failure if desired vector isn't in H5
     """
     # Preserve an initial copy of the list for ordering, parsed and then
     # converted to string for consistency in naming
