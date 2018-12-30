@@ -269,10 +269,6 @@ def table_from_h5(table, h5file='stats_can.h5', path=None):
     -------
     df: pd.DataFrame
         table in dataframe format
-
-    TODO
-    ----
-    Add a boolean to download tables and add them first if they're missing
     """
     table = 'table_' + parse_tables(table)[0]
     if path:
