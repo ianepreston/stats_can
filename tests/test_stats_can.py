@@ -91,6 +91,7 @@ def test_zip_update_tables_from_update_tables(tmpdir):
     updater = stats_can.sc.update_tables(path=tmpdir, h5file=None)
     assert updater == ['18100204']
 
+
 def test_zip_table_to_dataframe(tmpdir):
     src = 'test_files'
     files = ['18100204.json', '18100204-eng.zip']
@@ -118,6 +119,7 @@ def test_table_to_new_h5(tmpdir):
     assert not os.path.isfile(h5file)
     stats_can.sc.tables_to_h5('18100204', path=tmpdir)
     assert os.path.isfile(h5file)
+
 
 def test_table_to_new_h5_no_path(tmpdir):
     src = 'test_files'
@@ -164,16 +166,17 @@ def test_table_from_h5_no_path(tmpdir):
     assert df.columns[0] == 'REF_DATE'
 
 
+@pytest.mark.slow
 def test_missing_table_from_h5(tmpdir, capsys):
     src = 'test_files'
     file = 'stats_can.h5'
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
     shutil.copyfile(src_file, dest_file)
-    tbl = 'badtable123'
+    tbl = '23100216'
     stats_can.sc.table_from_h5(tbl, path=tmpdir)
     captured = capsys.readouterr()
-    assert captured.out == "Couldn't find table table_123\n"
+    assert captured.out == "Downloading and loading table_23100216\n"
 
 
 

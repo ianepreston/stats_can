@@ -282,12 +282,15 @@ def table_from_h5(table, h5file='stats_can.h5', path=None):
     """
     table = 'table_' + parse_tables(table)[0]
     if path:
-        h5file = os.path.join(path, h5file)
+        h5 = os.path.join(path, h5file)
+    else:
+        h5 = h5file
     try:
-        df = pd.read_hdf(h5file, key=table)
+        df = pd.read_hdf(h5, key=table)
     except KeyError:
-        print("Couldn't find table " + table)
-        return None
+        print("Downloading and loading " + table)
+        tables_to_h5(tables=table, h5file=h5file, path=path)
+        df = pd.read_hdf(h5, key=table)
     return df
 
 
