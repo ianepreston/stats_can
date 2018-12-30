@@ -373,7 +373,7 @@ def test_list_downloaded_tables_zip(tmpdir):
 
 
 def test_list_downloaded_tables_h5(tmpdir):    
-    tbls = stats_can.sc.list_h5_tables(path='test_files') 
+    tbls = stats_can.sc.list_downloaded_tables(path='test_files') 
     assert len(tbls) == 2
     assert tbls[0]['productId'] in ['18100204', '27100022']
     assert tbls[1]['productId'] in ['18100204', '27100022']
