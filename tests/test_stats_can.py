@@ -343,5 +343,15 @@ def test_get_classic_vector_format_missing_tablesh5(tmpdir):
     assert list(df.columns) == ['v107792885', 'v74804']
 
 
+def test_list_zipped_tables(tmpdir):
+    src = 'test_files'
+    files = ['18100204.json', 'unrelated123.json', '23100216.json']
+    for file in files:
+        shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
+    tbls = stats_can.sc.list_zipped_tables(path=tmpdir)
+    assert len(tbls) == 2
+    assert tbls[0]['productId'] in ['18100204', '23100216']
+    assert tbls[1]['productId'] in ['18100204', '23100216']
+
 def test_delete_table():
     assert 1 == 0

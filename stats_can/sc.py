@@ -138,13 +138,7 @@ def zip_update_tables(path=None, csv=True):
         list of the tables that were updated
 
     """
-    local_jsons = []
-    for file in os.listdir(path=path):
-        if path:
-            file = os.path.join(path, file)
-        if file.endswith('.json'):
-            with open(file) as f_name:
-                local_jsons.append(json.load(f_name))
+    local_jsons = list_zipped_tables(path=path)
     tables = [j['productId'] for j in local_jsons]
     remote_jsons = get_cube_metadata(tables)
     update_table_list = []
@@ -210,6 +204,40 @@ def zip_table_to_dataframe(table, path=None):
     return df
 
 
+def list_zipped_tables(path=None):
+    """List StatsCan tables available
+
+    defaults to looking in the current working directory and for zipped CSVs
+
+    Parameters
+    ----------
+    path: string or path, default None
+        Where to look for zipped tables
+    csv: boolean, default True
+        Whether to look for CSV or SDMX files
+    
+    Returns
+    -------
+    tables: list
+        list of available tables json data
+    """
+    # Find json files
+    jsons = [f for f in os.listdir(path) if f.endswith('.json')]
+    if path:
+        jsons = [os.path.join(path, j) for j in jsons]
+    tables = []
+    for j in jsons:
+        try:
+            with open(j) as json_file:
+                result = json.load(json_file)
+                if 'productId' in result:
+                    tables.append(result)
+        except ValueError as e:
+            print('failed to read json file' + j)
+            print(e)
+    return tables
+
+        
 def tables_to_h5(tables, h5file='stats_can.h5', path=None):
     """Take a table and its metadata and put it in an hdf5 file
 
