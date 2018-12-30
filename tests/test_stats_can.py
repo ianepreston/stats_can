@@ -360,5 +360,24 @@ def test_list_h5_tables():
     assert tbls[0]['productId'] in ['18100204', '27100022']
     assert tbls[1]['productId'] in ['18100204', '27100022']
 
+
+def test_list_downloaded_tables_zip(tmpdir):
+    src = 'test_files'
+    files = ['18100204.json', 'unrelated123.json', '23100216.json']
+    for file in files:
+        shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
+    tbls = stats_can.sc.list_downloaded_tables(path=tmpdir, h5file=None)
+    assert len(tbls) == 2
+    assert tbls[0]['productId'] in ['18100204', '23100216']
+    assert tbls[1]['productId'] in ['18100204', '23100216']
+
+
+def test_list_downloaded_tables_h5(tmpdir):    
+    tbls = stats_can.sc.list_h5_tables(path='test_files') 
+    assert len(tbls) == 2
+    assert tbls[0]['productId'] in ['18100204', '27100022']
+    assert tbls[1]['productId'] in ['18100204', '27100022']
+
+
 def test_delete_table():
     assert 1 == 0

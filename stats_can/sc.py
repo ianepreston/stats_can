@@ -363,6 +363,29 @@ def list_h5_tables(path=None, h5file='stats_can.h5'):
     return jsons
 
 
+def list_downloaded_tables(path=None, h5file='stats_can.h5'):
+    """Return a list of metadata for StatsCan tables
+
+    Wrapper for list zipped tables and list h5 tables
+
+    Parameters
+    ----------
+    path: str or path, default = current working directory
+        path to the h5 file
+    h5file: str, default stats_can.h5
+        name of the h5file to read table data from
+    
+    Returns
+    -------
+    jsons: list
+        list of available tables json data
+    """
+    if h5file:
+        jsons = list_h5_tables(path=path, h5file=h5file)
+    else:
+        jsons = list_zipped_tables(path=path)
+    return jsons
+
 def h5_update_tables(h5file='stats_can.h5', path=None, tables=None):
     """update any stats_can tables contained in an h5 file
 
