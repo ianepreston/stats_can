@@ -3,13 +3,7 @@
 
 TODO
 ----
-Finish removing os.getcwd
-
-wrapper functions that abstract from zip/h5 tradeoff
-
-have all functions return at least something
-
-Download tables to handle SDMX
+Function to delete tables
 
 Extend getChangedCubeList with a function that returns all tables updated
 within a date range

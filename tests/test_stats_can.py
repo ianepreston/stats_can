@@ -341,3 +341,7 @@ def test_get_classic_vector_format_missing_tablesh5(tmpdir):
     assert df.shape[1] == 2
     assert df.shape[0] > 450
     assert list(df.columns) == ['v107792885', 'v74804']
+
+
+def test_delete_table():
+    assert 1 == 0
