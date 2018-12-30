@@ -342,6 +342,27 @@ def metadata_from_h5(tables, h5file='stats_can.h5', path=None):
     return jsons
 
 
+def list_h5_tables(path=None, h5file='stats_can.h5'):
+    """return a list of metadata for StatsCan tables from an hdf5 file
+
+    Parameters
+    ----------
+    path: str or path, default = current working directory
+        path to the h5 file
+    h5file: str, default stats_can.h5
+        name of the h5file to read table data from
+    
+    Returns
+    -------
+    jsons: list
+        list of available tables json data
+    """
+    keys = h5_included_keys(h5file=h5file, path=path)
+    tables = parse_tables([k for k in keys if k.startswith('json_')])
+    jsons = metadata_from_h5(tables, h5file=h5file, path=path)
+    return jsons
+
+
 def h5_update_tables(h5file='stats_can.h5', path=None, tables=None):
     """update any stats_can tables contained in an h5 file
 

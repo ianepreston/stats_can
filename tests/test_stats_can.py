@@ -353,5 +353,12 @@ def test_list_zipped_tables(tmpdir):
     assert tbls[0]['productId'] in ['18100204', '23100216']
     assert tbls[1]['productId'] in ['18100204', '23100216']
 
+
+def test_list_h5_tables():
+    tbls = stats_can.sc.list_h5_tables(path='test_files') 
+    assert len(tbls) == 2
+    assert tbls[0]['productId'] in ['18100204', '27100022']
+    assert tbls[1]['productId'] in ['18100204', '27100022']
+
 def test_delete_table():
     assert 1 == 0
