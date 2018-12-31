@@ -385,5 +385,39 @@ def test_list_downloaded_tables_h5(tmpdir):
     assert tbls[1]['productId'] in ['18100204', '27100022']
 
 
-def test_delete_table():
-    assert 1 == 0
+def test_delete_table_zip(tmpdir):
+    src = 'test_files'
+    files = os.listdir(src)
+    for file in files:
+        shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
+    for file in files:
+        assert os.path.exists(os.path.join(tmpdir, file))
+    deleted = stats_can.sc.delete_tables('18100204', path=tmpdir, h5file=None)
+    assert deleted == ['18100204']
+    assert not os.path.exists(os.path.join(tmpdir, '18100204-eng.zip'))
+    assert not os.path.exists(os.path.join(tmpdir, '18100204.json'))
+
+
+def test_delete_table_h5(tmpdir):
+    src = 'test_files'
+    files = os.listdir(src)
+    for file in files:
+        shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
+    for file in files:
+        assert os.path.exists(os.path.join(tmpdir, file))
+    deleted = stats_can.sc.delete_tables('27100022', path=tmpdir)
+    assert deleted == ['27100022']
+    tbls = stats_can.sc.list_downloaded_tables(path=tmpdir)
+    assert len(tbls) == 1
+    assert tbls[0]['productId'] == '18100204'
+
+def test_delete_table_bad_tables(tmpdir):
+    src = 'test_files'
+    files = os.listdir(src)
+    for file in files:
+        shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
+    for file in files:
+        assert os.path.exists(os.path.join(tmpdir, file))
+    bad_tables = ['12345', 'nothing', '4444444', '23100216']
+    deleted = stats_can.sc.delete_tables(bad_tables, path=tmpdir)
+    assert deleted == []

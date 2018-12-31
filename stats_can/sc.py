@@ -477,6 +477,61 @@ def h5_included_keys(h5file='stats_can.h5', path=None):
     return keys
 
 
+def delete_tables(tables, path=None, h5file='stats_can.h5', csv=True):
+    """Delete downloaded tables
+
+    Parameters
+    ----------
+    tables: list
+        list of tables to delete
+    path: str or os path object, default None
+        where to look for the tables to delete
+    h5file: str default stats_can.h5
+        h5file to remove from, set to None to remove zips
+    csv: boolean, default True
+        if h5file is None this specifies whether to delete zipped csv or SDMX
+    
+    Returns
+    -------
+    to_delete: list
+        list of deleted tables
+    """
+    clean_tables = parse_tables(tables)
+    available_tables_jsons = list_downloaded_tables(path=path, h5file=h5file)
+    available_tables = [j['productId'] for j in available_tables_jsons]
+    to_delete = [t for t in clean_tables if t in available_tables]
+    if h5file:
+        keys_to_del = []
+        for td in to_delete:
+            json_to_del = 'json_' + td
+            tbl_to_del = 'table_' + td
+            keys_to_del.append(json_to_del)
+            keys_to_del.append(tbl_to_del)
+        if path:
+            h5file = os.path.join(path, h5file)
+        with h5py.File(h5file, 'a') as f:
+            for k in keys_to_del:
+                del f[k]
+    else:
+        files_to_del = []
+        for td in to_delete:
+            json_to_del = td + '.json'
+            if csv:
+                zip_to_del = td + '-eng.zip' 
+            else:
+                zip_to_del = td + '.zip'
+            files_to_del.append(zip_to_del)
+            files_to_del.append(json_to_del)
+        if path:
+            files_to_del = [os.path.join(path, f) for f in files_to_del]
+        for file in files_to_del:
+            if os.path.exists(file):
+                os.remove(file)
+    return to_delete
+    
+
+
+
 def vectors_to_df(
     vectors, periods=1, start_release_date=None, end_release_date=None
 ):
