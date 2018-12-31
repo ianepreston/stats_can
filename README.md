@@ -11,8 +11,3 @@ https://anaconda.org/ian.e.preston/stats_can
 
 Documentation here:
 https://stats-can.readthedocs.io/en/latest/
-
-
-Check out stats_can demo.ipynb in the root of this repository for some examples of what you can do with it
-
-
