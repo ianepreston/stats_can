@@ -603,20 +603,20 @@ def vectors_to_df(
     return df
 
 
-def get_classic_vector_format_df(
-    vectors, path, start_date=None, h5file=None
+def vectors_to_df_local(
+    vectors, path=None, start_date=None, h5file='stats_can.h5'
 ):
-    """Make a dataframe with vector columns indexed on date
+    """Make a dataframe with vector columns indexed on date from local data
 
     Parameters
     ----------
     vectors: list
         list of vectors to be read in
-    path: str or os path
+    path: str or os path, default None
         path to StatsCan tables
     start_date: datetime, optional, default None
         optional earliest reference date to include
-    h5file: str, default none
+    h5file: str, default stats_can.h5
         if specified will extract dataframes from an hdf5file instead of
         zipped csv tables
     
