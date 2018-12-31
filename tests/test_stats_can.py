@@ -1,4 +1,10 @@
-"""Tests for the sc module"""
+"""Tests for the sc module
+
+
+TODO
+----
+Refactor a lot of this setup and teardown into its own setup functions
+"""
 import os
 import shutil
 import pytest
