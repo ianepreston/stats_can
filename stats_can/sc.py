@@ -530,6 +530,30 @@ def delete_tables(tables, path=None, h5file='stats_can.h5', csv=True):
     return to_delete
     
 
+def table_to_df(table, path=None, h5file='stats_can.h5'):
+    """Read a table to a dataframe
+
+    Wrapper for table_from_h5 and zip_table_to_dataframe
+
+    Parameters
+    ----------
+    table: str
+        name of the table to read
+    h5file: str, default stats_can.h5
+        name of the h5file to retrieve the table from, None for zip
+    path: str or path, default = current working directory
+        path to the table data
+
+    Returns
+    -------
+    df: pd.DataFrame
+        table in dataframe format
+    """
+    if h5file:
+        df = table_from_h5(table=table, h5file=h5file, path=path)
+    else:
+        df = zip_table_to_dataframe(table=table, path=path)
+    return df
 
 
 def vectors_to_df(

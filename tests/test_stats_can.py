@@ -421,3 +421,29 @@ def test_delete_table_bad_tables(tmpdir):
     bad_tables = ['12345', 'nothing', '4444444', '23100216']
     deleted = stats_can.sc.delete_tables(bad_tables, path=tmpdir)
     assert deleted == []
+
+
+def test_table_to_df_h5(tmpdir):
+    src = 'test_files'
+    file = 'stats_can.h5'
+    src_file = os.path.join(src, file)
+    dest_file = os.path.join(tmpdir, file)
+    shutil.copyfile(src_file, dest_file)
+    tbl = '18100204'
+    df = stats_can.sc.table_to_df(tbl, path=tmpdir)
+    assert df.shape == (11804, 15)
+    assert df.columns[0] == 'REF_DATE'
+
+
+def test_table_to_df_zip(tmpdir):
+    src = 'test_files'
+    files = ['18100204.json', '18100204-eng.zip']
+    for f in files:
+        src_file = os.path.join(src, f)
+        dest_file = os.path.join(tmpdir, f)
+        shutil.copyfile(src_file, dest_file)
+        assert os.path.isfile(src_file)
+        assert os.path.isfile(dest_file)
+    df = stats_can.sc.table_to_df('18100204', path=tmpdir, h5file=None)
+    assert df.shape == (11804, 15)
+    assert df.columns[0] == 'REF_DATE'
