@@ -193,7 +193,7 @@ def zip_table_to_dataframe(table, path=None):
         'Wages', 'National Occupational Classification for Statistics (NOC-S)',
         'Supplementary unemployment rates', 'Sex', 'Age group',
         'Labour force characteristics', 'Statistics', 'Data type',
-        'Job permanency', 'Union coverage'
+        'Job permanency', 'Union coverage', 'Educational attainment'
         ]
     actual_cats = [col for col in possible_cats if col in col_names]
     df[actual_cats] = df[actual_cats].astype('category')
