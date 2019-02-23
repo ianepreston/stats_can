@@ -230,7 +230,7 @@ def test_h5_update_tables(tmpdir):
     dest_file = os.path.join(tmpdir, file)
     shutil.copyfile(src_file, dest_file)
     result = stats_can.sc.h5_update_tables(path=tmpdir)
-    assert result == []
+    assert result == ['18100204']
 
 
 def test_h5_update_tables_from_update_tables(tmpdir):
@@ -240,7 +240,7 @@ def test_h5_update_tables_from_update_tables(tmpdir):
     dest_file = os.path.join(tmpdir, file)
     shutil.copyfile(src_file, dest_file)
     result = stats_can.sc.update_tables(path=tmpdir)
-    assert result == []    
+    assert result == ['18100204']    
 
 
 def test_h5_update_tables_list(tmpdir):
