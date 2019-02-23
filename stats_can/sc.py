@@ -271,7 +271,8 @@ def tables_to_h5(tables, h5file='stats_can.h5', path=None):
         df = zip_table_to_dataframe(table, path=path)
         with open(json_file) as f_name:
             df_json = json.load(f_name)
-        df.to_hdf(h5file, key=hkey, format='table', complevel=1)
+        with pd.HDFStore(h5file, 'a') as store:
+            df.to_hdf(store, key=hkey, format='table', complevel=1)
         with h5py.File(h5file, 'a') as hfile:
             if jkey in hfile.keys():
                 del hfile[jkey]
@@ -304,11 +305,13 @@ def table_from_h5(table, h5file='stats_can.h5', path=None):
     else:
         h5 = h5file
     try:
-        df = pd.read_hdf(h5, key=table)
+        with pd.HDFStore(h5, 'r') as store:
+            df = pd.read_hdf(store, key=table)
     except KeyError:
         print("Downloading and loading " + table)
         tables_to_h5(tables=table, h5file=h5file, path=path)
-        df = pd.read_hdf(h5, key=table)
+        with pd.HDFStore(h5, 'r') as store:
+            df = pd.read_hdf(store, key=table)
     return df
 
 
