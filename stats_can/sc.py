@@ -307,7 +307,7 @@ def table_from_h5(table, h5file='stats_can.h5', path=None):
     try:
         with pd.HDFStore(h5, 'r') as store:
             df = pd.read_hdf(store, key=table)
-    except KeyError:
+    except (KeyError, OSError):
         print("Downloading and loading " + table)
         tables_to_h5(tables=table, h5file=h5file, path=path)
         with pd.HDFStore(h5, 'r') as store:
@@ -335,13 +335,16 @@ def metadata_from_h5(tables, h5file='stats_can.h5', path=None):
         h5file = os.path.join(path, h5file)
     tables = ['json_' + tbl for tbl in parse_tables(tables)]
     jsons = []
-    with h5py.File(h5file, 'r') as f:
-        for tbl in tables:
-            try:
-                table_json = json.loads(f[tbl][()])
-                jsons += [table_json]
-            except KeyError:
-                print("Couldn't find table " + tbl)
+    try:
+        with h5py.File(h5file, 'r') as f:
+            for tbl in tables:
+                try:
+                    table_json = json.loads(f[tbl][()])
+                    jsons += [table_json]
+                except KeyError:
+                    print("Couldn't find table " + tbl)
+    except OSError:
+        print(f'{h5file} does not exist')
     return jsons
 
 
