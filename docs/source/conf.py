@@ -29,6 +29,7 @@ author = 'Ian Preston'
 version = find_version('stats_can', '__init__.py')
 # The full version, including alpha/beta/rc tags
 release = find_version('stats_can', '__init__.py')
+html_domain_indices=True
 
 
 # -- General configuration ---------------------------------------------------
