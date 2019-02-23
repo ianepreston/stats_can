@@ -250,7 +250,7 @@ def test_h5_update_tables_list(tmpdir):
     dest_file = os.path.join(tmpdir, file)
     shutil.copyfile(src_file, dest_file)
     result = stats_can.sc.h5_update_tables(path=tmpdir, tables='18100204')
-    assert result == []
+    assert result == ['18100204']
 
 
 def test_h5_update_tables_list_from_update_tables(tmpdir):
@@ -260,7 +260,7 @@ def test_h5_update_tables_list_from_update_tables(tmpdir):
     dest_file = os.path.join(tmpdir, file)
     shutil.copyfile(src_file, dest_file)
     result = stats_can.sc.update_tables(path=tmpdir, tables='18100204')
-    assert result == []
+    assert result == ['18100204']
     
 
 def test_h5_update_tables_no_path(tmpdir):
@@ -273,7 +273,7 @@ def test_h5_update_tables_no_path(tmpdir):
     os.chdir(tmpdir)
     result = stats_can.sc.h5_update_tables(tables='18100204')
     os.chdir(oldpath)
-    assert result == []
+    assert result == ['18100204']
 
 
 def test_h5_update_tables_no_path_from_update_tables(tmpdir):
@@ -286,7 +286,7 @@ def test_h5_update_tables_no_path_from_update_tables(tmpdir):
     os.chdir(tmpdir)
     result = stats_can.sc.update_tables(tables='18100204')
     os.chdir(oldpath)
-    assert result == []
+    assert result == ['18100204']
 
 
 def test_h5_included_keys():
@@ -307,7 +307,7 @@ def test_h5_included_keys_no_path():
         ]    
 
 
-def test_get_classic_vector_format_defaults(tmpdir):
+def test_vectors_to_df_local_defaults(tmpdir):
     src = 'test_files'
     files = [
         '18100204.json', '18100204-eng.zip',
@@ -317,15 +317,15 @@ def test_get_classic_vector_format_defaults(tmpdir):
         src_file = os.path.join(src, file)
         dest_file = os.path.join(tmpdir, file)
         shutil.copyfile(src_file, dest_file)
-    df = stats_can.sc.get_classic_vector_format_df(
+    df = stats_can.sc.vectors_to_df_local(
         vectors=['v107792885', 'V74804'],
         path=tmpdir
     )
     assert df.shape == (454, 2)
 
 @pytest.mark.slow
-def test_get_classic_vector_format_missing_tables_no_h5(tmpdir):
-    df = stats_can.sc.get_classic_vector_format_df(
+def test_vectors_to_df_local_missing_tables_no_h5(tmpdir):
+    df = stats_can.sc.vectors_to_df_local(
         vectors=['v107792885', 'v74804'],
         path=tmpdir
     )
@@ -333,13 +333,13 @@ def test_get_classic_vector_format_missing_tables_no_h5(tmpdir):
     assert df.shape[0] > 450
     assert list(df.columns) == ['v107792885', 'v74804']
 
-def test_get_classic_vector_format_missing_tablesh5(tmpdir):
+def test_vectors_to_df_local_missing_tables_h5(tmpdir):
     src = 'test_files'
     h5 = 'stats_can.h5'
     src_file = os.path.join(src, h5)
     dest_file = os.path.join(tmpdir, h5)
     shutil.copyfile(src_file, dest_file)
-    df = stats_can.sc.get_classic_vector_format_df(
+    df = stats_can.sc.vectors_to_df_local(
         vectors=['v107792885', 'V74804'],
         path=tmpdir,
         h5file=h5
