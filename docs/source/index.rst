@@ -10,6 +10,7 @@ Installation
 ============
 The easiest way to install the package is with conda:
 ::
+
     conda install -c ian.e.preston stats_can
 
 The code is also available on
