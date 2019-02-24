@@ -64,4 +64,5 @@ easier, which is the preferred way of storing tables.
 Indices and tables
 ==================
 
+* :ref:`genindex`
 * :ref:`modindex`
