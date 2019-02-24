@@ -30,6 +30,7 @@ version = find_version('stats_can', '__init__.py')
 # The full version, including alpha/beta/rc tags
 release = find_version('stats_can', '__init__.py')
 html_domain_indices=True
+autodoc_mock_imports = ['pandas']
 
 
 # -- General configuration ---------------------------------------------------
