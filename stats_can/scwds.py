@@ -210,16 +210,16 @@ def get_bulk_vector_data_by_range(
     return final_list
 
 
-def get_full_table_download(table, csv=True):
+def get_full_table_download(table_id, csv=True):
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-6
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-7
 
-    Take a table name and return a url to a zipped file of that table
+    Take a table_id and return a url to a zipped file of that table
 
     Parameters
     ----------
-    table: str
-        table name to download
+    table_id: str
+        "new Product ID" of table to download # https://www.statcan.gc.ca/eng/developers/concordance
     csv: boolean, default True
         download in CSV format, if not download SDMX
 
@@ -228,11 +228,11 @@ def get_full_table_download(table, csv=True):
     str:
         path to the file download
     """
-    table = parse_tables(table)[0]
+    table_id = parse_tables(table)[0]
     if csv:
-        url = SC_URL + 'getFullTableDownloadCSV/' + table + '/en'
+        url = SC_URL + 'getFullTableDownloadCSV/' + table_id + '/en'
     else:
-        url = SC_URL + 'getFullTableDownloadSDMX/' + table
+        url = SC_URL + 'getFullTableDownloadSDMX/' + table_id
     result = requests.get(url)
     result = check_status(result)
     return result['object']
