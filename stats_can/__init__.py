@@ -1,12 +1,12 @@
-'''Read StatsCan Data into python, mostly pandas dataframes
+"""Read StatsCan Data into python, mostly pandas dataframes
 
 TODO
 ----
 Logging
 
 French support
-'''
-__version__ = '2.1'
+"""
+__version__ = "2.1"
 from stats_can import sc
 from stats_can.scwds import get_changed_series_list
 from stats_can.scwds import get_changed_cube_list

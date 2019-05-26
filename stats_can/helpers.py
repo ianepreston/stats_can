@@ -15,8 +15,9 @@ def check_status(results):
 
     def check_one_status(result):
         """Do the check on an individual result"""
-        if result['status'] != 'SUCCESS':
-            raise RuntimeError(str(result['object']))
+        if result["status"] != "SUCCESS":
+            raise RuntimeError(str(result["object"]))
+
     if isinstance(results, list):
         for result in results:
             check_one_status(result)
@@ -46,9 +47,10 @@ def parse_tables(tables):
     list of str
         tables with unnecessary characters removed
     """
+
     def parse_table(table):
         """Clean up one table string"""
-        return re.sub(r'\D', '', table)[:8]
+        return re.sub(r"\D", "", table)[:8]
 
     if isinstance(tables, str):
         return [parse_table(tables)]
@@ -71,11 +73,12 @@ def parse_vectors(vectors):
     list of str
         vectors with unnecessary characters removed
     """
+
     def parse_vector(vector):
         """Strip string to numeric elements only"""
         if isinstance(vector, int):  # Already parsed earlier
             return vector
-        return int(re.sub(r'\D', '', vector))
+        return int(re.sub(r"\D", "", vector))
 
     if isinstance(vectors, str):
         return [parse_vector(vectors)]
@@ -97,7 +100,5 @@ def chunk_vectors(vectors):
     """
     MAX_CHUNK = 250
     vectors = parse_vectors(vectors)
-    chunks = [
-        vectors[i:i + MAX_CHUNK] for i in range(0, len(vectors), MAX_CHUNK)
-        ]
+    chunks = [vectors[i : i + MAX_CHUNK] for i in range(0, len(vectors), MAX_CHUNK)]
     return chunks

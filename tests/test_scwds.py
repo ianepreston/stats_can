@@ -4,10 +4,10 @@ import pytest
 import pandas as pd
 import stats_can
 
-vs = ['v74804', 'v41692457']
-v = '41692452'
-t = '271-000-22-01'
-ts = ['271-000-22-01', '18100204']
+vs = ["v74804", "v41692457"]
+v = "41692452"
+t = "271-000-22-01"
+ts = ["271-000-22-01", "18100204"]
 
 
 @pytest.mark.slow
@@ -17,9 +17,12 @@ def test_gcsl():
     assert isinstance(r, list)
     if len(r) > 0:
         assert list(r[0].keys()) == [
-                'responseStatusCode', 'vectorId', 'productId', 'coordinate',
-                'releaseTime'
-                ]
+            "responseStatusCode",
+            "vectorId",
+            "productId",
+            "coordinate",
+            "releaseTime",
+        ]
 
 
 @pytest.mark.slow
@@ -28,9 +31,7 @@ def test_gccl():
     r = stats_can.get_changed_cube_list()
     assert isinstance(r, list)
     if len(r) > 0:
-        assert list(r[0].keys()) == [
-                'responseStatusCode', 'productId', 'releaseTime'
-                ]
+        assert list(r[0].keys()) == ["responseStatusCode", "productId", "releaseTime"]
 
 
 @pytest.mark.slow
@@ -39,12 +40,26 @@ def test_gcmd():
     r = stats_can.get_cube_metadata(t)
     assert isinstance(r, list)
     assert list(r[0].keys()) == [
-            'responseStatusCode', 'productId', 'cansimId', 'cubeTitleEn',
-            'cubeTitleFr', 'cubeStartDate', 'cubeEndDate', 'frequencyCode',
-            'nbSeriesCube', 'nbDatapointsCube', 'releaseTime',
-            'archiveStatusCode', 'archiveStatusEn', 'archiveStatusFr',
-            'subjectCode', 'surveyCode', 'dimension', 'footnote', 'correction'
-            ]
+        "responseStatusCode",
+        "productId",
+        "cansimId",
+        "cubeTitleEn",
+        "cubeTitleFr",
+        "cubeStartDate",
+        "cubeEndDate",
+        "frequencyCode",
+        "nbSeriesCube",
+        "nbDatapointsCube",
+        "releaseTime",
+        "archiveStatusCode",
+        "archiveStatusEn",
+        "archiveStatusFr",
+        "subjectCode",
+        "surveyCode",
+        "dimension",
+        "footnote",
+        "correction",
+    ]
 
 
 @pytest.mark.slow
@@ -59,10 +74,18 @@ def test_gsifv():
     r = stats_can.get_series_info_from_vector(v)
     assert isinstance(r, list)
     assert list(r[0].keys()) == [
-        'responseStatusCode', 'productId', 'coordinate', 'vectorId',
-        'frequencyCode', 'scalarFactorCode', 'decimals', 'terminated',
-        'SeriesTitleEn', 'SeriesTitleFr', 'memberUomCode'
-        ]
+        "responseStatusCode",
+        "productId",
+        "coordinate",
+        "vectorId",
+        "frequencyCode",
+        "scalarFactorCode",
+        "decimals",
+        "terminated",
+        "SeriesTitleEn",
+        "SeriesTitleFr",
+        "memberUomCode",
+    ]
 
 
 @pytest.mark.slow
@@ -88,13 +111,20 @@ def test_gdfvalnp():
     """test get data from vectors and latest n periods"""
     r = stats_can.scwds.get_data_from_vectors_and_latest_n_periods(vs, 5)
     assert len(r) == len(vs)
-    r0v = r[0]['vectorDataPoint']
+    r0v = r[0]["vectorDataPoint"]
     assert len(r0v) == 5
     assert list(r0v[0].keys()) == [
-        'refPer', 'refPer2', 'value', 'decimals', 'scalarFactorCode',
-        'symbolCode', 'statusCode', 'securityLevelCode', 'releaseTime',
-        'frequencyCode'
-        ]
+        "refPer",
+        "refPer2",
+        "value",
+        "decimals",
+        "scalarFactorCode",
+        "symbolCode",
+        "statusCode",
+        "securityLevelCode",
+        "releaseTime",
+        "frequencyCode",
+    ]
 
 
 @pytest.mark.slow
@@ -102,24 +132,31 @@ def test_gbvdbr():
     """test get bulk vector data by range"""
     r = stats_can.scwds.get_bulk_vector_data_by_range(
         vs, dt.date(2018, 1, 1), dt.date(2018, 5, 1)
-        )
+    )
     assert len(r) == len(vs)
-    r0v = r[0]['vectorDataPoint']
+    r0v = r[0]["vectorDataPoint"]
     assert len(r0v) == 1
     assert list(r0v[0].keys()) == [
-        'refPer', 'refPer2', 'value', 'decimals', 'scalarFactorCode',
-        'symbolCode', 'statusCode', 'securityLevelCode', 'releaseTime',
-        'frequencyCode'
-        ]
+        "refPer",
+        "refPer2",
+        "value",
+        "decimals",
+        "scalarFactorCode",
+        "symbolCode",
+        "statusCode",
+        "securityLevelCode",
+        "releaseTime",
+        "frequencyCode",
+    ]
 
 
 @pytest.mark.slow
 def test_gftd():
     """test get full table download"""
     rc = stats_can.scwds.get_full_table_download(t, csv=True)
-    assert rc == 'https://www150.statcan.gc.ca/n1/tbl/csv/27100022-eng.zip'
+    assert rc == "https://www150.statcan.gc.ca/n1/tbl/csv/27100022-eng.zip"
     rs = stats_can.scwds.get_full_table_download(t, csv=False)
-    assert rs == 'https://www150.statcan.gc.ca/n1/tbl/sdmx/27100022-SDMX.zip'
+    assert rs == "https://www150.statcan.gc.ca/n1/tbl/sdmx/27100022-SDMX.zip"
 
 
 @pytest.mark.slow

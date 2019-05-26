@@ -39,12 +39,12 @@ def get_tables_for_vectors(vectors):
         'all_tables' that has a list of unique tables used by vectors
     """
     v_json = get_series_info_from_vector(vectors)
-    vectors = [j['vectorId'] for j in v_json]
-    tables_list = {j['vectorId']: str(j['productId']) for j in v_json}
-    tables_list['all_tables'] = []
+    vectors = [j["vectorId"] for j in v_json]
+    tables_list = {j["vectorId"]: str(j["productId"]) for j in v_json}
+    tables_list["all_tables"] = []
     for vector in vectors:
-        if tables_list[vector] not in tables_list['all_tables']:
-            tables_list['all_tables'].append(tables_list[vector])
+        if tables_list[vector] not in tables_list["all_tables"]:
+            tables_list["all_tables"].append(tables_list[vector])
     return tables_list
 
 
@@ -62,7 +62,7 @@ def table_subsets_from_vectors(vectors):
         keys for each table used by the vectors, matched to a list of vectors
     """
     start_tables_dict = get_tables_for_vectors(vectors)
-    tables_dict = {t: [] for t in start_tables_dict['all_tables']}
+    tables_dict = {t: [] for t in start_tables_dict["all_tables"]}
     vecs = list(start_tables_dict.keys())[:-1]  # all but the all_tables key
     for vec in vecs:
         tables_dict[start_tables_dict[vec]].append(vec)
@@ -88,30 +88,26 @@ def download_tables(tables, path=None, csv=True):
     """
     metas = get_cube_metadata(tables)
     for meta in metas:
-        product_id = meta['productId']
+        product_id = meta["productId"]
         zip_url = get_full_table_download(product_id, csv=csv)
         if csv:
-            zip_file = product_id + '-eng.zip'
+            zip_file = product_id + "-eng.zip"
         else:
-            zip_file = product_id + '.zip'
-        json_file = product_id + '.json'
+            zip_file = product_id + ".zip"
+        json_file = product_id + ".json"
         if path:
             zip_file = os.path.join(path, zip_file)
             json_file = os.path.join(path, json_file)
         # Thanks http://evanhahn.com/python-requests-library-useragent/
-        response = requests.get(
-            zip_url,
-            stream=True,
-            headers={'user-agent': None}
-            )
+        response = requests.get(zip_url, stream=True, headers={"user-agent": None})
         # Thanks https://bit.ly/2sPYPYw
-        with open(json_file, 'w') as outfile:
+        with open(json_file, "w") as outfile:
             json.dump(meta, outfile)
-        with open(zip_file, 'wb') as handle:
+        with open(zip_file, "wb") as handle:
             for chunk in response.iter_content(chunk_size=512):
                 if chunk:  # filter out keep-alive new chunks
                     handle.write(chunk)
-    downloaded = [meta['productId'] for meta in metas]
+    downloaded = [meta["productId"] for meta in metas]
     return downloaded
 
 
@@ -139,12 +135,12 @@ def zip_update_tables(path=None, csv=True):
 
     """
     local_jsons = list_zipped_tables(path=path)
-    tables = [j['productId'] for j in local_jsons]
+    tables = [j["productId"] for j in local_jsons]
     remote_jsons = get_cube_metadata(tables)
     update_table_list = []
     for local, remote in zip(local_jsons, remote_jsons):
-        if local['cubeEndDate'] != remote['cubeEndDate']:
-            update_table_list.append(local['productId'])
+        if local["cubeEndDate"] != remote["cubeEndDate"]:
+            update_table_list.append(local["productId"])
     download_tables(update_table_list, path, csv=csv)
     return update_table_list
 
@@ -167,40 +163,52 @@ def zip_table_to_dataframe(table, path=None):
     """
     # Parse tables returns a list, can only do one table at a time here though
     table = parse_tables(table)[0]
-    table_zip = table + '-eng.zip'
+    table_zip = table + "-eng.zip"
     if path:
         table_zip = os.path.join(path, table_zip)
     if not os.path.isfile(table_zip):
         download_tables([table], path)
-    csv_file = table + '.csv'
+    csv_file = table + ".csv"
     with zipfile.ZipFile(table_zip) as myzip:
         with myzip.open(csv_file) as myfile:
             col_names = pd.read_csv(myfile, nrows=0).columns
         # reopen the file or it misses the first row
         with myzip.open(csv_file) as myfile:
-            types_dict = {'VALUE': float}
-            types_dict.update(
-                {col: str for col in col_names if col not in types_dict}
-                )
-            df = pd.read_csv(
-                myfile,
-                dtype=types_dict
-                )
+            types_dict = {"VALUE": float}
+            types_dict.update({col: str for col in col_names if col not in types_dict})
+            df = pd.read_csv(myfile, dtype=types_dict)
 
     possible_cats = [
-        'GEO', 'DGUID', 'STATUS', 'SYMBOL', 'TERMINATED', 'DECIMALS',
-        'UOM', 'UOM_ID', 'SCALAR_FACTOR', 'SCALAR_ID', 'VECTOR', 'COORDINATE',
-        'Wages', 'National Occupational Classification for Statistics (NOC-S)',
-        'Supplementary unemployment rates', 'Sex', 'Age group',
-        'Labour force characteristics', 'Statistics', 'Data type',
-        'Job permanency', 'Union coverage', 'Educational attainment'
-        ]
+        "GEO",
+        "DGUID",
+        "STATUS",
+        "SYMBOL",
+        "TERMINATED",
+        "DECIMALS",
+        "UOM",
+        "UOM_ID",
+        "SCALAR_FACTOR",
+        "SCALAR_ID",
+        "VECTOR",
+        "COORDINATE",
+        "Wages",
+        "National Occupational Classification for Statistics (NOC-S)",
+        "Supplementary unemployment rates",
+        "Sex",
+        "Age group",
+        "Labour force characteristics",
+        "Statistics",
+        "Data type",
+        "Job permanency",
+        "Union coverage",
+        "Educational attainment",
+    ]
     actual_cats = [col for col in possible_cats if col in col_names]
-    df[actual_cats] = df[actual_cats].astype('category')
+    df[actual_cats] = df[actual_cats].astype("category")
     try:
-        df['REF_DATE'] = pd.to_datetime(df['REF_DATE'], format='%Y-%m')
+        df["REF_DATE"] = pd.to_datetime(df["REF_DATE"], format="%Y-%m")
     except TypeError:
-        df['REF_DATE'] = pd.to_datetime(df['REF_DATE'])
+        df["REF_DATE"] = pd.to_datetime(df["REF_DATE"])
     return df
 
 
@@ -222,7 +230,7 @@ def list_zipped_tables(path=None):
         list of available tables json data
     """
     # Find json files
-    jsons = [f for f in os.listdir(path) if f.endswith('.json')]
+    jsons = [f for f in os.listdir(path) if f.endswith(".json")]
     if path:
         jsons = [os.path.join(path, j) for j in jsons]
     tables = []
@@ -230,15 +238,15 @@ def list_zipped_tables(path=None):
         try:
             with open(j) as json_file:
                 result = json.load(json_file)
-                if 'productId' in result:
+                if "productId" in result:
                     tables.append(result)
         except ValueError as e:
-            print('failed to read json file' + j)
+            print("failed to read json file" + j)
             print(e)
     return tables
 
-        
-def tables_to_h5(tables, h5file='stats_can.h5', path=None):
+
+def tables_to_h5(tables, h5file="stats_can.h5", path=None):
     """Take a table and its metadata and put it in an hdf5 file
 
     Parameters
@@ -259,10 +267,10 @@ def tables_to_h5(tables, h5file='stats_can.h5', path=None):
         h5file = os.path.join(path, h5file)
     tables = parse_tables(tables)
     for table in tables:
-        hkey = 'table_' + table
-        jkey = 'json_' + table
-        zip_file = table + '-eng.zip'
-        json_file = table + '.json'
+        hkey = "table_" + table
+        jkey = "json_" + table
+        zip_file = table + "-eng.zip"
+        json_file = table + ".json"
         if path:
             zip_file = os.path.join(path, zip_file)
             json_file = os.path.join(path, json_file)
@@ -271,9 +279,9 @@ def tables_to_h5(tables, h5file='stats_can.h5', path=None):
         df = zip_table_to_dataframe(table, path=path)
         with open(json_file) as f_name:
             df_json = json.load(f_name)
-        with pd.HDFStore(h5file, 'a') as store:
-            df.to_hdf(store, key=hkey, format='table', complevel=1)
-        with h5py.File(h5file, 'a') as hfile:
+        with pd.HDFStore(h5file, "a") as store:
+            df.to_hdf(store, key=hkey, format="table", complevel=1)
+        with h5py.File(h5file, "a") as hfile:
             if jkey in hfile.keys():
                 del hfile[jkey]
             hfile.create_dataset(jkey, data=json.dumps(df_json))
@@ -282,7 +290,7 @@ def tables_to_h5(tables, h5file='stats_can.h5', path=None):
     return tables
 
 
-def table_from_h5(table, h5file='stats_can.h5', path=None):
+def table_from_h5(table, h5file="stats_can.h5", path=None):
     """Read a table from h5 to a dataframe
 
     Parameters
@@ -299,23 +307,23 @@ def table_from_h5(table, h5file='stats_can.h5', path=None):
     df: pd.DataFrame
         table in dataframe format
     """
-    table = 'table_' + parse_tables(table)[0]
+    table = "table_" + parse_tables(table)[0]
     if path:
         h5 = os.path.join(path, h5file)
     else:
         h5 = h5file
     try:
-        with pd.HDFStore(h5, 'r') as store:
+        with pd.HDFStore(h5, "r") as store:
             df = pd.read_hdf(store, key=table)
     except (KeyError, OSError):
         print("Downloading and loading " + table)
         tables_to_h5(tables=table, h5file=h5file, path=path)
-        with pd.HDFStore(h5, 'r') as store:
+        with pd.HDFStore(h5, "r") as store:
             df = pd.read_hdf(store, key=table)
     return df
 
 
-def metadata_from_h5(tables, h5file='stats_can.h5', path=None):
+def metadata_from_h5(tables, h5file="stats_can.h5", path=None):
     """Read table metadata from h5
 
     Parameters
@@ -333,10 +341,10 @@ def metadata_from_h5(tables, h5file='stats_can.h5', path=None):
     """
     if path:
         h5file = os.path.join(path, h5file)
-    tables = ['json_' + tbl for tbl in parse_tables(tables)]
+    tables = ["json_" + tbl for tbl in parse_tables(tables)]
     jsons = []
     try:
-        with h5py.File(h5file, 'r') as f:
+        with h5py.File(h5file, "r") as f:
             for tbl in tables:
                 try:
                     table_json = json.loads(f[tbl][()])
@@ -344,11 +352,11 @@ def metadata_from_h5(tables, h5file='stats_can.h5', path=None):
                 except KeyError:
                     print("Couldn't find table " + tbl)
     except OSError:
-        print(f'{h5file} does not exist')
+        print(f"{h5file} does not exist")
     return jsons
 
 
-def list_h5_tables(path=None, h5file='stats_can.h5'):
+def list_h5_tables(path=None, h5file="stats_can.h5"):
     """return a list of metadata for StatsCan tables from an hdf5 file
 
     Parameters
@@ -364,12 +372,12 @@ def list_h5_tables(path=None, h5file='stats_can.h5'):
         list of available tables json data
     """
     keys = h5_included_keys(h5file=h5file, path=path)
-    tables = parse_tables([k for k in keys if k.startswith('json_')])
+    tables = parse_tables([k for k in keys if k.startswith("json_")])
     jsons = metadata_from_h5(tables, h5file=h5file, path=path)
     return jsons
 
 
-def list_downloaded_tables(path=None, h5file='stats_can.h5'):
+def list_downloaded_tables(path=None, h5file="stats_can.h5"):
     """Return a list of metadata for StatsCan tables
 
     Wrapper for list zipped tables and list h5 tables
@@ -392,7 +400,8 @@ def list_downloaded_tables(path=None, h5file='stats_can.h5'):
         jsons = list_zipped_tables(path=path)
     return jsons
 
-def h5_update_tables(h5file='stats_can.h5', path=None, tables=None):
+
+def h5_update_tables(h5file="stats_can.h5", path=None, tables=None):
     """update any stats_can tables contained in an h5 file
 
     Parameters
@@ -413,19 +422,19 @@ def h5_update_tables(h5file='stats_can.h5', path=None, tables=None):
         else:
             h5 = h5file
         with h5py.File(h5) as f:
-            keys = [key for key in f.keys() if key.startswith('json')]
+            keys = [key for key in f.keys() if key.startswith("json")]
             local_jsons = [json.loads(f[key][()]) for key in keys]
-    tables = [j['productId'] for j in local_jsons]
+    tables = [j["productId"] for j in local_jsons]
     remote_jsons = get_cube_metadata(tables)
     update_table_list = []
     for local, remote in zip(local_jsons, remote_jsons):
-        if local['cubeEndDate'] != remote['cubeEndDate']:
-            update_table_list.append(local['productId'])
+        if local["cubeEndDate"] != remote["cubeEndDate"]:
+            update_table_list.append(local["productId"])
     tables_to_h5(update_table_list, h5file=h5file, path=path)
     return update_table_list
 
 
-def update_tables(path=None, h5file='stats_can.h5', tables=None, csv=True):
+def update_tables(path=None, h5file="stats_can.h5", tables=None, csv=True):
     """Update downloaded tables where required
 
     Reads local metadata, either from json files or stored in an h5 file,
@@ -452,16 +461,12 @@ def update_tables(path=None, h5file='stats_can.h5', tables=None, csv=True):
         list of updated tables
     """
     if h5file:
-        return h5_update_tables(
-            h5file=h5file,
-            path=path,
-            tables=tables
-        )
+        return h5_update_tables(h5file=h5file, path=path, tables=tables)
     else:
         return zip_update_tables(path=path, csv=csv)
 
 
-def h5_included_keys(h5file='stats_can.h5', path=None):
+def h5_included_keys(h5file="stats_can.h5", path=None):
     """Return a list of keys in an h5 file
 
     Parameters
@@ -478,12 +483,12 @@ def h5_included_keys(h5file='stats_can.h5', path=None):
     """
     if path:
         h5file = os.path.join(path, h5file)
-    with h5py.File(h5file, 'r') as f:
+    with h5py.File(h5file, "r") as f:
         keys = [key for key in f.keys()]
     return keys
 
 
-def delete_tables(tables, path=None, h5file='stats_can.h5', csv=True):
+def delete_tables(tables, path=None, h5file="stats_can.h5", csv=True):
     """Delete downloaded tables
 
     Parameters
@@ -504,28 +509,28 @@ def delete_tables(tables, path=None, h5file='stats_can.h5', csv=True):
     """
     clean_tables = parse_tables(tables)
     available_tables_jsons = list_downloaded_tables(path=path, h5file=h5file)
-    available_tables = [j['productId'] for j in available_tables_jsons]
+    available_tables = [j["productId"] for j in available_tables_jsons]
     to_delete = [t for t in clean_tables if t in available_tables]
     if h5file:
         keys_to_del = []
         for td in to_delete:
-            json_to_del = 'json_' + td
-            tbl_to_del = 'table_' + td
+            json_to_del = "json_" + td
+            tbl_to_del = "table_" + td
             keys_to_del.append(json_to_del)
             keys_to_del.append(tbl_to_del)
         if path:
             h5file = os.path.join(path, h5file)
-        with h5py.File(h5file, 'a') as f:
+        with h5py.File(h5file, "a") as f:
             for k in keys_to_del:
                 del f[k]
     else:
         files_to_del = []
         for td in to_delete:
-            json_to_del = td + '.json'
+            json_to_del = td + ".json"
             if csv:
-                zip_to_del = td + '-eng.zip' 
+                zip_to_del = td + "-eng.zip"
             else:
-                zip_to_del = td + '.zip'
+                zip_to_del = td + ".zip"
             files_to_del.append(zip_to_del)
             files_to_del.append(json_to_del)
         if path:
@@ -534,9 +539,9 @@ def delete_tables(tables, path=None, h5file='stats_can.h5', csv=True):
             if os.path.exists(file):
                 os.remove(file)
     return to_delete
-    
 
-def table_to_df(table, path=None, h5file='stats_can.h5'):
+
+def table_to_df(table, path=None, h5file="stats_can.h5"):
     """Read a table to a dataframe
 
     Wrapper for table_from_h5 and zip_table_to_dataframe
@@ -562,9 +567,7 @@ def table_to_df(table, path=None, h5file='stats_can.h5'):
     return df
 
 
-def vectors_to_df(
-    vectors, periods=1, start_release_date=None, end_release_date=None
-):
+def vectors_to_df(vectors, periods=1, start_release_date=None, end_release_date=None):
     """data frame of vectors with n periods data or over range of release dates
 
     Wrapper on get_bulk_vector_data_by_range and
@@ -588,30 +591,26 @@ def vectors_to_df(
         vectors as columns and ref_date as the index (not release date)
     """
     df = pd.DataFrame()
-    if ((end_release_date is None) | (start_release_date is None)):
-        start_list = get_data_from_vectors_and_latest_n_periods(
-            vectors, periods
-            )
+    if (end_release_date is None) | (start_release_date is None):
+        start_list = get_data_from_vectors_and_latest_n_periods(vectors, periods)
     else:
         start_list = get_bulk_vector_data_by_range(
             vectors, start_release_date, end_release_date
-            )
+        )
     for vec in start_list:
-        name = "v" + str(vec['vectorId'])
+        name = "v" + str(vec["vectorId"])
         ser = (
-            pd.DataFrame(vec['vectorDataPoint'])
-            .assign(refPer=lambda x: pd.to_datetime(x['refPer']))
-            .set_index('refPer')
-            .rename(columns={'value': name})
+            pd.DataFrame(vec["vectorDataPoint"])
+            .assign(refPer=lambda x: pd.to_datetime(x["refPer"]))
+            .set_index("refPer")
+            .rename(columns={"value": name})
             .filter([name])
         )
         df = pd.concat([df, ser], axis=1, sort=True)
     return df
 
 
-def vectors_to_df_local(
-    vectors, path=None, start_date=None, h5file='stats_can.h5'
-):
+def vectors_to_df_local(vectors, path=None, start_date=None, h5file="stats_can.h5"):
     """Make a dataframe with vector columns indexed on date from local data
 
     Parameters
@@ -630,48 +629,34 @@ def vectors_to_df_local(
     # Preserve an initial copy of the list for ordering, parsed and then
     # converted to string for consistency in naming
     vectors_ordered = parse_vectors(vectors)
-    vectors_ordered = ['v' + str(v) for v in vectors_ordered]
+    vectors_ordered = ["v" + str(v) for v in vectors_ordered]
     table_vec_dict = table_subsets_from_vectors(vectors)
     tables = list(table_vec_dict.keys())
     tables_dfs = {}
-    columns = ['REF_DATE', 'VECTOR', 'VALUE']
+    columns = ["REF_DATE", "VECTOR", "VALUE"]
     if h5file:
-        meta = metadata_from_h5(
-            tables,
-            h5file=h5file,
-            path=path
-        )
-        existing_tables = [t['productId'] for t in meta]
+        meta = metadata_from_h5(tables, h5file=h5file, path=path)
+        existing_tables = [t["productId"] for t in meta]
         to_download_tables = list(set(tables) - set(existing_tables))
-        tables_to_h5(
-            to_download_tables,
-            h5file=h5file,
-            path=path
-            )
+        tables_to_h5(to_download_tables, h5file=h5file, path=path)
     for table in tables:
         if h5file:
-            tables_dfs[table] = table_from_h5(
-                table, h5file=h5file, path=path
-                )[columns]
+            tables_dfs[table] = table_from_h5(table, h5file=h5file, path=path)[columns]
         else:
             tables_dfs[table] = zip_table_to_dataframe(table, path)[columns]
         df = tables_dfs[table]  # save me some typing
-        vec_list = ['v' + str(v) for v in table_vec_dict[table]]
-        df = df[df['VECTOR'].isin(vec_list)]
+        vec_list = ["v" + str(v) for v in table_vec_dict[table]]
+        df = df[df["VECTOR"].isin(vec_list)]
         if start_date is not None:
             start_date = np.datetime64(start_date)
-            df = df[df['REF_DATE'] >= start_date]
-        df = df.pivot(index='REF_DATE', columns='VECTOR', values='VALUE')
+            df = df[df["REF_DATE"] >= start_date]
+        df = df.pivot(index="REF_DATE", columns="VECTOR", values="VALUE")
         df.columns = list(df.columns)  # remove categorical index
         tables_dfs[table] = df
     final_df = tables_dfs[tables[0]]
     for table in tables[1:]:
         final_df = pd.merge(
-            final_df, tables_dfs[table],
-            how='outer',
-            left_index=True, right_index=True
-            )
+            final_df, tables_dfs[table], how="outer", left_index=True, right_index=True
+        )
     final_df = final_df[vectors_ordered]
     return final_df
-
-

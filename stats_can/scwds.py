@@ -28,7 +28,7 @@ import requests
 from stats_can.helpers import check_status, parse_tables, chunk_vectors
 
 
-SC_URL = 'https://www150.statcan.gc.ca/t1/wds/rest/'
+SC_URL = "https://www150.statcan.gc.ca/t1/wds/rest/"
 
 
 def get_changed_series_list():
@@ -41,10 +41,10 @@ def get_changed_series_list():
     list of dicts
         one for each vector and when it was released
     """
-    url = SC_URL + 'getChangedSeriesList'
+    url = SC_URL + "getChangedSeriesList"
     result = requests.get(url)
     result = check_status(result)
-    return result['object']
+    return result["object"]
 
 
 def get_changed_cube_list(date=None):
@@ -62,10 +62,10 @@ def get_changed_cube_list(date=None):
     """
     if not date:
         date = dt.date.today()
-    url = SC_URL + 'getChangedCubeList' + '/' + str(date)
+    url = SC_URL + "getChangedCubeList" + "/" + str(date)
     result = requests.get(url)
     result = check_status(result)
-    return result['object']
+    return result["object"]
 
 
 def get_cube_metadata(tables):
@@ -85,12 +85,12 @@ def get_cube_metadata(tables):
         one for each table with its metadata
     """
     tables = parse_tables(tables)
-    tables = [{'productId': t} for t in tables]
-    url = SC_URL + 'getCubeMetadata'
+    tables = [{"productId": t} for t in tables]
+    url = SC_URL + "getCubeMetadata"
     result = requests.post(url, json=tables)
     result.raise_for_status()
     result = check_status(result)
-    return [r['object'] for r in result]
+    return [r["object"] for r in result]
 
 
 def get_series_info_from_cube_pid_coord():
@@ -112,15 +112,15 @@ def get_series_info_from_vector(vectors):
     -------
     List of dicts containing metadata for each v#
     """
-    url = SC_URL + 'getSeriesInfoFromVector'
+    url = SC_URL + "getSeriesInfoFromVector"
     chunks = chunk_vectors(vectors)
     final_list = []
     for chunk in chunks:
-        vectors = [{'vectorId': v} for v in chunk]
+        vectors = [{"vectorId": v} for v in chunk]
         result = requests.post(url, json=vectors)
         result = check_status(result)
         final_list += result
-    return [r['object'] for r in final_list]
+    return [r["object"] for r in final_list]
 
 
 def get_changed_series_data_from_cube_pid_coord():
@@ -159,23 +159,19 @@ def get_data_from_vectors_and_latest_n_periods(vectors, periods):
     -------
     List of dicts containing data for each vector
     """
-    url = SC_URL + 'getDataFromVectorsAndLatestNPeriods'
+    url = SC_URL + "getDataFromVectorsAndLatestNPeriods"
     chunks = chunk_vectors(vectors)
     final_list = []
     for chunk in chunks:
         periods_l = [periods for i in range(len(chunk))]
-        json = [
-            {'vectorId': v, 'latestN': n} for v, n in zip(chunk, periods_l)
-            ]
+        json = [{"vectorId": v, "latestN": n} for v, n in zip(chunk, periods_l)]
         result = requests.post(url, json=json)
         result = check_status(result)
-        final_list += [r['object'] for r in result]
+        final_list += [r["object"] for r in result]
     return final_list
 
 
-def get_bulk_vector_data_by_range(
-        vectors, start_release_date, end_release_date
-):
+def get_bulk_vector_data_by_range(vectors, start_release_date, end_release_date):
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5
     
     Parameters
@@ -191,7 +187,7 @@ def get_bulk_vector_data_by_range(
     -------
     List of dicts containing data for each vector
     """
-    url = SC_URL + 'getBulkVectorDataByRange'
+    url = SC_URL + "getBulkVectorDataByRange"
     start_release_date = str(start_release_date) + "T13:00"
     end_release_date = str(end_release_date) + "T13:00"
     chunks = chunk_vectors(vectors)
@@ -202,11 +198,11 @@ def get_bulk_vector_data_by_range(
             json={
                 "vectorIds": vector_ids,
                 "startDataPointReleaseDate": start_release_date,
-                "endDataPointReleaseDate": end_release_date
-                }
-            )
+                "endDataPointReleaseDate": end_release_date,
+            },
+        )
         result = check_status(result)
-        final_list += [r['object'] for r in result]
+        final_list += [r["object"] for r in result]
     return final_list
 
 
@@ -230,12 +226,12 @@ def get_full_table_download(table, csv=True):
     """
     table = parse_tables(table)[0]
     if csv:
-        url = SC_URL + 'getFullTableDownloadCSV/' + table + '/en'
+        url = SC_URL + "getFullTableDownloadCSV/" + table + "/en"
     else:
-        url = SC_URL + 'getFullTableDownloadSDMX/' + table
+        url = SC_URL + "getFullTableDownloadSDMX/" + table
     result = requests.get(url)
     result = check_status(result)
-    return result['object']
+    return result["object"]
 
 
 def get_code_sets():
@@ -244,4 +240,3 @@ def get_code_sets():
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a13-1
     """
     pass
-
