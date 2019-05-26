@@ -1,6 +1,7 @@
 # Python api for Statistics Canada New Data Model (NDM)
 
 [![Build Status](https://travis-ci.org/ianepreston/stats_can.svg?branch=master)](https://travis-ci.org/ianepreston/stats_can)
+[![codecov](https://codecov.io/gh/ianepreston/stats_can/branch/master/graph/badge.svg)](https://codecov.io/gh/ianepreston/stats_can)
 [![Anaconda-Server Badge](https://anaconda.org/ian.e.preston/stats_can/badges/installer/conda.svg)](https://conda.anaconda.org/ian.e.preston)
 [![Anaconda-Server Badge](https://anaconda.org/ian.e.preston/stats_can/badges/version.svg)](https://anaconda.org/ian.e.preston/stats_can)
 [![Anaconda-Server Badge](https://anaconda.org/ian.e.preston/stats_can/badges/platforms.svg)](https://anaconda.org/ian.e.preston/stats_can)
