@@ -11,7 +11,7 @@ install:
     - pip install codecov coverage pytest-cov tables
 
 script:
-    - pytest --runslow
+    - pytest --runslow --cov=./stats_can
 
 after_success:
     - codecov -t cf1d3cea-dbb3-4e40-9060-71791599cac4
