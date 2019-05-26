@@ -8,10 +8,10 @@ before_install:
 
 install:
     - pip install -r requirements.txt
-    - pip install codecov coverage tables
+    - pip install codecov coverage pytest-cov tables
 
 script:
     - pytest --runslow
 
 after_success:
-    - codecov
+    - codecov -t cf1d3cea-dbb3-4e40-9060-71791599cac4
