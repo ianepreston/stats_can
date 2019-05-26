@@ -230,7 +230,7 @@ def test_h5_update_tables(tmpdir):
     dest_file = os.path.join(tmpdir, file)
     shutil.copyfile(src_file, dest_file)
     result = stats_can.sc.h5_update_tables(path=tmpdir)
-    assert result == ['18100204']
+    assert result == ['18100204', '27100022']
 
 
 def test_h5_update_tables_from_update_tables(tmpdir):
@@ -240,7 +240,7 @@ def test_h5_update_tables_from_update_tables(tmpdir):
     dest_file = os.path.join(tmpdir, file)
     shutil.copyfile(src_file, dest_file)
     result = stats_can.sc.update_tables(path=tmpdir)
-    assert result == ['18100204']    
+    assert result == ['18100204', '27100022']
 
 
 def test_h5_update_tables_list(tmpdir):
@@ -261,7 +261,7 @@ def test_h5_update_tables_list_from_update_tables(tmpdir):
     shutil.copyfile(src_file, dest_file)
     result = stats_can.sc.update_tables(path=tmpdir, tables='18100204')
     assert result == ['18100204']
-    
+
 
 def test_h5_update_tables_no_path(tmpdir):
     src = 'test_files'
@@ -300,11 +300,11 @@ def test_h5_included_keys():
 def test_h5_included_keys_no_path():
     oldpath = os.getcwd()
     os.chdir('test_files')
-    keys = stats_can.sc.h5_included_keys()  
-    os.chdir(oldpath)  
+    keys = stats_can.sc.h5_included_keys()
+    os.chdir(oldpath)
     assert keys == [
         'json_18100204', 'json_27100022', 'table_18100204', 'table_27100022'
-        ]    
+        ]
 
 
 def test_vectors_to_df_local_defaults(tmpdir):
@@ -361,7 +361,7 @@ def test_list_zipped_tables(tmpdir):
 
 
 def test_list_h5_tables():
-    tbls = stats_can.sc.list_h5_tables(path='test_files') 
+    tbls = stats_can.sc.list_h5_tables(path='test_files')
     assert len(tbls) == 2
     assert tbls[0]['productId'] in ['18100204', '27100022']
     assert tbls[1]['productId'] in ['18100204', '27100022']
@@ -378,8 +378,8 @@ def test_list_downloaded_tables_zip(tmpdir):
     assert tbls[1]['productId'] in ['18100204', '23100216']
 
 
-def test_list_downloaded_tables_h5(tmpdir):    
-    tbls = stats_can.sc.list_downloaded_tables(path='test_files') 
+def test_list_downloaded_tables_h5(tmpdir):
+    tbls = stats_can.sc.list_downloaded_tables(path='test_files')
     assert len(tbls) == 2
     assert tbls[0]['productId'] in ['18100204', '27100022']
     assert tbls[1]['productId'] in ['18100204', '27100022']
