@@ -11,4 +11,4 @@ install:
 script:
     - cd tests
     - pytest
-    - pytest --cov=stats_can .
+    - pytest --cov --runslow
