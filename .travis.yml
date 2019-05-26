@@ -5,10 +5,14 @@ python:
 
 before_install:
     - sudo apt-get install libhdf5-serial-dev
+
 install:
     - pip install -r requirements.txt
     - pip install codecov coverage tables
+
 script:
     - cd tests
-    - pytest
-    - pytest --cov --runslow
+    - pytest --runslow
+
+after_success:
+    - codecov
