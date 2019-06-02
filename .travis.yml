@@ -19,7 +19,7 @@ install:
     - conda config --set always_yes yes --set changeps1 no
     - conda update -q conda
     - conda env create -f build.yml
-    - conda activate stats_can_build
+    - source activate stats_can_build
 
 script:
     - pytest --runslow --cov=./stats_can
