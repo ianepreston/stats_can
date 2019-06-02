@@ -6,3 +6,5 @@ dependencies:
   - requests
   - h5py
   - pytables
+  - pytest
+  - pytest-cov
