@@ -26,4 +26,4 @@ script:
 
 after_success:
     - codecov -t cf1d3cea-dbb3-4e40-9060-71791599cac4
-    - test $TRAVIS_BRANCH = "master" && conda install conda-build && conda install anaconda-client && bash conda/conda_upload.sh
+    - test $TRAVIS_BRANCH = "master" && conda install conda-build && conda install anaconda-client && bash conda_upload.sh
