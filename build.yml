@@ -1,4 +1,4 @@
-name stats_can_build
+name: stats_can_build
 dependencies:
   - python=3.7
   - pandas
