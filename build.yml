@@ -8,3 +8,4 @@ dependencies:
   - pytables
   - pytest
   - pytest-cov
+  - codecov
