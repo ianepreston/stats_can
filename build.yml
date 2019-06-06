@@ -1,4 +1,8 @@
 name: stats_can_build
+channels:
+  - anaconda
+  - conda-forge
+  - defaults
 dependencies:
   - python=3.7
   - pandas
