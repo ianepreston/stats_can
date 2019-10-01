@@ -1,0 +1,14 @@
+name: sc_dev
+channels:
+        - conda-forge
+        - defaults
+dependencies:
+        - python=3.7
+        - pandas
+        - pytest
+        - pytest-cov
+        - codecov
+        - requests
+        - h5py
+        - pytables
+        - black
