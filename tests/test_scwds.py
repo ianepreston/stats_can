@@ -58,6 +58,8 @@ def test_gcmd():
         "surveyCode",
         "dimension",
         "footnote",
+        "correctionFootnote",
+        "geoAttribute",
         "correction",
     ]
 
@@ -116,6 +118,8 @@ def test_gdfvalnp():
     assert list(r0v[0].keys()) == [
         "refPer",
         "refPer2",
+        "refPerRaw",
+        "refPerRaw2",
         "value",
         "decimals",
         "scalarFactorCode",
@@ -139,6 +143,8 @@ def test_gbvdbr():
     assert list(r0v[0].keys()) == [
         "refPer",
         "refPer2",
+        "refPerRaw",
+        "refPerRaw2",
         "value",
         "decimals",
         "scalarFactorCode",
