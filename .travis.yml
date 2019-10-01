@@ -22,7 +22,7 @@ install:
     - source activate stats_can_build
 
 script:
-    - pytest --runslow --cov=./stats_can
+    - pytest --cov=./stats_can
 
 after_success:
     - codecov -t cf1d3cea-dbb3-4e40-9060-71791599cac4
