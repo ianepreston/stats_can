@@ -7,5 +7,5 @@ setup(
   description='Access StatsCan data with python',
   license='GPL',
   version=find_version('stats_can', '__init__.py'),
-  packages = find_packages()
-  )
+  packages=find_packages()
+)
