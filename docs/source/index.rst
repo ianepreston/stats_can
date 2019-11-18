@@ -53,13 +53,35 @@ before storing them in hdf5, but subsequent loading of the tables is faster.
 
 For managing already downloaded tables there is list_downloaded_tables and
 delete_tables. Neither are particularly necessary if you're only working with
-zipped CSV files, since it's pretty easy to just look in a folder and see 
+zipped CSV files, since it's pretty easy to just look in a folder and see
 what's there and delete it if necessary, but it makes managing an hdf5 file
 easier, which is the preferred way of storing tables.
 
 .. autofunction:: stats_can.sc.list_downloaded_tables
 
 .. autofunction:: stats_can.sc.delete_tables
+
+
+Contributing
+============
+
+Contributions are welcome. I'll outline the method I use to set up a dev environment below,
+but a great enhancement for this project would be to extend that to other possible approaches.
+Using conda, a dev environment can bet set up as follows:
+::
+        git clone <your fork of stats_can>
+        cd stats_can
+        conda env create -f sc_dev.yml
+        conda activate sc_dev
+        python setup.py develop
+
+From there you should be able to make any changes to the source code, run tests and build
+docs. I use travis CI for building and testing. I'm actually not sure if it will work for
+people who aren't me the way I've got it set up, since the last step is to push a passing
+build to Anaconda cloud.
+
+This is pretty meta but I would love some contributions around making this project easier
+to contribute to. If you have ideas for that please feel free to create an issue or submit a PR.
 
 
 Indices and tables
