@@ -8,6 +8,8 @@ dependencies:
         - pytest
         - pytest-cov
         - codecov
+        - sphinx
+        - sphinx_rtd_theme
         - requests
         - h5py
         - pytables
