@@ -18,6 +18,67 @@ The code is also available on
 I haven't got it on pypi or anything yet.
 
 
+Quickstart
+==========
+To download the following `Sample Dataset
+<https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310080502>`_ to a
+pandas dataframe:
+
+::
+
+
+    from stats_can.sc import table_to_df
+
+    # Copy the table id from the associated StatsCan page
+    table_id = "10-10-0110-01"
+
+    # Create a h5file in current working directory
+    df = table_to_df(table_id)
+
+    # Save to an existing h5file
+    existing_folder = "my_data_folder/"
+    existing_filename = "sample_data.h5
+    df = table_to_df(table_id, path=existing_folder, file=existing_filename)
+
+
+
+To download the `Sample Dataset
+<https://www150.statcan.gc.ca/t1/tbl1/en/cv.action?pid=1010011001>`_
+from vectors:
+
+::
+
+    from stats_can.sc import vectors_to_df
+
+    # Copy the vectors from the associated customize table page
+    vectors = ["v36883", "v36885", "v36938"]
+
+    # Get by number of datapoints
+    num_datapoints = 100
+    vector_df = sc.vectors_to_df(vectors, periods=num_datapoints)
+
+    # Get by datespan
+    import datetime as dt
+    end_time = dt.date.today()
+    start_time = end_time - dt.timedelta(days=7)
+    vector_df = sc.vectors_to_df(vectors,
+                                 start_release_date=start_time,
+                                 end_release_date=end_time)
+
+
+::
+
+    from stats_can.sc import vectors_to_df_local
+
+    # Save to an existing h5file
+    vector_df = sc.vectors_to_df_local(vectors,
+                                       periods=100,
+                                       path=existing_folder,
+                                       file=existing_filename)
+
+
+
+
 Key functions
 =============
 
@@ -53,7 +114,7 @@ before storing them in hdf5, but subsequent loading of the tables is faster.
 
 For managing already downloaded tables there is list_downloaded_tables and
 delete_tables. Neither are particularly necessary if you're only working with
-zipped CSV files, since it's pretty easy to just look in a folder and see 
+zipped CSV files, since it's pretty easy to just look in a folder and see
 what's there and delete it if necessary, but it makes managing an hdf5 file
 easier, which is the preferred way of storing tables.
 
