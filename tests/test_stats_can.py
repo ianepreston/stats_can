@@ -18,6 +18,60 @@ t = "271-000-22-01"
 ts = ["271-000-22-01", "18100204"]
 
 
+@pytest.fixture(scope="module")
+def class_folder(tmpdir_factory):
+    fn = tmpdir_factory.mktemp("classdata")
+    return fn
+
+
+@pytest.fixture(scope="module")
+def class_fixture(class_folder):
+    return stats_can.StatsCan(data_folder=class_folder)
+
+
+def test_class_tables_for_vectors(class_fixture):
+    tv1 = class_fixture.get_tables_for_vectors(vs)
+    assert tv1 == {
+        41692457: "18100004",
+        74804: "23100216",
+        "all_tables": ["18100004", "23100216"],
+    }
+
+
+def test_class_update_tables(class_fixture):
+    """Should always be empty since we're loading this data fresh"""
+    _ = class_fixture.table_to_df(ts[0])
+    assert class_fixture.update_tables() == []
+
+
+
+def test_class_static_methods(class_fixture):
+    """static methods are just wrappers, should always match"""
+    assert (
+        class_fixture.vectors_updated_today()
+        == stats_can.scwds.get_changed_series_list()
+    )
+    assert (
+        class_fixture.tables_updated_today() == stats_can.scwds.get_changed_cube_list()
+    )
+    test_dt = dt.date(2018, 1, 1)
+    assert class_fixture.tables_updated_on_date(
+        test_dt
+    ) == stats_can.scwds.get_changed_cube_list(test_dt)
+    for v_input in [v, vs]:
+        assert class_fixture.vector_metadata(
+            v_input
+        ) == stats_can.scwds.get_series_info_from_vector(v_input)
+
+
+def test_class_table_list_download_delete(class_fixture):
+    assert class_fixture.downloaded_tables == ["27100022"]
+    _ = class_fixture.table_to_df(ts[1])
+    assert class_fixture.downloaded_tables == ["18100204", "27100022"]
+    assert class_fixture.delete_tables("111111") == []
+    assert class_fixture.delete_tables("18100204") == ["18100204"]
+
+
 @pytest.mark.slow
 def test_get_tables_for_vectors():
     """test tables for vectors method"""

@@ -4,6 +4,14 @@ stats\_can package
 Submodules
 ----------
 
+stats\_can.api_class module
+---------------------------
+
+.. automodule:: stats_can.api_class
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 stats\_can.helpers module
 -------------------------
 
