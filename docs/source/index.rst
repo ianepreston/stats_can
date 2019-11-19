@@ -20,108 +20,77 @@ I haven't got it on pypi or anything yet.
 
 Quickstart
 ==========
-To download the following `Sample Dataset
-<https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310080502>`_ to a
-pandas dataframe:
+After installing the stats_can package, all of the core functionality
+is available by instantiating a StatsCan object:
 
 ::
 
+    from stats_can import StatsCan
+    sc = StatsCan()
 
-    from stats_can.sc import table_to_df
+Without any arguments the StatsCan object will look for a file in the current
+working directory named "stats_can.h5". If it doesn't exist it will create one
+when it is first asked to load a table. You can also pass in a path in order
+to specify the location of the file. This is useful if you or a team want persistent
+access to certain tables.
 
-    # Copy the table id from the associated StatsCan page
-    table_id = "10-10-0110-01"
+For example:
+::
 
-    # Create a h5file in current working directory
-    df = table_to_df(table_id)
+    sc = StatsCan(data_folder="~/stats_can_data")
 
-    # Save to an existing h5file
-    existing_folder = "my_data_folder/"
-    existing_filename = "sample_data.h5
-    df = table_to_df(table_id, path=existing_folder, file=existing_filename)
-
-
-
-To download the `Sample Dataset
-<https://www150.statcan.gc.ca/t1/tbl1/en/cv.action?pid=1010011001>`_
-from vectors:
+The most common use case for stats_can is simply to read in a table
+from Statistics Canada to a Pandas DataFrame. For example, table 271-000-22-01
+is "Personnel engaged in research and development by performing sector and occupational category"
+to read in that table (downloading it first if it's the first time accessing it) run:
 
 ::
 
-    from stats_can.sc import vectors_to_df
+    df = sc.table_to_df("271-000-22-01")
 
-    # Copy the vectors from the associated customize table page
-    vectors = ["v36883", "v36885", "v36938"]
-
-    # Get by number of datapoints
-    num_datapoints = 100
-    vector_df = sc.vectors_to_df(vectors, periods=num_datapoints)
-
-    # Get by datespan
-    import datetime as dt
-    end_time = dt.date.today()
-    start_time = end_time - dt.timedelta(days=7)
-    vector_df = sc.vectors_to_df(vectors,
-                                 start_release_date=start_time,
-                                 end_release_date=end_time)
-
+If there are only a couple specific series of interest you can also
+read them into a dataframe (whether they're in different source tables or not) as follows:
 
 ::
 
-    from stats_can.sc import vectors_to_df_local
+    df = sc.vectors_to_df(["v74804", "v41692457"])
 
-    # Save to an existing h5file
-    vector_df = sc.vectors_to_df_local(vectors,
-                                       periods=100,
-                                       path=existing_folder,
-                                       file=existing_filename)
+The above command takes an optional start_date argument which will return
+a dataframe beginning with a reference date no earlier than the provided start date.
+By default it will return all available history for the V#s provided.
 
+You can check which tables you have stored locally by running
 
+::
 
+    sc.downloaded_tables
 
-Key functions
-=============
+Which will return a list of table numbers.
 
-To load a table into a pandas dataframe, use table_to_df. Given a valid
-Statistics Canada table name (it will do some basic parsing to handle dashes)
-the function will return a dataframe, either from an already downloaded file on
-disk, or after downloading the necessary table. By default it will load an hdf5
-file and look for tables there. You can set the h5file parameter to None to load
-directly from zipped csv files, but the h5 version is significantly faster.
+If a table is locally stored, it will not automatically update if
+Statistics Canada releases an update. To update locally stored tables
+run:
 
-.. autofunction:: stats_can.sc.table_to_df
+::
 
+    sc.update_tables()
 
-There are two ways to load a list of vector numbers into a datetime indexed
-dataframe, vectors_to_df and vectors_to_df_local. The former uses the web data
-service to load each data point directly from Statistics Canada, while the
-latter loads them from locally saved tables (again, downloading any required
-tables that haven't already been downloaded). They both return basically the
-same data but there are likely performance differences, depending on how many
-tables your vectors are sourced from, your internet connection speed, etc.
+You can optionally pass in a list of tables if you only want a subset of the
+locally stored tables to be updated.
 
-.. autofunction:: stats_can.sc.vectors_to_df
+Finally, if you want to delete any tables you've loaded you can run:
 
-.. autofunction:: stats_can.sc.vectors_to_df_local
+::
 
-To update locally stored tables with the latest data, use update_tables.
-Again, there is an option to update zipped csv files, but hdf5 is the default
-This will be slower to run initially as it converts the tables into dataframes
-before storing them in hdf5, but subsequent loading of the tables is faster.
+    sc.delete_tables("271-000-22-01")
 
-.. autofunction:: stats_can.sc.update_tables
+StatsCan class documentation
+============================
+Core functions outlined in the Quickstart along with some extra
+functionality are described here:
 
-
-For managing already downloaded tables there is list_downloaded_tables and
-delete_tables. Neither are particularly necessary if you're only working with
-zipped CSV files, since it's pretty easy to just look in a folder and see
-what's there and delete it if necessary, but it makes managing an hdf5 file
-easier, which is the preferred way of storing tables.
-
-.. autofunction:: stats_can.sc.list_downloaded_tables
-
-.. autofunction:: stats_can.sc.delete_tables
-
+.. autoclass:: stats_can.api_class.StatsCan
+    :members:
 
 Contributing
 ============
