@@ -206,7 +206,7 @@ def zip_table_to_dataframe(table, path=None):
     actual_cats = [col for col in possible_cats if col in col_names]
     df[actual_cats] = df[actual_cats].astype("category")
     try:
-        df["REF_DATE"] = pd.to_datetime(df["REF_DATE"], format="%Y-%m")
+        df["REF_DATE"] = pd.to_datetime(df["REF_DATE"], errors='ignore', format="%Y-%m")
     except TypeError:
         df["REF_DATE"] = pd.to_datetime(df["REF_DATE"])
     return df
