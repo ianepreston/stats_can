@@ -29,7 +29,7 @@ class StatsCan:
         -------
         [table_ids]
         """
-        if (self.data_folder / "stats_can.h5").exists():
+        if Path(self.data_folder +'/' + "stats_can.h5").exists() or Path(self.data_folder + '\\' + "stats_can.h5").exists():
             full_meta = sc.list_h5_tables(path=self.data_folder, h5file="stats_can.h5")
             tables = [item["productId"] for item in full_meta]
         else:
