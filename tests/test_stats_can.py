@@ -32,9 +32,9 @@ def class_fixture(class_folder):
 def test_class_tables_for_vectors(class_fixture):
     tv1 = class_fixture.get_tables_for_vectors(vs)
     assert tv1 == {
-        41692457: "18100004",
         74804: "23100216",
-        "all_tables": ["18100004", "23100216"],
+        41692457: "18100004",
+        "all_tables": ["23100216", "18100004"],
     }
 
 
@@ -42,7 +42,6 @@ def test_class_update_tables(class_fixture):
     """Should always be empty since we're loading this data fresh"""
     _ = class_fixture.table_to_df(ts[0])
     assert class_fixture.update_tables() == []
-
 
 
 def test_class_static_methods(class_fixture):
@@ -67,7 +66,7 @@ def test_class_static_methods(class_fixture):
 def test_class_table_list_download_delete(class_fixture):
     assert class_fixture.downloaded_tables == ["27100022"]
     _ = class_fixture.table_to_df(ts[1])
-    assert class_fixture.downloaded_tables == ["18100204", "27100022"]
+    assert class_fixture.downloaded_tables == ["23100216", "18100004"]
     assert class_fixture.delete_tables("111111") == []
     assert class_fixture.delete_tables("18100204") == ["18100204"]
 
@@ -77,9 +76,9 @@ def test_get_tables_for_vectors():
     """test tables for vectors method"""
     tv1 = stats_can.sc.get_tables_for_vectors(vs)
     assert tv1 == {
-        41692457: "18100004",
         74804: "23100216",
-        "all_tables": ["18100004", "23100216"],
+        41692457: "18100004",
+        "all_tables": ["23100216", "18100004"],
     }
 
 
@@ -97,7 +96,7 @@ def test_vectors_to_df_by_release():
         vs, start_release_date=dt.date(2018, 1, 1), end_release_date=dt.date(2018, 5, 1)
     )
     assert r.shape == (13, 2)
-    assert list(r.columns) == ["v41692457", "v74804"]
+    assert list(r.columns) == ["v74804", "v41692457"]
     assert isinstance(r.index, pd.DatetimeIndex)
 
 
