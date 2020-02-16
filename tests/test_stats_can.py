@@ -66,7 +66,7 @@ def test_class_static_methods(class_fixture):
 def test_class_table_list_download_delete(class_fixture):
     assert class_fixture.downloaded_tables == ["27100022"]
     _ = class_fixture.table_to_df(ts[1])
-    assert class_fixture.downloaded_tables == ["23100216", "18100004"]
+    assert sorted(class_fixture.downloaded_tables) == sorted(["27100022", "18100204"])
     assert class_fixture.delete_tables("111111") == []
     assert class_fixture.delete_tables("18100204") == ["18100204"]
 
