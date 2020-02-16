@@ -139,7 +139,7 @@ def test_gbvdbr():
     )
     assert len(r) == len(vs)
     r0v = r[0]["vectorDataPoint"]
-    assert len(r0v) == 1
+    assert len(r0v) == 12
     assert list(r0v[0].keys()) == [
         "refPer",
         "refPer2",
