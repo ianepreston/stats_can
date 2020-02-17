@@ -47,12 +47,11 @@ def test_class_update_tables(class_fixture):
 
 def test_class_static_methods(class_fixture):
     """static methods are just wrappers, should always match"""
-    assert (
-        class_fixture.vectors_updated_today()
-        == stats_can.scwds.get_changed_series_list()
+    assert sorted(class_fixture.vectors_updated_today()) == sorted(
+        stats_can.scwds.get_changed_series_list()
     )
-    assert (
-        class_fixture.tables_updated_today() == stats_can.scwds.get_changed_cube_list()
+    assert sorted(class_fixture.tables_updated_today()) == sorted(
+        stats_can.scwds.get_changed_cube_list()
     )
     test_dt = dt.date(2018, 1, 1)
     assert class_fixture.tables_updated_on_date(
