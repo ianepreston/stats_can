@@ -16,7 +16,7 @@ class StatsCan:
         if data_folder is None:
             self.data_folder = Path.cwd()
         else:
-            self.data_folder = data_folder
+            self.data_folder = Path(data_folder)  # Get a path object even if passed str
 
     @property
     def downloaded_tables(self):
@@ -29,7 +29,8 @@ class StatsCan:
         -------
         [table_ids]
         """
-        if (self.data_folder / "stats_can.h5").exists():
+        stat_h5 = self.data_folder / "stats_can.h5"
+        if stat_h5.exists():
             full_meta = sc.list_h5_tables(path=self.data_folder, h5file="stats_can.h5")
             tables = [item["productId"] for item in full_meta]
         else:

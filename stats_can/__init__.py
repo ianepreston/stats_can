@@ -6,7 +6,7 @@ Logging
 
 French support
 """
-__version__ = "2.2.1"
+__version__ = "2.2.2"
 from stats_can import sc
 from stats_can.api_class import StatsCan
 from stats_can.scwds import get_changed_series_list

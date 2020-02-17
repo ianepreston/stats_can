@@ -205,10 +205,7 @@ def zip_table_to_dataframe(table, path=None):
     ]
     actual_cats = [col for col in possible_cats if col in col_names]
     df[actual_cats] = df[actual_cats].astype("category")
-    try:
-        df["REF_DATE"] = pd.to_datetime(df["REF_DATE"], format="%Y-%m")
-    except TypeError:
-        df["REF_DATE"] = pd.to_datetime(df["REF_DATE"])
+    df["REF_DATE"] = pd.to_datetime(df["REF_DATE"], errors="ignore")
     return df
 
 
@@ -601,7 +598,7 @@ def vectors_to_df(vectors, periods=1, start_release_date=None, end_release_date=
         name = "v" + str(vec["vectorId"])
         ser = (
             pd.DataFrame(vec["vectorDataPoint"])
-            .assign(refPer=lambda x: pd.to_datetime(x["refPer"]))
+            .assign(refPer=lambda x: pd.to_datetime(x["refPer"], errors="ignore"))
             .set_index("refPer")
             .rename(columns={"value": name})
             .filter([name])
