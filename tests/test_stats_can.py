@@ -6,6 +6,7 @@ TODO
 Refactor a lot of this setup and teardown into its own setup functions
 """
 import os
+from pathlib import Path
 import shutil
 import pytest
 import datetime as dt
@@ -124,39 +125,39 @@ def test_download_table(tmpdir):
 
 
 def test_zip_update_tables(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
-        src_file = os.path.join(src, f)
+        src_file = src / f
         dest_file = os.path.join(tmpdir, f)
         shutil.copyfile(src_file, dest_file)
-        assert os.path.isfile(src_file)
+        assert src_file.exists()
         assert os.path.isfile(dest_file)
     updater = stats_can.sc.zip_update_tables(path=tmpdir)
     assert updater == ["18100204"]
 
 
 def test_zip_update_tables_from_update_tables(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
-        src_file = os.path.join(src, f)
+        src_file = src / f
         dest_file = os.path.join(tmpdir, f)
         shutil.copyfile(src_file, dest_file)
-        assert os.path.isfile(src_file)
+        assert src_file.exists()
         assert os.path.isfile(dest_file)
     updater = stats_can.sc.update_tables(path=tmpdir, h5file=None)
     assert updater == ["18100204"]
 
 
 def test_zip_table_to_dataframe(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
-        src_file = os.path.join(src, f)
+        src_file = src / f
         dest_file = os.path.join(tmpdir, f)
         shutil.copyfile(src_file, dest_file)
-        assert os.path.isfile(src_file)
+        assert src_file.exists()
         assert os.path.isfile(dest_file)
     df = stats_can.sc.zip_table_to_dataframe("18100204", path=tmpdir)
     assert df.shape == (11804, 15)
@@ -164,11 +165,11 @@ def test_zip_table_to_dataframe(tmpdir):
 
 
 def test_table_to_new_h5(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
-        src_file = os.path.join(src, f)
-        assert os.path.isfile(src_file)
+        src_file = src / f
+        assert src_file.exists()
         dest_file = os.path.join(tmpdir, f)
         shutil.copyfile(src_file, dest_file)
         assert os.path.isfile(dest_file)
@@ -179,11 +180,11 @@ def test_table_to_new_h5(tmpdir):
 
 
 def test_table_to_new_h5_no_path(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
-        src_file = os.path.join(src, f)
-        assert os.path.isfile(src_file)
+        src_file = src / f
+        assert src_file.exists()
         dest_file = os.path.join(tmpdir, f)
         shutil.copyfile(src_file, dest_file)
         assert os.path.isfile(dest_file)
@@ -197,7 +198,7 @@ def test_table_to_new_h5_no_path(tmpdir):
 
 
 def test_table_from_h5(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -209,7 +210,7 @@ def test_table_from_h5(tmpdir):
 
 
 def test_table_from_h5_no_path(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -225,7 +226,7 @@ def test_table_from_h5_no_path(tmpdir):
 
 @pytest.mark.slow
 def test_missing_table_from_h5(tmpdir, capsys):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -237,7 +238,7 @@ def test_missing_table_from_h5(tmpdir, capsys):
 
 
 def test_metadata_from_h5(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -248,7 +249,7 @@ def test_metadata_from_h5(tmpdir):
 
 
 def test_metadata_from_h5_no_path(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -262,7 +263,7 @@ def test_metadata_from_h5_no_path(tmpdir):
 
 
 def test_missing_h5_metadata(tmpdir, capsys):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -274,7 +275,7 @@ def test_missing_h5_metadata(tmpdir, capsys):
 
 
 def test_h5_update_tables(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -284,7 +285,7 @@ def test_h5_update_tables(tmpdir):
 
 
 def test_h5_update_tables_from_update_tables(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -294,7 +295,7 @@ def test_h5_update_tables_from_update_tables(tmpdir):
 
 
 def test_h5_update_tables_list(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -304,7 +305,7 @@ def test_h5_update_tables_list(tmpdir):
 
 
 def test_h5_update_tables_list_from_update_tables(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -314,7 +315,7 @@ def test_h5_update_tables_list_from_update_tables(tmpdir):
 
 
 def test_h5_update_tables_no_path(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -327,7 +328,7 @@ def test_h5_update_tables_no_path(tmpdir):
 
 
 def test_h5_update_tables_no_path_from_update_tables(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -340,7 +341,7 @@ def test_h5_update_tables_no_path_from_update_tables(tmpdir):
 
 
 def test_h5_included_keys():
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     keys = stats_can.sc.h5_included_keys(path=src)
     assert keys == [
         "json_18100204",
@@ -364,7 +365,7 @@ def test_h5_included_keys_no_path():
 
 
 def test_vectors_to_df_local_defaults(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = ["18100204.json", "18100204-eng.zip", "23100216.json", "23100216-eng.zip"]
     for file in files:
         src_file = os.path.join(src, file)
@@ -383,7 +384,7 @@ def test_vectors_to_df_local_missing_tables_no_h5(tmpdir):
 
 
 def test_vectors_to_df_local_missing_tables_h5(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     h5 = "stats_can.h5"
     src_file = os.path.join(src, h5)
     dest_file = os.path.join(tmpdir, h5)
@@ -397,7 +398,7 @@ def test_vectors_to_df_local_missing_tables_h5(tmpdir):
 
 
 def test_list_zipped_tables(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = ["18100204.json", "unrelated123.json", "23100216.json"]
     for file in files:
         shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
@@ -415,7 +416,7 @@ def test_list_h5_tables():
 
 
 def test_list_downloaded_tables_zip(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = ["18100204.json", "unrelated123.json", "23100216.json"]
     for file in files:
         shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
@@ -433,7 +434,7 @@ def test_list_downloaded_tables_h5(tmpdir):
 
 
 def test_delete_table_zip(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = os.listdir(src)
     for file in files:
         shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
@@ -446,7 +447,7 @@ def test_delete_table_zip(tmpdir):
 
 
 def test_delete_table_h5(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = os.listdir(src)
     for file in files:
         shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
@@ -460,7 +461,7 @@ def test_delete_table_h5(tmpdir):
 
 
 def test_delete_table_bad_tables(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = os.listdir(src)
     for file in files:
         shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
@@ -472,7 +473,7 @@ def test_delete_table_bad_tables(tmpdir):
 
 
 def test_table_to_df_h5(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
     src_file = os.path.join(src, file)
     dest_file = os.path.join(tmpdir, file)
@@ -484,15 +485,28 @@ def test_table_to_df_h5(tmpdir):
 
 
 def test_table_to_df_zip(tmpdir):
-    src = "test_files"
+    src = Path(__file__).resolve().parent / "test_files"
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
-        src_file = os.path.join(src, f)
+        src_file = src / f
         dest_file = os.path.join(tmpdir, f)
         shutil.copyfile(src_file, dest_file)
-        assert os.path.isfile(src_file)
+        assert src_file.exists()
         assert os.path.isfile(dest_file)
     df = stats_can.sc.table_to_df("18100204", path=tmpdir, h5file=None)
     assert df.shape == (11804, 15)
     assert df.columns[0] == "REF_DATE"
 
+
+def test_weird_dates(tmpdir):
+    src = Path(__file__).resolve().parent / "test_files"
+    files = ["13100805.json", "13100805-eng.zip"]
+    for f in files:
+        src_file = src / f
+        dest_file = os.path.join(tmpdir, f)
+        shutil.copyfile(src_file, dest_file)
+        assert src_file.exists()
+        assert os.path.isfile(dest_file)
+    # Will fail if I don't have correct date parsing
+    df = stats_can.sc.zip_table_to_dataframe("13100805", path=tmpdir)
+    assert len(df) > 0
