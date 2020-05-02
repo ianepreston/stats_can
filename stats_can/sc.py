@@ -324,7 +324,7 @@ def metadata_from_h5(tables, h5file="stats_can.h5", path=None):
 
     Parameters
     ----------
-    table: str or list of str
+    tables: str or list of str
         name of the tables to read
     h5file: str, default stats_can.h5
         name of the h5file to retrieve the table from
