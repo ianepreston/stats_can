@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 version module, copied from datacamp/
 https://packaging.python.org/guides/single-sourcing-package-version/

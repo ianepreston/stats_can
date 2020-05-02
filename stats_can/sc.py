@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Functionality that extends on what the base StatsCan api returns in some way
 
 TODO
