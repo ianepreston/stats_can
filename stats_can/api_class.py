@@ -188,6 +188,7 @@ class StatsCan:
         "all_tables" key with a list of all tables
         containing the input V#s
 
+
         >>> StatsCan.get_tables_for_vectors("v39050")
         {39050: '10100139', 'all_tables': ['10100139']}
         >>> StatsCan..get_tables_for_vectors(["v39050", "v1074250274"])

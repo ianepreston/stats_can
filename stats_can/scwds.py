@@ -88,7 +88,6 @@ def get_cube_metadata(tables):
     tables = [{"productId": t} for t in tables]
     url = SC_URL + "getCubeMetadata"
     result = requests.post(url, json=tables)
-    result.raise_for_status()
     result = check_status(result)
     return [r["object"] for r in result]
 
