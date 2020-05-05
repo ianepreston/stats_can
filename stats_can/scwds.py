@@ -240,7 +240,7 @@ def get_code_sets():
     Returns
     -------
     list of dicts
-        one for each vector and when it was released
+        one dictionary for each group of information
     """
     url = SC_URL + "getCodeSets"
     result = requests.get(url)

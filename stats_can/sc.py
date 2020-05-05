@@ -661,7 +661,7 @@ def vectors_to_df_local(vectors, path=None, start_date=None, h5file="stats_can.h
 
 def code_sets_to_df_dict():
     """Gets all code sets which provide additional information to describe
-    information. Code sets are grouped into scales, frequencies, symbols
+    information. Code sets are grouped into scales, frequencies, symbols etc.
     and returned as dictionary of dataframes.
 
     Parameters
