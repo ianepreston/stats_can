@@ -19,3 +19,4 @@ from stats_can.sc import list_downloaded_tables
 from stats_can.sc import delete_tables
 from stats_can.sc import vectors_to_df
 from stats_can.sc import vectors_to_df_local
+from stats_can.sc import code_sets_to_df_dict

@@ -147,6 +147,13 @@ class StatsCan:
         )
 
     @staticmethod
+    def get_code_sets():
+        """ Gets all code sets which provide additional information to describe
+            information and are grouped into scales, frequencies, symbols etc.
+        """
+        return scwds.get_code_sets()
+
+    @staticmethod
     def vectors_updated_today():
         """ Get a list of all V#s that were updated today
         """
