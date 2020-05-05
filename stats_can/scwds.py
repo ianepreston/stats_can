@@ -21,7 +21,6 @@ Missing api implementations:
     GetChangedSeriesDataFromVector
     GetDataFromCubePidCoordAndLatestNPeriods
     GetFullTableDownloadSDMX
-    GetCodeSets
 """
 import datetime as dt
 import requests
@@ -232,10 +231,19 @@ def get_full_table_download(table, csv=True):
     result = check_status(result)
     return result["object"]
 
-
 def get_code_sets():
-    """ Not implemented yet
+    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a13-1
 
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a13-1
+    Gets all code sets which provide additional information to describe
+    information and are grouped into scales, frequencies, symbols etc.
+
+    Returns
+    -------
+    list of dicts
+        one dictionary for each group of information
     """
-    pass
+    url = SC_URL + "getCodeSets"
+    result = requests.get(url)
+    result = check_status(result)
+    
+    return result["object"]

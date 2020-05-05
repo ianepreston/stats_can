@@ -510,3 +510,10 @@ def test_weird_dates(tmpdir):
     # Will fail if I don't have correct date parsing
     df = stats_can.sc.zip_table_to_dataframe("13100805", path=tmpdir)
     assert len(df) > 0
+
+def test_code_sets_to_df_dict(class_fixture):
+    
+    codes = stats_can.sc.code_sets_to_df_dict()
+
+    assert isinstance(codes, dict)
+    assert all(isinstance(group, pd.DataFrame) for group in codes.values())

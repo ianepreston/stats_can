@@ -19,6 +19,7 @@ from stats_can.scwds import get_data_from_vectors_and_latest_n_periods
 from stats_can.scwds import get_bulk_vector_data_by_range
 from stats_can.scwds import get_cube_metadata
 from stats_can.scwds import get_full_table_download
+from stats_can.scwds import get_code_sets
 from stats_can.helpers import parse_tables
 from stats_can.helpers import parse_vectors
 
@@ -656,3 +657,23 @@ def vectors_to_df_local(vectors, path=None, start_date=None, h5file="stats_can.h
         )
     final_df = final_df[vectors_ordered]
     return final_df
+
+
+def code_sets_to_df_dict():
+    """Gets all code sets which provide additional information to describe
+    information. Code sets are grouped into scales, frequencies, symbols etc.
+    and returned as dictionary of dataframes.
+
+    Parameters
+    ----------
+    
+    Returns
+    -------
+    pandas.Dataframe: list
+        dictionary of dataframes
+    """
+
+    codes = get_code_sets()
+    # Packs each code group in a dataframe for better lookup via dictionary
+    codes_df_lookup = {key: pd.DataFrame(codes[key]) for key in codes.keys()}
+    return codes_df_lookup

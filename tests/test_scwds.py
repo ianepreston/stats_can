@@ -165,7 +165,23 @@ def test_gftd():
     assert rs == "https://www150.statcan.gc.ca/n1/tbl/sdmx/27100022-SDMX.zip"
 
 
-@pytest.mark.slow
 def test_gcs():
-    """test get code sets"""
-    pass
+    """test get code list"""
+    r = stats_can.scwds.get_code_sets()
+
+    assert isinstance(r, dict)
+    if len(r) > 0:
+        print(r.keys())
+        assert list(r.keys()) == [
+            "scalar",
+            "frequency",
+            "symbol",
+            "status",
+            "uom",
+            "survey",
+            "subject",
+            "classificationType",
+            "securityLevel",
+            "terminated",
+            "wdsResponseStatus"
+        ]
