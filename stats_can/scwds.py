@@ -21,7 +21,6 @@ Missing api implementations:
     GetChangedSeriesDataFromVector
     GetDataFromCubePidCoordAndLatestNPeriods
     GetFullTableDownloadSDMX
-    GetCodeSets
 """
 import datetime as dt
 import requests
