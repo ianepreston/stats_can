@@ -21,8 +21,7 @@ ts = ["271-000-22-01", "18100204"]
 
 @pytest.fixture(scope="module")
 def class_folder(tmpdir_factory):
-    fn = tmpdir_factory.mktemp("classdata")
-    return fn
+    return tmpdir_factory.mktemp("classdata")
 
 
 @pytest.fixture(scope="module")

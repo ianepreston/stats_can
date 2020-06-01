@@ -100,5 +100,4 @@ def chunk_vectors(vectors):
     """
     MAX_CHUNK = 250
     vectors = parse_vectors(vectors)
-    chunks = [vectors[i : i + MAX_CHUNK] for i in range(0, len(vectors), MAX_CHUNK)]
-    return chunks
+    return [vectors[i : i + MAX_CHUNK] for i in range(0, len(vectors), MAX_CHUNK)]
