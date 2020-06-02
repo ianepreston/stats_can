@@ -90,10 +90,7 @@ def download_tables(tables, path=None, csv=True):
     for meta in metas:
         product_id = meta["productId"]
         zip_url = get_full_table_download(product_id, csv=csv)
-        if csv:
-            zip_file = product_id + "-eng.zip"
-        else:
-            zip_file = product_id + ".zip"
+        zip_file = product_id + '-eng.zip' if csv else product_id + '.zip'
         json_file = product_id + ".json"
         if path:
             zip_file = os.path.join(path, zip_file)
@@ -107,8 +104,7 @@ def download_tables(tables, path=None, csv=True):
             for chunk in response.iter_content(chunk_size=512):
                 if chunk:  # filter out keep-alive new chunks
                     handle.write(chunk)
-    downloaded = [meta["productId"] for meta in metas]
-    return downloaded
+    return [meta["productId"] for meta in metas]
 
 
 def zip_update_tables(path=None, csv=True):
@@ -137,10 +133,12 @@ def zip_update_tables(path=None, csv=True):
     local_jsons = list_zipped_tables(path=path)
     tables = [j["productId"] for j in local_jsons]
     remote_jsons = get_cube_metadata(tables)
-    update_table_list = []
-    for local, remote in zip(local_jsons, remote_jsons):
-        if local["cubeEndDate"] != remote["cubeEndDate"]:
-            update_table_list.append(local["productId"])
+    update_table_list = [
+        local["productId"]
+        for local, remote in zip(local_jsons, remote_jsons)
+        if local["cubeEndDate"] != remote["cubeEndDate"]
+    ]
+
     download_tables(update_table_list, path, csv=csv)
     return update_table_list
 
@@ -305,10 +303,7 @@ def table_from_h5(table, h5file="stats_can.h5", path=None):
         table in dataframe format
     """
     table = "table_" + parse_tables(table)[0]
-    if path:
-        h5 = os.path.join(path, h5file)
-    else:
-        h5 = h5file
+    h5 = os.path.join(path, h5file) if path else h5file
     try:
         with pd.HDFStore(h5, "r") as store:
             df = pd.read_hdf(store, key=table)
@@ -370,8 +365,7 @@ def list_h5_tables(path=None, h5file="stats_can.h5"):
     """
     keys = h5_included_keys(h5file=h5file, path=path)
     tables = parse_tables([k for k in keys if k.startswith("json_")])
-    jsons = metadata_from_h5(tables, h5file=h5file, path=path)
-    return jsons
+    return metadata_from_h5(tables, h5file=h5file, path=path)
 
 
 def list_downloaded_tables(path=None, h5file="stats_can.h5"):
@@ -414,19 +408,18 @@ def h5_update_tables(h5file="stats_can.h5", path=None, tables=None):
     if tables:
         local_jsons = metadata_from_h5(tables, h5file=h5file, path=path)
     else:
-        if path:
-            h5 = os.path.join(path, h5file)
-        else:
-            h5 = h5file
+        h5 = os.path.join(path, h5file) if path else h5file
         with h5py.File(h5, "r") as f:
             keys = [key for key in f.keys() if key.startswith("json")]
             local_jsons = [json.loads(f[key][()]) for key in keys]
     tables = [j["productId"] for j in local_jsons]
     remote_jsons = get_cube_metadata(tables)
-    update_table_list = []
-    for local, remote in zip(local_jsons, remote_jsons):
-        if local["cubeEndDate"] != remote["cubeEndDate"]:
-            update_table_list.append(local["productId"])
+    update_table_list = [
+        local["productId"]
+        for local, remote in zip(local_jsons, remote_jsons)
+        if local["cubeEndDate"] != remote["cubeEndDate"]
+    ]
+
     tables_to_h5(update_table_list, h5file=h5file, path=path)
     return update_table_list
 
@@ -524,10 +517,7 @@ def delete_tables(tables, path=None, h5file="stats_can.h5", csv=True):
         files_to_del = []
         for td in to_delete:
             json_to_del = td + ".json"
-            if csv:
-                zip_to_del = td + "-eng.zip"
-            else:
-                zip_to_del = td + ".zip"
+            zip_to_del = td + '-eng.zip' if csv else td + '.zip'
             files_to_del.append(zip_to_del)
             files_to_del.append(json_to_del)
         if path:
