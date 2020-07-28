@@ -22,6 +22,7 @@ requirements:
         - requests >=2.19
         - h5py >=2.8.0
         - pytables >=3.4.4
+        - tqdm >=4.48.0
     build:
         - python 3
         - setuptools

@@ -9,6 +9,7 @@ dependencies:
   - numpy
   - requests
   - h5py
+  - tqdm
   - pytables
   - pytest
   - pytest-cov

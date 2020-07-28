@@ -14,6 +14,7 @@ import h5py
 import pandas as pd
 import numpy as np
 import requests
+from tqdm import tqdm
 from stats_can.scwds import get_series_info_from_vector
 from stats_can.scwds import get_data_from_vectors_and_latest_n_periods
 from stats_can.scwds import get_bulk_vector_data_by_range
@@ -97,6 +98,14 @@ def download_tables(tables, path=None, csv=True):
             json_file = os.path.join(path, json_file)
         # Thanks http://evanhahn.com/python-requests-library-useragent/
         response = requests.get(zip_url, stream=True, headers={"user-agent": None})
+
+        progress_bar = tqdm(
+            desc=os.path.basename(zip_file),
+            total=int(response.headers.get('content-length', 0)), 
+            unit='B', 
+            unit_scale=True
+        )
+
         # Thanks https://bit.ly/2sPYPYw
         with open(json_file, "w") as outfile:
             json.dump(meta, outfile)
@@ -104,6 +113,8 @@ def download_tables(tables, path=None, csv=True):
             for chunk in response.iter_content(chunk_size=512):
                 if chunk:  # filter out keep-alive new chunks
                     handle.write(chunk)
+                    progress_bar.update(len(chunk))
+        progress_bar.close()
     return [meta["productId"] for meta in metas]
 
 
