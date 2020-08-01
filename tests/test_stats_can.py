@@ -510,8 +510,9 @@ def test_weird_dates(tmpdir):
     df = stats_can.sc.zip_table_to_dataframe("13100805", path=tmpdir)
     assert len(df) > 0
 
+
 def test_code_sets_to_df_dict(class_fixture):
-    
+
     codes = stats_can.sc.code_sets_to_df_dict()
 
     assert isinstance(codes, dict)

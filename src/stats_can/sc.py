@@ -91,7 +91,7 @@ def download_tables(tables, path=None, csv=True):
     for meta in metas:
         product_id = meta["productId"]
         zip_url = get_full_table_download(product_id, csv=csv)
-        zip_file = product_id + '-eng.zip' if csv else product_id + '.zip'
+        zip_file = product_id + "-eng.zip" if csv else product_id + ".zip"
         json_file = product_id + ".json"
         if path:
             zip_file = os.path.join(path, zip_file)
@@ -101,9 +101,9 @@ def download_tables(tables, path=None, csv=True):
 
         progress_bar = tqdm(
             desc=os.path.basename(zip_file),
-            total=int(response.headers.get('content-length', 0)), 
-            unit='B', 
-            unit_scale=True
+            total=int(response.headers.get("content-length", 0)),
+            unit="B",
+            unit_scale=True,
         )
 
         # Thanks https://bit.ly/2sPYPYw
@@ -528,7 +528,7 @@ def delete_tables(tables, path=None, h5file="stats_can.h5", csv=True):
         files_to_del = []
         for td in to_delete:
             json_to_del = td + ".json"
-            zip_to_del = td + '-eng.zip' if csv else td + '.zip'
+            zip_to_del = td + "-eng.zip" if csv else td + ".zip"
             files_to_del.append(zip_to_del)
             files_to_del.append(json_to_del)
         if path:

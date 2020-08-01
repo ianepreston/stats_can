@@ -183,5 +183,5 @@ def test_gcs():
             "classificationType",
             "securityLevel",
             "terminated",
-            "wdsResponseStatus"
+            "wdsResponseStatus",
         ]

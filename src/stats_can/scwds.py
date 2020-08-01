@@ -231,6 +231,7 @@ def get_full_table_download(table, csv=True):
     result = check_status(result)
     return result["object"]
 
+
 def get_code_sets():
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a13-1
 
@@ -245,5 +246,5 @@ def get_code_sets():
     url = SC_URL + "getCodeSets"
     result = requests.get(url)
     result = check_status(result)
-    
+
     return result["object"]
