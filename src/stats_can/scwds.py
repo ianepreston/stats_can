@@ -171,7 +171,7 @@ def get_data_from_vectors_and_latest_n_periods(vectors, periods):
 
 def get_bulk_vector_data_by_range(vectors, start_release_date, end_release_date):
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5
-    
+
     Parameters
     ----------
     vectors: str or list of str

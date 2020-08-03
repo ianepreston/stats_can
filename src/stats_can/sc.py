@@ -229,7 +229,7 @@ def list_zipped_tables(path=None):
         Where to look for zipped tables
     csv: boolean, default True
         Whether to look for CSV or SDMX files
-    
+
     Returns
     -------
     tables: list
@@ -263,7 +263,7 @@ def tables_to_h5(tables, h5file="stats_can.h5", path=None):
         name of the h5file to store the tables in
     path: str or path, default = current working directory
         path to the h5file
-    
+
     Returns
     -------
     tables: list
@@ -368,7 +368,7 @@ def list_h5_tables(path=None, h5file="stats_can.h5"):
         path to the h5 file
     h5file: str, default stats_can.h5
         name of the h5file to read table data from
-    
+
     Returns
     -------
     jsons: list
@@ -390,7 +390,7 @@ def list_downloaded_tables(path=None, h5file="stats_can.h5"):
         path to the h5 file
     h5file: str, default stats_can.h5
         name of the h5file to read table data from
-    
+
     Returns
     -------
     jsons: list
@@ -455,7 +455,7 @@ def update_tables(path=None, h5file="stats_can.h5", tables=None, csv=True):
         and specified by this argument, None means update all tables
     csv: boolean, default True
         If updating zips this determines whether to update zipped CSV or SDMX
-    
+
     Returns
     -------
     update_table_list: list of str
@@ -502,7 +502,7 @@ def delete_tables(tables, path=None, h5file="stats_can.h5", csv=True):
         h5file to remove from, set to None to remove zips
     csv: boolean, default True
         if h5file is None this specifies whether to delete zipped csv or SDMX
-    
+
     Returns
     -------
     to_delete: list
@@ -622,7 +622,7 @@ def vectors_to_df_local(vectors, path=None, start_date=None, h5file="stats_can.h
     h5file: str, default stats_can.h5
         if specified will extract dataframes from an hdf5file instead of
         zipped csv tables
-    
+
     """
     # Preserve an initial copy of the list for ordering, parsed and then
     # converted to string for consistency in naming
@@ -667,7 +667,7 @@ def code_sets_to_df_dict():
 
     Parameters
     ----------
-    
+
     Returns
     -------
     pandas.Dataframe: list
