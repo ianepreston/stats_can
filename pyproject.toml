@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "stats_can"
+version = "2.3.3"
+description = "Read StatsCan data into python, mostly pandas dataframes"
+authors = ["Ian Preston"]
+license = "GPL-3.0-or-later"
+readme = "README.md"
+homepage = "https://github.com/ianepreston/stats_can"
+repository = "https://github.com/ianepreston/stats_can"
+keywords = ["statistics", "Canada", "data", "API"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "^2.20"
+h5py = "^2.10.0"
+tables = "^3.6.1"
+tqdm = "^4.48.0"
+pandas = "^1.1.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.0.1"
+flake8 = "^3.8.3"
+pandas-vet = "^0.2.2"
+black = "^19.10b0"
+coverage = {extras = ["toml"], version = "^5.2.1"}
+pytest-cov = "^2.10.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+
+[tool.coverage.run]
+branch = true
+source = ["stats_can"]
+
+[tool.coverage.report]
+show_missing = true
