@@ -14,8 +14,10 @@ import datetime as dt
 import pandas as pd
 import stats_can
 
+
 def teardown_function():
     time.sleep(1)
+
 
 vs = ["v74804", "v41692457"]
 v = "41692452"
@@ -50,7 +52,9 @@ def test_class_update_tables(class_fixture):
 
 def test_class_static_methods(class_fixture):
     """static methods are just wrappers, should always match"""
-    cooldown = 2  # I think tests are failing because I'm requesting too much from stats can
+    cooldown = (
+        2  # I think tests are failing because I'm requesting too much from stats can
+    )
     time.sleep(cooldown)
     assert (
         class_fixture.vectors_updated_today()
