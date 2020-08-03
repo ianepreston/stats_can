@@ -6,12 +6,16 @@ TODO
 Refactor a lot of this setup and teardown into its own setup functions
 """
 import os
+import time
 from pathlib import Path
 import shutil
 import pytest
 import datetime as dt
 import pandas as pd
 import stats_can
+
+def teardown_function():
+    time.sleep(1)
 
 vs = ["v74804", "v41692457"]
 v = "41692452"
@@ -46,24 +50,31 @@ def test_class_update_tables(class_fixture):
 
 def test_class_static_methods(class_fixture):
     """static methods are just wrappers, should always match"""
+    cooldown = 2  # I think tests are failing because I'm requesting too much from stats can
+    time.sleep(cooldown)
     assert (
         class_fixture.vectors_updated_today()
         == stats_can.scwds.get_changed_series_list()
     )
+    time.sleep(cooldown)
     assert (
         class_fixture.tables_updated_today() == stats_can.scwds.get_changed_cube_list()
     )
+    time.sleep(cooldown)
     test_dt = dt.date(2018, 1, 1)
     assert class_fixture.tables_updated_on_date(
         test_dt
     ) == stats_can.scwds.get_changed_cube_list(test_dt)
+    time.sleep(cooldown)
     for v_input in [v, vs]:
         assert class_fixture.vector_metadata(
             v_input
         ) == stats_can.scwds.get_series_info_from_vector(v_input)
+        time.sleep(cooldown)
 
 
 def test_class_table_list_download_delete(class_fixture):
+    _ = class_fixture.table_to_df(ts[0])
     assert class_fixture.downloaded_tables == ["27100022"]
     _ = class_fixture.table_to_df(ts[1])
     assert sorted(class_fixture.downloaded_tables) == sorted(["27100022", "18100204"])
@@ -128,10 +139,10 @@ def test_zip_update_tables(tmpdir):
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
         src_file = src / f
-        dest_file = os.path.join(tmpdir, f)
+        dest_file = tmpdir / f
         shutil.copyfile(src_file, dest_file)
         assert src_file.exists()
-        assert os.path.isfile(dest_file)
+        assert dest_file.exists()
     updater = stats_can.sc.zip_update_tables(path=tmpdir)
     assert updater == ["18100204"]
 
