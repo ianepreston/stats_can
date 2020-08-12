@@ -6,7 +6,17 @@ Logging
 
 French support
 """
-__version__ = "2.3.3"
+try:
+    from importlib.metadata import version, PackageNotFoundError  # type: ignore
+except ImportError:  # pragma: no cover
+    from importlib_metadata import version, PackageNotFoundError  # type: ignore
+
+
+try:
+    __version__ = version(__name__)
+except PackageNotFoundError:  # pragma: no cover
+    __version__ = "unknown"
+
 from stats_can import sc
 from stats_can.api_class import StatsCan
 from stats_can.scwds import get_changed_series_list
