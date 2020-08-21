@@ -171,7 +171,7 @@ def get_data_from_vectors_and_latest_n_periods(vectors, periods):
 
 def get_bulk_vector_data_by_range(vectors, start_release_date, end_release_date):
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5
-    
+
     Parameters
     ----------
     vectors: str or list of str
@@ -231,6 +231,7 @@ def get_full_table_download(table, csv=True):
     result = check_status(result)
     return result["object"]
 
+
 def get_code_sets():
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a13-1
 
@@ -245,5 +246,5 @@ def get_code_sets():
     url = SC_URL + "getCodeSets"
     result = requests.get(url)
     result = check_status(result)
-    
+
     return result["object"]

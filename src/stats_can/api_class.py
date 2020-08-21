@@ -44,7 +44,7 @@ class StatsCan:
         ----------
         table: str
             The ID of the table of interest, e.g "271-000-22"
-        
+
         Returns
         -------
         pandas.DataFrame
@@ -74,12 +74,12 @@ class StatsCan:
             earliest release date to retrieve data
         end_release_date: datetime.date, default None
             latest release date to retrieve data
-        
+
         Returns
         -------
         pandas.DataFrame
             Dataframe indexed on reference (not release) date, with columns for each V# input
-        
+
         Note that start and end release date refer to the dates the data was released, not the reference period
         they cover. For example. October labour force survey data is released on the first or second Friday of
         November.
@@ -91,16 +91,16 @@ class StatsCan:
 
         Parameters
         ----------
-        vectors: str or [str] 
+        vectors: str or [str]
             the V#s to retrieve
         start_date datetime.date, default None
             earliest reference period to return, defaults to all available history
-        
+
         Returns
         -------
         pandas.DataFrame
             Dataframe indexed on reference date, with columns for each V# input
-        
+
         Note that any V#s in tables that are not currently locally stored will
         have their tables downloaded prior to returning the dataframe
         """
@@ -121,7 +121,7 @@ class StatsCan:
         ----------
         tables: str or [str], default None
             Optional subset of tables to check for updates, defaults to update all downloaded tables
-        
+
         Returns
         -------
         [str] list of tables that were updated, empty list if no updates made
@@ -137,7 +137,7 @@ class StatsCan:
         ----------
         tables: str or [str]
             tables to delete
-        
+
         Returns
         --------
         [deleted tables]
@@ -188,7 +188,7 @@ class StatsCan:
         ----------
         vectors: str or [str]
             V#(s) to look up tables for
-        
+
         Returns
         --------
         dictionary of  vector:table pairs plus an
