@@ -2,7 +2,7 @@ import nox
 import tempfile
 
 
-nox.options.sessions = "safety", "tests"  # , "lint"
+nox.options.sessions = "tests"  # , "lint", "safety"
 
 
 def install_with_constraints(session, *args, **kwargs):
