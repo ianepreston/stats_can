@@ -75,8 +75,12 @@ def test_class_static_methods(class_fixture):
             class_fixture.vectors_to_df(v_input), stats_can.vectors_to_df_local(v_input)
         )
         # cleanup
-        class_fixture.delete_tables("18100004")
-        class_fixture.delete_tables("23100216")
+        candidates = ["18100004", "23100216"]
+        to_delete = [
+            tbl for tbl in candidates if tbl in class_fixture.downloaded_tables
+        ]
+        for tbl in to_delete:
+            class_fixture.delete_tables(tbl)
 
 
 @pytest.mark.vcr()
