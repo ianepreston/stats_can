@@ -15,10 +15,6 @@ import pandas as pd
 import stats_can
 
 
-def teardown_function():
-    time.sleep(1)
-
-
 vs = ["v74804", "v41692457"]
 v = "41692452"
 t = "271-000-22-01"
@@ -35,6 +31,7 @@ def class_fixture(class_folder):
     return stats_can.StatsCan(data_folder=class_folder)
 
 
+@pytest.mark.vcr()
 def test_class_tables_for_vectors(class_fixture):
     tv1 = class_fixture.get_tables_for_vectors(vs)
     assert tv1 == {
@@ -44,39 +41,34 @@ def test_class_tables_for_vectors(class_fixture):
     }
 
 
+@pytest.mark.vcr()
 def test_class_update_tables(class_fixture):
     """Should always be empty since we're loading this data fresh"""
     _ = class_fixture.table_to_df(ts[0])
     assert class_fixture.update_tables() == []
 
 
+@pytest.mark.vcr()
 def test_class_static_methods(class_fixture):
     """static methods are just wrappers, should always match"""
-    cooldown = (
-        2  # I think tests are failing because I'm requesting too much from stats can
-    )
-    time.sleep(cooldown)
     assert (
         class_fixture.vectors_updated_today()
         == stats_can.scwds.get_changed_series_list()
     )
-    time.sleep(cooldown)
     assert (
         class_fixture.tables_updated_today() == stats_can.scwds.get_changed_cube_list()
     )
-    time.sleep(cooldown)
     test_dt = dt.date(2018, 1, 1)
     assert class_fixture.tables_updated_on_date(
         test_dt
     ) == stats_can.scwds.get_changed_cube_list(test_dt)
-    time.sleep(cooldown)
     for v_input in [v, vs]:
         assert class_fixture.vector_metadata(
             v_input
         ) == stats_can.scwds.get_series_info_from_vector(v_input)
-        time.sleep(cooldown)
 
 
+@pytest.mark.vcr()
 def test_class_table_list_download_delete(class_fixture):
     _ = class_fixture.table_to_df(ts[0])
     assert class_fixture.downloaded_tables == ["27100022"]
@@ -86,7 +78,7 @@ def test_class_table_list_download_delete(class_fixture):
     assert class_fixture.delete_tables("18100204") == ["18100204"]
 
 
-@pytest.mark.slow
+@pytest.mark.vcr()
 def test_get_tables_for_vectors():
     """test tables for vectors method"""
     tv1 = stats_can.sc.get_tables_for_vectors(vs)
@@ -97,14 +89,14 @@ def test_get_tables_for_vectors():
     }
 
 
-@pytest.mark.slow
+@pytest.mark.vcr()
 def test_table_subsets_from_vectors():
     """test table subsets from vectors method"""
     tv1 = stats_can.sc.table_subsets_from_vectors(vs)
     assert tv1 == {"23100216": [74804], "18100004": [41692457]}
 
 
-@pytest.mark.slow
+@pytest.mark.vcr()
 def test_vectors_to_df_by_release():
     """test one vector to df method"""
     r = stats_can.sc.vectors_to_df(
@@ -115,7 +107,7 @@ def test_vectors_to_df_by_release():
     assert isinstance(r.index, pd.DatetimeIndex)
 
 
-@pytest.mark.slow
+@pytest.mark.vcr()
 def test_vectors_to_df_by_periods():
     """test the other vector to df method"""
     r = stats_can.sc.vectors_to_df(vs, 5)
@@ -126,7 +118,7 @@ def test_vectors_to_df_by_periods():
     assert isinstance(r.index, pd.DatetimeIndex)
 
 
-@pytest.mark.slow
+@pytest.mark.vcr()
 def test_download_table(tmpdir):
     t = "18100204"
     t_json = os.path.join(tmpdir, t + ".json")
@@ -138,6 +130,7 @@ def test_download_table(tmpdir):
     assert os.path.isfile(t_zip)
 
 
+@pytest.mark.vcr()
 def test_zip_update_tables(tmpdir):
     src = Path(__file__).resolve().parent / "test_files"
     files = ["18100204.json", "18100204-eng.zip"]
@@ -151,6 +144,7 @@ def test_zip_update_tables(tmpdir):
     assert updater == ["18100204"]
 
 
+@pytest.mark.vcr()
 def test_zip_update_tables_from_update_tables(tmpdir):
     src = Path(__file__).resolve().parent / "test_files"
     files = ["18100204.json", "18100204-eng.zip"]
@@ -238,7 +232,7 @@ def test_table_from_h5_no_path(tmpdir):
     assert df.columns[0] == "REF_DATE"
 
 
-@pytest.mark.slow
+@pytest.mark.vcr()
 def test_missing_table_from_h5(tmpdir, capsys):
     src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
@@ -288,6 +282,7 @@ def test_missing_h5_metadata(tmpdir, capsys):
     assert captured.out == "Couldn't find table json_123\n"
 
 
+@pytest.mark.vcr()
 def test_h5_update_tables(tmpdir):
     src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
@@ -298,6 +293,7 @@ def test_h5_update_tables(tmpdir):
     assert result == ["18100204", "27100022"]
 
 
+@pytest.mark.vcr()
 def test_h5_update_tables_from_update_tables(tmpdir):
     src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
@@ -308,6 +304,7 @@ def test_h5_update_tables_from_update_tables(tmpdir):
     assert result == ["18100204", "27100022"]
 
 
+@pytest.mark.vcr()
 def test_h5_update_tables_list(tmpdir):
     src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
@@ -318,6 +315,7 @@ def test_h5_update_tables_list(tmpdir):
     assert result == ["18100204"]
 
 
+@pytest.mark.vcr()
 def test_h5_update_tables_list_from_update_tables(tmpdir):
     src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
@@ -328,6 +326,7 @@ def test_h5_update_tables_list_from_update_tables(tmpdir):
     assert result == ["18100204"]
 
 
+@pytest.mark.vcr()
 def test_h5_update_tables_no_path(tmpdir):
     src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
@@ -341,6 +340,7 @@ def test_h5_update_tables_no_path(tmpdir):
     assert result == ["18100204"]
 
 
+@pytest.mark.vcr()
 def test_h5_update_tables_no_path_from_update_tables(tmpdir):
     src = Path(__file__).resolve().parent / "test_files"
     file = "stats_can.h5"
@@ -389,7 +389,7 @@ def test_vectors_to_df_local_defaults(tmpdir):
     assert df.shape == (454, 2)
 
 
-@pytest.mark.slow
+@pytest.mark.vcr()
 def test_vectors_to_df_local_missing_tables_no_h5(tmpdir):
     df = stats_can.sc.vectors_to_df_local(vectors=["v107792885", "v74804"], path=tmpdir)
     assert df.shape[1] == 2
@@ -397,6 +397,7 @@ def test_vectors_to_df_local_missing_tables_no_h5(tmpdir):
     assert list(df.columns) == ["v107792885", "v74804"]
 
 
+@pytest.mark.slow
 def test_vectors_to_df_local_missing_tables_h5(tmpdir):
     src = Path(__file__).resolve().parent / "test_files"
     h5 = "stats_can.h5"
