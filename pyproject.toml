@@ -7,6 +7,7 @@ license = "GPL-3.0-or-later"
 readme = "README.md"
 homepage = "https://github.com/ianepreston/stats_can"
 repository = "https://github.com/ianepreston/stats_can"
+documentation = "https://stats-can.readthedocs.io"
 keywords = ["statistics", "Canada", "data", "API"]
 
 [tool.poetry.dependencies]
@@ -31,6 +32,7 @@ flake8-bugbear = "^20.1.4"
 flake8-black = "^0.2.1"
 flake8-import-order = "^0.18.1"
 pytest-vcr = "^1.0.2"
+flake8-docstrings = "^1.5.0"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
