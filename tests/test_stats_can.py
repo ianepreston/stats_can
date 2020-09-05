@@ -11,6 +11,7 @@ import shutil
 import pytest
 import datetime as dt
 import pandas as pd
+from pandas.testing import assert_frame_equal
 import stats_can
 
 
@@ -61,10 +62,21 @@ def test_class_static_methods(class_fixture):
     assert class_fixture.tables_updated_on_date(
         test_dt
     ) == stats_can.scwds.get_changed_cube_list(test_dt)
+    assert class_fixture.get_code_sets() == stats_can.scwds.get_code_sets()
     for v_input in [v, vs]:
         assert class_fixture.vector_metadata(
             v_input
         ) == stats_can.scwds.get_series_info_from_vector(v_input)
+        assert_frame_equal(
+            class_fixture.vectors_to_df_remote(v_input, periods=1),
+            stats_can.vectors_to_df(v_input, periods=1),
+        )
+        assert_frame_equal(
+            class_fixture.vectors_to_df(v_input), stats_can.vectors_to_df_local(v_input)
+        )
+        # cleanup
+        class_fixture.delete_tables("18100004")
+        class_fixture.delete_tables("23100216")
 
 
 @pytest.mark.vcr()
