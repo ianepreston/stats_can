@@ -74,13 +74,11 @@ def test_class_static_methods(class_fixture):
         assert_frame_equal(
             class_fixture.vectors_to_df(v_input), stats_can.vectors_to_df_local(v_input)
         )
-        # cleanup
-        candidates = ["18100004", "23100216"]
-        to_delete = [
-            tbl for tbl in candidates if tbl in class_fixture.downloaded_tables
-        ]
-        for tbl in to_delete:
-            class_fixture.delete_tables(tbl)
+    # cleanup
+    candidates = ["18100004", "23100216"]
+    to_delete = [tbl for tbl in candidates if tbl in class_fixture.downloaded_tables]
+    for tbl in to_delete:
+        class_fixture.delete_tables(tbl)
 
 
 @pytest.mark.vcr()
