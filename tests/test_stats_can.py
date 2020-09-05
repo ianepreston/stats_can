@@ -6,7 +6,6 @@ TODO
 Refactor a lot of this setup and teardown into its own setup functions
 """
 import os
-import time
 from pathlib import Path
 import shutil
 import pytest

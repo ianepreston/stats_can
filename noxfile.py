@@ -77,9 +77,11 @@ def safety(session):
 @nox.session(python=["3.8", "3.7"])
 def tests(session):
     """Run the test suite."""
-    args = session.posargs or ["--cov", "-m"]
+    args = session.posargs or ["--cov"]
     session.run("poetry", "install", "--no-dev", external=True)
-    install_with_constraints(session, "coverage[toml]", "pytest", "pytest-cov")
+    install_with_constraints(
+        session, "coverage[toml]", "pytest", "pytest-cov", "pytest-vcr"
+    )
     session.run("pytest", *args)
 
 
