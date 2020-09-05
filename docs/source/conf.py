@@ -12,13 +12,6 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath("../../"))
-# sys.path.insert(0, os.path.abspath('../../../'))
-from version import find_version
-
 
 # -- Project information -----------------------------------------------------
 
@@ -26,10 +19,6 @@ project = "stats_can"
 copyright = "2018, Ian Preston"
 author = "Ian Preston"
 
-# The short X.Y version
-version = find_version("stats_can", "__init__.py")
-# The full version, including alpha/beta/rc tags
-release = find_version("stats_can", "__init__.py")
 html_domain_indices = True
 autodoc_mock_imports = ["pandas"]
 
