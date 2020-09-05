@@ -1,0 +1,89 @@
+interactions:
+- request:
+    body: '[{"vectorId": 74804}, {"vectorId": 41692457}]'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '45'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.24.0
+    method: POST
+    uri: https://www150.statcan.gc.ca/t1/wds/rest/getSeriesInfoFromVector
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6WQQU7DMBBFr2J5wyaNErc0JV1VVSux6SbtCrGY2pNg5NjFdoCqyoF6Di6GkwpE
+        CxISyKuR5r/veXcH6jz4xtGcFpv5fFEUNKJm+4jc0/xALbqd0Q6LfmluBNI8iejOGtFwfytozoZp
+        krB0HFFujBVSgw87NI1ZnMbJ1xfAzwFrbBfLRpNkFNHS4lODmu9P6EBxHBTYJXSLn30CuaxBuX7w
+        aOu+RvRjgVaiW0uvcKFD8xw0CJiujQdFtNEDqbuEEWH0FspScqIMCBTTVVNv0RJTEgtSEQ7W0TPg
+        0l4Aox4RCBdg/gC2ejtOV6beWiQCyQtUQVzA1diVbEx9uoaxYdtG/9aeToL2pFN4pp0NYzbJzr1f
+        mB+l4xs2us7+ID/9Vf5MhVs9TGdKDaTH2hF85aoJ/6sIarTV/gfBH6FFuLjeKjxlQHuirt6OXUri
+        d5Fp1rb372xKhJ3AAgAA
+    headers:
+      Access-Control-Allow-Headers:
+      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      Cache-Control:
+      - max-age=120
+      - public
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
+        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
+        ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
+        *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
+        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
+        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
+        *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
+        worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
+        frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
+        https://dv-vd.shinyapps.io blob:;'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 05 Sep 2020 14:14:47 GMT
+      Expires:
+      - Sat, 05 Sep 2020 14:16:47 GMT
+      Set-Cookie:
+      - TS011c6724=01bc1e933934939a1e5d0c5e53fce69bff7d7eefb711f86a76a1915d27b4e985455d495bc915b1aaa3122eb3f7437ecff0a4f2eddb;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      - accept-encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      - SAMEORIGIN
+      X-Proxy-Cache:
+      - EXPIRED
+      X-XSS-Protection:
+      - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
+    status:
+      code: 200
+      message: ''
+version: 1
