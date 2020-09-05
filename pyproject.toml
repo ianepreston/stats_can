@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "stats_can"
-version = "2.3.4"
+version = "2.3.5"
 description = "Read StatsCan data into python, mostly pandas dataframes"
 authors = ["Ian Preston"]
 license = "GPL-3.0-or-later"
