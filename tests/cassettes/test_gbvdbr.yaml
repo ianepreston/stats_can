@@ -1,0 +1,91 @@
+interactions:
+- request:
+    body: '{"vectorIds": [74804, 41692457], "startDataPointReleaseDate": "2018-01-01T13:00",
+      "endDataPointReleaseDate": "2018-05-01T13:00"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '128'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.24.0
+    method: POST
+    uri: https://www150.statcan.gc.ca/t1/wds/rest/getBulkVectorDataByRange
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA82WTU/EIBCG/wvn3YYZoNBeV01MPBhXT8YDtpjUdBeFds3G+N+lrl/rmpbEmJD2
+        An2BeWYovNfPxHe66z0pyfJqsTheLsmM2Nt7U3WkfCbO+Ae79mb5JlrY2pCSzsiDs3Vfdac1KZEB
+        pQj5jFTWurpZ6y5oCGSYQUa/P2HiTZjWumGY5Iryj44j3elz26zDktfDmnfnxoU5kIKcUwhvGLrr
+        xdD92bjQT7+rwod34Ua3fQgHVSERsxB5bapmpVv/huEr3Wp3oocYPtn8dnVr26/mPrk3Ve+abntm
+        NuZL5ExrtDeXzcrsIlJzinNUl1SVbAC/c+axN+tquxuSv8wOODGKE8c58wIEpM3JojjZKCcDQEHT
+        5uRRnHyckzIheNqcIopTjO/bQjGl0ubMozjzCU4hWOL7VkZxyonzFgQWaXOqKE41UU+GqdeziOIs
+        Js4hDkomzQk0hnNf9cu9IphKe99ClB+CcT/EqJQy7fMWovwQTPihQiohUuK8eRlQ/+i5QQXPTQf/
+        vOe5kWU4/KUjtptDXiAXctp5qyin9lN1UAFgMlPf0w//nH4+Rzqa/ptXb5wJ+PQMAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      Cache-Control:
+      - max-age=120
+      - public
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
+        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
+        ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
+        *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
+        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
+        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
+        *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
+        worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
+        frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
+        https://dv-vd.shinyapps.io blob:;'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 05 Sep 2020 13:58:05 GMT
+      Expires:
+      - Sat, 05 Sep 2020 14:00:05 GMT
+      Set-Cookie:
+      - TS011c6724=01bc1e9339821d91fd04294a53e5082eb249c7afaf3690ed4197f6b9ab5db7f8ddebed509d08f7eb47c3c5d2867601cbe4ba5d0eef;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      - accept-encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      - SAMEORIGIN
+      X-Proxy-Cache:
+      - EXPIRED
+      X-XSS-Protection:
+      - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
+    status:
+      code: 200
+      message: ''
+version: 1

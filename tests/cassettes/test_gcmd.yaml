@@ -1,0 +1,115 @@
+interactions:
+- request:
+    body: '[{"productId": "27100022"}]'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '27'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.24.0
+    method: POST
+    uri: https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata
+  response:
+    body:
+      string: !!binary |
+        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
+        UVgFX6xW1pT8jcN/A8x0BKEGHAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      Cache-Control:
+      - max-age=120
+      - public
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
+        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
+        ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
+        *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
+        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
+        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
+        *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
+        worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
+        frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
+        https://dv-vd.shinyapps.io blob:;'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 05 Sep 2020 13:58:02 GMT
+      Expires:
+      - Sat, 05 Sep 2020 14:00:02 GMT
+      Set-Cookie:
+      - TS011c6724=01bc1e933961e596d5d19f82c5ead590859f80848871b2915e4486768c0389a9498a084c3313fee358843015fbd03eba7cdafa68d1;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      - accept-encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      - SAMEORIGIN
+      X-Proxy-Cache:
+      - EXPIRED
+      X-XSS-Protection:
+      - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
+    status:
+      code: 200
+      message: ''
+version: 1
