@@ -38,6 +38,7 @@ darglint = "^1.5.4"
 xdoctest = "^0.14.0"
 sphinx-autodoc-typehints = "^1.11.0"
 sphinx_rtd_theme = "^0.5.0"
+safety = "^1.9.0"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]

@@ -2,7 +2,7 @@ import nox
 import tempfile
 
 package = "stats_can"
-nox.options.sessions = ["tests"]  # , "lint", "safety"
+nox.options.sessions = ["tests", "safety"]  # , "lint", "safety"
 locations = "src", "tests", "noxfile.py", "docs/conf.py"
 
 
