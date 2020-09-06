@@ -1,4 +1,4 @@
-"""Read StatsCan Data into python, mostly pandas dataframes
+"""Read StatsCan Data into python, mostly pandas dataframes.
 
 TODO
 ----

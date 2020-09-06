@@ -1,34 +1,62 @@
-"""Helper functions that shouldn't need to be directly called by an end user"""
+"""Helper functions that shouldn't need to be directly called by an end user."""
 import re
 
 
+def _check_one_status(result):
+    """Do the check on an individual result.
+
+    # noqa: DAR002
+    Parameters
+    ----------
+    result: list of dicts, or dict
+    """
+    if result["status"] != "SUCCESS":
+        raise RuntimeError(str(result["object"]))
+
+
 def check_status(results):
-    """Make sure list of results succeeded
+    """Make sure list of results succeeded.
 
     Parameters
     ----------
     results : list of dicts, or dict
         JSON from an API call parsed as a dictionary
+
+    Returns
+    -------
+    results: list of dicts, or dict
+        JSON from an API call parsed as a dictionary
     """
     results.raise_for_status()
     results = results.json()
 
-    def check_one_status(result):
-        """Do the check on an individual result"""
-        if result["status"] != "SUCCESS":
-            raise RuntimeError(str(result["object"]))
-
     if isinstance(results, list):
         for result in results:
-            check_one_status(result)
+            _check_one_status(result)
     else:
-        check_one_status(results)
+        _check_one_status(results)
     return results
 
 
-def parse_tables(tables):
-    """ Basic cleanup of table or tables to numeric
+def _parse_table(table):
+    """Clean up one table string.
 
+    Parameters
+    ----------
+    table: str or int
+        A single table, possibly with hyphens or other formatting
+
+    Returns
+    -------
+    parse_table: str
+        A single table stripped of all formatting
+    """
+    parsed_table = re.sub(r"\D", "", table)[:8]
+    return parsed_table
+
+
+def parse_tables(tables):
+    """Parse string of table or tables to numeric.
 
     Strip out hyphens or other non-numeric characters from a list of tables
     or a single table
@@ -47,18 +75,31 @@ def parse_tables(tables):
     list of str
         tables with unnecessary characters removed
     """
-
-    def parse_table(table):
-        """Clean up one table string"""
-        return re.sub(r"\D", "", table)[:8]
-
     if isinstance(tables, str):
-        return [parse_table(tables)]
-    return [parse_table(t) for t in tables]
+        return [_parse_table(tables)]
+    return [_parse_table(t) for t in tables]
+
+
+def _parse_vector(vector):
+    """Strip string to numeric elements only.
+
+    Parameters
+    ----------
+    vector: str or int
+        vector to be formatted
+
+    Returns
+    -------
+    vector: int
+        the parsed vector
+    """
+    if not isinstance(vector, int):  # Already parsed earlier
+        vector = int(re.sub(r"\D", "", vector))
+    return vector
 
 
 def parse_vectors(vectors):
-    """ Basic cleanup of vector or vectors
+    """Parse string of vector or vectors to numeric.
 
     Strip out V from V#s. Similar to parse tables, this by no means guarantees
     a valid entry, just helps with some standard input formats
@@ -73,20 +114,13 @@ def parse_vectors(vectors):
     list of str
         vectors with unnecessary characters removed
     """
-
-    def parse_vector(vector):
-        """Strip string to numeric elements only"""
-        if isinstance(vector, int):  # Already parsed earlier
-            return vector
-        return int(re.sub(r"\D", "", vector))
-
     if isinstance(vectors, str):
-        return [parse_vector(vectors)]
-    return [parse_vector(v) for v in vectors]
+        return [_parse_vector(vectors)]
+    return [_parse_vector(v) for v in vectors]
 
 
 def chunk_vectors(vectors):
-    """api calls max out at 300 vectors so break list into chunks
+    """Break vectors into chunks small enough for the API (300 limit).
 
     Parameters
     ----------
@@ -95,9 +129,10 @@ def chunk_vectors(vectors):
 
     Returns
     -------
-    list of lists of str
+    chunks: list of lists of str
         lists of vectors in chunks
     """
     MAX_CHUNK = 250
     vectors = parse_vectors(vectors)
-    return [vectors[i : i + MAX_CHUNK] for i in range(0, len(vectors), MAX_CHUNK)]
+    chunks = [vectors[i : i + MAX_CHUNK] for i in range(0, len(vectors), MAX_CHUNK)]
+    return chunks
