@@ -2,7 +2,7 @@
 select = B,B9,BLK,C,E,F,I,S,W,D
 docstring-convention = numpy
 ignore = E203,E501,W503,DAR401
-per-file-ignores = tests/*:S101,__init__.py:F401
+per-file-ignores = tests/*:S101,__init__.py:F401,scwds.py:D400
 max-line-length=88
 application-import-names = stats_can, tests
 import-order-style = google

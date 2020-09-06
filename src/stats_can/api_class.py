@@ -1,18 +1,21 @@
+"""Define a class wrapper for Stats Can functions."""
 from pathlib import Path
+
 from stats_can import sc
 from stats_can import scwds
 
 
 class StatsCan:
-    def __init__(self, data_folder=None):
-        """Load Statistics Canada data and metadata into python
+    """Load Statistics Canada data and metadata into python.
 
-        Parameters
-        ----------
-        data_folder: Path/str, default None
-        The location to save/search for locally stored Statistics Canada
-        data tables. Defaults to the current working directory
-        """
+    Parameters
+    ----------
+    data_folder: Path/str, default None
+    The location to save/search for locally stored Statistics Canada
+    data tables. Defaults to the current working directory
+    """
+
+    def __init__(self, data_folder=None):
         if data_folder is None:
             self.data_folder = Path.cwd()
         else:
@@ -20,7 +23,7 @@ class StatsCan:
 
     @property
     def downloaded_tables(self):
-        """Check which tables you've downloaded
+        """Check which tables you've downloaded.
 
         Checks the file "stats_can.h5" in the instantiated data folder
         and lists all tables stored there.
@@ -38,7 +41,7 @@ class StatsCan:
         return tables
 
     def table_to_df(self, table):
-        """Read a table to a dataframe
+        """Read a table to a dataframe.
 
         Parameters
         ----------
@@ -61,15 +64,16 @@ class StatsCan:
     def vectors_to_df_remote(
         vectors, periods=1, start_release_date=None, end_release_date=None
     ):
-        """Retrieve V# data directly from Statistics Canada (as opposed to from a locally stored table)
+        """Retrieve V# data directly from Statistics Canada.
 
         Parameters
         ----------
         vectors: str or [str]
             V#(s) to retrieve data for
         periods: int, default 1
-            Number of periods to retrieve data. Note that this will be ignored if start_release_date and
-            end_release date are set
+            Number of periods to retrieve data.
+            Note that this will be ignored if start_release_date and end_release date
+            are set
         start_release_date: datetime.date, default None
             earliest release date to retrieve data
         end_release_date: datetime.date, default None
@@ -78,22 +82,23 @@ class StatsCan:
         Returns
         -------
         pandas.DataFrame
-            Dataframe indexed on reference (not release) date, with columns for each V# input
+            Dataframe indexed on reference (not release) date, with columns for each V#
+            input
 
-        Note that start and end release date refer to the dates the data was released, not the reference period
-        they cover. For example. October labour force survey data is released on the first or second Friday of
-        November.
+        Note that start and end release date refer to the dates the data was released,
+        not the reference period they cover. For example. October labour force survey
+        data is released on the first or second Friday of November.
         """
         return sc.vectors_to_df(vectors, periods, start_release_date, end_release_date)
 
     def vectors_to_df(self, vectors, start_date=None):
-        """Get a dataframe of V#s
+        """Get a dataframe of V#s.
 
         Parameters
         ----------
         vectors: str or [str]
             the V#s to retrieve
-        start_date datetime.date, default None
+        start_date: datetime.date, optional
             earliest reference period to return, defaults to all available history
 
         Returns
@@ -112,7 +117,7 @@ class StatsCan:
         )
 
     def update_tables(self, tables=None):
-        """Update locally stored tables
+        """Update locally stored tables.
 
         Compares latest available reference period in locally stored tables to the
         latest available on Statistics Canada and updates any tables necessary
@@ -120,7 +125,8 @@ class StatsCan:
         Parameters
         ----------
         tables: str or [str], default None
-            Optional subset of tables to check for updates, defaults to update all downloaded tables
+            Optional subset of tables to check for updates, defaults to update all
+            downloaded tables
 
         Returns
         -------
@@ -131,7 +137,7 @@ class StatsCan:
         )
 
     def delete_tables(self, tables):
-        """Remove locally stored tables
+        """Remove locally stored tables.
 
         Parameters
         ----------
@@ -139,7 +145,7 @@ class StatsCan:
             tables to delete
 
         Returns
-        --------
+        -------
         [deleted tables]
         """
         return sc.delete_tables(
@@ -148,41 +154,75 @@ class StatsCan:
 
     @staticmethod
     def get_code_sets():
-        """ Gets all code sets which provide additional information to describe
-            information and are grouped into scales, frequencies, symbols etc.
+        """Get code sets.
+
+        Code sets provide additional metadata to describe variables and are grouped into
+        scales, frequencies, symbols etc.
+
+        Returns
+        -------
+        code_sets: [dict]
+            one dictionary for each group of information
         """
         return scwds.get_code_sets()
 
     @staticmethod
     def vectors_updated_today():
-        """ Get a list of all V#s that were updated today
+        """Get a list of all V#s that were updated today.
+
+        Returns
+        -------
+        changed_series: [dict]
+            one dictionary for each vector with its update date
         """
         return scwds.get_changed_series_list()
 
     @staticmethod
     def tables_updated_today():
-        """Get a list of tables that were updated today
+        """Get a list of tables that were updated today.
+
+        Returns
+        -------
+        changed_tables: [dict]
+            one dictionary for each table with its update date
         """
         return scwds.get_changed_cube_list()
 
     @staticmethod
     def tables_updated_on_date(date):
-        """Get a list of tables that were updated on a given date"""
+        """Get a list of tables that were updated on a given date.
+
+        Parameters
+        ----------
+        date: str or datetime.date
+            The date to check tables
+
+        Returns
+        -------
+        changed_tables: [dict]
+            one dictionary for each table with its update date
+        """
         return scwds.get_changed_cube_list(date)
 
     @staticmethod
     def vector_metadata(vectors):
-        """Metadata on vectors
+        """Get metadata on vectors.
+
         Parameters
         ----------
         vectors: str or [str]
             V#(s) to retrieve metadata
+
+        Returns
+        -------
+        vector_metadata: [dict]
+            list of dictionaries with one dict for each vector
         """
         return scwds.get_series_info_from_vector(vectors)
 
     @staticmethod
     def get_tables_for_vectors(vectors):
-        """Find which table(s) a V# or list of V#s is from
+        """Find which table(s) a V# or list of V#s is from.
 
         Parameters
         ----------
@@ -190,7 +230,7 @@ class StatsCan:
             V#(s) to look up tables for
 
         Returns
-        --------
+        -------
         dictionary of  vector:table pairs plus an
         "all_tables" key with a list of all tables
         containing the input V#s
