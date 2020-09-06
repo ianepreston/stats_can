@@ -1,5 +1,7 @@
-import nox
+"""Manage tasks for the stats_can library."""
 import tempfile
+
+import nox
 
 package = "stats_can"
 nox.options.sessions = "tests", "safety", "black", "lint"
@@ -8,16 +10,22 @@ locations = "src", "tests", "noxfile.py", "docs/source/conf.py"
 
 def install_with_constraints(session, *args, **kwargs):
     """Install packages constrained by Poetry's lock file.
+
     This function is a wrapper for nox.sessions.Session.install. It
     invokes pip to install packages inside of the session's virtualenv.
     Additionally, pip is passed a constraints file generated from
     Poetry's lock file, to ensure that the packages are pinned to the
     versions specified in poetry.lock. This allows you to manage the
     packages as Poetry development dependencies.
-    Arguments:
-        session: The Session object.
-        args: Command-line arguments for pip.
-        kwargs: Additional keyword arguments for Session.install.
+
+    Parameters
+    ----------
+    session
+        The Session object.
+    args
+        Command-line arguments for pip.
+    kwargs
+        Additional keyword arguments for Session.install.
     """
     with tempfile.NamedTemporaryFile() as requirements:
         session.run(
@@ -33,7 +41,13 @@ def install_with_constraints(session, *args, **kwargs):
 
 @nox.session(python="3.8")
 def black(session):
-    """Run black code formatter."""
+    """Run black code formatter.
+
+    Parameters
+    ----------
+    session
+        The Session object.
+    """
     args = session.posargs or locations
     install_with_constraints(session, "black")
     session.run("black", *args)
@@ -41,7 +55,13 @@ def black(session):
 
 @nox.session(python=["3.8", "3.7"])
 def lint(session):
-    """Lint using flake8."""
+    """Lint using flake8.
+
+    Parameters
+    ----------
+    session
+        The Session object.
+    """
     args = session.posargs or locations
     install_with_constraints(
         session,
@@ -59,7 +79,13 @@ def lint(session):
 
 @nox.session(python="3.8")
 def safety(session):
-    """Scan dependencies for insecure packages."""
+    """Scan dependencies for insecure packages.
+
+    Parameters
+    ----------
+    session
+        The Session object.
+    """
     with tempfile.NamedTemporaryFile() as requirements:
         session.run(
             "poetry",
@@ -76,7 +102,13 @@ def safety(session):
 
 @nox.session(python=["3.8", "3.7"])
 def tests(session):
-    """Run the test suite."""
+    """Run the test suite.
+
+    Parameters
+    ----------
+    session
+        The Session object.
+    """
     args = session.posargs or ["--cov"]
     session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints(
@@ -87,7 +119,13 @@ def tests(session):
 
 @nox.session(python="3.8")
 def coverage(session):
-    """Upload coverage data."""
+    """Upload coverage data.
+
+    Parameters
+    ----------
+    session
+        The Session object.
+    """
     install_with_constraints(session, "coverage[toml]", "codecov")
     session.run("coverage", "xml", "--fail-under=0")
     session.run("codecov", *session.posargs)
@@ -95,7 +133,13 @@ def coverage(session):
 
 @nox.session(python="3.8")
 def docs(session):
-    """Build the documentation."""
+    """Build the documentation.
+
+    Parameters
+    ----------
+    session
+        The Session object.
+    """
     session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints(
         session, "sphinx", "sphinx-autodoc-typehints", "sphinx_rtd_theme"
