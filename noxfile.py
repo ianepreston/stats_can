@@ -2,8 +2,8 @@ import nox
 import tempfile
 
 package = "stats_can"
-nox.options.sessions = ["tests", "safety"]  # , "lint", "safety"
-locations = "src", "tests", "noxfile.py", "docs/conf.py"
+nox.options.sessions = "tests", "safety", "black", "lint"
+locations = "src", "tests", "noxfile.py", "docs/source/conf.py"
 
 
 def install_with_constraints(session, *args, **kwargs):
@@ -46,13 +46,13 @@ def lint(session):
     install_with_constraints(
         session,
         "flake8",
-        "flake8-annotations",
         "flake8-bandit",
         "flake8-black",
         "flake8-bugbear",
         "flake8-docstrings",
         "flake8-import-order",
         "darglint",
+        "pandas-vet",
     )
     session.run("flake8", *args)
 
