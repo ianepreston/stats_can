@@ -28,7 +28,7 @@ def test_gcsl():
 @pytest.mark.vcr()
 def test_gccl():
     """test get changed cube list"""
-    r = stats_can.get_changed_cube_list()
+    r = stats_can.get_changed_cube_list(dt.date(2020, 9, 5))
     assert isinstance(r, list)
     if len(r) > 0:
         assert list(r[0].keys()) == ["responseStatusCode", "productId", "releaseTime"]
