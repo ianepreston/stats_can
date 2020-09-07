@@ -5,13 +5,16 @@ TODO
 ----
 Refactor a lot of this setup and teardown into its own setup functions
 """
+import datetime as dt
 import os
 from pathlib import Path
 import shutil
+
+from freezegun import freeze_time
 import pytest
-import datetime as dt
 import pandas as pd
 from pandas.testing import assert_frame_equal
+
 import stats_can
 
 
@@ -50,6 +53,7 @@ def test_class_update_tables(class_fixture):
 
 
 @pytest.mark.vcr()
+@freeze_time("2020-09-06")
 def test_class_static_methods(class_fixture):
     """static methods are just wrappers, should always match"""
     assert (
