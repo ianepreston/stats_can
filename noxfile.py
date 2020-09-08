@@ -4,7 +4,7 @@ import tempfile
 import nox
 
 package = "stats_can"
-nox.options.sessions = "tests", "safety", "black", "lint"
+nox.options.sessions = "safety", "black", "lint", "tests", "coverage", "docs"
 locations = "src", "tests", "noxfile.py", "docs/source/conf.py"
 
 
