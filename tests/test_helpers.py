@@ -1,10 +1,19 @@
 """Test the helpers moduled of the stats_can package."""
+import pytest
+
 import stats_can
 
 vs = ["v74804", "v41692457"]
 v = "41692452"
 t = "271-000-22-01"
 ts = ["271-000-22-01", "18100204"]
+
+
+def test_check_one_status():
+    """Kind of annoying one just to satisfy coverage."""
+    bad_status = {"status": "error", "object": "bad stuff"}
+    with pytest.raises(RuntimeError):
+        stats_can.helpers._check_one_status(bad_status)
 
 
 def test_check_status():
