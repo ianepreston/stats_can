@@ -610,7 +610,6 @@ def test_vectors_to_df_local_missing_tables_no_h5(tmpdir):
     assert list(df.columns) == ["v107792885", "v74804"]
 
 
-@pytest.mark.slow
 def test_vectors_to_df_local_missing_tables_h5(tmpdir):
     """Load certain vectors to a dataframe.
 
