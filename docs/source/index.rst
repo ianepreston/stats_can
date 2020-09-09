@@ -8,14 +8,18 @@ Canada tables or vectors into pandas dataframes.
 
 Installation
 ============
-The easiest way to install the package is with conda:
+The package can either be installed with pip or conda:
 ::
 
-    conda install -c ian.e.preston stats_can
+    conda install -c conda-forge stats_can
+
+Or:
+::
+
+    pip install stats-can
 
 The code is also available on
 `github <https://github.com/ianepreston/stats_can>`_,
-I haven't got it on pypi or anything yet.
 
 
 Quickstart
@@ -95,24 +99,15 @@ functionality are described here:
 Contributing
 ============
 
-Contributions are welcome. I'll outline the method I use to set up a dev environment below,
-but a great enhancement for this project would be to extend that to other possible approaches.
-Using conda, a dev environment can bet set up as follows:
-::
-        git clone <your fork of stats_can>
-        cd stats_can
-        conda env create -f sc_dev.yml
-        conda activate sc_dev
-        python setup.py develop
+Contributions to this project are welcome. Fork the repository from
+`github <https://github.com/ianepreston/stats_can>`_,
 
-From there you should be able to make any changes to the source code, run tests and build
-docs. I use travis CI for building and testing. I'm actually not sure if it will work for
-people who aren't me the way I've got it set up, since the last step is to push a passing
-build to Anaconda cloud.
+You'll need a python environment with poetry and nox installed. A good guide for setting
+up an environment and project (that I used for this library) is `hypermodern python <https://cjolowicz.github.io/posts/hypermodern-python-01-setup/>`_.
 
-This is pretty meta but I would love some contributions around making this project easier
-to contribute to. If you have ideas for that please feel free to create an issue or submit a PR.
+After making any changes you can run nox to make sure testing and linting went ok, and then you should be good to submit a PR.
 
+I'd also welcome contributions to the docs, or anything else that would make this tool better for you or others.
 
 Indices and tables
 ==================
