@@ -63,3 +63,12 @@ def test_parse_parsed_tables():
     pt = stats_can.helpers.parse_tables
     assert pt(t) == pt(pt(t))
     assert pt(ts) == pt(pt(ts))
+
+
+def test_chunks():
+    """Long lists of vectors should be chunked up."""
+    long_vectors = [v for _ in range(499)]
+    chunks = stats_can.helpers.chunk_vectors(long_vectors)
+    assert len(chunks) == 2
+    for chunk in chunks:
+        assert len(chunk) <= 250
