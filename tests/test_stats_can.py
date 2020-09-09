@@ -1,17 +1,19 @@
-"""Tests for the sc module
+"""Tests for the sc module.
 
-
-TODO
+Todo
 ----
 Refactor a lot of this setup and teardown into its own setup functions
 """
+import datetime as dt
 import os
-import time
 from pathlib import Path
 import shutil
-import pytest
-import datetime as dt
+
+from freezegun import freeze_time
 import pandas as pd
+from pandas.testing import assert_frame_equal
+import pytest
+
 import stats_can
 
 
@@ -19,20 +21,52 @@ vs = ["v74804", "v41692457"]
 v = "41692452"
 t = "271-000-22-01"
 ts = ["271-000-22-01", "18100204"]
+TEST_FILES_PATH = Path(__file__).resolve().parent / "test_files"
 
 
 @pytest.fixture(scope="module")
-def class_folder(tmpdir_factory):
-    return tmpdir_factory.mktemp("classdata")
+def class_folder(tmp_path_factory):
+    """Make a folder to store class data.
+
+    Parameters
+    ----------
+    tmp_path_factory: Path
+        tell pytest to generate a temporary path
+
+    Returns
+    -------
+    Path
+        A folder called "classdata" in a temporary directory
+    """
+    return tmp_path_factory.mktemp("classdata")
 
 
 @pytest.fixture(scope="module")
 def class_fixture(class_folder):
+    """Generate a reusable StatsCan class instance for testing.
+
+    Parameters
+    ----------
+    class_folder: Path
+        Where to store data for the class
+
+    Returns
+    -------
+    stats_can.StatsCan
+        Class instance for testing
+    """
     return stats_can.StatsCan(data_folder=class_folder)
 
 
 @pytest.mark.vcr()
 def test_class_tables_for_vectors(class_fixture):
+    """Make sure we find vectors in the right tables.
+
+    Parameters
+    ----------
+    class_fixture: stats_can.StatsCan
+        The statscan class we're testing against
+    """
     tv1 = class_fixture.get_tables_for_vectors(vs)
     assert tv1 == {
         74804: "23100216",
@@ -43,14 +77,27 @@ def test_class_tables_for_vectors(class_fixture):
 
 @pytest.mark.vcr()
 def test_class_update_tables(class_fixture):
-    """Should always be empty since we're loading this data fresh"""
+    """Should always be empty since we're loading this data fresh.
+
+    Parameters
+    ----------
+    class_fixture: stats_can.StatsCan
+        The statscan class we're testing against
+    """
     _ = class_fixture.table_to_df(ts[0])
     assert class_fixture.update_tables() == []
 
 
 @pytest.mark.vcr()
+@freeze_time("2020-09-06")
 def test_class_static_methods(class_fixture):
-    """static methods are just wrappers, should always match"""
+    """Static methods are just wrappers, should always match.
+
+    Parameters
+    ----------
+    class_fixture: stats_can.StatsCan
+        The statscan class we're testing against
+    """
     assert (
         class_fixture.vectors_updated_today()
         == stats_can.scwds.get_changed_series_list()
@@ -62,14 +109,34 @@ def test_class_static_methods(class_fixture):
     assert class_fixture.tables_updated_on_date(
         test_dt
     ) == stats_can.scwds.get_changed_cube_list(test_dt)
+    assert class_fixture.get_code_sets() == stats_can.scwds.get_code_sets()
     for v_input in [v, vs]:
         assert class_fixture.vector_metadata(
             v_input
         ) == stats_can.scwds.get_series_info_from_vector(v_input)
+        assert_frame_equal(
+            class_fixture.vectors_to_df_remote(v_input, periods=1),
+            stats_can.vectors_to_df(v_input, periods=1),
+        )
+        assert_frame_equal(
+            class_fixture.vectors_to_df(v_input), stats_can.vectors_to_df_local(v_input)
+        )
+    # cleanup
+    candidates = ["18100004", "23100216"]
+    to_delete = [tbl for tbl in candidates if tbl in class_fixture.downloaded_tables]
+    for tbl in to_delete:
+        class_fixture.delete_tables(tbl)
 
 
 @pytest.mark.vcr()
 def test_class_table_list_download_delete(class_fixture):
+    """Test loading and deleting tables.
+
+    Parameters
+    ----------
+    class_fixture: stats_can.StatsCan
+        The statscan class we're testing against
+    """
     _ = class_fixture.table_to_df(ts[0])
     assert class_fixture.downloaded_tables == ["27100022"]
     _ = class_fixture.table_to_df(ts[1])
@@ -80,7 +147,7 @@ def test_class_table_list_download_delete(class_fixture):
 
 @pytest.mark.vcr()
 def test_get_tables_for_vectors():
-    """test tables for vectors method"""
+    """Test tables for vectors method."""
     tv1 = stats_can.sc.get_tables_for_vectors(vs)
     assert tv1 == {
         74804: "23100216",
@@ -91,14 +158,14 @@ def test_get_tables_for_vectors():
 
 @pytest.mark.vcr()
 def test_table_subsets_from_vectors():
-    """test table subsets from vectors method"""
+    """Test table subsets from vectors method."""
     tv1 = stats_can.sc.table_subsets_from_vectors(vs)
     assert tv1 == {"23100216": [74804], "18100004": [41692457]}
 
 
 @pytest.mark.vcr()
 def test_vectors_to_df_by_release():
-    """test one vector to df method"""
+    """Test one vector to df method."""
     r = stats_can.sc.vectors_to_df(
         vs, start_release_date=dt.date(2018, 1, 1), end_release_date=dt.date(2018, 5, 1)
     )
@@ -109,7 +176,7 @@ def test_vectors_to_df_by_release():
 
 @pytest.mark.vcr()
 def test_vectors_to_df_by_periods():
-    """test the other vector to df method"""
+    """Test the other vector to df method."""
     r = stats_can.sc.vectors_to_df(vs, 5)
     for v in vs:
         assert v in r.columns
@@ -120,19 +187,33 @@ def test_vectors_to_df_by_periods():
 
 @pytest.mark.vcr()
 def test_download_table(tmpdir):
+    """Test downloading a table.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
     t = "18100204"
-    t_json = os.path.join(tmpdir, t + ".json")
-    t_zip = os.path.join(tmpdir, t + "-eng.zip")
-    assert not os.path.isfile(t_json)
-    assert not os.path.isfile(t_zip)
+    t_json = tmpdir / t + ".json"
+    t_zip = tmpdir / t + "-eng.zip"
+    assert not t_json.exists()
+    assert not t_zip.exists()
     stats_can.sc.download_tables(t, path=tmpdir)
-    assert os.path.isfile(t_json)
-    assert os.path.isfile(t_zip)
+    assert t_json.exists()
+    assert t_zip.exists()
 
 
 @pytest.mark.vcr()
 def test_zip_update_tables(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Test updating a table from a zip file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
         src_file = src / f
@@ -146,70 +227,105 @@ def test_zip_update_tables(tmpdir):
 
 @pytest.mark.vcr()
 def test_zip_update_tables_from_update_tables(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Test updating a table from a zip file using a different function signature.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
         src_file = src / f
-        dest_file = os.path.join(tmpdir, f)
+        dest_file = tmpdir / f
         shutil.copyfile(src_file, dest_file)
         assert src_file.exists()
-        assert os.path.isfile(dest_file)
+        assert dest_file.exists()
     updater = stats_can.sc.update_tables(path=tmpdir, h5file=None)
     assert updater == ["18100204"]
 
 
 def test_zip_table_to_dataframe(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Convert a zipped table to a pandas dataframe.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
         src_file = src / f
-        dest_file = os.path.join(tmpdir, f)
+        dest_file = tmpdir / f
         shutil.copyfile(src_file, dest_file)
         assert src_file.exists()
-        assert os.path.isfile(dest_file)
+        assert dest_file.exists()
     df = stats_can.sc.zip_table_to_dataframe("18100204", path=tmpdir)
     assert df.shape == (11804, 15)
     assert df.columns[0] == "REF_DATE"
 
 
 def test_table_to_new_h5(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Convert a zipped table to a pandas dataframe and save in an h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
         src_file = src / f
         assert src_file.exists()
-        dest_file = os.path.join(tmpdir, f)
+        dest_file = tmpdir / f
         shutil.copyfile(src_file, dest_file)
-        assert os.path.isfile(dest_file)
-    h5file = os.path.join(tmpdir, "stats_can.h5")
-    assert not os.path.isfile(h5file)
+        assert dest_file.exists()
+    h5file = tmpdir / "stats_can.h5"
+    assert not h5file.exists()
     stats_can.sc.tables_to_h5("18100204", path=tmpdir)
-    assert os.path.isfile(h5file)
+    assert h5file.exists()
 
 
 def test_table_to_new_h5_no_path(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Convert a zipped table to a pandas dataframe and save in an h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
         src_file = src / f
         assert src_file.exists()
-        dest_file = os.path.join(tmpdir, f)
+        dest_file = tmpdir / f
         shutil.copyfile(src_file, dest_file)
-        assert os.path.isfile(dest_file)
-    h5file = os.path.join(tmpdir, "stats_can.h5")
-    assert not os.path.isfile(h5file)
+        assert dest_file.exists()
+    h5file = tmpdir / "stats_can.h5"
+    assert not h5file.exists()
     oldpath = os.getcwd()
     os.chdir(tmpdir)
-    stats_can.sc.tables_to_h5("18100204")
+    stats_can.sc.tables_to_h5("18100204", path=tmpdir)
     os.chdir(oldpath)
-    assert os.path.isfile(h5file)
+    assert h5file.exists()
 
 
 def test_table_from_h5(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Load a dataframe from a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     tbl = "18100204"
     df = stats_can.sc.table_from_h5(tbl, path=tmpdir)
@@ -218,10 +334,17 @@ def test_table_from_h5(tmpdir):
 
 
 def test_table_from_h5_no_path(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Load a dataframe from a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     tbl = "18100204"
     oldpath = os.getcwd()
@@ -234,10 +357,19 @@ def test_table_from_h5_no_path(tmpdir):
 
 @pytest.mark.vcr()
 def test_missing_table_from_h5(tmpdir, capsys):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Load a dataframe from a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    capsys
+        Capture standard out
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     tbl = "23100216"
     stats_can.sc.table_from_h5(tbl, path=tmpdir)
@@ -246,10 +378,17 @@ def test_missing_table_from_h5(tmpdir, capsys):
 
 
 def test_metadata_from_h5(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Load table metadata from a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     tbl = "18100204"
     meta = stats_can.sc.metadata_from_h5(tbl, path=tmpdir)
@@ -257,10 +396,17 @@ def test_metadata_from_h5(tmpdir):
 
 
 def test_metadata_from_h5_no_path(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Load table metadata from a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     tbl = "18100204"
     oldpath = os.getcwd()
@@ -271,10 +417,19 @@ def test_metadata_from_h5_no_path(tmpdir):
 
 
 def test_missing_h5_metadata(tmpdir, capsys):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Load missing table metadata from a h5 file, make sure it fails.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    capsys
+        Capture standard output
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     tbl = "badtable123"
     stats_can.sc.metadata_from_h5(tbl, path=tmpdir)
@@ -284,10 +439,17 @@ def test_missing_h5_metadata(tmpdir, capsys):
 
 @pytest.mark.vcr()
 def test_h5_update_tables(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Download updated versions of all tables in a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     result = stats_can.sc.h5_update_tables(path=tmpdir)
     assert result == ["18100204", "27100022"]
@@ -295,10 +457,17 @@ def test_h5_update_tables(tmpdir):
 
 @pytest.mark.vcr()
 def test_h5_update_tables_from_update_tables(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Download updated versions of all tables in a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     result = stats_can.sc.update_tables(path=tmpdir)
     assert result == ["18100204", "27100022"]
@@ -306,10 +475,17 @@ def test_h5_update_tables_from_update_tables(tmpdir):
 
 @pytest.mark.vcr()
 def test_h5_update_tables_list(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Download updated versions of a subset of tables in a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     result = stats_can.sc.h5_update_tables(path=tmpdir, tables="18100204")
     assert result == ["18100204"]
@@ -317,10 +493,17 @@ def test_h5_update_tables_list(tmpdir):
 
 @pytest.mark.vcr()
 def test_h5_update_tables_list_from_update_tables(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Download updated versions of a subset of tables in a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     result = stats_can.sc.update_tables(path=tmpdir, tables="18100204")
     assert result == ["18100204"]
@@ -328,10 +511,17 @@ def test_h5_update_tables_list_from_update_tables(tmpdir):
 
 @pytest.mark.vcr()
 def test_h5_update_tables_no_path(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Download updated versions of a subset of tables in a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     oldpath = os.getcwd()
     os.chdir(tmpdir)
@@ -342,10 +532,17 @@ def test_h5_update_tables_no_path(tmpdir):
 
 @pytest.mark.vcr()
 def test_h5_update_tables_no_path_from_update_tables(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Download updated versions of a subset of tables in a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     oldpath = os.getcwd()
     os.chdir(tmpdir)
@@ -355,7 +552,8 @@ def test_h5_update_tables_no_path_from_update_tables(tmpdir):
 
 
 def test_h5_included_keys():
-    src = Path(__file__).resolve().parent / "test_files"
+    """Test low level h5 function for stored data."""
+    src = TEST_FILES_PATH
     keys = stats_can.sc.h5_included_keys(path=src)
     assert keys == [
         "json_18100204",
@@ -366,8 +564,9 @@ def test_h5_included_keys():
 
 
 def test_h5_included_keys_no_path():
+    """Test low level h5 function for stored data."""
     oldpath = os.getcwd()
-    os.chdir("test_files")
+    os.chdir(TEST_FILES_PATH)
     keys = stats_can.sc.h5_included_keys()
     os.chdir(oldpath)
     assert keys == [
@@ -379,11 +578,18 @@ def test_h5_included_keys_no_path():
 
 
 def test_vectors_to_df_local_defaults(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Load certain vectors to a dataframe.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip", "23100216.json", "23100216-eng.zip"]
     for file in files:
-        src_file = os.path.join(src, file)
-        dest_file = os.path.join(tmpdir, file)
+        src_file = src / file
+        dest_file = tmpdir / file
         shutil.copyfile(src_file, dest_file)
     df = stats_can.sc.vectors_to_df_local(vectors=["v107792885", "V74804"], path=tmpdir)
     assert df.shape == (454, 2)
@@ -391,15 +597,28 @@ def test_vectors_to_df_local_defaults(tmpdir):
 
 @pytest.mark.vcr()
 def test_vectors_to_df_local_missing_tables_no_h5(tmpdir):
+    """Load certain vectors to a dataframe.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
     df = stats_can.sc.vectors_to_df_local(vectors=["v107792885", "v74804"], path=tmpdir)
     assert df.shape[1] == 2
     assert df.shape[0] > 450
     assert list(df.columns) == ["v107792885", "v74804"]
 
 
-@pytest.mark.slow
 def test_vectors_to_df_local_missing_tables_h5(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Load certain vectors to a dataframe.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     h5 = "stats_can.h5"
     src_file = os.path.join(src, h5)
     dest_file = os.path.join(tmpdir, h5)
@@ -413,10 +632,17 @@ def test_vectors_to_df_local_missing_tables_h5(tmpdir):
 
 
 def test_list_zipped_tables(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Check which tables have been downloaded as zip files.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = ["18100204.json", "unrelated123.json", "23100216.json"]
     for file in files:
-        shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
+        shutil.copyfile(src / file, tmpdir / file)
     tbls = stats_can.sc.list_zipped_tables(path=tmpdir)
     assert len(tbls) == 2
     assert tbls[0]["productId"] in ["18100204", "23100216"]
@@ -424,17 +650,25 @@ def test_list_zipped_tables(tmpdir):
 
 
 def test_list_h5_tables():
-    tbls = stats_can.sc.list_h5_tables(path="test_files")
+    """Check which tables have been loaded to a h5 file."""
+    tbls = stats_can.sc.list_h5_tables(path=TEST_FILES_PATH)
     assert len(tbls) == 2
     assert tbls[0]["productId"] in ["18100204", "27100022"]
     assert tbls[1]["productId"] in ["18100204", "27100022"]
 
 
 def test_list_downloaded_tables_zip(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Check which tables have been downloaded as zip files.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = ["18100204.json", "unrelated123.json", "23100216.json"]
     for file in files:
-        shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
+        shutil.copyfile(src / file, tmpdir / file)
     tbls = stats_can.sc.list_downloaded_tables(path=tmpdir, h5file=None)
     assert len(tbls) == 2
     assert tbls[0]["productId"] in ["18100204", "23100216"]
@@ -442,19 +676,33 @@ def test_list_downloaded_tables_zip(tmpdir):
 
 
 def test_list_downloaded_tables_h5(tmpdir):
-    tbls = stats_can.sc.list_downloaded_tables(path="test_files")
+    """Check which tables have been loaded to a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    tbls = stats_can.sc.list_downloaded_tables(path=TEST_FILES_PATH)
     assert len(tbls) == 2
     assert tbls[0]["productId"] in ["18100204", "27100022"]
     assert tbls[1]["productId"] in ["18100204", "27100022"]
 
 
 def test_delete_table_zip(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Delete a downloaded zip file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = os.listdir(src)
     for file in files:
-        shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
+        shutil.copyfile(src / file, tmpdir / file)
     for file in files:
-        assert os.path.exists(os.path.join(tmpdir, file))
+        assert os.path.exists(tmpdir / file)
     deleted = stats_can.sc.delete_tables("18100204", path=tmpdir, h5file=None)
     assert deleted == ["18100204"]
     assert not os.path.exists(os.path.join(tmpdir, "18100204-eng.zip"))
@@ -462,12 +710,19 @@ def test_delete_table_zip(tmpdir):
 
 
 def test_delete_table_h5(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Delete a table from a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = os.listdir(src)
     for file in files:
-        shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
+        shutil.copyfile(src / file, tmpdir / file)
     for file in files:
-        assert os.path.exists(os.path.join(tmpdir, file))
+        assert os.path.exists(tmpdir / file)
     deleted = stats_can.sc.delete_tables("27100022", path=tmpdir)
     assert deleted == ["27100022"]
     tbls = stats_can.sc.list_downloaded_tables(path=tmpdir)
@@ -476,22 +731,36 @@ def test_delete_table_h5(tmpdir):
 
 
 def test_delete_table_bad_tables(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Delete a nonexistant table from a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = os.listdir(src)
     for file in files:
-        shutil.copyfile(os.path.join(src, file), os.path.join(tmpdir, file))
+        shutil.copyfile(src / file, tmpdir / file)
     for file in files:
-        assert os.path.exists(os.path.join(tmpdir, file))
+        assert os.path.exists(tmpdir / file)
     bad_tables = ["12345", "nothing", "4444444", "23100216"]
     deleted = stats_can.sc.delete_tables(bad_tables, path=tmpdir)
     assert deleted == []
 
 
 def test_table_to_df_h5(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Load a table to a dataframe from a h5 file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     file = "stats_can.h5"
-    src_file = os.path.join(src, file)
-    dest_file = os.path.join(tmpdir, file)
+    src_file = src / file
+    dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     tbl = "18100204"
     df = stats_can.sc.table_to_df(tbl, path=tmpdir)
@@ -500,35 +769,58 @@ def test_table_to_df_h5(tmpdir):
 
 
 def test_table_to_df_zip(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Load a table to a dataframe from a zip file.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
         src_file = src / f
-        dest_file = os.path.join(tmpdir, f)
+        dest_file = tmpdir / f
         shutil.copyfile(src_file, dest_file)
         assert src_file.exists()
-        assert os.path.isfile(dest_file)
+        assert dest_file.exists()
     df = stats_can.sc.table_to_df("18100204", path=tmpdir, h5file=None)
     assert df.shape == (11804, 15)
     assert df.columns[0] == "REF_DATE"
 
 
 def test_weird_dates(tmpdir):
-    src = Path(__file__).resolve().parent / "test_files"
+    """Tables with weird (e.g quarterly) date formats used to break reading to df.
+
+    calling parse_dates on a ref date column that pandas couldn't figure out would cause
+    an error and kill the whole process
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where to download the table
+    """
+    src = TEST_FILES_PATH
     files = ["13100805.json", "13100805-eng.zip"]
     for f in files:
         src_file = src / f
-        dest_file = os.path.join(tmpdir, f)
+        dest_file = tmpdir / f
         shutil.copyfile(src_file, dest_file)
         assert src_file.exists()
-        assert os.path.isfile(dest_file)
+        assert dest_file.exists()
     # Will fail if I don't have correct date parsing
     df = stats_can.sc.zip_table_to_dataframe("13100805", path=tmpdir)
     assert len(df) > 0
 
 
 def test_code_sets_to_df_dict(class_fixture):
+    """Load all the code sets into a dictionary of dataframes.
 
+    Parameters
+    ----------
+    class_fixture: stats_can.StatsCan
+        The class instance to call
+    """
     codes = stats_can.sc.code_sets_to_df_dict()
 
     assert isinstance(codes, dict)

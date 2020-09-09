@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-"""Functions that allow the package to return exactly what the api gives
+"""Functions that allow the package to return exactly what the api gives.
+
 https://www.statcan.gc.ca/eng/developers/wds/user-guide
 
 Note: StatsCan uses cube/table interchangeably. I'm going to keep cube in my
@@ -23,8 +23,10 @@ Missing api implementations:
     GetFullTableDownloadSDMX
 """
 import datetime as dt
+
 import requests
-from stats_can.helpers import check_status, parse_tables, chunk_vectors
+
+from stats_can.helpers import check_status, chunk_vectors, parse_tables
 
 
 SC_URL = "https://www150.statcan.gc.ca/t1/wds/rest/"
@@ -92,9 +94,10 @@ def get_cube_metadata(tables):
 
 
 def get_series_info_from_cube_pid_coord():
-    """ Not implemented yet
+    """Not implemented yet
 
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-2"""
+    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-2
+    """
     pass
 
 
@@ -122,21 +125,23 @@ def get_series_info_from_vector(vectors):
 
 
 def get_changed_series_data_from_cube_pid_coord():
-    """ Not implemented yet
+    """Not implemented yet
 
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-1"""
+    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-1
+    """
     pass
 
 
 def get_changed_series_data_from_vector():
-    """ Not implemented yet
+    """Not implemented yet
 
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-2"""
+    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-2
+    """
     pass
 
 
 def get_data_from_cube_pid_coord_and_latest_n_periods():
-    """ Not implemented yet
+    """Not implemented yet
 
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-3
     """
@@ -144,7 +149,7 @@ def get_data_from_cube_pid_coord_and_latest_n_periods():
 
 
 def get_data_from_vectors_and_latest_n_periods(vectors, periods):
-    """ https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-4
+    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-4
 
     Parameters
     ----------
@@ -205,10 +210,11 @@ def get_bulk_vector_data_by_range(vectors, start_release_date, end_release_date)
 
 
 def get_full_table_download(table, csv=True):
-    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-6
+    """Take a table name and return a url to a zipped file of that table.
+
+    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-6
     https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-7
 
-    Take a table name and return a url to a zipped file of that table
 
     Parameters
     ----------

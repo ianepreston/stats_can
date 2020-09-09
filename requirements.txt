@@ -1,6 +1,0 @@
-pandas>=0.23
-numpy>=1.15
-requests>=2.20
-h5py>=2.8.0
-tables
-tqdm>=4.48.0

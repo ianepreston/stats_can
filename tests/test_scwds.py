@@ -1,7 +1,8 @@
-"""Tests for the scwds module"""
+"""Tests for the scwds module."""
 import datetime as dt
+
 import pytest
-import pandas as pd
+
 import stats_can
 
 vs = ["v74804", "v41692457"]
@@ -12,7 +13,7 @@ ts = ["271-000-22-01", "18100204"]
 
 @pytest.mark.vcr()
 def test_gcsl():
-    """test get changed series list"""
+    """Test get changed series list."""
     r = stats_can.get_changed_series_list()
     assert isinstance(r, list)
     if len(r) > 0:
@@ -27,8 +28,8 @@ def test_gcsl():
 
 @pytest.mark.vcr()
 def test_gccl():
-    """test get changed cube list"""
-    r = stats_can.get_changed_cube_list()
+    """Test get changed cube list."""
+    r = stats_can.get_changed_cube_list(dt.date(2020, 9, 5))
     assert isinstance(r, list)
     if len(r) > 0:
         assert list(r[0].keys()) == ["responseStatusCode", "productId", "releaseTime"]
@@ -36,7 +37,7 @@ def test_gccl():
 
 @pytest.mark.vcr()
 def test_gcmd():
-    """test get cube metadata"""
+    """Test get cube metadata."""
     r = stats_can.get_cube_metadata(t)
     assert isinstance(r, list)
     assert list(r[0].keys()) == [
@@ -66,13 +67,13 @@ def test_gcmd():
 
 @pytest.mark.vcr()
 def test_gsifcpc():
-    """test get series info from cube pid coord"""
+    """Test get series info from cube pid coord."""
     pass
 
 
 @pytest.mark.vcr()
 def test_gsifv():
-    """test get series info from vector"""
+    """Test get series info from vector."""
     r = stats_can.get_series_info_from_vector(v)
     assert isinstance(r, list)
     assert list(r[0].keys()) == [
@@ -92,25 +93,25 @@ def test_gsifv():
 
 @pytest.mark.vcr()
 def test_gcsdfcpc():
-    """test get changed series data from cube pid coord"""
+    """Test get changed series data from cube pid coord."""
     pass
 
 
 @pytest.mark.vcr()
 def test_gcsdfv():
-    """test get get changed series data from vector"""
+    """Test get get changed series data from vector."""
     pass
 
 
 @pytest.mark.vcr()
 def test_gdfcpcalnp():
-    """test get data from cube pid coord and latest n periods"""
+    """Test get data from cube pid coord and latest n periods."""
     pass
 
 
 @pytest.mark.vcr()
 def test_gdfvalnp():
-    """test get data from vectors and latest n periods"""
+    """Test get data from vectors and latest n periods."""
     r = stats_can.scwds.get_data_from_vectors_and_latest_n_periods(vs, 5)
     assert len(r) == len(vs)
     r0v = r[0]["vectorDataPoint"]
@@ -133,7 +134,7 @@ def test_gdfvalnp():
 
 @pytest.mark.vcr()
 def test_gbvdbr():
-    """test get bulk vector data by range"""
+    """Test get bulk vector data by range."""
     r = stats_can.scwds.get_bulk_vector_data_by_range(
         vs, dt.date(2018, 1, 1), dt.date(2018, 5, 1)
     )
@@ -158,7 +159,7 @@ def test_gbvdbr():
 
 @pytest.mark.vcr()
 def test_gftd():
-    """test get full table download"""
+    """Test get full table download."""
     rc = stats_can.scwds.get_full_table_download(t, csv=True)
     assert rc == "https://www150.statcan.gc.ca/n1/tbl/csv/27100022-eng.zip"
     rs = stats_can.scwds.get_full_table_download(t, csv=False)
@@ -167,7 +168,7 @@ def test_gftd():
 
 @pytest.mark.vcr()
 def test_gcs():
-    """test get code list"""
+    """Test get code list."""
     r = stats_can.scwds.get_code_sets()
 
     assert isinstance(r, dict)
