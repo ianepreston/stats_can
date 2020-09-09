@@ -1,32 +1,34 @@
-"""Functionality that extends on what the base StatsCan api returns in some way
+"""Functionality that extends on what the base StatsCan api returns in some way.
 
-TODO
+Todo
 ----
 Function to delete tables
 
 Extend getChangedCubeList with a function that returns all tables updated
 within a date range
 """
-import os
 import json
+import os
 import zipfile
+
 import h5py
-import pandas as pd
 import numpy as np
+import pandas as pd
 import requests
 from tqdm import tqdm
-from stats_can.scwds import get_series_info_from_vector
-from stats_can.scwds import get_data_from_vectors_and_latest_n_periods
-from stats_can.scwds import get_bulk_vector_data_by_range
-from stats_can.scwds import get_cube_metadata
-from stats_can.scwds import get_full_table_download
-from stats_can.scwds import get_code_sets
+
 from stats_can.helpers import parse_tables
 from stats_can.helpers import parse_vectors
+from stats_can.scwds import get_bulk_vector_data_by_range
+from stats_can.scwds import get_code_sets
+from stats_can.scwds import get_cube_metadata
+from stats_can.scwds import get_data_from_vectors_and_latest_n_periods
+from stats_can.scwds import get_full_table_download
+from stats_can.scwds import get_series_info_from_vector
 
 
 def get_tables_for_vectors(vectors):
-    """ get a list of dicts mapping vectors to tables
+    """Get a list of dicts mapping vectors to tables.
 
     Parameters
     ----------
@@ -50,7 +52,7 @@ def get_tables_for_vectors(vectors):
 
 
 def table_subsets_from_vectors(vectors):
-    """get a list of dicts mapping tables to vectors
+    """Get a list of dicts mapping tables to vectors.
 
     Parameters
     ----------
@@ -71,7 +73,7 @@ def table_subsets_from_vectors(vectors):
 
 
 def download_tables(tables, path=None, csv=True):
-    """Download a json file and zip of data for a list of tables to path
+    """Download a json file and zip of data for a list of tables to path.
 
     Parameters
     ----------
@@ -119,7 +121,7 @@ def download_tables(tables, path=None, csv=True):
 
 
 def zip_update_tables(path=None, csv=True):
-    """check local json, update zips of outdated tables
+    """Check local json, update zips of outdated tables.
 
     Grabs the json files in path, checks them against the metadata on
     StatsCan and grabs updated tables where there have been changes
@@ -155,7 +157,7 @@ def zip_update_tables(path=None, csv=True):
 
 
 def zip_table_to_dataframe(table, path=None):
-    """Reads a StatsCan table into a pandas DataFrame
+    """Read a StatsCan table into a pandas DataFrame.
 
     If a zip file of the table does not exist in path, downloads it
 
@@ -166,7 +168,8 @@ def zip_table_to_dataframe(table, path=None):
     path: str, default: current working directory when module is loaded
         where to download the tables or load them
 
-    Returns:
+    Returns
+    -------
     df: pandas.DataFrame
         the table as a dataframe
     """
@@ -219,7 +222,7 @@ def zip_table_to_dataframe(table, path=None):
 
 
 def list_zipped_tables(path=None):
-    """List StatsCan tables available
+    """List StatsCan tables available.
 
     defaults to looking in the current working directory and for zipped CSVs
 
@@ -227,8 +230,6 @@ def list_zipped_tables(path=None):
     ----------
     path: string or path, default None
         Where to look for zipped tables
-    csv: boolean, default True
-        Whether to look for CSV or SDMX files
 
     Returns
     -------
@@ -253,7 +254,7 @@ def list_zipped_tables(path=None):
 
 
 def tables_to_h5(tables, h5file="stats_can.h5", path=None):
-    """Take a table and its metadata and put it in an hdf5 file
+    """Take a table and its metadata and put it in an hdf5 file.
 
     Parameters
     ----------
@@ -297,7 +298,7 @@ def tables_to_h5(tables, h5file="stats_can.h5", path=None):
 
 
 def table_from_h5(table, h5file="stats_can.h5", path=None):
-    """Read a table from h5 to a dataframe
+    """Read a table from h5 to a dataframe.
 
     Parameters
     ----------
@@ -327,7 +328,7 @@ def table_from_h5(table, h5file="stats_can.h5", path=None):
 
 
 def metadata_from_h5(tables, h5file="stats_can.h5", path=None):
-    """Read table metadata from h5
+    """Read table metadata from h5.
 
     Parameters
     ----------
@@ -360,7 +361,7 @@ def metadata_from_h5(tables, h5file="stats_can.h5", path=None):
 
 
 def list_h5_tables(path=None, h5file="stats_can.h5"):
-    """return a list of metadata for StatsCan tables from an hdf5 file
+    """Return a list of metadata for StatsCan tables from an hdf5 file.
 
     Parameters
     ----------
@@ -380,7 +381,7 @@ def list_h5_tables(path=None, h5file="stats_can.h5"):
 
 
 def list_downloaded_tables(path=None, h5file="stats_can.h5"):
-    """Return a list of metadata for StatsCan tables
+    """Return a list of metadata for StatsCan tables.
 
     Wrapper for list zipped tables and list h5 tables
 
@@ -404,7 +405,7 @@ def list_downloaded_tables(path=None, h5file="stats_can.h5"):
 
 
 def h5_update_tables(h5file="stats_can.h5", path=None, tables=None):
-    """update any stats_can tables contained in an h5 file
+    """Update any stats_can tables contained in an h5 file.
 
     Parameters
     ----------
@@ -415,6 +416,11 @@ def h5_update_tables(h5file="stats_can.h5", path=None, tables=None):
     tables: str or list of str, optional, default None
         If included will only update the subset of tables already in the file
         and in the tables parameter
+
+    Returns
+    -------
+    update_table_list: [str]
+        List of tables that were updated
     """
     if tables:
         local_jsons = metadata_from_h5(tables, h5file=h5file, path=path)
@@ -436,7 +442,7 @@ def h5_update_tables(h5file="stats_can.h5", path=None, tables=None):
 
 
 def update_tables(path=None, h5file="stats_can.h5", tables=None, csv=True):
-    """Update downloaded tables where required
+    """Update downloaded tables where required.
 
     Reads local metadata, either from json files or stored in an h5 file,
     compares it to the metadata on the StatsCan website and downloads those
@@ -468,7 +474,7 @@ def update_tables(path=None, h5file="stats_can.h5", tables=None, csv=True):
 
 
 def h5_included_keys(h5file="stats_can.h5", path=None):
-    """Return a list of keys in an h5 file
+    """Return a list of keys in an h5 file.
 
     Parameters
     ----------
@@ -490,7 +496,7 @@ def h5_included_keys(h5file="stats_can.h5", path=None):
 
 
 def delete_tables(tables, path=None, h5file="stats_can.h5", csv=True):
-    """Delete downloaded tables
+    """Delete downloaded tables.
 
     Parameters
     ----------
@@ -540,7 +546,7 @@ def delete_tables(tables, path=None, h5file="stats_can.h5", csv=True):
 
 
 def table_to_df(table, path=None, h5file="stats_can.h5"):
-    """Read a table to a dataframe
+    """Read a table to a dataframe.
 
     Wrapper for table_from_h5 and zip_table_to_dataframe
 
@@ -566,7 +572,7 @@ def table_to_df(table, path=None, h5file="stats_can.h5"):
 
 
 def vectors_to_df(vectors, periods=1, start_release_date=None, end_release_date=None):
-    """data frame of vectors with n periods data or over range of release dates
+    """Get DataFrame of vectors with n periods data or over range of release dates.
 
     Wrapper on get_bulk_vector_data_by_range and
     get_data_from_vectors_and_latest_n_periods function to turn the resulting
@@ -609,7 +615,7 @@ def vectors_to_df(vectors, periods=1, start_release_date=None, end_release_date=
 
 
 def vectors_to_df_local(vectors, path=None, start_date=None, h5file="stats_can.h5"):
-    """Make a dataframe with vector columns indexed on date from local data
+    """Make a dataframe with vector columns indexed on date from local data.
 
     Parameters
     ----------
@@ -623,6 +629,10 @@ def vectors_to_df_local(vectors, path=None, start_date=None, h5file="stats_can.h
         if specified will extract dataframes from an hdf5file instead of
         zipped csv tables
 
+    Returns
+    -------
+    final_df: pandas.DataFrame
+        DataFrame of the vectors
     """
     # Preserve an initial copy of the list for ordering, parsed and then
     # converted to string for consistency in naming
@@ -661,19 +671,17 @@ def vectors_to_df_local(vectors, path=None, start_date=None, h5file="stats_can.h
 
 
 def code_sets_to_df_dict():
-    """Gets all code sets which provide additional information to describe
+    """Get all code sets.
+
+    Code sets provide additional metadata to describe
     information. Code sets are grouped into scales, frequencies, symbols etc.
     and returned as dictionary of dataframes.
-
-    Parameters
-    ----------
 
     Returns
     -------
     pandas.Dataframe: list
         dictionary of dataframes
     """
-
     codes = get_code_sets()
     # Packs each code group in a dataframe for better lookup via dictionary
     codes_df_lookup = {key: pd.DataFrame(codes[key]) for key in codes.keys()}
