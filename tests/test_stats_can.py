@@ -6,8 +6,7 @@ Refactor a lot of this setup and teardown into its own setup functions
 """
 import datetime as dt
 from functools import partial
-import os
-from pathlib import Path
+import pathlib
 import shutil
 
 from freezegun import freeze_time
@@ -22,7 +21,7 @@ vs = ["v74804", "v41692457"]
 v = "41692452"
 t = "271-000-22-01"
 ts = ["271-000-22-01", "18100204"]
-TEST_FILES_PATH = Path(__file__).resolve().parent / "test_files"
+TEST_FILES_PATH = pathlib.Path(__file__).parent / "test_files"
 
 
 @pytest.fixture(scope="module")
@@ -39,7 +38,8 @@ def class_folder(tmp_path_factory):
     Path
         A folder called "classdata" in a temporary directory
     """
-    return tmp_path_factory.mktemp("classdata")
+    path = pathlib.Path(tmp_path_factory.mktemp("classdata"))
+    return path
 
 
 @pytest.fixture(scope="module")
@@ -223,11 +223,15 @@ def test_download_table(tmpdir):
     tmpdir: Path
         Where to download the table
     """
+
+    # convert tmpdir from LocalPath to pathlib.Path
+    tmpdir = pathlib.Path(tmpdir) 
     t = "18100204"
-    t_json = tmpdir / t + ".json"
-    t_zip = tmpdir / t + "-eng.zip"
+    t_json = tmpdir / (t + ".json")
+    t_zip = tmpdir / (t + "-eng.zip")
     assert not t_json.exists()
     assert not t_zip.exists()
+    tmpdir = pathlib.Path(tmpdir)
     stats_can.sc.download_tables(t, path=tmpdir)
     assert t_json.exists()
     assert t_zip.exists()
@@ -248,6 +252,7 @@ def test_zip_update_tables(tmpdir, update_func):
     update_func: function
         Function to test
     """
+    tmpdir = pathlib.Path(tmpdir)
     src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
@@ -268,6 +273,8 @@ def test_zip_table_to_dataframe(tmpdir):
     tmpdir: Path
         Where to download the table
     """
+
+    tmpdir = pathlib.Path(tmpdir)
     src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
@@ -289,6 +296,7 @@ def test_table_to_new_h5(tmpdir):
     tmpdir: Path
         Where to download the table
     """
+    tmpdir = pathlib.Path(tmpdir)
     src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
@@ -321,10 +329,10 @@ def test_table_to_new_h5_no_path(tmpdir):
         assert dest_file.exists()
     h5file = tmpdir / "stats_can.h5"
     assert not h5file.exists()
-    oldpath = os.getcwd()
-    os.chdir(tmpdir)
-    stats_can.sc.tables_to_h5("18100204", path=tmpdir)
-    os.chdir(oldpath)
+    oldpath = pathlib.os.getcwd()
+    pathlib.os.chdir(tmpdir)
+    stats_can.sc.tables_to_h5("18100204")
+    pathlib.os.chdir(oldpath)
     assert h5file.exists()
 
 
@@ -361,10 +369,10 @@ def test_table_from_h5_no_path(tmpdir):
     dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     tbl = "18100204"
-    oldpath = os.getcwd()
-    os.chdir(tmpdir)
+    oldpath = pathlib.os.getcwd()
+    pathlib.os.chdir(tmpdir)
     df = stats_can.sc.table_from_h5(tbl)
-    os.chdir(oldpath)
+    pathlib.os.chdir(oldpath)
     assert df.shape == (11804, 15)
     assert df.columns[0] == "REF_DATE"
 
@@ -401,10 +409,10 @@ def test_metadata_from_h5_no_path(tmpdir):
     dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
     tbl = "18100204"
-    oldpath = os.getcwd()
-    os.chdir(tmpdir)
+    oldpath = pathlib.os.getcwd()
+    pathlib.os.chdir(tmpdir)
     meta = stats_can.sc.metadata_from_h5(tbl)
-    os.chdir(oldpath)
+    pathlib.os.chdir(oldpath)
     assert meta[0]["cansimId"] == "329-0079"
 
 
@@ -423,6 +431,7 @@ def test_metadata_from_h5_no_path(tmpdir):
         ),
     ],
 )
+
 @pytest.mark.vcr()
 def test_missing_data_from_h5(tmpdir, capsys, sc_h5_func, table_name, expected):
     """Test loading missing data from a h5 file, make sure it fails.
@@ -440,6 +449,7 @@ def test_missing_data_from_h5(tmpdir, capsys, sc_h5_func, table_name, expected):
     expected: str
         Error message
     """
+    tmpdir = pathlib.Path(tmpdir)
     src = TEST_FILES_PATH
     file = "stats_can.h5"
     src_file = src / file
@@ -487,6 +497,7 @@ def test_h5_update(tmpdir, test_name, sc_func, expected):
     expected: list
         result
     """
+    tmpdir = pathlib.Path(tmpdir)
     src = TEST_FILES_PATH
     file = "stats_can.h5"
     src_file = src / file
@@ -515,10 +526,10 @@ def test_update_tables_no_path(tmpdir, update_func):
     src_file = src / file
     dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
-    oldpath = os.getcwd()
-    os.chdir(tmpdir)
+    oldpath = pathlib.os.getcwd()
+    pathlib.os.chdir(tmpdir)
     result = update_func(tables="18100204")
-    os.chdir(oldpath)
+    pathlib.os.chdir(oldpath)
     assert result == ["18100204"]
 
 
@@ -536,10 +547,10 @@ def test_h5_included_keys():
 
 def test_h5_included_keys_no_path():
     """Test low level h5 function for stored data."""
-    oldpath = os.getcwd()
-    os.chdir(TEST_FILES_PATH)
+    oldpath = pathlib.os.getcwd()
+    pathlib.os.chdir(TEST_FILES_PATH)
     keys = stats_can.sc.h5_included_keys()
-    os.chdir(oldpath)
+    pathlib.os.chdir(oldpath)
     assert keys == [
         "json_18100204",
         "json_27100022",
@@ -556,6 +567,8 @@ def test_vectors_to_df_local_defaults(tmpdir):
     tmpdir: Path
         Where to download the table
     """
+
+    tmpdir = pathlib.Path(tmpdir)
     src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip", "23100216.json", "23100216-eng.zip"]
     for file in files:
@@ -575,6 +588,7 @@ def test_vectors_to_df_local_missing_tables_no_h5(tmpdir):
     tmpdir: Path
         Where to download the table
     """
+    tmpdir = pathlib.Path(tmpdir)
     df = stats_can.sc.vectors_to_df_local(vectors=["v107792885", "v74804"], path=tmpdir)
     assert df.shape[1] == 2
     assert df.shape[0] > 450
@@ -589,10 +603,11 @@ def test_vectors_to_df_local_missing_tables_h5(tmpdir):
     tmpdir: Path
         Where to download the table
     """
+    tmpdir = pathlib.Path(tmpdir)
     src = TEST_FILES_PATH
     h5 = "stats_can.h5"
-    src_file = os.path.join(src, h5)
-    dest_file = os.path.join(tmpdir, h5)
+    src_file = pathlib.os.path.join(src, h5)
+    dest_file = pathlib.os.path.join(tmpdir, h5)
     shutil.copyfile(src_file, dest_file)
     df = stats_can.sc.vectors_to_df_local(
         vectors=["v107792885", "V74804"], path=tmpdir, h5file=h5
@@ -655,15 +670,16 @@ def test_delete_table_zip(tmpdir):
         Where to download the table
     """
     src = TEST_FILES_PATH
-    files = os.listdir(src)
+    files = pathlib.os.listdir(src)
+    tmpdir = pathlib.Path(tmpdir)
     for file in files:
         shutil.copyfile(src / file, tmpdir / file)
     for file in files:
-        assert os.path.exists(tmpdir / file)
+        assert pathlib.os.path.exists(tmpdir / file)
     deleted = stats_can.sc.delete_tables("18100204", path=tmpdir, h5file=None)
     assert deleted == ["18100204"]
-    assert not os.path.exists(os.path.join(tmpdir, "18100204-eng.zip"))
-    assert not os.path.exists(os.path.join(tmpdir, "18100204.json"))
+    assert not pathlib.os.path.exists(pathlib.os.path.join(tmpdir, "18100204-eng.zip"))
+    assert not pathlib.os.path.exists(pathlib.os.path.join(tmpdir, "18100204.json"))
 
 
 def test_delete_table_h5(tmpdir):
@@ -675,11 +691,11 @@ def test_delete_table_h5(tmpdir):
         Where to download the table
     """
     src = TEST_FILES_PATH
-    files = os.listdir(src)
+    files = pathlib.os.listdir(src)
     for file in files:
         shutil.copyfile(src / file, tmpdir / file)
     for file in files:
-        assert os.path.exists(tmpdir / file)
+        assert pathlib.os.path.exists(tmpdir / file)
     deleted = stats_can.sc.delete_tables("27100022", path=tmpdir)
     assert deleted == ["27100022"]
     tbls = stats_can.sc.list_downloaded_tables(path=tmpdir)
@@ -696,11 +712,11 @@ def test_delete_table_bad_tables(tmpdir):
         Where to download the table
     """
     src = TEST_FILES_PATH
-    files = os.listdir(src)
+    files = pathlib.os.listdir(src)
     for file in files:
         shutil.copyfile(src / file, tmpdir / file)
     for file in files:
-        assert os.path.exists(tmpdir / file)
+        assert pathlib.os.path.exists(tmpdir / file)
     bad_tables = ["12345", "nothing", "4444444", "23100216"]
     deleted = stats_can.sc.delete_tables(bad_tables, path=tmpdir)
     assert deleted == []
@@ -733,6 +749,7 @@ def test_table_to_df_zip(tmpdir):
     tmpdir: Path
         Where to download the table
     """
+    tmpdir = pathlib.Path(tmpdir)
     src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip"]
     for f in files:
@@ -757,6 +774,7 @@ def test_weird_dates(tmpdir):
     tmpdir: Path
         Where to download the table
     """
+    tmpdir = pathlib.Path(tmpdir)
     src = TEST_FILES_PATH
     files = ["13100805.json", "13100805-eng.zip"]
     for f in files:
