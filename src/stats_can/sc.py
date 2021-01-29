@@ -8,7 +8,7 @@ Extend getChangedCubeList with a function that returns all tables updated
 within a date range
 """
 import json
-import os
+import pathlib
 import zipfile
 
 import h5py
@@ -79,7 +79,7 @@ def download_tables(tables, path=None, csv=True):
     ----------
     tables: list of str
         tables to be downloaded
-    path: str, default: None (will do current directory)
+    path: str or pathlib.Path, default: None (will do current directory)
         Where to download the table and json
     csv: boolean, default True
         download in CSV format, if not download SDMX
@@ -93,16 +93,16 @@ def download_tables(tables, path=None, csv=True):
     for meta in metas:
         product_id = meta["productId"]
         zip_url = get_full_table_download(product_id, csv=csv)
-        zip_file = product_id + "-eng.zip" if csv else product_id + ".zip"
-        json_file = product_id + ".json"
-        if path:
-            zip_file = os.path.join(path, zip_file)
-            json_file = os.path.join(path, json_file)
+        zip_file_name = (product_id + ("-eng.zip" if csv else ".zip"))
+        json_file_name = (product_id + ".json")
+        zip_file = path / zip_file_name if path else pathlib.Path(zip_file_name)
+        json_file = path / json_file_name if path else pathlib.Path(json_file_name)
+        
         # Thanks http://evanhahn.com/python-requests-library-useragent/
         response = requests.get(zip_url, stream=True, headers={"user-agent": None})
 
         progress_bar = tqdm(
-            desc=os.path.basename(zip_file),
+            desc=zip_file_name,
             total=int(response.headers.get("content-length", 0)),
             unit="B",
             unit_scale=True,
@@ -132,7 +132,7 @@ def zip_update_tables(path=None, csv=True):
 
     Parameters
     ----------
-    path: str, default: None
+    path: str or pathlib.Path, default: None
         where to look for tables to update
     csv: boolean, default: True
         Downloads updates in CSV form by default, SDMX if false
@@ -165,7 +165,7 @@ def zip_table_to_dataframe(table, path=None):
     ----------
     table: str
         the table to load to dataframe from zipped csv
-    path: str, default: current working directory when module is loaded
+    path: str or pathlib.Path, default: current working directory when module is loaded
         where to download the tables or load them
 
     Returns
@@ -176,9 +176,8 @@ def zip_table_to_dataframe(table, path=None):
     # Parse tables returns a list, can only do one table at a time here though
     table = parse_tables(table)[0]
     table_zip = table + "-eng.zip"
-    if path:
-        table_zip = os.path.join(path, table_zip)
-    if not os.path.isfile(table_zip):
+    table_zip = path / table_zip if path else pathlib.Path(table_zip)
+    if not table_zip.is_file():
         download_tables([table], path)
     csv_file = table + ".csv"
     with zipfile.ZipFile(table_zip) as myzip:
@@ -237,9 +236,8 @@ def list_zipped_tables(path=None):
         list of available tables json data
     """
     # Find json files
-    jsons = [f for f in os.listdir(path) if f.endswith(".json")]
-    if path:
-        jsons = [os.path.join(path, j) for j in jsons]
+    path = pathlib.Path(path) if path else pathlib.Path.cwd()
+    jsons = path.glob("*.json")
     tables = []
     for j in jsons:
         try:
@@ -270,18 +268,18 @@ def tables_to_h5(tables, h5file="stats_can.h5", path=None):
     tables: list
         list of tables loaded into the file
     """
-    if path:
-        h5file = os.path.join(path, h5file)
+    h5file = path / h5file if path else pathlib.Path(h5file)
     tables = parse_tables(tables)
+    path = h5file.parent
+
     for table in tables:
         hkey = "table_" + table
         jkey = "json_" + table
         zip_file = table + "-eng.zip"
         json_file = table + ".json"
-        if path:
-            zip_file = os.path.join(path, zip_file)
-            json_file = os.path.join(path, json_file)
-        if not os.path.isfile(json_file):
+        zip_file = path / zip_file
+        json_file = path / json_file
+        if not json_file.is_file():
             download_tables([table], path)
         df = zip_table_to_dataframe(table, path=path)
         with open(json_file) as f_name:
@@ -292,8 +290,8 @@ def tables_to_h5(tables, h5file="stats_can.h5", path=None):
             if jkey in hfile.keys():
                 del hfile[jkey]
             hfile.create_dataset(jkey, data=json.dumps(df_json))
-        os.remove(zip_file)
-        os.remove(json_file)
+        zip_file.unlink()
+        json_file.unlink()
     return tables
 
 
@@ -315,7 +313,7 @@ def table_from_h5(table, h5file="stats_can.h5", path=None):
         table in dataframe format
     """
     table = "table_" + parse_tables(table)[0]
-    h5 = os.path.join(path, h5file) if path else h5file
+    h5 = path / h5file if path else pathlib.Path(h5file)
     try:
         with pd.HDFStore(h5, "r") as store:
             df = pd.read_hdf(store, key=table)
@@ -343,8 +341,7 @@ def metadata_from_h5(tables, h5file="stats_can.h5", path=None):
     -------
     list of local table metadata
     """
-    if path:
-        h5file = os.path.join(path, h5file)
+    h5file = path / h5file if path else pathlib.Path(h5file)
     tables = ["json_" + tbl for tbl in parse_tables(tables)]
     jsons = []
     try:
@@ -425,7 +422,7 @@ def h5_update_tables(h5file="stats_can.h5", path=None, tables=None):
     if tables:
         local_jsons = metadata_from_h5(tables, h5file=h5file, path=path)
     else:
-        h5 = os.path.join(path, h5file) if path else h5file
+        h5 = path / h5file if path else pathlib.Path(h5file)
         with h5py.File(h5, "r") as f:
             keys = [key for key in f.keys() if key.startswith("json")]
             local_jsons = [json.loads(f[key][()]) for key in keys]
@@ -488,8 +485,7 @@ def h5_included_keys(h5file="stats_can.h5", path=None):
     keys: list
         list of keys in the hdf5 file
     """
-    if path:
-        h5file = os.path.join(path, h5file)
+    h5file = path / h5file if path else pathlib.Path(h5file)
     with h5py.File(h5file, "r") as f:
         keys = [key for key in f.keys()]
     return keys
@@ -525,8 +521,7 @@ def delete_tables(tables, path=None, h5file="stats_can.h5", csv=True):
             tbl_to_del = "table_" + td
             keys_to_del.append(json_to_del)
             keys_to_del.append(tbl_to_del)
-        if path:
-            h5file = os.path.join(path, h5file)
+        h5file = path / h5file if path else pathlib.Path(h5file)
         with h5py.File(h5file, "a") as f:
             for k in keys_to_del:
                 del f[k]
@@ -534,14 +529,14 @@ def delete_tables(tables, path=None, h5file="stats_can.h5", csv=True):
         files_to_del = []
         for td in to_delete:
             json_to_del = td + ".json"
-            zip_to_del = td + "-eng.zip" if csv else td + ".zip"
+            zip_to_del = td + ("-eng.zip" if csv else ".zip")
             files_to_del.append(zip_to_del)
             files_to_del.append(json_to_del)
-        if path:
-            files_to_del = [os.path.join(path, f) for f in files_to_del]
         for file in files_to_del:
-            if os.path.exists(file):
-                os.remove(file)
+            p = path / file if path else pathlib.Path(file)
+            if p.is_file():
+                p.unlink()
+
     return to_delete
 
 
@@ -603,9 +598,6 @@ def vectors_to_df(vectors, periods=1, start_release_date=None, end_release_date=
         )
     for vec in start_list:
         name = "v" + str(vec["vectorId"])
-        # If there's no data for the series just skip it
-        if not vec["vectorDataPoint"]:
-            continue
         ser = (
             pd.DataFrame(vec["vectorDataPoint"])
             .assign(refPer=lambda x: pd.to_datetime(x["refPer"], errors="ignore"))
