@@ -5,6 +5,7 @@ Todo
 Refactor a lot of this setup and teardown into its own setup functions
 """
 import datetime as dt
+from functools import partial
 import os
 from pathlib import Path
 import shutil
@@ -204,35 +205,18 @@ def test_download_table(tmpdir):
     assert t_zip.exists()
 
 
+@pytest.mark.parametrize("update_func",
+                         [stats_can.sc.zip_update_tables, partial(stats_can.sc.update_tables, h5file=None)])
 @pytest.mark.vcr()
-def test_zip_update_tables(tmpdir):
-    """Test updating a table from a zip file.
-
-    Parameters
-    ----------
-    tmpdir: Path
-        Where to download the table
-    """
-    src = TEST_FILES_PATH
-    files = ["18100204.json", "18100204-eng.zip"]
-    for f in files:
-        src_file = src / f
-        dest_file = tmpdir / f
-        shutil.copyfile(src_file, dest_file)
-        assert src_file.exists()
-        assert dest_file.exists()
-    updater = stats_can.sc.zip_update_tables(path=tmpdir)
-    assert updater == ["18100204"]
-
-
-@pytest.mark.vcr()
-def test_zip_update_tables_from_update_tables(tmpdir):
+def test_zip_update_tables(tmpdir, update_func):
     """Test updating a table from a zip file using a different function signature.
 
     Parameters
     ----------
     tmpdir: Path
         Where to download the table
+    update_func: function
+        Function to test
     """
     src = TEST_FILES_PATH
     files = ["18100204.json", "18100204-eng.zip"]
@@ -242,7 +226,7 @@ def test_zip_update_tables_from_update_tables(tmpdir):
         shutil.copyfile(src_file, dest_file)
         assert src_file.exists()
         assert dest_file.exists()
-    updater = stats_can.sc.update_tables(path=tmpdir, h5file=None)
+    updater = update_func(path=tmpdir)
     assert updater == ["18100204"]
 
 
