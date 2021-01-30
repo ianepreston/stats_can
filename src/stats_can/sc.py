@@ -287,7 +287,7 @@ def tables_to_h5(tables, h5file="stats_can.h5", path=None):
         with open(json_file) as f_name:
             df_json = json.load(f_name)
         with pd.HDFStore(h5file, "a") as store:
-            df.to_hdf(store, key=hkey, format="table", complevel=1)
+            store.put(key=hkey, value=df, format="table", complevel=1)
         with h5py.File(h5file, "a") as hfile:
             if jkey in hfile.keys():
                 del hfile[jkey]
