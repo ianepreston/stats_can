@@ -17,7 +17,13 @@ nox.options.sessions = (
     "docs",
 )
 
-python_versions = ["3.8", "3.7"]  # Add 3.9 and 3.6 after you get this working
+python_versions = [
+    "3.9",
+    "3.8",
+    "3.7",
+    "3.6",
+]
+python_version = python_versions[0]
 
 
 def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
@@ -73,7 +79,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
         hook.write_text("\n".join(lines))
 
 
-@nox.session(name="pre-commit", python="3.8")
+@nox.session(name="pre-commit", python=python_version)
 def precommit(session: Session) -> None:
     """Lint using pre-commit.
 
@@ -100,7 +106,7 @@ def precommit(session: Session) -> None:
         activate_virtualenv_in_precommit_hooks(session)
 
 
-@nox.session(python="3.8")
+@nox.session(python=python_version)
 def safety(session):
     """Scan dependencies for insecure packages.
 
@@ -153,7 +159,7 @@ def coverage(session):
     session.run("coverage", *args)
 
 
-@nox.session(python="3.8")
+@nox.session(python=python_version)
 def docs(session):
     """Build the documentation.
 

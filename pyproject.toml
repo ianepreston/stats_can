@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "stats_can"
-version = "2.3.5"
+version = "2.4.0"
 description = "Read StatsCan data into python, mostly pandas dataframes"
 authors = ["Ian Preston"]
 license = "GPL-3.0-or-later"
@@ -11,7 +11,7 @@ documentation = "https://stats-can.readthedocs.io"
 keywords = ["statistics", "Canada", "data", "API"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=3.6.1,<4.0"
 requests = "^2.20"
 h5py = ">=2.10,<4.0"
 tables = "^3.6.1"
