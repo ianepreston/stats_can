@@ -146,22 +146,13 @@ def test_class_table_list_download_delete(class_fixture):
     assert class_fixture.delete_tables("18100204") == ["18100204"]
 
 
+@pytest.mark.parametrize("mapping_func, expected",
+                         [(stats_can.sc.get_tables_for_vectors, {74804: "23100216", 41692457: "18100004", "all_tables": ["23100216", "18100004"],}),
+                          (stats_can.sc.table_subsets_from_vectors, {"23100216": [74804], "18100004": [41692457]})])
 @pytest.mark.vcr()
-def test_get_tables_for_vectors():
-    """Test tables for vectors method."""
-    tv1 = stats_can.sc.get_tables_for_vectors(vs)
-    assert tv1 == {
-        74804: "23100216",
-        41692457: "18100004",
-        "all_tables": ["23100216", "18100004"],
-    }
-
-
-@pytest.mark.vcr()
-def test_table_subsets_from_vectors():
-    """Test table subsets from vectors method."""
-    tv1 = stats_can.sc.table_subsets_from_vectors(vs)
-    assert tv1 == {"23100216": [74804], "18100004": [41692457]}
+def test_vectors_mapping(mapping_func, expected):
+    tv1 = mapping_func(vs)
+    assert tv1 == expected, mapping_func.__name__
 
 
 @pytest.mark.vcr()
