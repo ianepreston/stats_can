@@ -415,76 +415,41 @@ def test_missing_data_from_h5(tmpdir, capsys, sc_h5_func, table_name, expected):
     assert captured.out == expected, sc_h5_func.__name__
 
 
+@pytest.mark.parametrize(["test_name", "sc_func", "expected"],
+                         [("tables",
+                           stats_can.sc.h5_update_tables,
+                           ["18100204", "27100022"]),
+                          ("table from update tables",
+                           stats_can.sc.update_tables,
+                           ["18100204", "27100022"]),
+                          ("tables list",
+                           partial(stats_can.sc.h5_update_tables, tables="18100204"),
+                           ["18100204"]),
+                          ("tables list from update tables",
+                           partial(stats_can.sc.update_tables, tables="18100204"),
+                           ["18100204"])])
 @pytest.mark.vcr()
-def test_h5_update_tables(tmpdir):
-    """Download updated versions of all tables in a h5 file.
+def test_h5_update(tmpdir, test_name, sc_func, expected):
+    """Download data in a h5 file.
 
     Parameters
     ----------
     tmpdir: Path
         Where to download the table
+    test_name: str
+        Test name
+    sc_func: Function
+        Function under test
+    expected: list
+        result
     """
     src = TEST_FILES_PATH
     file = "stats_can.h5"
     src_file = src / file
     dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
-    result = stats_can.sc.h5_update_tables(path=tmpdir)
-    assert result == ["18100204", "27100022"]
-
-
-@pytest.mark.vcr()
-def test_h5_update_tables_from_update_tables(tmpdir):
-    """Download updated versions of all tables in a h5 file.
-
-    Parameters
-    ----------
-    tmpdir: Path
-        Where to download the table
-    """
-    src = TEST_FILES_PATH
-    file = "stats_can.h5"
-    src_file = src / file
-    dest_file = tmpdir / file
-    shutil.copyfile(src_file, dest_file)
-    result = stats_can.sc.update_tables(path=tmpdir)
-    assert result == ["18100204", "27100022"]
-
-
-@pytest.mark.vcr()
-def test_h5_update_tables_list(tmpdir):
-    """Download updated versions of a subset of tables in a h5 file.
-
-    Parameters
-    ----------
-    tmpdir: Path
-        Where to download the table
-    """
-    src = TEST_FILES_PATH
-    file = "stats_can.h5"
-    src_file = src / file
-    dest_file = tmpdir / file
-    shutil.copyfile(src_file, dest_file)
-    result = stats_can.sc.h5_update_tables(path=tmpdir, tables="18100204")
-    assert result == ["18100204"]
-
-
-@pytest.mark.vcr()
-def test_h5_update_tables_list_from_update_tables(tmpdir):
-    """Download updated versions of a subset of tables in a h5 file.
-
-    Parameters
-    ----------
-    tmpdir: Path
-        Where to download the table
-    """
-    src = TEST_FILES_PATH
-    file = "stats_can.h5"
-    src_file = src / file
-    dest_file = tmpdir / file
-    shutil.copyfile(src_file, dest_file)
-    result = stats_can.sc.update_tables(path=tmpdir, tables="18100204")
-    assert result == ["18100204"]
+    result = sc_func(path=tmpdir)
+    assert result == expected, test_name
 
 
 @pytest.mark.vcr()
