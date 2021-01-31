@@ -343,28 +343,6 @@ def test_table_from_h5_no_path(tmpdir):
     assert df.columns[0] == "REF_DATE"
 
 
-@pytest.mark.vcr()
-def test_missing_table_from_h5(tmpdir, capsys):
-    """Load a dataframe from a h5 file.
-
-    Parameters
-    ----------
-    tmpdir: Path
-        Where to download the table
-    capsys
-        Capture standard out
-    """
-    src = TEST_FILES_PATH
-    file = "stats_can.h5"
-    src_file = src / file
-    dest_file = tmpdir / file
-    shutil.copyfile(src_file, dest_file)
-    tbl = "23100216"
-    stats_can.sc.table_from_h5(tbl, path=tmpdir)
-    captured = capsys.readouterr()
-    assert captured.out == "Downloading and loading table_23100216\n"
-
-
 def test_metadata_from_h5(tmpdir):
     """Load table metadata from a h5 file.
 
@@ -404,8 +382,14 @@ def test_metadata_from_h5_no_path(tmpdir):
     assert meta[0]["cansimId"] == "329-0079"
 
 
-def test_missing_h5_metadata(tmpdir, capsys):
-    """Load missing table metadata from a h5 file, make sure it fails.
+@pytest.mark.parametrize(["sc_h5_func", "table_name", "expected"],
+                         [pytest.param(stats_can.sc.table_from_h5, "23100216",
+                                       "Downloading and loading table_23100216\n"),
+                          (stats_can.sc.metadata_from_h5, "badtable123",
+                           "Couldn't find table json_123\n")])
+@pytest.mark.vcr()
+def test_missing_data_from_h5(tmpdir, capsys, sc_h5_func, table_name, expected):
+    """Test loading missing data from a h5 file, make sure it fails.
 
     Parameters
     ----------
@@ -413,16 +397,22 @@ def test_missing_h5_metadata(tmpdir, capsys):
         Where to download the table
     capsys
         Capture standard output
+    sc_h5_func: function
+        Function under test
+    table_name: str
+        Name of table
+    expected: str
+        Error message
     """
     src = TEST_FILES_PATH
     file = "stats_can.h5"
     src_file = src / file
     dest_file = tmpdir / file
     shutil.copyfile(src_file, dest_file)
-    tbl = "badtable123"
-    stats_can.sc.metadata_from_h5(tbl, path=tmpdir)
+    tbl = table_name
+    sc_h5_func(tbl, path=tmpdir)
     captured = capsys.readouterr()
-    assert captured.out == "Couldn't find table json_123\n"
+    assert captured.out == expected, sc_h5_func.__name__
 
 
 @pytest.mark.vcr()
