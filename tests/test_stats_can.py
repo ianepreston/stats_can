@@ -452,14 +452,20 @@ def test_h5_update(tmpdir, test_name, sc_func, expected):
     assert result == expected, test_name
 
 
+@pytest.mark.parametrize("update_func",
+                         [stats_can.sc.h5_update_tables,
+                          stats_can.sc.update_tables
+                          ])
 @pytest.mark.vcr()
-def test_h5_update_tables_no_path(tmpdir):
+def test_update_tables_no_path(tmpdir, update_func):
     """Download updated versions of a subset of tables in a h5 file.
 
     Parameters
     ----------
     tmpdir: Path
         Where to download the table
+    update_func: function
+        Function under test
     """
     src = TEST_FILES_PATH
     file = "stats_can.h5"
@@ -468,28 +474,7 @@ def test_h5_update_tables_no_path(tmpdir):
     shutil.copyfile(src_file, dest_file)
     oldpath = os.getcwd()
     os.chdir(tmpdir)
-    result = stats_can.sc.h5_update_tables(tables="18100204")
-    os.chdir(oldpath)
-    assert result == ["18100204"]
-
-
-@pytest.mark.vcr()
-def test_h5_update_tables_no_path_from_update_tables(tmpdir):
-    """Download updated versions of a subset of tables in a h5 file.
-
-    Parameters
-    ----------
-    tmpdir: Path
-        Where to download the table
-    """
-    src = TEST_FILES_PATH
-    file = "stats_can.h5"
-    src_file = src / file
-    dest_file = tmpdir / file
-    shutil.copyfile(src_file, dest_file)
-    oldpath = os.getcwd()
-    os.chdir(tmpdir)
-    result = stats_can.sc.update_tables(tables="18100204")
+    result = update_func(tables="18100204")
     os.chdir(oldpath)
     assert result == ["18100204"]
 
