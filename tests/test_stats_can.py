@@ -559,9 +559,18 @@ def test_vectors_to_df_local_missing_tables_h5(tmpdir):
     assert list(df.columns) == ["v107792885", "v74804"]
 
 
-def test_list_h5_tables():
-    """Check which tables have been loaded to a h5 file."""
-    tbls = stats_can.sc.list_h5_tables(path=TEST_FILES_PATH)
+@pytest.mark.parametrize("list_func",
+                         [stats_can.sc.list_h5_tables,
+                          stats_can.sc.list_downloaded_tables])
+def test_list_h5_tables(list_func):
+    """Check which tables have been loaded to a h5 file.
+
+    Parameters
+    ----------
+    list_func: function
+        Function under test
+    """
+    tbls = list_func(path=TEST_FILES_PATH)
     assert len(tbls) == 2
     assert tbls[0]["productId"] in ["18100204", "27100022"]
     assert tbls[1]["productId"] in ["18100204", "27100022"]
@@ -588,20 +597,6 @@ def test_list_tables(tmpdir, list_func):
     assert len(tbls) == 2
     assert tbls[0]["productId"] in ["18100204", "23100216"]
     assert tbls[1]["productId"] in ["18100204", "23100216"]
-
-
-def test_list_downloaded_tables_h5(tmpdir):
-    """Check which tables have been loaded to a h5 file.
-
-    Parameters
-    ----------
-    tmpdir: Path
-        Where to download the table
-    """
-    tbls = stats_can.sc.list_downloaded_tables(path=TEST_FILES_PATH)
-    assert len(tbls) == 2
-    assert tbls[0]["productId"] in ["18100204", "27100022"]
-    assert tbls[1]["productId"] in ["18100204", "27100022"]
 
 
 def test_delete_table_zip(tmpdir):
