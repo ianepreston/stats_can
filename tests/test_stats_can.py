@@ -559,24 +559,6 @@ def test_vectors_to_df_local_missing_tables_h5(tmpdir):
     assert list(df.columns) == ["v107792885", "v74804"]
 
 
-def test_list_zipped_tables(tmpdir):
-    """Check which tables have been downloaded as zip files.
-
-    Parameters
-    ----------
-    tmpdir: Path
-        Where to download the table
-    """
-    src = TEST_FILES_PATH
-    files = ["18100204.json", "unrelated123.json", "23100216.json"]
-    for file in files:
-        shutil.copyfile(src / file, tmpdir / file)
-    tbls = stats_can.sc.list_zipped_tables(path=tmpdir)
-    assert len(tbls) == 2
-    assert tbls[0]["productId"] in ["18100204", "23100216"]
-    assert tbls[1]["productId"] in ["18100204", "23100216"]
-
-
 def test_list_h5_tables():
     """Check which tables have been loaded to a h5 file."""
     tbls = stats_can.sc.list_h5_tables(path=TEST_FILES_PATH)
@@ -585,19 +567,24 @@ def test_list_h5_tables():
     assert tbls[1]["productId"] in ["18100204", "27100022"]
 
 
-def test_list_downloaded_tables_zip(tmpdir):
+@pytest.mark.parametrize("list_func",
+                         [stats_can.sc.list_zipped_tables,
+                          partial(stats_can.sc.list_downloaded_tables, h5file=None)])
+def test_list_tables(tmpdir, list_func):
     """Check which tables have been downloaded as zip files.
 
     Parameters
     ----------
     tmpdir: Path
         Where to download the table
+    list_func: function
+        Function under test
     """
     src = TEST_FILES_PATH
     files = ["18100204.json", "unrelated123.json", "23100216.json"]
     for file in files:
         shutil.copyfile(src / file, tmpdir / file)
-    tbls = stats_can.sc.list_downloaded_tables(path=tmpdir, h5file=None)
+    tbls = list_func(path=tmpdir)
     assert len(tbls) == 2
     assert tbls[0]["productId"] in ["18100204", "23100216"]
     assert tbls[1]["productId"] in ["18100204", "23100216"]
