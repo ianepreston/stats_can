@@ -146,12 +146,23 @@ def test_class_table_list_download_delete(class_fixture):
     assert class_fixture.delete_tables("18100204") == ["18100204"]
 
 
-@pytest.mark.parametrize("mapping_func, expected",
-                         [(stats_can.sc.get_tables_for_vectors,
-                           {74804: "23100216", 41692457: "18100004",
-                            "all_tables": ["23100216", "18100004"]}),
-                          (stats_can.sc.table_subsets_from_vectors,
-                           {"23100216": [74804], "18100004": [41692457]})])
+@pytest.mark.parametrize(
+    "mapping_func, expected",
+    [
+        (
+            stats_can.sc.get_tables_for_vectors,
+            {
+                74804: "23100216",
+                41692457: "18100004",
+                "all_tables": ["23100216", "18100004"],
+            },
+        ),
+        (
+            stats_can.sc.table_subsets_from_vectors,
+            {"23100216": [74804], "18100004": [41692457]},
+        ),
+    ],
+)
 @pytest.mark.vcr()
 def test_vectors_mapping(mapping_func, expected):
     """Test mapping from vectors methods.
@@ -208,9 +219,10 @@ def test_download_table(tmpdir):
     assert t_zip.exists()
 
 
-@pytest.mark.parametrize("update_func",
-                         [stats_can.sc.zip_update_tables,
-                          partial(stats_can.sc.update_tables, h5file=None)])
+@pytest.mark.parametrize(
+    "update_func",
+    [stats_can.sc.zip_update_tables, partial(stats_can.sc.update_tables, h5file=None)],
+)
 @pytest.mark.vcr()
 def test_zip_update_tables(tmpdir, update_func):
     """Test updating a table from a zip file using a different function signature.
@@ -382,11 +394,21 @@ def test_metadata_from_h5_no_path(tmpdir):
     assert meta[0]["cansimId"] == "329-0079"
 
 
-@pytest.mark.parametrize(["sc_h5_func", "table_name", "expected"],
-                         [pytest.param(stats_can.sc.table_from_h5, "23100216",
-                                       "Downloading and loading table_23100216\n"),
-                          (stats_can.sc.metadata_from_h5, "badtable123",
-                           "Couldn't find table json_123\n")])
+@pytest.mark.parametrize(
+    ["sc_h5_func", "table_name", "expected"],
+    [
+        pytest.param(
+            stats_can.sc.table_from_h5,
+            "23100216",
+            "Downloading and loading table_23100216\n",
+        ),
+        (
+            stats_can.sc.metadata_from_h5,
+            "badtable123",
+            "Couldn't find table json_123\n",
+        ),
+    ],
+)
 @pytest.mark.vcr()
 def test_missing_data_from_h5(tmpdir, capsys, sc_h5_func, table_name, expected):
     """Test loading missing data from a h5 file, make sure it fails.
@@ -415,19 +437,27 @@ def test_missing_data_from_h5(tmpdir, capsys, sc_h5_func, table_name, expected):
     assert captured.out == expected, sc_h5_func.__name__
 
 
-@pytest.mark.parametrize(["test_name", "sc_func", "expected"],
-                         [("tables",
-                           stats_can.sc.h5_update_tables,
-                           ["18100204", "27100022"]),
-                          ("table from update tables",
-                           stats_can.sc.update_tables,
-                           ["18100204", "27100022"]),
-                          ("tables list",
-                           partial(stats_can.sc.h5_update_tables, tables="18100204"),
-                           ["18100204"]),
-                          ("tables list from update tables",
-                           partial(stats_can.sc.update_tables, tables="18100204"),
-                           ["18100204"])])
+@pytest.mark.parametrize(
+    ["test_name", "sc_func", "expected"],
+    [
+        ("tables", stats_can.sc.h5_update_tables, ["18100204", "27100022"]),
+        (
+            "table from update tables",
+            stats_can.sc.update_tables,
+            ["18100204", "27100022"],
+        ),
+        (
+            "tables list",
+            partial(stats_can.sc.h5_update_tables, tables="18100204"),
+            ["18100204"],
+        ),
+        (
+            "tables list from update tables",
+            partial(stats_can.sc.update_tables, tables="18100204"),
+            ["18100204"],
+        ),
+    ],
+)
 @pytest.mark.vcr()
 def test_h5_update(tmpdir, test_name, sc_func, expected):
     """Download data in a h5 file.
@@ -452,10 +482,9 @@ def test_h5_update(tmpdir, test_name, sc_func, expected):
     assert result == expected, test_name
 
 
-@pytest.mark.parametrize("update_func",
-                         [stats_can.sc.h5_update_tables,
-                          stats_can.sc.update_tables
-                          ])
+@pytest.mark.parametrize(
+    "update_func", [stats_can.sc.h5_update_tables, stats_can.sc.update_tables]
+)
 @pytest.mark.vcr()
 def test_update_tables_no_path(tmpdir, update_func):
     """Download updated versions of a subset of tables in a h5 file.
@@ -559,9 +588,9 @@ def test_vectors_to_df_local_missing_tables_h5(tmpdir):
     assert list(df.columns) == ["v107792885", "v74804"]
 
 
-@pytest.mark.parametrize("list_func",
-                         [stats_can.sc.list_h5_tables,
-                          stats_can.sc.list_downloaded_tables])
+@pytest.mark.parametrize(
+    "list_func", [stats_can.sc.list_h5_tables, stats_can.sc.list_downloaded_tables]
+)
 def test_list_h5_tables(list_func):
     """Check which tables have been loaded to a h5 file.
 
@@ -576,9 +605,13 @@ def test_list_h5_tables(list_func):
     assert tbls[1]["productId"] in ["18100204", "27100022"]
 
 
-@pytest.mark.parametrize("list_func",
-                         [stats_can.sc.list_zipped_tables,
-                          partial(stats_can.sc.list_downloaded_tables, h5file=None)])
+@pytest.mark.parametrize(
+    "list_func",
+    [
+        stats_can.sc.list_zipped_tables,
+        partial(stats_can.sc.list_downloaded_tables, h5file=None),
+    ],
+)
 def test_list_tables(tmpdir, list_func):
     """Check which tables have been downloaded as zip files.
 
