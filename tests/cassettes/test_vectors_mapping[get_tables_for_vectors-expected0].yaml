@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.25.1
     method: POST
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getSeriesInfoFromVector
   response:
@@ -57,11 +57,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 05 Sep 2020 14:25:50 GMT
+      - Sun, 31 Jan 2021 00:22:18 GMT
       Expires:
-      - Sat, 05 Sep 2020 14:27:50 GMT
+      - Sun, 31 Jan 2021 00:24:18 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e93390fe2fa6560de280dba1cd0ec69e4c6703f4fab9264a5a11e0ad063320196adbf98777634269e8900d0eb1741a49ed183;
+      - TS011c6724=01bc1e9339e6c90089af99b28490da06f67d5d2d6e95099c374ad76240b166fa324b560e52ef48f84934c33394a67527d57db2c086;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
