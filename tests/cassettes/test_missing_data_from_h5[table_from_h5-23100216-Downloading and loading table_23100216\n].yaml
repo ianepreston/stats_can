@@ -102,13 +102,13 @@ interactions:
       Content-Encoding:
       - gzip
       Content-Security-Policy:
-      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
-        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
+        *.demdex.net *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
         *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
         ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
         *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
+        *.stc.ca *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
+        img-src ''self'' *.statcan.gc.ca *.stc.ca *.demdex.net *.omtrdc.net *.everesttech.net
         *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
         worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
         frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
@@ -116,11 +116,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 08 Feb 2021 21:57:57 GMT
+      - Mon, 08 Feb 2021 23:48:31 GMT
       Expires:
-      - Mon, 08 Feb 2021 21:59:57 GMT
+      - Mon, 08 Feb 2021 23:50:31 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e9339935785b342edce037de6a34ac72d6ae1b014f9e3eb38f1337f22bdd2a9e9e177289e8eaf85427d11b7366c742349f598;
+      - TS011c6724=01bc1e9339ea1c16d90bf80d80bf5840a4f23fed7d977fafee22e4e2af50b037f1b2f3da2897d8a3fd0faf22f869d063516f1052e2;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -180,13 +180,13 @@ interactions:
       Content-Encoding:
       - gzip
       Content-Security-Policy:
-      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
-        *.demdex.net *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
+        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
         *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
         ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
         *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca *.demdex.net *.omtrdc.net *.everesttech.net
+        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
+        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
         *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
         worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
         frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
@@ -194,11 +194,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 08 Feb 2021 21:57:58 GMT
+      - Mon, 08 Feb 2021 23:48:32 GMT
       Expires:
-      - Mon, 08 Feb 2021 21:59:58 GMT
+      - Mon, 08 Feb 2021 23:50:32 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e9339ea9c56851479b4f8997abe6f22d9066dd3d5a609595d7009fe51c71e5adbf6584d577b8b80d0df7684778abcfd94985c;
+      - TS011c6724=01bc1e933984d5648170d6760da68a4ef74b380ecf60ade232c5781fb48af0bea8905b735bd32795ced83930e5c7dcd5c8e79eb139;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -27172,13 +27172,13 @@ interactions:
       Content-Type:
       - application/zip
       Date:
-      - Mon, 08 Feb 2021 21:57:58 GMT
+      - Mon, 08 Feb 2021 23:48:32 GMT
       Expires:
-      - Mon, 08 Feb 2021 21:59:58 GMT
+      - Mon, 08 Feb 2021 23:50:32 GMT
       Last-Modified:
       - Wed, 27 Jan 2021 13:31:08 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e9339badb579f0dd56ce671d7ed4b981f60fc676bc1c5d14ee985ed14853e8f215b43cdef2dcc92d17f8269ba915d7a892505;
+      - TS011c6724=01bc1e933948bf7f7cf77deb496683a164150fe7d154bf1fa8150b6ab250ee3a296f2dfb61d4cc4cf44c7ff72488dac951d2500096;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains

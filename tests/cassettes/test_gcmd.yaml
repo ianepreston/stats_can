@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.25.1
     method: POST
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata
   response:
@@ -69,13 +69,13 @@ interactions:
       Content-Encoding:
       - gzip
       Content-Security-Policy:
-      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
-        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
+        *.demdex.net *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
         *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
         ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
         *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
+        *.stc.ca *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
+        img-src ''self'' *.statcan.gc.ca *.stc.ca *.demdex.net *.omtrdc.net *.everesttech.net
         *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
         worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
         frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
@@ -83,11 +83,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 05 Sep 2020 13:58:02 GMT
+      - Mon, 08 Feb 2021 22:25:40 GMT
       Expires:
-      - Sat, 05 Sep 2020 14:00:02 GMT
+      - Mon, 08 Feb 2021 22:27:40 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e933961e596d5d19f82c5ead590859f80848871b2915e4486768c0389a9498a084c3313fee358843015fbd03eba7cdafa68d1;
+      - TS011c6724=01bc1e933910932c778a340862e203e514035d1e1dbe68c495dbad405eadb382613b5d02dedceea4dbe323a69513e38a98d41eb86d;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -103,7 +103,7 @@ interactions:
       - SAMEORIGIN
       - SAMEORIGIN
       X-Proxy-Cache:
-      - EXPIRED
+      - MISS
       X-XSS-Protection:
       - 1; mode=block
       vary:

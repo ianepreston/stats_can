@@ -1,7 +1,7 @@
 interactions:
 - request:
-    body: '{"vectorIds": [74804, 41692457], "startDataPointReleaseDate": "2018-01-01T13:00",
-      "endDataPointReleaseDate": "2018-05-01T13:00"}'
+    body: '{"vectorIds": [74804, 41692457], "startDataPointReleaseDate": "2020-01-01T13:00",
+      "endDataPointReleaseDate": "2020-12-01T13:00"}'
     headers:
       Accept:
       - '*/*'
@@ -14,20 +14,29 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.25.1
     method: POST
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getBulkVectorDataByRange
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA82WTU/EIBCG/wvn3YYZoNBeV01MPBhXT8YDtpjUdBeFds3G+N+lrl/rmpbEmJD2
-        An2BeWYovNfPxHe66z0pyfJqsTheLsmM2Nt7U3WkfCbO+Ae79mb5JlrY2pCSzsiDs3Vfdac1KZEB
-        pQj5jFTWurpZ6y5oCGSYQUa/P2HiTZjWumGY5Iryj44j3elz26zDktfDmnfnxoU5kIKcUwhvGLrr
-        xdD92bjQT7+rwod34Ua3fQgHVSERsxB5bapmpVv/huEr3Wp3oocYPtn8dnVr26/mPrk3Ve+abntm
-        NuZL5ExrtDeXzcrsIlJzinNUl1SVbAC/c+axN+tquxuSv8wOODGKE8c58wIEpM3JojjZKCcDQEHT
-        5uRRnHyckzIheNqcIopTjO/bQjGl0ubMozjzCU4hWOL7VkZxyonzFgQWaXOqKE41UU+GqdeziOIs
-        Js4hDkomzQk0hnNf9cu9IphKe99ClB+CcT/EqJQy7fMWovwQTPihQiohUuK8eRlQ/+i5QQXPTQf/
-        vOe5kWU4/KUjtptDXiAXctp5qyin9lN1UAFgMlPf0w//nH4+Rzqa/ptXb5wJ+PQMAAA=
+        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
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -59,11 +68,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 05 Sep 2020 14:25:51 GMT
+      - Mon, 08 Feb 2021 23:59:32 GMT
       Expires:
-      - Sat, 05 Sep 2020 14:27:51 GMT
+      - Tue, 09 Feb 2021 00:01:32 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e9339a54343f8a4facca0baee35952ee4209710b867fcd6965ac5ffa8cc4db11e4e5a7bc656c1b144b5d25d2bc3a53a0f00d4;
+      - TS011c6724=01bc1e93397922213bf071255b285634c5287fdd7e6f678bdd3daf77a7f0fe44f9eaa9e6eab7fe85d9b2d82bdccf6fd5b3ec996774;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -79,7 +88,7 @@ interactions:
       - SAMEORIGIN
       - SAMEORIGIN
       X-Proxy-Cache:
-      - EXPIRED
+      - MISS
       X-XSS-Protection:
       - 1; mode=block
       vary:

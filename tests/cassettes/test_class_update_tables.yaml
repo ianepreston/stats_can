@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.25.1
     method: POST
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata
   response:
@@ -83,11 +83,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 05 Sep 2020 14:14:49 GMT
+      - Mon, 08 Feb 2021 22:25:50 GMT
       Expires:
-      - Sat, 05 Sep 2020 14:16:49 GMT
+      - Mon, 08 Feb 2021 22:27:50 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e9339b532c4d935181ab6897308b9156b20d80d69c28cb18796b09db082c37b2fafc1d6d68aed46713f37f3f1ecfdc14ca0d9;
+      - TS011c6724=01bc1e9339a3fdbd3784ae7e34f8c3e965c04cdff00340a8dcd8d7caed1b2a27c9ee68d6a5f7259257333ac520022d7ef998765728;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -103,7 +103,7 @@ interactions:
       - SAMEORIGIN
       - SAMEORIGIN
       X-Proxy-Cache:
-      - EXPIRED
+      - HIT
       X-XSS-Protection:
       - 1; mode=block
       vary:
@@ -122,7 +122,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.25.1
     method: GET
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/27100022/en
   response:
@@ -161,11 +161,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 05 Sep 2020 14:14:49 GMT
+      - Mon, 08 Feb 2021 22:25:50 GMT
       Expires:
-      - Sat, 05 Sep 2020 14:16:49 GMT
+      - Mon, 08 Feb 2021 22:27:50 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e93395b14df616d56e25d6d5f4473fbf934633644ce9bfc660e675163352b7666e9bddf8636c95b0c9c4cb74a07e9e954ab4a;
+      - TS011c6724=01bc1e9339212afa34da5e553f41e9e646a4c64edc855e78b43fc101e26dd61598675ec7f8b552f00d2e9de95388388994c5ee16b6;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -181,7 +181,7 @@ interactions:
       - SAMEORIGIN
       - SAMEORIGIN
       X-Proxy-Cache:
-      - EXPIRED
+      - MISS
       X-XSS-Protection:
       - 1; mode=block
       vary:
@@ -429,13 +429,13 @@ interactions:
       Content-Type:
       - application/zip
       Date:
-      - Sat, 05 Sep 2020 14:14:50 GMT
+      - Mon, 08 Feb 2021 22:25:50 GMT
       Expires:
-      - Sat, 05 Sep 2020 14:16:50 GMT
+      - Mon, 08 Feb 2021 22:27:50 GMT
       Last-Modified:
       - Tue, 03 Mar 2020 13:30:30 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e93396e7d82108ab43f7b90f3f106bdc87ad4909d16b07975367533bbfcc2a5be05f1ff229cdd08ba8df894ba21fcb87717bb;
+      - TS011c6724=01bc1e93392b3b54b3e8e1db41fb279433bc27651a5f94b259b7cbb6a6a6f0454df26d8a96ac9c1ee5204283d9a6c37b4e508c1145;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -447,7 +447,7 @@ interactions:
       - SAMEORIGIN
       - SAMEORIGIN
       X-Proxy-Cache:
-      - EXPIRED
+      - MISS
       X-XSS-Protection:
       - 1; mode=block
     status:
@@ -467,7 +467,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.25.1
     method: POST
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata
   response:
@@ -537,11 +537,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 05 Sep 2020 14:14:51 GMT
+      - Mon, 08 Feb 2021 22:25:52 GMT
       Expires:
-      - Sat, 05 Sep 2020 14:16:51 GMT
+      - Mon, 08 Feb 2021 22:27:52 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e9339302bcb236d3b6e8a24c16229dcb34cd655321fd3cf615754c487364aef6767d07e116f654f9f782070ebd86fff392edb;
+      - TS011c6724=01bc1e9339d429ca85ac3a4d53d99106d4e8be595a784e97cf24565ace070a1fb2112c65f35d8674271dd3dc517175771026bb0f5b;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -557,7 +557,7 @@ interactions:
       - SAMEORIGIN
       - SAMEORIGIN
       X-Proxy-Cache:
-      - EXPIRED
+      - MISS
       X-XSS-Protection:
       - 1; mode=block
       vary:

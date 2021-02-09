@@ -57,11 +57,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sun, 31 Jan 2021 00:22:19 GMT
+      - Mon, 08 Feb 2021 22:29:08 GMT
       Expires:
-      - Sun, 31 Jan 2021 00:24:19 GMT
+      - Mon, 08 Feb 2021 22:31:08 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e933975e99d4bf37699b3bedc3c58a861230ee996e66804b56f854daf44ff383f36a05cb418d6c21e6675d8e47dd80ec92800;
+      - TS011c6724=01bc1e9339d0e00ac257f7df1c7b76eeb4588285db466e38fea80effa9e7bab89011a3dbe4e4d47851c9fdcbe6ee1734ff9a5324d7;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -77,7 +77,7 @@ interactions:
       - SAMEORIGIN
       - SAMEORIGIN
       X-Proxy-Cache:
-      - EXPIRED
+      - HIT
       X-XSS-Protection:
       - 1; mode=block
       vary:
