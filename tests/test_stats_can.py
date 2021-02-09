@@ -192,6 +192,18 @@ def test_vectors_to_df_by_release():
 
 
 @pytest.mark.vcr()
+def test_empty_release():
+    """Test requesting data from a period with no releases."""
+    vec = "v41692457"
+    r = stats_can.sc.vectors_to_df(
+        vec,
+        start_release_date=dt.date(2018, 1, 1),
+        end_release_date=dt.date(2018, 5, 1),
+    )
+    assert len(r) == 0
+
+
+@pytest.mark.vcr()
 def test_vectors_to_df_by_periods():
     """Test the other vector to df method."""
     r = stats_can.sc.vectors_to_df(vs, 5)

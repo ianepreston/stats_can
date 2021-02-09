@@ -1,0 +1,86 @@
+interactions:
+- request:
+    body: '{"vectorIds": [41692457], "startDataPointReleaseDate": "2018-01-01T13:00",
+      "endDataPointReleaseDate": "2018-05-01T13:00"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '121'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.25.1
+    method: POST
+    uri: https://www150.statcan.gc.ca/t1/wds/rest/getBulkVectorDataByRange
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA1WNsQ7CIBiE3+Vm0hREW1mpg5sJcWo6IDDUgb8B6tL03UUTB++2y3d344ZcbFkz
+        FMxd64sxYKDHM7gCtSGFvFDMwXwhTT5AtQxLIr+6cvVQvOdtlWRwRMnP0ZbKQBwa0XdN+++6/arL
+        lD5NyU9nIY/dLxtssTeaYz0ep32f3lUiQj6cAAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      Cache-Control:
+      - max-age=120
+      - public
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
+        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
+        ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
+        *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
+        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
+        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
+        *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
+        worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
+        frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
+        https://dv-vd.shinyapps.io blob:;'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 09 Feb 2021 00:12:43 GMT
+      Expires:
+      - Tue, 09 Feb 2021 00:14:43 GMT
+      Set-Cookie:
+      - TS011c6724=01bc1e933916ee8f04005c3b850a3c7a3185e5a449ec64375cf106795a517f43596df9cd764384fcffee27134def7fc101ec740ac6;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      - accept-encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      - SAMEORIGIN
+      X-Proxy-Cache:
+      - MISS
+      X-XSS-Protection:
+      - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
+    status:
+      code: 200
+      message: ''
+version: 1
