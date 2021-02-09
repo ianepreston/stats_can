@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.25.1
     method: GET
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getChangedCubeList/2020-09-05
   response:
@@ -47,11 +47,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 05 Sep 2020 13:58:01 GMT
+      - Mon, 08 Feb 2021 22:25:39 GMT
       Expires:
-      - Sat, 05 Sep 2020 14:00:01 GMT
+      - Mon, 08 Feb 2021 22:27:39 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e933952711eee721b897091b097f2ca4a6da8d034193974e1e1bbad8b6766a3250e913e538f9d5ecdf1bcddfd3c7fe5590ae2;
+      - TS011c6724=01bc1e933957ba1d8e6c008595a2afcd9800f7b3ca6eb7eab409e65e86fb12b091ff1c0d30bdb5e4c1f9a9e914cfaa14e08cc312b0;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -67,7 +67,7 @@ interactions:
       - SAMEORIGIN
       - SAMEORIGIN
       X-Proxy-Cache:
-      - EXPIRED
+      - MISS
       X-XSS-Protection:
       - 1; mode=block
       vary:

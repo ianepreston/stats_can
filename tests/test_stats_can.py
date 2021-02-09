@@ -182,11 +182,25 @@ def test_vectors_mapping(mapping_func, expected):
 def test_vectors_to_df_by_release():
     """Test one vector to df method."""
     r = stats_can.sc.vectors_to_df(
-        vs, start_release_date=dt.date(2018, 1, 1), end_release_date=dt.date(2018, 5, 1)
+        vs,
+        start_release_date=dt.date(2020, 1, 1),
+        end_release_date=dt.date(2020, 12, 1),
     )
-    assert r.shape == (13, 2)
+    assert r.shape == (58, 2)
     assert list(r.columns) == ["v74804", "v41692457"]
     assert isinstance(r.index, pd.DatetimeIndex)
+
+
+@pytest.mark.vcr()
+def test_empty_release():
+    """Test requesting data from a period with no releases."""
+    vec = "v41692457"
+    r = stats_can.sc.vectors_to_df(
+        vec,
+        start_release_date=dt.date(2018, 1, 1),
+        end_release_date=dt.date(2018, 5, 1),
+    )
+    assert len(r) == 0
 
 
 @pytest.mark.vcr()

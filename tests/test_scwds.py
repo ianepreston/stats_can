@@ -136,7 +136,7 @@ def test_gdfvalnp():
 def test_gbvdbr():
     """Test get bulk vector data by range."""
     r = stats_can.scwds.get_bulk_vector_data_by_range(
-        vs, dt.date(2018, 1, 1), dt.date(2018, 5, 1)
+        vs, dt.date(2020, 1, 1), dt.date(2020, 12, 1)
     )
     assert len(r) == len(vs)
     r0v = r[0]["vectorDataPoint"]

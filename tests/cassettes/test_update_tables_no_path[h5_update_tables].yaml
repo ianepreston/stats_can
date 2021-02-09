@@ -78,11 +78,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 02 Feb 2021 02:25:13 GMT
+      - Mon, 08 Feb 2021 23:48:50 GMT
       Expires:
-      - Tue, 02 Feb 2021 02:27:13 GMT
+      - Mon, 08 Feb 2021 23:50:50 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e933988affec2c99a5b0a0ea0e26e890368e2066a0b07e1cc8cb8bb8275c30f9130dacae4fdc04c6b44a4c5953cba9f4172b6;
+      - TS011c6724=01bc1e9339b486b01bba32dec3b0b41a2164d0275cd95ac1d65b64a25ec3367b84f846925de3791a047d59707df6a3c3b89853d4bb;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -186,11 +186,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 02 Feb 2021 02:25:14 GMT
+      - Mon, 08 Feb 2021 23:48:50 GMT
       Expires:
-      - Tue, 02 Feb 2021 02:27:14 GMT
+      - Mon, 08 Feb 2021 23:50:50 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e93394a666ec2101e613646f365dcc3bdd325df9bf4daf164baa0f7a7d4991d9093dbc5c2690e4fc1065f98e7b85fbb21babb;
+      - TS011c6724=01bc1e9339117733e554ef26d2e27fe7e20f4f1b6e6552939149dcb3a0bd10c5f8fc835194a54f05b0d9547a1419d51dda2b1b19e5;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -250,13 +250,13 @@ interactions:
       Content-Encoding:
       - gzip
       Content-Security-Policy:
-      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
-        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
+        *.demdex.net *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
         *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
         ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
         *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
+        *.stc.ca *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
+        img-src ''self'' *.statcan.gc.ca *.stc.ca *.demdex.net *.omtrdc.net *.everesttech.net
         *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
         worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
         frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
@@ -264,11 +264,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 02 Feb 2021 02:25:14 GMT
+      - Mon, 08 Feb 2021 23:48:51 GMT
       Expires:
-      - Tue, 02 Feb 2021 02:27:14 GMT
+      - Mon, 08 Feb 2021 23:50:51 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e93393f5ca11195e21812fd0715ed38f9e15113138a6d68fb60c60e2b1d69061d1dc1e87ff93cc7820ec45e39194209dba91c;
+      - TS011c6724=01bc1e933953aa83533c635e66833c3383ad46490a5d48713b0ba97d155048fbf14da362e8addd544ec88e94c354a4f02ee33305c3;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -1459,13 +1459,13 @@ interactions:
       Content-Length:
       - '64997'
       Content-Security-Policy:
-      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
-        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
+        *.demdex.net *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
         *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
         ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
         *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
+        *.stc.ca *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
+        img-src ''self'' *.statcan.gc.ca *.stc.ca *.demdex.net *.omtrdc.net *.everesttech.net
         *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
         worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
         frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
@@ -1473,13 +1473,13 @@ interactions:
       Content-Type:
       - application/zip
       Date:
-      - Tue, 02 Feb 2021 02:25:14 GMT
+      - Mon, 08 Feb 2021 23:48:51 GMT
       Expires:
-      - Tue, 02 Feb 2021 02:27:14 GMT
+      - Mon, 08 Feb 2021 23:50:51 GMT
       Last-Modified:
       - Tue, 12 Jan 2021 13:30:17 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e9339bedd36252c5906137f069b3a13d4edc47644942cd3fd182a6c398a46f9f76bc829c932015c3b8bdb67ad775d52844d10;
+      - TS011c6724=01bc1e9339a3cf58b705f0eccc083b56acea51ff8d65b59787aa2d484f2afe9c8f5b9f9b48dd6a3cfb1878279181df675e15f42cd5;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains

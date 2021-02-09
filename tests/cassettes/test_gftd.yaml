@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.25.1
     method: GET
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/27100022/en
   response:
@@ -48,11 +48,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 05 Sep 2020 13:58:06 GMT
+      - Mon, 08 Feb 2021 22:25:44 GMT
       Expires:
-      - Sat, 05 Sep 2020 14:00:06 GMT
+      - Mon, 08 Feb 2021 22:27:44 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e9339fc11254bf6392f32fd4d2905d33ea712466b8c18599b29a2f0eb5d511902eb278bf889533f655927177bbd4b04077138;
+      - TS011c6724=01bc1e9339f4633c51ff01d3ae321e7fa2afba3e8736efa8c40a27203e46008a9211971471f7476bc77c76e410197acb793af314db;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -68,7 +68,7 @@ interactions:
       - SAMEORIGIN
       - SAMEORIGIN
       X-Proxy-Cache:
-      - EXPIRED
+      - MISS
       X-XSS-Protection:
       - 1; mode=block
       vary:
@@ -87,7 +87,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.25.1
     method: GET
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadSDMX/27100022
   response:
@@ -112,13 +112,13 @@ interactions:
       Content-Encoding:
       - gzip
       Content-Security-Policy:
-      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
-        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
+        *.demdex.net *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
         *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
         ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
         *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
+        *.stc.ca *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
+        img-src ''self'' *.statcan.gc.ca *.stc.ca *.demdex.net *.omtrdc.net *.everesttech.net
         *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
         worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
         frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
@@ -126,11 +126,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 05 Sep 2020 13:58:06 GMT
+      - Mon, 08 Feb 2021 22:25:44 GMT
       Expires:
-      - Sat, 05 Sep 2020 14:00:06 GMT
+      - Mon, 08 Feb 2021 22:27:44 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e93398be43193975cf5b71d189b5c403be100a40dd2d5bb355ab4e33f06d6bc361a1f9b1bf92d62842a1a3789c9e240932304;
+      - TS011c6724=01bc1e9339a7c3afceef5aa3890f57ed482ae31f99598871dd632563d2f01d8d809bfbc8871518fae3ef15e05f549fb75b7f3d8557;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -146,7 +146,7 @@ interactions:
       - SAMEORIGIN
       - SAMEORIGIN
       X-Proxy-Cache:
-      - EXPIRED
+      - MISS
       X-XSS-Protection:
       - 1; mode=block
       vary:

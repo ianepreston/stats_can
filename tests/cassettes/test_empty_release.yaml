@@ -1,6 +1,7 @@
 interactions:
 - request:
-    body: '[{"vectorId": 74804}, {"vectorId": 41692457}]'
+    body: '{"vectorIds": [41692457], "startDataPointReleaseDate": "2018-01-01T13:00",
+      "endDataPointReleaseDate": "2018-05-01T13:00"}'
     headers:
       Accept:
       - '*/*'
@@ -9,23 +10,19 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '45'
+      - '121'
       Content-Type:
       - application/json
       User-Agent:
       - python-requests/2.25.1
     method: POST
-    uri: https://www150.statcan.gc.ca/t1/wds/rest/getSeriesInfoFromVector
+    uri: https://www150.statcan.gc.ca/t1/wds/rest/getBulkVectorDataByRange
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6WQQU7DMBBFr2J5wyaNErc0JV1VVSux6SbtCrGY2pNg5NjFdoCqyoF6Di6GkwpE
-        CxISyKuR5r/veXcH6jz4xtGcFpv5fFEUNKJm+4jc0/xALbqd0Q6LfmluBNI8iejOGtFwfytozoZp
-        krB0HFFujBVSgw87NI1ZnMbJ1xfAzwFrbBfLRpNkFNHS4lODmu9P6EBxHBTYJXSLn30CuaxBuX7w
-        aOu+RvRjgVaiW0uvcKFD8xw0CJiujQdFtNEDqbuEEWH0FspScqIMCBTTVVNv0RJTEgtSEQ7W0TPg
-        0l4Aox4RCBdg/gC2ejtOV6beWiQCyQtUQVzA1diVbEx9uoaxYdtG/9aeToL2pFN4pp0NYzbJzr1f
-        mB+l4xs2us7+ID/9Vf5MhVs9TGdKDaTH2hF85aoJ/6sIarTV/gfBH6FFuLjeKjxlQHuirt6OXUri
-        d5Fp1rb372xKhJ3AAgAA
+        H4sIAAAAAAAAA1WNsQ7CIBiE3+Vm0hREW1mpg5sJcWo6IDDUgb8B6tL03UUTB++2y3d344ZcbFkz
+        FMxd64sxYKDHM7gCtSGFvFDMwXwhTT5AtQxLIr+6cvVQvOdtlWRwRMnP0ZbKQBwa0XdN+++6/arL
+        lD5NyU9nIY/dLxtssTeaYz0ep32f3lUiQj6cAAAA
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -57,11 +54,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 08 Feb 2021 22:29:08 GMT
+      - Tue, 09 Feb 2021 00:12:43 GMT
       Expires:
-      - Mon, 08 Feb 2021 22:31:08 GMT
+      - Tue, 09 Feb 2021 00:14:43 GMT
       Set-Cookie:
-      - TS011c6724=01bc1e9339d0e00ac257f7df1c7b76eeb4588285db466e38fea80effa9e7bab89011a3dbe4e4d47851c9fdcbe6ee1734ff9a5324d7;
+      - TS011c6724=01bc1e933916ee8f04005c3b850a3c7a3185e5a449ec64375cf106795a517f43596df9cd764384fcffee27134def7fc101ec740ac6;
         Path=/
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
@@ -77,7 +74,7 @@ interactions:
       - SAMEORIGIN
       - SAMEORIGIN
       X-Proxy-Cache:
-      - HIT
+      - MISS
       X-XSS-Protection:
       - 1; mode=block
       vary:
