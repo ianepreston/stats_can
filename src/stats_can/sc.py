@@ -603,6 +603,9 @@ def vectors_to_df(vectors, periods=1, start_release_date=None, end_release_date=
         )
     for vec in start_list:
         name = "v" + str(vec["vectorId"])
+        # If there's no data for the series just skip it
+        if not vec["vectorDataPoint"]:
+            continue
         ser = (
             pd.DataFrame(vec["vectorDataPoint"])
             .assign(refPer=lambda x: pd.to_datetime(x["refPer"], errors="ignore"))
