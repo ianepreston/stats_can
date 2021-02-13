@@ -225,7 +225,7 @@ def test_download_table(tmpdir):
     """
 
     # convert tmpdir from LocalPath to pathlib.Path
-    tmpdir = pathlib.Path(tmpdir) 
+    tmpdir = pathlib.Path(tmpdir)
     t = "18100204"
     t_json = tmpdir / (t + ".json")
     t_zip = tmpdir / (t + "-eng.zip")
@@ -431,7 +431,6 @@ def test_metadata_from_h5_no_path(tmpdir):
         ),
     ],
 )
-
 @pytest.mark.vcr()
 def test_missing_data_from_h5(tmpdir, capsys, sc_h5_func, table_name, expected):
     """Test loading missing data from a h5 file, make sure it fails.

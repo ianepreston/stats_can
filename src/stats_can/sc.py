@@ -94,11 +94,11 @@ def download_tables(tables, path=None, csv=True):
     for meta in metas:
         product_id = meta["productId"]
         zip_url = get_full_table_download(product_id, csv=csv)
-        zip_file_name = (product_id + ("-eng.zip" if csv else ".zip"))
-        json_file_name = (product_id + ".json")
-        zip_file = path / zip_file_name 
-        json_file = path / json_file_name 
-        
+        zip_file_name = product_id + ("-eng.zip" if csv else ".zip")
+        json_file_name = product_id + ".json"
+        zip_file = path / zip_file_name
+        json_file = path / json_file_name
+
         # Thanks http://evanhahn.com/python-requests-library-useragent/
         response = requests.get(zip_url, stream=True, headers={"user-agent": None})
 
@@ -270,8 +270,8 @@ def tables_to_h5(tables, h5file="stats_can.h5", path=None):
     tables: list
         list of tables loaded into the file
     """
-    path = pathlib.Path(path) if path else pathlib.Path() 
-    h5file = path / h5file 
+    path = pathlib.Path(path) if path else pathlib.Path()
+    h5file = path / h5file
     tables = parse_tables(tables)
     path = h5file.parent
 
@@ -345,8 +345,8 @@ def metadata_from_h5(tables, h5file="stats_can.h5", path=None):
     -------
     list of local table metadata
     """
-    path = pathlib.Path(path) if path else pathlib.Path() 
-    h5file = path / h5file 
+    path = pathlib.Path(path) if path else pathlib.Path()
+    h5file = path / h5file
     tables = ["json_" + tbl for tbl in parse_tables(tables)]
     jsons = []
     try:
