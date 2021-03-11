@@ -427,7 +427,7 @@ def h5_update_tables(h5file="stats_can.h5", path=None, tables=None):
     if tables:
         local_jsons = metadata_from_h5(tables, h5file=h5file, path=path)
     else:
-        h5 = path / h5file if path else pathlib.Path(h5file)
+        h5 = pathlib.Path(path) / h5file if path else pathlib.Path(h5file)
         with h5py.File(h5, "r") as f:
             keys = [key for key in f.keys() if key.startswith("json")]
             local_jsons = [json.loads(f[key][()]) for key in keys]
@@ -490,7 +490,7 @@ def h5_included_keys(h5file="stats_can.h5", path=None):
     keys: list
         list of keys in the hdf5 file
     """
-    h5file = path / h5file if path else pathlib.Path(h5file)
+    h5file = pathlib.Path(path) / h5file if path else pathlib.Path(h5file)
     with h5py.File(h5file, "r") as f:
         keys = [key for key in f.keys()]
     return keys
