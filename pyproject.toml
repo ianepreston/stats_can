@@ -37,7 +37,7 @@ sphinx = "^4.2.0"
 darglint = "^1.7.0"
 xdoctest = "^0.15.8"
 sphinx-autodoc-typehints = "^1.11.0"
-sphinx_rtd_theme = "^0.5.0"
+sphinx_rtd_theme = "^1.0.0"
 safety = "^1.9.0"
 freezegun = "^1.1.0"
 
