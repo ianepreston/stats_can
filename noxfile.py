@@ -18,10 +18,10 @@ nox.options.sessions = (
 )
 
 python_versions = [
+    "3.10",
     "3.9",
     "3.8",
     "3.7",
-    "3.6",
 ]
 python_version = python_versions[0]
 
