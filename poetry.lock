@@ -737,7 +737,7 @@ test = ["pytest", "pytest-cov", "html5lib", "cython", "typed-ast"]
 
 [[package]]
 name = "sphinx-autodoc-typehints"
-version = "1.15.0"
+version = "1.15.2"
 description = "Type hints (PEP 484) support for the Sphinx autodoc extension"
 category = "dev"
 optional = false
@@ -1551,8 +1551,8 @@ sphinx = [
     {file = "Sphinx-4.3.2.tar.gz", hash = "sha256:0a8836751a68306b3fe97ecbe44db786f8479c3bf4b80e3a7f5c838657b4698c"},
 ]
 sphinx-autodoc-typehints = [
-    {file = "sphinx_autodoc_typehints-1.15.0-py3-none-any.whl", hash = "sha256:dc524ebc7040d66e7516c71dedece831062e6cb7a40cd2d8993e1eb3c7e4d6ea"},
-    {file = "sphinx_autodoc_typehints-1.15.0.tar.gz", hash = "sha256:3912b3cf82b97f5b47d5ed5641513a782cc9c43899f8f6402e53e017c7cb4693"},
+    {file = "sphinx_autodoc_typehints-1.15.2-py3-none-any.whl", hash = "sha256:bd6b70b93fc53d63a167738ba4fb40643ef7eb9b8d915a886c372949981b8eac"},
+    {file = "sphinx_autodoc_typehints-1.15.2.tar.gz", hash = "sha256:1480d4af8ac465aa87b793e22bb0feb4578b9c93b36e01b35c983bd6f596326f"},
 ]
 sphinx-rtd-theme = [
     {file = "sphinx_rtd_theme-1.0.0-py2.py3-none-any.whl", hash = "sha256:4d35a56f4508cfee4c4fb604373ede6feae2a306731d533f409ef5c3496fdbd8"},
