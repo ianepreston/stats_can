@@ -24,7 +24,7 @@ pytest = "^6.2"
 flake8 = "^3.9"
 pandas-vet = "^0.2"
 black = "^21.12b0"
-coverage = {extras = ["toml"], version = "^6.0"}
+coverage = {extras = ["toml"], version = "^6.3"}
 pytest-cov = "^3.0"
 codecov = "^2.1"
 flake8-bandit = "^2.1"
