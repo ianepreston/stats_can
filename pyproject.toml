@@ -39,7 +39,7 @@ xdoctest = "^0.15"
 sphinx-autodoc-typehints = "^1.17"
 sphinx_rtd_theme = "^1.0"
 safety = "^1.9"
-freezegun = "^1.1"
+freezegun = "^1.2"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
