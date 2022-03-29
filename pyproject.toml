@@ -23,7 +23,7 @@ importlib_metadata = {version = ">=1.7,<5.0", python = "<3.8"}
 pytest = "^7.1"
 flake8 = "^3.9"
 pandas-vet = "^0.2"
-black = "^22.1"
+black = "^22.3"
 coverage = {extras = ["toml"], version = "^6.3"}
 pytest-cov = "^3.0"
 codecov = "^2.1"
