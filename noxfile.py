@@ -5,8 +5,7 @@ import shutil
 from textwrap import dedent
 
 import nox
-import nox_poetry.patch
-from nox.sessions import Session  # noqaI100
+from nox_poetry import session, Session
 
 package = "stats_can"
 nox.options.sessions = (
@@ -21,7 +20,6 @@ python_versions = [
     "3.10",
     "3.9",
     "3.8",
-    "3.7",
 ]
 python_version = python_versions[0]
 
@@ -79,7 +77,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
         hook.write_text("\n".join(lines))
 
 
-@nox.session(name="pre-commit", python=python_version)
+@session(name="pre-commit", python=python_version)
 def precommit(session: Session) -> None:
     """Lint using pre-commit.
 
@@ -106,7 +104,7 @@ def precommit(session: Session) -> None:
         activate_virtualenv_in_precommit_hooks(session)
 
 
-@nox.session(python=python_version)
+@session(python=python_version)
 def safety(session):
     """Scan dependencies for insecure packages.
 
@@ -115,12 +113,12 @@ def safety(session):
     session
         The Session object.
     """
-    requirements = nox_poetry.export_requirements(session)
+    requirements = session.poetry.export_requirements()
     session.install("safety")
     session.run("safety", "check", f"--file={requirements}", "--full-report")
 
 
-@nox.session(python=python_versions)
+@session(python=python_versions)
 def tests(session):
     """Run the test suite.
 
@@ -138,7 +136,7 @@ def tests(session):
             session.notify("coverage")
 
 
-@nox.session
+@session
 def coverage(session):
     """Upload coverage data.
 
@@ -159,7 +157,7 @@ def coverage(session):
     session.run("coverage", *args)
 
 
-@nox.session(python=python_version)
+@session(python=python_version)
 def docs(session):
     """Build the documentation.
 
