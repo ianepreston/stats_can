@@ -21,7 +21,7 @@ importlib_metadata = {version = ">=1.7,<5.0", python = "<3.8"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1"
-flake8 = "^3.9"
+flake8 = "^4.0"
 pandas-vet = "^0.2"
 black = "^22.3"
 coverage = {extras = ["toml"], version = "^6.3"}
