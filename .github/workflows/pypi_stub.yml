@@ -1,0 +1,12 @@
+name: PyPi
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'src/**'
+jobs:
+  pypi:
+    runs-on: ubuntu-latest
+    steps:
+    - run: 'echo "No build required" '
