@@ -27,7 +27,7 @@ black = "^22.6"
 coverage = {extras = ["toml"], version = "^6.4"}
 pytest-cov = "^3.0"
 codecov = "^2.1"
-flake8-bandit = "^3.0"
+flake8-bandit = "^4.1"
 flake8-bugbear = "^22.8"
 flake8-black = "^0.3"
 flake8-import-order = "^0.18"
