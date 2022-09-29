@@ -25,7 +25,7 @@ flake8 = "^5.0"
 pandas-vet = "^0.2"
 black = "^22.8"
 coverage = {extras = ["toml"], version = "^6.4"}
-pytest-cov = "^3.0"
+pytest-cov = "^4.0"
 codecov = "^2.1"
 flake8-bandit = "^4.1"
 flake8-bugbear = "^22.9"
