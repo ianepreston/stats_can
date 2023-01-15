@@ -1,11 +1,11 @@
 """Manage tasks for the stats_can library."""
 
-from pathlib import Path
 import shutil
+from pathlib import Path
 from textwrap import dedent
 
 import nox
-from nox_poetry import session, Session
+from nox_poetry import Session, session
 
 package = "stats_can"
 nox.options.sessions = (
@@ -17,6 +17,7 @@ nox.options.sessions = (
 )
 
 python_versions = [
+    "3.11",
     "3.10",
     "3.9",
     "3.8",
