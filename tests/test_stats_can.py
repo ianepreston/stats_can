@@ -422,12 +422,12 @@ def test_metadata_from_h5_no_path(tmpdir):
         pytest.param(
             stats_can.sc.table_from_h5,
             "23100216",
-            "Downloading and loading table_23100216\n",
+            "Downloading and loading table_23100216",
         ),
         (
             stats_can.sc.metadata_from_h5,
             "badtable123",
-            "Couldn't find table json_123\n",
+            "Couldn't find table json_123",
         ),
     ],
 )
@@ -457,7 +457,7 @@ def test_missing_data_from_h5(tmpdir, capsys, sc_h5_func, table_name, expected):
     tbl = table_name
     sc_h5_func(tbl, path=tmpdir)
     captured = capsys.readouterr()
-    assert captured.out == expected, sc_h5_func.__name__
+    assert captured.out.strip() == expected, sc_h5_func.__name__
 
 
 @pytest.mark.parametrize(
