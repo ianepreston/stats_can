@@ -3,6 +3,7 @@ on:
   pull_request:
     paths-ignore:
       - 'src/**'
+      - 'pyproject.toml'
 
 jobs:
   test_pypi:
