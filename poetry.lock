@@ -633,32 +633,36 @@ test = ["black", "coverage[toml]", "ddt (>=1.1.1,!=1.4.3)", "mypy", "pre-commit"
 
 [[package]]
 name = "h5py"
-version = "3.9.0"
+version = "3.10.0"
 description = "Read and write HDF5 files from Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "h5py-3.9.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:eb7bdd5e601dd1739698af383be03f3dad0465fe67184ebd5afca770f50df9d6"},
-    {file = "h5py-3.9.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:78e44686334cbbf2dd21d9df15823bc38663f27a3061f6a032c68a3e30c47bf7"},
-    {file = "h5py-3.9.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f68b41efd110ce9af1cbe6fa8af9f4dcbadace6db972d30828b911949e28fadd"},
-    {file = "h5py-3.9.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:12aa556d540f11a2cae53ea7cfb94017353bd271fb3962e1296b342f6550d1b8"},
-    {file = "h5py-3.9.0-cp310-cp310-win_amd64.whl", hash = "sha256:d97409e17915798029e297a84124705c8080da901307ea58f29234e09b073ddc"},
-    {file = "h5py-3.9.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:551e358db05a874a0f827b22e95b30092f2303edc4b91bb62ad2f10e0236e1a0"},
-    {file = "h5py-3.9.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:6822a814b9d8b8363ff102f76ea8d026f0ca25850bb579d85376029ee3e73b93"},
-    {file = "h5py-3.9.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:54f01202cdea754ab4227dd27014bdbd561a4bbe4b631424fd812f7c2ce9c6ac"},
-    {file = "h5py-3.9.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:64acceaf6aff92af091a4b83f6dee3cf8d3061f924a6bb3a33eb6c4658a8348b"},
-    {file = "h5py-3.9.0-cp311-cp311-win_amd64.whl", hash = "sha256:804c7fb42a34c8ab3a3001901c977a5c24d2e9c586a0f3e7c0a389130b4276fc"},
-    {file = "h5py-3.9.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:8d9492391ff5c3c80ec30ae2fe82a3f0efd1e750833739c25b0d090e3be1b095"},
-    {file = "h5py-3.9.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:9da9e7e63376c32704e37ad4cea2dceae6964cee0d8515185b3ab9cbd6b947bc"},
-    {file = "h5py-3.9.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a4e20897c88759cbcbd38fb45b507adc91af3e0f67722aa302d71f02dd44d286"},
-    {file = "h5py-3.9.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dbf5225543ca35ce9f61c950b73899a82be7ba60d58340e76d0bd42bf659235a"},
-    {file = "h5py-3.9.0-cp38-cp38-win_amd64.whl", hash = "sha256:36408f8c62f50007d14e000f9f3acf77e103b9e932c114cbe52a3089e50ebf94"},
-    {file = "h5py-3.9.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:23e74b878bbe1653ab34ca49b83cac85529cd0b36b9d625516c5830cc5ca2eac"},
-    {file = "h5py-3.9.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:3f457089c5d524b7998e3649bc63240679b8fb0a3859ea53bbb06841f3d755f1"},
-    {file = "h5py-3.9.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a6284061f3214335e1eec883a6ee497dbe7a79f19e6a57fed2dd1f03acd5a8cb"},
-    {file = "h5py-3.9.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:95f7a745efd0d56076999b52e8da5fad5d30823bac98b59c68ae75588d09991a"},
-    {file = "h5py-3.9.0-cp39-cp39-win_amd64.whl", hash = "sha256:79bbca34696c6f9eeeb36a91776070c49a060b2879828e2c8fa6c58b8ed10dd1"},
-    {file = "h5py-3.9.0.tar.gz", hash = "sha256:e604db6521c1e367c6bd7fad239c847f53cc46646f2d2651372d05ae5e95f817"},
+    {file = "h5py-3.10.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:b963fb772964fc1d1563c57e4e2e874022ce11f75ddc6df1a626f42bd49ab99f"},
+    {file = "h5py-3.10.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:012ab448590e3c4f5a8dd0f3533255bc57f80629bf7c5054cf4c87b30085063c"},
+    {file = "h5py-3.10.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:781a24263c1270a62cd67be59f293e62b76acfcc207afa6384961762bb88ea03"},
+    {file = "h5py-3.10.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f42e6c30698b520f0295d70157c4e202a9e402406f50dc08f5a7bc416b24e52d"},
+    {file = "h5py-3.10.0-cp310-cp310-win_amd64.whl", hash = "sha256:93dd840bd675787fc0b016f7a05fc6efe37312a08849d9dd4053fd0377b1357f"},
+    {file = "h5py-3.10.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:2381e98af081b6df7f6db300cd88f88e740649d77736e4b53db522d8874bf2dc"},
+    {file = "h5py-3.10.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:667fe23ab33d5a8a6b77970b229e14ae3bb84e4ea3382cc08567a02e1499eedd"},
+    {file = "h5py-3.10.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:90286b79abd085e4e65e07c1bd7ee65a0f15818ea107f44b175d2dfe1a4674b7"},
+    {file = "h5py-3.10.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6c013d2e79c00f28ffd0cc24e68665ea03ae9069e167087b2adb5727d2736a52"},
+    {file = "h5py-3.10.0-cp311-cp311-win_amd64.whl", hash = "sha256:92273ce69ae4983dadb898fd4d3bea5eb90820df953b401282ee69ad648df684"},
+    {file = "h5py-3.10.0-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:3c97d03f87f215e7759a354460fb4b0d0f27001450b18b23e556e7856a0b21c3"},
+    {file = "h5py-3.10.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:86df4c2de68257b8539a18646ceccdcf2c1ce6b1768ada16c8dcfb489eafae20"},
+    {file = "h5py-3.10.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ba9ab36be991119a3ff32d0c7cbe5faf9b8d2375b5278b2aea64effbeba66039"},
+    {file = "h5py-3.10.0-cp312-cp312-win_amd64.whl", hash = "sha256:2c8e4fda19eb769e9a678592e67eaec3a2f069f7570c82d2da909c077aa94339"},
+    {file = "h5py-3.10.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:492305a074327e8d2513011fa9fffeb54ecb28a04ca4c4227d7e1e9616d35641"},
+    {file = "h5py-3.10.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:9450464b458cca2c86252b624279115dcaa7260a40d3cb1594bf2b410a2bd1a3"},
+    {file = "h5py-3.10.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:fd6f6d1384a9f491732cee233b99cd4bfd6e838a8815cc86722f9d2ee64032af"},
+    {file = "h5py-3.10.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3074ec45d3dc6e178c6f96834cf8108bf4a60ccb5ab044e16909580352010a97"},
+    {file = "h5py-3.10.0-cp38-cp38-win_amd64.whl", hash = "sha256:212bb997a91e6a895ce5e2f365ba764debeaef5d2dca5c6fb7098d66607adf99"},
+    {file = "h5py-3.10.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:5dfc65ac21fa2f630323c92453cadbe8d4f504726ec42f6a56cf80c2f90d6c52"},
+    {file = "h5py-3.10.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:d4682b94fd36ab217352be438abd44c8f357c5449b8995e63886b431d260f3d3"},
+    {file = "h5py-3.10.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:aece0e2e1ed2aab076c41802e50a0c3e5ef8816d60ece39107d68717d4559824"},
+    {file = "h5py-3.10.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:43a61b2c2ad65b1fabc28802d133eed34debcc2c8b420cb213d3d4ef4d3e2229"},
+    {file = "h5py-3.10.0-cp39-cp39-win_amd64.whl", hash = "sha256:ae2f0201c950059676455daf92700eeb57dcf5caaf71b9e1328e6e6593601770"},
+    {file = "h5py-3.10.0.tar.gz", hash = "sha256:d93adc48ceeb33347eb24a634fb787efc7ae4644e6ea4ba733d099605045c049"},
 ]
 
 [package.dependencies]
