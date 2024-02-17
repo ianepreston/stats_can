@@ -4,6 +4,7 @@ Todo
 ----
 Refactor a lot of this setup and teardown into its own setup functions
 """
+
 import datetime as dt
 from functools import partial
 import pathlib

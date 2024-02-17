@@ -1,4 +1,5 @@
 """Tests for the scwds module."""
+
 import datetime as dt
 
 import pytest
