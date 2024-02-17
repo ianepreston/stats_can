@@ -22,6 +22,7 @@ Missing api implementations:
     GetDataFromCubePidCoordAndLatestNPeriods
     GetFullTableDownloadSDMX
 """
+
 import datetime as dt
 
 import requests

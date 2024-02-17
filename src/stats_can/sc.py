@@ -7,6 +7,7 @@ Function to delete tables
 Extend getChangedCubeList with a function that returns all tables updated
 within a date range
 """
+
 import json
 import pathlib
 import zipfile
