@@ -1,4 +1,5 @@
 """Define a class wrapper for Stats Can functions."""
+
 from pathlib import Path
 
 from stats_can import sc

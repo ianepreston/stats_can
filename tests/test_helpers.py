@@ -1,4 +1,5 @@
 """Test the helpers moduled of the stats_can package."""
+
 import pytest
 
 import stats_can

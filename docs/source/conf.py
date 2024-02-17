@@ -1,4 +1,5 @@
 """Configuration for stats_can docs."""
+
 #
 # Configuration file for the Sphinx documentation builder.
 #
