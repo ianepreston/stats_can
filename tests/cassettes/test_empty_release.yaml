@@ -14,26 +14,23 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.25.1
+      - python-requests/2.31.0
     method: POST
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getBulkVectorDataByRange
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA1WNsQ7CIBiE3+Vm0hREW1mpg5sJcWo6IDDUgb8B6tL03UUTB++2y3d344ZcbFkz
-        FMxd64sxYKDHM7gCtSGFvFDMwXwhTT5AtQxLIr+6cvVQvOdtlWRwRMnP0ZbKQBwa0XdN+++6/arL
-        lD5NyU9nIY/dLxtssTeaYz0ep32f3lUiQj6cAAAA
+      string: '[{"status":"SUCCESS","object":{"responseStatusCode":0,"productId":18100004,"coordinate":"23.287.0.0.0.0.0.0.0.0","vectorId":41692457,"vectorDataPoint":[]}}]'
     headers:
       Access-Control-Allow-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Access-Control-Allow-Methods:
       - GET, POST, OPTIONS
       Access-Control-Allow-Origin:
       - '*'
       Access-Control-Expose-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Cache-Control:
-      - max-age=120
+      - max-age=1800
       - public
       Connection:
       - keep-alive
@@ -42,27 +39,29 @@ interactions:
       Content-Security-Policy:
       - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
         *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
-        *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
-        ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
-        *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
-        *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
-        worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
-        frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
-        https://dv-vd.shinyapps.io blob:;'
+        *.statcan.gc.ca *.statcan.ca https://fonts.googleapis.com blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca *.googletagmanager.com
+        *.adobedtm.com *.jsdelivr.net *.mathjax.org cdnjs.cloudflare.com blob:; connect-src
+        ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        https://api.mapbox.com/ https://events.mapbox.com/ https://energy-information.canada.ca;
+        img-src ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        *.everesttech.net *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca
+        *.statcan.ca https://fonts.gstatic.com; worker-src ''self'' ''unsafe-inline''
+        ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca blob:; frame-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca *.statcan.ca *.stc.ca https://dv-vd.shinyapps.io *.demdex.net
+        blob:;'
       Content-Type:
       - application/json
       Date:
-      - Tue, 09 Feb 2021 00:12:43 GMT
+      - Fri, 01 Mar 2024 02:41:15 GMT
       Expires:
-      - Tue, 09 Feb 2021 00:14:43 GMT
-      Set-Cookie:
-      - TS011c6724=01bc1e933916ee8f04005c3b850a3c7a3185e5a449ec64375cf106795a517f43596df9cd764384fcffee27134def7fc101ec740ac6;
-        Path=/
+      - Fri, 01 Mar 2024 03:11:15 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.6
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
-      - max-age=31536000
       Transfer-Encoding:
       - chunked
       Vary:
@@ -73,13 +72,9 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       - SAMEORIGIN
-      X-Proxy-Cache:
-      - MISS
+      - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
-      vary:
-      - Accept-Encoding
-      - accept-encoding
     status:
       code: 200
       message: ''

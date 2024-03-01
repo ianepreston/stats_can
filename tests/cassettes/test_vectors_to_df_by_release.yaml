@@ -1,7 +1,7 @@
 interactions:
 - request:
-    body: '{"vectorIds": [74804, 41692457], "startDataPointReleaseDate": "2020-01-01T13:00",
-      "endDataPointReleaseDate": "2020-12-01T13:00"}'
+    body: '{"vectorIds": [74804, 41692457], "startDataPointReleaseDate": "2023-01-01T13:00",
+      "endDataPointReleaseDate": "2023-12-01T13:00"}'
     headers:
       Accept:
       - '*/*'
@@ -14,40 +14,23 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.25.1
+      - python-requests/2.31.0
     method: POST
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getBulkVectorDataByRange
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA9WaUU/bMBDHv0ueS2Q7ju30lW3SpD2glT0hHrLUSJ1Kw5KUCaF+99mwAb3c6pOW
-        TRfgpeWf1r+ec/m1vavHrB/qYd9ny2z15fz8/WqVLbL26zffDNnyMet8f9fuer96Cp23a58txSK7
-        69r1vhk+rrOlKqQQSppF1rRtt97s6iFkMpmrXObi7W944PvwsG0XD7PaCf37jnf1UF+0m114yqv4
-        nDcXvguPoYSszoQMf+HQ53tVuPvlxuf6B54K//gVvK+3+7CcQlThJw8rX/tmc1tv+yeMvqm3dfeh
-        jmt4Yesfbr+229ebx+S9b/bdZnj45O/9a6jzW1/3/nJz659WpMSZCIvSl8ItdQS/6fz3vd81D8+H
-        mMNixKlInOokp9LGKcWbsyBxFol6qtIK3pyaxKlPc0pXKOacJYmzPM2pKistb05D4jSJekqhmHNa
-        EqdNcSrHvA85EqdLcBrJ/fysSJzV6etKVZalZs0pBYXzOIXWUxvenCQfkqd9SDlTlJI3J8mH5Gkf
-        KoQpDKt9e32IqH/p3NIF5xbRn4+cWxW5cvZYuoF2a2kqpUubNm9DMm+YGlVAFkVu3r788t++/OEE
-        VzK+/AVlmxmSdsMUAgn2GDdIgnPDFArpOEMShBumEMgyl5whCbYNUyhkwRmSoNowNT9IgmfDFHpO
-        VpwhCZINU2glWXdXgmHDFFpJztdJil7D1Oy2K8WtYQqFLDlDkownIdYRkm93tSR3hamZyYAluStM
-        oZCWMyTBXWEKgTSMLyGW5K4whVaSb3e1JHeFKbSSijMkwV1hCoVk3XgI7gpT8zsnCe4KU/OrJMFd
-        YQptPHw/GbAkd4UptJKaMyTJeJLuahi/C7Ekd4WpmTUeR3JXmEIh+Z6TjuSuMIVAWsbu6kjuClMo
-        JOtKEtwVpuZXSYK7whQC6Xg3HoK7whQKyVfQHcldYQqFZL1dCe4KUygk68ZDcFeYQiH5CrojuStM
-        za6SFHeFKRSS7+eujuSuMDWzSk40rSuLivF1cqJRXakF48Yz0ZxuhOR7Tk40pBsh+b5pnmhCV2rJ
-        e7tOMZ4bIfl+qzXRbG6E5Ps1wUSDuewhp5jK5b5dJxnJlVqxbjyTzONy366TDONGSLZvmuPkbrqS
-        oxS6XdnKQFx+upKjFALJeKg3Lj/trqMUCsnWXePy0+46SqGQbLtrXH7aXUep+UGm3XWUQiFZd9e0
-        u45SKCTbL2Hj8tPuOkqhlxDWlUy76yiFQrL9IOs5T4BMuut/voTIM+n+DHl9OFz/BMFJnG/xPwAA
+      string: '[{"status":"SUCCESS","object":{"responseStatusCode":0,"productId":23100216,"coordinate":"1.2.1.0.0.0.0.0.0.0","vectorId":74804,"vectorDataPoint":[{"refPer":"2021-12-01","refPer2":"","refPerRaw":"2021-12-01","refPerRaw2":"","value":252203.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-01-01","refPer2":"","refPerRaw":"2022-01-01","refPerRaw2":"","value":239174.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-02-01","refPer2":"","refPerRaw":"2022-02-01","refPerRaw2":"","value":240378.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-03-01","refPer2":"","refPerRaw":"2022-03-01","refPerRaw2":"","value":279770.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-04-01","refPer2":"","refPerRaw":"2022-04-01","refPerRaw2":"","value":278046.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-05-01","refPer2":"","refPerRaw":"2022-05-01","refPerRaw2":"","value":303638.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-06-01","refPer2":"","refPerRaw":"2022-06-01","refPerRaw2":"","value":271960.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-07-01","refPer2":"","refPerRaw":"2022-07-01","refPerRaw2":"","value":270704.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-08-01","refPer2":"","refPerRaw":"2022-08-01","refPerRaw2":"","value":279231.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-09-01","refPer2":"","refPerRaw":"2022-09-01","refPerRaw2":"","value":286849.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-10-01","refPer2":"","refPerRaw":"2022-10-01","refPerRaw2":"","value":305182.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-11-01","refPer2":"","refPerRaw":"2022-11-01","refPerRaw2":"","value":297765.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-12-01","refPer2":"","refPerRaw":"2022-12-01","refPerRaw2":"","value":269340.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-03-31T08:30","frequencyCode":6}]}},{"status":"SUCCESS","object":{"responseStatusCode":0,"productId":18100004,"coordinate":"23.287.0.0.0.0.0.0.0.0","vectorId":41692457,"vectorDataPoint":[{"refPer":"2018-12-01","refPer2":"","refPerRaw":"2018-12-01","refPerRaw2":"","value":138.8,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-06-27T08:30","frequencyCode":6},{"refPer":"2022-12-01","refPer2":"","refPerRaw":"2022-12-01","refPerRaw2":"","value":156.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-01-17T08:30","frequencyCode":6},{"refPer":"2023-01-01","refPer2":"","refPerRaw":"2023-01-01","refPerRaw2":"","value":157.1,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-21T08:30","frequencyCode":6},{"refPer":"2023-02-01","refPer2":"","refPerRaw":"2023-02-01","refPerRaw2":"","value":157.3,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-03-21T08:30","frequencyCode":6},{"refPer":"2023-03-01","refPer2":"","refPerRaw":"2023-03-01","refPerRaw2":"","value":158.2,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-04-18T08:30","frequencyCode":6},{"refPer":"2023-04-01","refPer2":"","refPerRaw":"2023-04-01","refPerRaw2":"","value":159.0,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-06-27T08:30","frequencyCode":6},{"refPer":"2023-05-01","refPer2":"","refPerRaw":"2023-05-01","refPerRaw2":"","value":159.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-06-27T08:30","frequencyCode":6},{"refPer":"2023-06-01","refPer2":"","refPerRaw":"2023-06-01","refPerRaw2":"","value":159.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-07-18T08:30","frequencyCode":6},{"refPer":"2023-07-01","refPer2":"","refPerRaw":"2023-07-01","refPerRaw2":"","value":160.5,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-08-15T08:30","frequencyCode":6},{"refPer":"2023-08-01","refPer2":"","refPerRaw":"2023-08-01","refPerRaw2":"","value":160.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-09-19T08:30","frequencyCode":6},{"refPer":"2023-09-01","refPer2":"","refPerRaw":"2023-09-01","refPerRaw2":"","value":160.3,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-10-17T08:30","frequencyCode":6},{"refPer":"2023-10-01","refPer2":"","refPerRaw":"2023-10-01","refPerRaw2":"","value":160.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-11-21T08:30","frequencyCode":6}]}}]'
     headers:
       Access-Control-Allow-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Access-Control-Allow-Methods:
       - GET, POST, OPTIONS
       Access-Control-Allow-Origin:
       - '*'
       Access-Control-Expose-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Cache-Control:
-      - max-age=120
+      - max-age=1800
       - public
       Connection:
       - keep-alive
@@ -56,27 +39,28 @@ interactions:
       Content-Security-Policy:
       - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
         *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
-        *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
-        ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
-        *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
-        *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
-        worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
-        frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
-        https://dv-vd.shinyapps.io blob:;'
+        *.statcan.gc.ca *.statcan.ca https://fonts.googleapis.com blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca *.googletagmanager.com
+        *.adobedtm.com *.jsdelivr.net *.mathjax.org cdnjs.cloudflare.com blob:; connect-src
+        ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        https://api.mapbox.com/ https://events.mapbox.com/; img-src ''self'' *.statcan.gc.ca
+        *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net *.jsdelivr.net
+        data: blob:; font-src ''self'' *.statcan.gc.ca *.statcan.ca https://fonts.gstatic.com;
+        worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca
+        blob:; frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
+        https://dv-vd.shinyapps.io *.demdex.net blob:;'
       Content-Type:
       - application/json
       Date:
-      - Mon, 08 Feb 2021 23:59:32 GMT
+      - Fri, 01 Mar 2024 02:53:02 GMT
       Expires:
-      - Tue, 09 Feb 2021 00:01:32 GMT
-      Set-Cookie:
-      - TS011c6724=01bc1e93397922213bf071255b285634c5287fdd7e6f678bdd3daf77a7f0fe44f9eaa9e6eab7fe85d9b2d82bdccf6fd5b3ec996774;
-        Path=/
+      - Fri, 01 Mar 2024 03:23:02 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.6
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
-      - max-age=31536000
       Transfer-Encoding:
       - chunked
       Vary:
@@ -87,13 +71,9 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       - SAMEORIGIN
-      X-Proxy-Cache:
-      - MISS
+      - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
-      vary:
-      - Accept-Encoding
-      - accept-encoding
     status:
       code: 200
       message: ''

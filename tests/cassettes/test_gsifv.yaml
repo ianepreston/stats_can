@@ -13,57 +13,56 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.25.1
+      - python-requests/2.31.0
     method: POST
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getSeriesInfoFromVector
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA1WPTU7DMBCFrxLNho2pkpCWNqyqKJVYh64QC8eeVkb+KWMHUVU9EOfgYkwSCdHx
-        ajTvfe/59QIxyTREqKHbN03bdSAg9O+oEtQXIIyn4CN2k6gJGqHOBZwo6EGlZw11sS5ynkqACoG0
-        8TKxBsqHRbleLvLbx+xPJgcanVWx2pTVshRwIPwY0KvzHLASEJW0knZy1P6lalTGSctdCwEJyU1h
-        erp1SAbji0kWW8/5W9sjJfm0tfbeJHQxwy9lB+53zA4h6Ex6naFHOp7hxr2jf+6Wv+56i7NZ+pRZ
-        jJm0xqFPjOT97ud7pBhkjGMx0j64uXLxeL2+/QJFtakRYgEAAA==
+      string: "[{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":18100004,\"coordinate\":\"23.285.0.0.0.0.0.0.0.0\",\"vectorId\":41692452,\"frequencyCode\":6,\"scalarFactorCode\":0,\"decimals\":1,\"terminated\":0,\"SeriesTitleEn\":\"Alberta;All-items
+        excluding food and energy\",\"SeriesTitleFr\":\"Alberta;Ensemble excluant
+        les aliments et l'\xE9nergie\",\"memberUomCode\":17}}]"
     headers:
       Access-Control-Allow-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Access-Control-Allow-Methods:
       - GET, POST, OPTIONS
       Access-Control-Allow-Origin:
       - '*'
       Access-Control-Expose-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Cache-Control:
-      - max-age=120
+      - max-age=1800
       - public
       Connection:
       - keep-alive
       Content-Encoding:
       - gzip
       Content-Security-Policy:
-      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
-        *.demdex.net *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
-        *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
-        ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
-        *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca *.demdex.net *.omtrdc.net *.everesttech.net
-        *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
-        worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
-        frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
-        https://dv-vd.shinyapps.io blob:;'
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
+        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca *.statcan.ca https://fonts.googleapis.com blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca *.googletagmanager.com
+        *.adobedtm.com *.jsdelivr.net *.mathjax.org cdnjs.cloudflare.com blob:; connect-src
+        ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        https://api.mapbox.com/ https://events.mapbox.com/ https://energy-information.canada.ca;
+        img-src ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        *.everesttech.net *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca
+        *.statcan.ca https://fonts.gstatic.com; worker-src ''self'' ''unsafe-inline''
+        ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca blob:; frame-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca *.statcan.ca *.stc.ca https://dv-vd.shinyapps.io *.demdex.net
+        blob:;'
       Content-Type:
       - application/json
       Date:
-      - Mon, 08 Feb 2021 22:25:41 GMT
+      - Fri, 01 Mar 2024 02:40:22 GMT
       Expires:
-      - Mon, 08 Feb 2021 22:27:41 GMT
-      Set-Cookie:
-      - TS011c6724=01bc1e9339c99e8367e84a8dffbd1c0fd843b72350ad85d5870049c8ce18c102031aad4b7119d76055dcd7e8719886804a16e3b96d;
-        Path=/
+      - Fri, 01 Mar 2024 03:10:22 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.6
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
-      - max-age=31536000
       Transfer-Encoding:
       - chunked
       Vary:
@@ -74,13 +73,9 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       - SAMEORIGIN
-      X-Proxy-Cache:
-      - MISS
+      - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
-      vary:
-      - Accept-Encoding
-      - accept-encoding
     status:
       code: 200
       message: ''

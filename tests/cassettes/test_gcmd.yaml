@@ -13,85 +13,100 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.25.1
+      - python-requests/2.31.0
     method: POST
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata
   response:
     body:
-      string: !!binary |
-        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
-        UVgFX6xW1pT8jcN/A8x0BKEGHAAA
+      string: "[{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":\"27100022\",\"cansimId\":\"358-0159\",\"cubeTitleEn\":\"Personnel
+        engaged in research and development by performing sector and occupational
+        category\",\"cubeTitleFr\":\"Personnel affect\xE9 \xE0 la recherche et d\xE9veloppement
+        selon le secteur d'ex\xE9cution et la cat\xE9gorie professionnelle\",\"cubeStartDate\":\"2000-01-01\",\"cubeEndDate\":\"2020-01-01\",\"frequencyCode\":12,\"nbSeriesCube\":85,\"nbDatapointsCube\":1511,\"releaseTime\":\"2023-03-29T08:30\",\"archiveStatusCode\":\"2\",\"archiveStatusEn\":\"CURRENT
+        - a cube available to the public and that is current\",\"archiveStatusFr\":\"ACTIF
+        - un cube qui est disponible au public et qui est toujours mise a jour\",\"subjectCode\":[\"2702\"],\"surveyCode\":[\"5193\"],\"dimension\":[{\"dimensionPositionId\":1,\"dimensionNameEn\":\"Geography\",\"dimensionNameFr\":\"G\xE9ographie\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Canada\",\"memberNameFr\":\"Canada\",\"classificationCode\":\"11124\",\"classificationTypeCode\":\"1\",\"geoLevel\":0,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":2,\"dimensionNameEn\":\"Performing
+        sector\",\"dimensionNameFr\":\"Secteur d'ex\xE9cution\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Total,
+        performing sectors\",\"memberNameFr\":\"Total, secteurs d'ex\xE9cution\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Federal
+        government\",\"memberNameFr\":\"Administration publique f\xE9d\xE9rale\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Provincial
+        government\",\"memberNameFr\":\"Administrations publiques provinciales\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":4,\"parentMemberId\":1,\"memberNameEn\":\"Business
+        enterprise\",\"memberNameFr\":\"Entreprises commerciales\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":5,\"parentMemberId\":1,\"memberNameEn\":\"Higher
+        education\",\"memberNameFr\":\"Enseignement sup\xE9rieur\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":6,\"parentMemberId\":1,\"memberNameEn\":\"Private
+        non-profit\",\"memberNameFr\":\"Organismes priv\xE9s sans but lucratif\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":3,\"dimensionNameEn\":\"Occupational
+        category\",\"dimensionNameFr\":\"Cat\xE9gorie professionnelle\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Total
+        personnel\",\"memberNameFr\":\"Total du personnel\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Researchers\",\"memberNameFr\":\"Chercheurs\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Technicians\",\"memberNameFr\":\"Techniciens\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":4,\"parentMemberId\":1,\"memberNameEn\":\"Support
+        staff\",\"memberNameFr\":\"Personnel de soutien\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":5,\"parentMemberId\":1,\"memberNameEn\":\"On-site
+        research consultants \",\"memberNameFr\":\"Consultants de recherche sur site
+        \",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":4,\"dimensionNameEn\":\"Type
+        of science\",\"dimensionNameFr\":\"Type de science\",\"hasUom\":true,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Total
+        sciences\",\"memberNameFr\":\"Total des sciences\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":223},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Natural
+        sciences and engineering\",\"memberNameFr\":\"Sciences naturelles et g\xE9nie\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":1,\"memberUomCode\":223},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Social
+        sciences and humanities\",\"memberNameFr\":\"Sciences sociales et humaines\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":1,\"memberUomCode\":223}]}],\"footnote\":[{\"footnoteId\":1,\"footnotesEn\":\"Personnel
+        counts are reported as full-time equivalents (rounded to the nearest 10).
+        Due to rounding, components may not add to the totals.\",\"footnotesFr\":\"Le
+        personnel est report\xE9 en \xE9quivalent temps plein (nombres arrondis \xE0
+        la dizaine).  En raison de l'arrondissement des donn\xE9es, les totaux ne
+        correspondent pas toujours \xE0 l'addition de leurs composantes.\",\"link\":{\"footnoteId\":1,\"dimensionPositionId\":0,\"memberId\":0}},{\"footnoteId\":5,\"footnotesEn\":\"From
+        2014 onwards, an occupation category for on-site research and development
+        consultants and contractors was initiated for the private non-profit sector
+        and business enterprise sector.\",\"footnotesFr\":\"\xC0 partir de 2014, une
+        cat\xE9gorie professionelle pour les conseillers et entrepreneurs travaillant
+        sur place en recherche et d\xE9veloppement \xE0 commenc\xE9e pour les organismes
+        priv\xE9s sans but  lucratif et les entreprises commerciales.\",\"link\":{\"footnoteId\":5,\"dimensionPositionId\":0,\"memberId\":0}},{\"footnoteId\":3,\"footnotesEn\":\"Provincial
+        government data includes provincial research organizations data. Provincial
+        research organizations data are in natural sciences and engineering only.\",\"footnotesFr\":\"Les
+        donn\xE9es du secteur des administrations provinciales inclut les organismes
+        de recherche provinciaux. Les donn\xE9es des organismes de recherche provinciaux
+        sont pour les sciences naturelles et g\xE9nie seulement.\",\"link\":{\"footnoteId\":3,\"dimensionPositionId\":2,\"memberId\":3}},{\"footnoteId\":4,\"footnotesEn\":\"Private
+        non-profit organization's personnel counts may fluctuate due to these organization's
+        intramural research and development activities\",\"footnotesFr\":\"Le personnel
+        des organismes priv\xE9s sans but lucratif peut fluctuer en raison des acitivit\xE9s
+        de recherche et d\xE9veloppement intramuros de ces organisations.\",\"link\":{\"footnoteId\":4,\"dimensionPositionId\":2,\"memberId\":6}},{\"footnoteId\":6,\"footnotesEn\":\"On-site
+        research consultants represents self-employed individuals or contractors who
+        are working on the site of the Research and Development (R&D) performer.\",\"footnotesFr\":\"Consultants
+        de recherche sur site signifie les conseillers et entrepreneurs en recherche
+        et d\xE9veloppement (R-D) qui travaillent sur le site de l\u2019ex\xE9cuteur
+        de la R-D.\",\"link\":{\"footnoteId\":6,\"dimensionPositionId\":3,\"memberId\":5}}],\"correctionFootnote\":[],\"correction\":[]}}]"
     headers:
       Access-Control-Allow-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Access-Control-Allow-Methods:
       - GET, POST, OPTIONS
       Access-Control-Allow-Origin:
       - '*'
       Access-Control-Expose-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Cache-Control:
-      - max-age=120
+      - max-age=1800
       - public
       Connection:
       - keep-alive
       Content-Encoding:
       - gzip
       Content-Security-Policy:
-      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
-        *.demdex.net *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
-        *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
-        ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
-        *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca *.demdex.net *.omtrdc.net *.everesttech.net
-        *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
-        worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
-        frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
-        https://dv-vd.shinyapps.io blob:;'
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
+        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca *.statcan.ca https://fonts.googleapis.com blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca *.googletagmanager.com
+        *.adobedtm.com *.jsdelivr.net *.mathjax.org cdnjs.cloudflare.com blob:; connect-src
+        ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        https://api.mapbox.com/ https://events.mapbox.com/ https://energy-information.canada.ca;
+        img-src ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        *.everesttech.net *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca
+        *.statcan.ca https://fonts.gstatic.com; worker-src ''self'' ''unsafe-inline''
+        ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca blob:; frame-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca *.statcan.ca *.stc.ca https://dv-vd.shinyapps.io *.demdex.net
+        blob:;'
       Content-Type:
       - application/json
       Date:
-      - Mon, 08 Feb 2021 22:25:40 GMT
+      - Fri, 01 Mar 2024 02:40:22 GMT
       Expires:
-      - Mon, 08 Feb 2021 22:27:40 GMT
-      Set-Cookie:
-      - TS011c6724=01bc1e933910932c778a340862e203e514035d1e1dbe68c495dbad405eadb382613b5d02dedceea4dbe323a69513e38a98d41eb86d;
-        Path=/
+      - Fri, 01 Mar 2024 03:10:22 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.6
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
-      - max-age=31536000
       Transfer-Encoding:
       - chunked
       Vary:
@@ -102,13 +117,9 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       - SAMEORIGIN
-      X-Proxy-Cache:
-      - MISS
+      - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
-      vary:
-      - Accept-Encoding
-      - accept-encoding
     status:
       code: 200
       message: ''
