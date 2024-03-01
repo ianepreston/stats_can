@@ -30,7 +30,7 @@ def test_gcsl():
 @pytest.mark.vcr()
 def test_gccl():
     """Test get changed cube list."""
-    r = stats_can.get_changed_cube_list(dt.date(2020, 9, 5))
+    r = stats_can.get_changed_cube_list(dt.date(2023, 9, 5))
     assert isinstance(r, list)
     if len(r) > 0:
         assert list(r[0].keys()) == ["responseStatusCode", "productId", "releaseTime"]
@@ -61,7 +61,6 @@ def test_gcmd():
         "dimension",
         "footnote",
         "correctionFootnote",
-        "geoAttribute",
         "correction",
     ]
 
@@ -137,11 +136,11 @@ def test_gdfvalnp():
 def test_gbvdbr():
     """Test get bulk vector data by range."""
     r = stats_can.scwds.get_bulk_vector_data_by_range(
-        vs, dt.date(2020, 1, 1), dt.date(2020, 12, 1)
+        vs, dt.date(2023, 1, 1), dt.date(2023, 12, 1)
     )
     assert len(r) == len(vs)
     r0v = r[0]["vectorDataPoint"]
-    assert len(r0v) == 12
+    assert len(r0v) == 13
     assert list(r0v[0].keys()) == [
         "refPer",
         "refPer2",

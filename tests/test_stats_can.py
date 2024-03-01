@@ -91,7 +91,7 @@ def test_class_update_tables(class_fixture):
 
 
 @pytest.mark.vcr()
-@freeze_time("2020-09-06")
+@freeze_time("2024-02-29")
 def test_class_static_methods(class_fixture):
     """Static methods are just wrappers, should always match.
 
@@ -184,10 +184,10 @@ def test_vectors_to_df_by_release():
     """Test one vector to df method."""
     r = stats_can.sc.vectors_to_df(
         vs,
-        start_release_date=dt.date(2020, 1, 1),
-        end_release_date=dt.date(2020, 12, 1),
+        start_release_date=dt.date(2023, 1, 1),
+        end_release_date=dt.date(2023, 12, 1),
     )
-    assert r.shape == (58, 2)
+    assert r.shape == (24, 2)
     assert list(r.columns) == ["v74804", "v41692457"]
     assert isinstance(r.index, pd.DatetimeIndex)
 
