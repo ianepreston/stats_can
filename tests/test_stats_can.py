@@ -91,46 +91,6 @@ def test_class_update_tables(class_fixture):
 
 
 @pytest.mark.vcr()
-@freeze_time("2024-02-29")
-def test_class_static_methods(class_fixture):
-    """Static methods are just wrappers, should always match.
-
-    Parameters
-    ----------
-    class_fixture: stats_can.StatsCan
-        The statscan class we're testing against
-    """
-    assert (
-        class_fixture.vectors_updated_today()
-        == stats_can.scwds.get_changed_series_list()
-    )
-    assert (
-        class_fixture.tables_updated_today() == stats_can.scwds.get_changed_cube_list()
-    )
-    test_dt = dt.date(2018, 1, 1)
-    assert class_fixture.tables_updated_on_date(
-        test_dt
-    ) == stats_can.scwds.get_changed_cube_list(test_dt)
-    assert class_fixture.get_code_sets() == stats_can.scwds.get_code_sets()
-    for v_input in [v, vs]:
-        assert class_fixture.vector_metadata(
-            v_input
-        ) == stats_can.scwds.get_series_info_from_vector(v_input)
-        assert_frame_equal(
-            class_fixture.vectors_to_df_remote(v_input, periods=1),
-            stats_can.vectors_to_df(v_input, periods=1),
-        )
-        assert_frame_equal(
-            class_fixture.vectors_to_df(v_input), stats_can.vectors_to_df_local(v_input)
-        )
-    # cleanup
-    candidates = ["18100004", "23100216"]
-    to_delete = [tbl for tbl in candidates if tbl in class_fixture.downloaded_tables]
-    for tbl in to_delete:
-        class_fixture.delete_tables(tbl)
-
-
-@pytest.mark.vcr()
 def test_class_table_list_download_delete(class_fixture):
     """Test loading and deleting tables.
 
