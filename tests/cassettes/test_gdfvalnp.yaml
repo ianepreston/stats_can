@@ -13,60 +13,54 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.25.1
+      - python-requests/2.31.0
     method: POST
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorsAndLatestNPeriods
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA83UQUvDMBQH8O+S81ree41p2utUEDyIm6fhIbYRKt2iSTsZ4nc33dRtTmrFWUpP
-        SV+S9wvhP3thrlJV7VjKJjfj8dlkwkbM3D3orGLpC7PaPZqF05N10djkmqUwYo/W5HVWXeQspQgB
-        CMWIZcbYvFioytcwDCnEEHY/v/HSb2tssyzmEvjHxKmq1JUpFv7IWXPm/ZW2fg8CggDiANAv3cyS
-        n/4cXKvn76v8j/fCpSpr3w5JAIhC33mus2KuSrdmuEyVyp6rpodPm1vN70y5He7Lnc5qW1SrS73U
-        2yKrS62cnhZzvekIfTsBxVOQadTA761+qvUiW22WiNfRgVN2csp2pxBS8mE7k07OpN2ZgOBy0E6E
-        Ls79qgNnBJIjDduJnZzY7kQZJWJIztvXhvrHbETpsxGanNvLRopCkvF+OH6JR44iIX4Sd0rIYyQH
-        cgrj3evH/7z+9cMn7Ds2GqQcMPIomYE8Ck/6RGKAsu/AaJCiTyQFKH6DpE5I+vG5Jr0hN5EIrZF4
-        +waJe0lOMAoAAA==
+      string: '[{"status":"SUCCESS","object":{"responseStatusCode":0,"productId":23100216,"coordinate":"1.2.1.0.0.0.0.0.0.0","vectorId":74804,"vectorDataPoint":[{"refPer":"2023-08-01","refPer2":"","refPerRaw":"2023-08-01","refPerRaw2":"","value":283912.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-22T08:30","frequencyCode":6},{"refPer":"2023-09-01","refPer2":"","refPerRaw":"2023-09-01","refPerRaw2":"","value":285127.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-22T08:30","frequencyCode":6},{"refPer":"2023-10-01","refPer2":"","refPerRaw":"2023-10-01","refPerRaw2":"","value":304676.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-22T08:30","frequencyCode":6},{"refPer":"2023-11-01","refPer2":"","refPerRaw":"2023-11-01","refPerRaw2":"","value":294349.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-22T08:30","frequencyCode":6},{"refPer":"2023-12-01","refPer2":"","refPerRaw":"2023-12-01","refPerRaw2":"","value":293326.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-22T08:30","frequencyCode":6}]}},{"status":"SUCCESS","object":{"responseStatusCode":0,"productId":18100004,"coordinate":"23.287.0.0.0.0.0.0.0.0","vectorId":41692457,"vectorDataPoint":[{"refPer":"2023-09-01","refPer2":"","refPerRaw":"2023-09-01","refPerRaw2":"","value":160.3,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-10-17T08:30","frequencyCode":6},{"refPer":"2023-10-01","refPer2":"","refPerRaw":"2023-10-01","refPerRaw2":"","value":160.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-11-21T08:30","frequencyCode":6},{"refPer":"2023-11-01","refPer2":"","refPerRaw":"2023-11-01","refPerRaw2":"","value":161.1,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-12-19T08:30","frequencyCode":6},{"refPer":"2023-12-01","refPer2":"","refPerRaw":"2023-12-01","refPerRaw2":"","value":161.6,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-01-16T08:30","frequencyCode":6},{"refPer":"2024-01-01","refPer2":"","refPerRaw":"2024-01-01","refPerRaw2":"","value":161.9,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-20T08:30","frequencyCode":6}]}}]'
     headers:
       Access-Control-Allow-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Access-Control-Allow-Methods:
       - GET, POST, OPTIONS
       Access-Control-Allow-Origin:
       - '*'
       Access-Control-Expose-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Cache-Control:
-      - max-age=120
+      - max-age=1800
       - public
       Connection:
       - keep-alive
       Content-Encoding:
       - gzip
       Content-Security-Policy:
-      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
-        *.demdex.net *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
-        *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
-        ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
-        *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca *.demdex.net *.omtrdc.net *.everesttech.net
-        *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
-        worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
-        frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
-        https://dv-vd.shinyapps.io blob:;'
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
+        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca *.statcan.ca https://fonts.googleapis.com blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca *.googletagmanager.com
+        *.adobedtm.com *.jsdelivr.net *.mathjax.org cdnjs.cloudflare.com blob:; connect-src
+        ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        https://api.mapbox.com/ https://events.mapbox.com/ https://energy-information.canada.ca;
+        img-src ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        *.everesttech.net *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca
+        *.statcan.ca https://fonts.gstatic.com; worker-src ''self'' ''unsafe-inline''
+        ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca blob:; frame-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca *.statcan.ca *.stc.ca https://dv-vd.shinyapps.io *.demdex.net
+        blob:;'
       Content-Type:
       - application/json
       Date:
-      - Mon, 08 Feb 2021 22:25:42 GMT
+      - Fri, 01 Mar 2024 02:40:23 GMT
       Expires:
-      - Mon, 08 Feb 2021 22:27:42 GMT
-      Set-Cookie:
-      - TS011c6724=01bc1e9339b033f22db612fbe5d1154aff3ee4e0724151f928f629db0ffc337ab829e9084d20ccb2e5c63a586c9249c4506bc4229f;
-        Path=/
+      - Fri, 01 Mar 2024 03:10:23 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.6
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
-      - max-age=31536000
       Transfer-Encoding:
       - chunked
       Vary:
@@ -77,13 +71,9 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       - SAMEORIGIN
-      X-Proxy-Cache:
-      - MISS
+      - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
-      vary:
-      - Accept-Encoding
-      - accept-encoding
     status:
       code: 200
       message: ''

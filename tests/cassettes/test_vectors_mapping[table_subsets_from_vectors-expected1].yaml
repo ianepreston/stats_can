@@ -13,30 +13,26 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.25.1
+      - python-requests/2.31.0
     method: POST
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getSeriesInfoFromVector
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA6WQQU7DMBBFr2J5wyaNErc0JV1VVSux6SbtCrGY2pNg5NjFdoCqyoF6Di6GkwpE
-        CxISyKuR5r/veXcH6jz4xtGcFpv5fFEUNKJm+4jc0/xALbqd0Q6LfmluBNI8iejOGtFwfytozoZp
-        krB0HFFujBVSgw87NI1ZnMbJ1xfAzwFrbBfLRpNkFNHS4lODmu9P6EBxHBTYJXSLn30CuaxBuX7w
-        aOu+RvRjgVaiW0uvcKFD8xw0CJiujQdFtNEDqbuEEWH0FspScqIMCBTTVVNv0RJTEgtSEQ7W0TPg
-        0l4Aox4RCBdg/gC2ejtOV6beWiQCyQtUQVzA1diVbEx9uoaxYdtG/9aeToL2pFN4pp0NYzbJzr1f
-        mB+l4xs2us7+ID/9Vf5MhVs9TGdKDaTH2hF85aoJ/6sIarTV/gfBH6FFuLjeKjxlQHuirt6OXUri
-        d5Fp1rb372xKhJ3AAgAA
+      string: "[{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":23100216,\"coordinate\":\"1.2.1.0.0.0.0.0.0.0\",\"vectorId\":74804,\"frequencyCode\":6,\"scalarFactorCode\":0,\"decimals\":0,\"terminated\":0,\"SeriesTitleEn\":\"Canada;Total
+        non-intermodal traffic loaded;Number of rail cars\",\"SeriesTitleFr\":\"Canada;Total,
+        trafic non-intermodal charg\xE9;Nombre de wagons\",\"memberUomCode\":223}},{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":18100004,\"coordinate\":\"23.287.0.0.0.0.0.0.0.0\",\"vectorId\":41692457,\"frequencyCode\":6,\"scalarFactorCode\":0,\"decimals\":1,\"terminated\":0,\"SeriesTitleEn\":\"Alberta;All-items
+        excluding energy\",\"SeriesTitleFr\":\"Alberta;Ensemble excluant l'\xE9nergie\",\"memberUomCode\":17}}]"
     headers:
       Access-Control-Allow-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Access-Control-Allow-Methods:
       - GET, POST, OPTIONS
       Access-Control-Allow-Origin:
       - '*'
       Access-Control-Expose-Headers:
-      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
       Cache-Control:
-      - max-age=120
+      - max-age=1800
       - public
       Connection:
       - keep-alive
@@ -45,27 +41,29 @@ interactions:
       Content-Security-Policy:
       - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
         *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
-        *.statcan.gc.ca https://fonts.googleapis.com blob:; script-src ''self'' ''unsafe-inline''
-        ''unsafe-eval'' *.statcan.gc.ca *.googletagmanager.com *.adobedtm.com *.jsdelivr.net
-        *.mathjax.org cdnjs.cloudflare.com blob:; connect-src ''self'' *.statcan.gc.ca
-        *.stc.ca  *.demdex.net *.omtrdc.net https://api.mapbox.com/ https://events.mapbox.com/;
-        img-src ''self'' *.statcan.gc.ca *.stc.ca  *.demdex.net *.omtrdc.net *.everesttech.net
-        *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca https://fonts.gstatic.com;
-        worker-src ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca blob:;
-        frame-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca
-        https://dv-vd.shinyapps.io blob:;'
+        *.statcan.gc.ca *.statcan.ca https://fonts.googleapis.com blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca *.googletagmanager.com
+        *.adobedtm.com *.jsdelivr.net *.mathjax.org cdnjs.cloudflare.com blob:; connect-src
+        ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        https://api.mapbox.com/ https://events.mapbox.com/ https://energy-information.canada.ca;
+        img-src ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        *.everesttech.net *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca
+        *.statcan.ca https://fonts.gstatic.com; worker-src ''self'' ''unsafe-inline''
+        ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca blob:; frame-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca *.statcan.ca *.stc.ca https://dv-vd.shinyapps.io *.demdex.net
+        blob:;'
       Content-Type:
       - application/json
       Date:
-      - Mon, 08 Feb 2021 22:29:08 GMT
+      - Fri, 01 Mar 2024 02:41:14 GMT
       Expires:
-      - Mon, 08 Feb 2021 22:31:08 GMT
-      Set-Cookie:
-      - TS011c6724=01bc1e9339d0e00ac257f7df1c7b76eeb4588285db466e38fea80effa9e7bab89011a3dbe4e4d47851c9fdcbe6ee1734ff9a5324d7;
-        Path=/
+      - Fri, 01 Mar 2024 03:11:14 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.6
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
-      - max-age=31536000
       Transfer-Encoding:
       - chunked
       Vary:
@@ -76,13 +74,9 @@ interactions:
       X-Frame-Options:
       - SAMEORIGIN
       - SAMEORIGIN
-      X-Proxy-Cache:
-      - HIT
+      - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
-      vary:
-      - Accept-Encoding
-      - accept-encoding
     status:
       code: 200
       message: ''
