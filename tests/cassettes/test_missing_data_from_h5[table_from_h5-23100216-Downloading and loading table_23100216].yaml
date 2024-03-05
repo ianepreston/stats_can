@@ -18,156 +18,99 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata
   response:
     body:
-      string: "[{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":\"23100216\",\"cansimId\":\"404-0002\",\"cubeTitleEn\":\"Railway
-        carloadings statistics, by total tonnage transported, monthly\",\"cubeTitleFr\":\"Statistiques
-        des chargements ferroviaires, selon le tonnage total transport\xE9, mensuel\",\"cubeStartDate\":\"1999-01-01\",\"cubeEndDate\":\"2023-12-01\",\"frequencyCode\":6,\"nbSeriesCube\":441,\"nbDatapointsCube\":132300,\"releaseTime\":\"2024-02-22T08:30\",\"archiveStatusCode\":\"2\",\"archiveStatusEn\":\"CURRENT
-        - a cube available to the public and that is current\",\"archiveStatusFr\":\"ACTIF
-        - un cube qui est disponible au public et qui est toujours mise a jour\",\"subjectCode\":[\"2303\",\"451003\"],\"surveyCode\":[\"2732\"],\"dimension\":[{\"dimensionPositionId\":1,\"dimensionNameEn\":\"Geography\",\"dimensionNameFr\":\"G\xE9ographie\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Canada\",\"memberNameFr\":\"Canada\",\"classificationCode\":\"11124\",\"classificationTypeCode\":\"1\",\"geoLevel\":0,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Eastern
-        division\",\"memberNameFr\":\"Division est\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Western
-        division\",\"memberNameFr\":\"Division ouest\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":2,\"dimensionNameEn\":\"Railway
-        carloading components\",\"dimensionNameFr\":\"Les composants des chargements
-        ferroviaires\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Total
-        traffic carried\",\"memberNameFr\":\"Trafic, total transport\xE9\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Total
-        non-intermodal traffic loaded\",\"memberNameFr\":\"Total, trafic non-intermodal
-        charg\xE9\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":3,\"parentMemberId\":2,\"memberNameEn\":\"Wheat\",\"memberNameFr\":\"Bl\xE9\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":4,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        cereal grains\",\"memberNameFr\":\"Autres c\xE9r\xE9ales\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":5,\"parentMemberId\":2,\"memberNameEn\":\"Fresh,
-        chilled or dried vegetables\",\"memberNameFr\":\"L\xE9gumes frais, r\xE9frig\xE9r\xE9s
-        ou secs\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":6,\"parentMemberId\":2,\"memberNameEn\":\"Fresh,
-        chilled or dried fruit and nuts\",\"memberNameFr\":\"Fruits frais r\xE9frig\xE9r\xE9s
-        ou secs et fruits \xE0 coques\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":7,\"parentMemberId\":2,\"memberNameEn\":\"Canola\",\"memberNameFr\":\"Canola\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":8,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        oil seeds and nuts, other agricultural product\",\"memberNameFr\":\"Autres
-        graines et fruits ol\xE9agineux et produits de l'agriculture\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":9,\"parentMemberId\":2,\"memberNameEn\":\"Animal
-        feed and products\",\"memberNameFr\":\"Aliments pour animaux et produits d'animaux\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":10,\"parentMemberId\":2,\"memberNameEn\":\"Meat,
-        fish, seafood and preparations\",\"memberNameFr\":\"Viandes, poissons, fruits
-        de mer, incluant pr\xE9parations\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":11,\"parentMemberId\":2,\"memberNameEn\":\"Milled
-        grain production and preparations, bakery products\",\"memberNameFr\":\"Pr\xE9parations
-        et produits de c\xE9r\xE9ales moulues et boulangerie\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":12,\"parentMemberId\":2,\"memberNameEn\":\"Animal
-        or vegetable fats, oils and flours\",\"memberNameFr\":\"Graisses et huiles
-        animales ou l\xE9gumes et leurs farines\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":13,\"parentMemberId\":2,\"memberNameEn\":\"Sugar\",\"memberNameFr\":\"Sucre\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":14,\"parentMemberId\":2,\"memberNameEn\":\"Prepared
-        food stuffs, not elsewhere classified\",\"memberNameFr\":\"Pr\xE9parations
-        alimentaires, non class\xE9es ailleurs\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":15,\"parentMemberId\":2,\"memberNameEn\":\"Alcoholic
-        and non-alcoholic beverages\",\"memberNameFr\":\"Boissons alcooliques et non
-        alcooliques\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":16,\"parentMemberId\":2,\"memberNameEn\":\"Sand,
-        gravel and crushed stone\",\"memberNameFr\":\"Sable, gravier et pierre concass\xE9e\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":17,\"parentMemberId\":2,\"memberNameEn\":\"Salt\",\"memberNameFr\":\"Sel\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":18,\"parentMemberId\":2,\"memberNameEn\":\"Phosphate
-        rock\",\"memberNameFr\":\"Roche phosphat\xE9e\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":19,\"parentMemberId\":2,\"memberNameEn\":\"Sulphur\",\"memberNameFr\":\"Soufre\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":20,\"parentMemberId\":2,\"memberNameEn\":\"Gypsum\",\"memberNameFr\":\"Gypse\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":21,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        non-metallic minerals\",\"memberNameFr\":\"Autres min\xE9raux non m\xE9talliques\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":22,\"parentMemberId\":2,\"memberNameEn\":\"Iron
-        ores and concentrates\",\"memberNameFr\":\"Minerais de fer et leurs concentr\xE9s\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":23,\"parentMemberId\":2,\"memberNameEn\":\"Copper
-        ores and concentrates\",\"memberNameFr\":\"Minerais de cuivre et leurs concentr\xE9s\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":24,\"parentMemberId\":2,\"memberNameEn\":\"Nickel
-        ores and concentrates\",\"memberNameFr\":\"Minerais de nickel et leurs concentr\xE9s\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":25,\"parentMemberId\":2,\"memberNameEn\":\"Lead
-        ores and concentrates\",\"memberNameFr\":\"Minerais de plomb et leurs concentr\xE9s\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":26,\"parentMemberId\":2,\"memberNameEn\":\"Zinc
-        ores and concentrates\",\"memberNameFr\":\"Minerais de zinc et leurs concentr\xE9s\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":27,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        metallic ores and concentrates\",\"memberNameFr\":\"Autres minerais m\xE9talliques
-        et leurs concentr\xE9s\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":28,\"parentMemberId\":2,\"memberNameEn\":\"Coal\",\"memberNameFr\":\"Charbon\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":29,\"parentMemberId\":2,\"memberNameEn\":\"Gasoline
-        and aviation turbine fuel\",\"memberNameFr\":\"Essence et carbur\xE9acteur\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":30,\"parentMemberId\":2,\"memberNameEn\":\"Fuel
-        oils and crude petroleum\",\"memberNameFr\":\"Mazout et p\xE9trole brut\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":31,\"parentMemberId\":2,\"memberNameEn\":\"Gaseous
-        hydrocarbons, including liquid petroleum gas (LPG's)\",\"memberNameFr\":\"Hydrocarbures
-        gazeux, incluant les gaz de p\xE9trole liqu\xE9fi\xE9 (GPL)\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":32,\"parentMemberId\":2,\"memberNameEn\":\"Coal
-        coke and petroleum coke\",\"memberNameFr\":\"Coke de charbon et coke de p\xE9trole\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":33,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        refined petroleum and coal products\",\"memberNameFr\":\"Autres produits du
-        raffinage du p\xE9trole et du charbon\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":34,\"parentMemberId\":2,\"memberNameEn\":\"Sulphuric
-        acid\",\"memberNameFr\":\"Acide sulfurique\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":35,\"parentMemberId\":2,\"memberNameEn\":\"Alumina\",\"memberNameFr\":\"Alumine\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":36,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        basic chemicals\",\"memberNameFr\":\"Autres produits chimiques de base\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":37,\"parentMemberId\":2,\"memberNameEn\":\"Potash\",\"memberNameFr\":\"Potasse\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":38,\"parentMemberId\":2,\"memberNameEn\":\"Fertilizers
-        (excluding potash)\",\"memberNameFr\":\"Engrais (sauf la potasse)\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":39,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        chemical products and preparations\",\"memberNameFr\":\"Autres produits et
-        pr\xE9parations chimiques\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":40,\"parentMemberId\":2,\"memberNameEn\":\"Plastic
-        and rubber\",\"memberNameFr\":\"Mati\xE8res plastiques et caoutchouc\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":41,\"parentMemberId\":2,\"memberNameEn\":\"Logs
-        and other wood in the rough\",\"memberNameFr\":\"Rondins et autres bois bruts\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":42,\"parentMemberId\":2,\"memberNameEn\":\"Wood
-        chips\",\"memberNameFr\":\"Copeaux de bois\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":43,\"parentMemberId\":2,\"memberNameEn\":\"Lumber\",\"memberNameFr\":\"Bois
-        d'oeuvre\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":44,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        wood products (plywood, veneer)\",\"memberNameFr\":\"Autres produits du bois
-        (contre-plaqu\xE9s, placages)\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":45,\"parentMemberId\":2,\"memberNameEn\":\"Wood
-        pulp\",\"memberNameFr\":\"P\xE2te de bois\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":46,\"parentMemberId\":2,\"memberNameEn\":\"Newsprint\",\"memberNameFr\":\"Papier
-        journal\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":47,\"parentMemberId\":2,\"memberNameEn\":\"Paper
-        and paperboard, except printed products\",\"memberNameFr\":\"Papier et carton,
-        sauf les produits imprim\xE9s\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":48,\"parentMemberId\":2,\"memberNameEn\":\"Cement\",\"memberNameFr\":\"Ciment\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":49,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        non-metallic mineral products\",\"memberNameFr\":\"Autres produits min\xE9raux
-        non m\xE9talliques\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":50,\"parentMemberId\":2,\"memberNameEn\":\"Iron
-        and steel, primary or semi-finished\",\"memberNameFr\":\"Fer et acier, formes
-        primaires et demi-produits\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":51,\"parentMemberId\":2,\"memberNameEn\":\"Copper,
-        primary or semi-finished\",\"memberNameFr\":\"Cuivre, formes primaires et
-        demi-produits\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":52,\"parentMemberId\":2,\"memberNameEn\":\"Aluminum,
-        primary or semi-finished\",\"memberNameFr\":\"Aluminium, formes primaires
-        et demi-produits\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":53,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        non-ferrous metal, primary or semi-finished\",\"memberNameFr\":\"Autres m\xE9taux
-        non ferreux, formes primaires et demi-produits\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":54,\"parentMemberId\":2,\"memberNameEn\":\"Articles
-        of base metal\",\"memberNameFr\":\"Articles en m\xE9taux communs\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":55,\"parentMemberId\":2,\"memberNameEn\":\"Machinery\",\"memberNameFr\":\"Machines\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":56,\"parentMemberId\":2,\"memberNameEn\":\"Automobiles
-        and mini-vans\",\"memberNameFr\":\"Automobiles et mini-fourgonnettes\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":57,\"parentMemberId\":2,\"memberNameEn\":\"Freight
-        motor vehicles\",\"memberNameFr\":\"V\xE9hicules pour le transport de marchandises\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":58,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        vehicles\",\"memberNameFr\":\"Autres v\xE9hicules\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":59,\"parentMemberId\":2,\"memberNameEn\":\"Parts
-        and accessories for motor vehicles\",\"memberNameFr\":\"Parties et accessoires
-        des v\xE9hicules automobiles\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":60,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        transportation equipment\",\"memberNameFr\":\"Autre mat\xE9riel de transport\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":61,\"parentMemberId\":2,\"memberNameEn\":\"Metallic
-        waste and scrap\",\"memberNameFr\":\"D\xE9chets et d\xE9bris m\xE9talliques\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":62,\"parentMemberId\":2,\"memberNameEn\":\"Non-metallic
-        waste and scrap\",\"memberNameFr\":\"D\xE9chets et d\xE9bris non m\xE9talliques\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":63,\"parentMemberId\":2,\"memberNameEn\":\"Other
-        manufactured and miscellaneous goods\",\"memberNameFr\":\"Autres produits
-        manufactur\xE9s et divers\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":64,\"parentMemberId\":2,\"memberNameEn\":\"Pool
-        car traffic of freight forwarder and ship associated\",\"memberNameFr\":\"Trafic
-        de marchandises communes et maisons d'exp\xE9dition\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":65,\"parentMemberId\":2,\"memberNameEn\":\"Mixed
-        loads or unidentified freight\",\"memberNameFr\":\"Chargements mixtes ou fret
-        non identifi\xE9\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":66,\"parentMemberId\":2,\"memberNameEn\":\"Less
-        than carload shipments\",\"memberNameFr\":\"Exp\xE9ditions de d\xE9tail\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":73,\"parentMemberId\":1,\"memberNameEn\":\"Total
-        intermodal traffic loaded\",\"memberNameFr\":\"Total des chargements de type
-        intermodal\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":67,\"parentMemberId\":73,\"memberNameEn\":\"Container-on-flat-car\",\"memberNameFr\":\"Conteneurs
-        sur wagons plats\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":68,\"parentMemberId\":73,\"memberNameEn\":\"Trailer-on-flat-car\",\"memberNameFr\":\"Remorques
-        sur wagons plats\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":69,\"parentMemberId\":1,\"memberNameEn\":\"Total
-        traffic received from United States connections\",\"memberNameFr\":\"Total
-        trafic re\xE7u d'embranchements des \xC9tats-Unis\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":74,\"parentMemberId\":69,\"memberNameEn\":\"Total
-        non-intermodal traffic received from US connections\",\"memberNameFr\":\"Trafic
-        non intermodal re\xE7u d'embranchements des \xC9tats-Unis\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":75,\"parentMemberId\":69,\"memberNameEn\":\"Total
-        intermodal traffic received from US connections\",\"memberNameFr\":\"Trafic
-        intermodal re\xE7u d'embranchements des \xC9tats-Unis\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":70,\"parentMemberId\":75,\"memberNameEn\":\"Container-on-flat-car
-        included in receipts from United States connections\",\"memberNameFr\":\"Conteneurs
-        sur wagons plats inclus dans le trafic re\xE7u d'embranchements am\xE9ricains\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":71,\"parentMemberId\":75,\"memberNameEn\":\"Trailer-on-flat-car
-        included in receipts from United States connections\",\"memberNameFr\":\"Remorques
-        sur wagons plats inclus dans le trafic re\xE7u d'embranchements am\xE9ricains\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":72,\"parentMemberId\":null,\"memberNameEn\":\"Traffic
-        received from Canadian connections\",\"memberNameFr\":\"Trafic re\xE7u des
-        embranchements canadiens\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":3,\"dimensionNameEn\":\"Estimates\",\"dimensionNameFr\":\"Estimations\",\"hasUom\":true,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Number
-        of rail cars\",\"memberNameFr\":\"Nombre de wagons\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":223},{\"memberId\":2,\"parentMemberId\":null,\"memberNameEn\":\"Tonnes\",\"memberNameFr\":\"Tonnes\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":287},{\"memberId\":3,\"parentMemberId\":null,\"memberNameEn\":\"Units\",\"memberNameFr\":\"Unit\xE9s\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":300},{\"memberId\":4,\"parentMemberId\":null,\"memberNameEn\":\"Twenty
-        feet equivalent units\",\"memberNameFr\":\"Unit\xE9s \xE9quivalent \xE0 vingt
-        pieds \",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":295}]}],\"footnote\":[{\"footnoteId\":1,\"footnotesEn\":\"Since
-        January 2019, loads of unidentified commodities in intermodal containers are
-        now integrated with the category Containers-on-flat-cars (COFC) of intermodal
-        transport (68). Previously, they were assigned to the Mixed loads or unidentified
-        freight category (63).\",\"footnotesFr\":\"Depuis janvier 2019,  les chargements
-        de marchandises non identifi\xE9es dans les conteneurs intermodaux sont maintenant
-        int\xE9gr\xE9s avec la cat\xE9gorie Conteneurs sur wagons plats (CSWP) du
-        transport intermodal (68). Pr\xE9c\xE9demment, ils \xE9taient attribu\xE9s
-        \xE0 la cat\xE9gorie Chargements mixtes ou fret non identifi\xE9 (63).\",\"link\":{\"footnoteId\":1,\"dimensionPositionId\":2,\"memberId\":65}},{\"footnoteId\":1,\"footnotesEn\":\"Since
-        January 2019, loads of unidentified commodities in intermodal containers are
-        now integrated with the category Containers-on-flat-cars (COFC) of intermodal
-        transport (68). Previously, they were assigned to the Mixed loads or unidentified
-        freight category (63).\",\"footnotesFr\":\"Depuis janvier 2019,  les chargements
-        de marchandises non identifi\xE9es dans les conteneurs intermodaux sont maintenant
-        int\xE9gr\xE9s avec la cat\xE9gorie Conteneurs sur wagons plats (CSWP) du
-        transport intermodal (68). Pr\xE9c\xE9demment, ils \xE9taient attribu\xE9s
-        \xE0 la cat\xE9gorie Chargements mixtes ou fret non identifi\xE9 (63).\",\"link\":{\"footnoteId\":1,\"dimensionPositionId\":2,\"memberId\":73}},{\"footnoteId\":1,\"footnotesEn\":\"Since
-        January 2019, loads of unidentified commodities in intermodal containers are
-        now integrated with the category Containers-on-flat-cars (COFC) of intermodal
-        transport (68). Previously, they were assigned to the Mixed loads or unidentified
-        freight category (63).\",\"footnotesFr\":\"Depuis janvier 2019,  les chargements
-        de marchandises non identifi\xE9es dans les conteneurs intermodaux sont maintenant
-        int\xE9gr\xE9s avec la cat\xE9gorie Conteneurs sur wagons plats (CSWP) du
-        transport intermodal (68). Pr\xE9c\xE9demment, ils \xE9taient attribu\xE9s
-        \xE0 la cat\xE9gorie Chargements mixtes ou fret non identifi\xE9 (63).\",\"link\":{\"footnoteId\":1,\"dimensionPositionId\":2,\"memberId\":67}}],\"correctionFootnote\":[],\"correction\":[{\"correctionId\":\"3623\",\"correctionDate\":\"2023-03-31\",\"correctionNoteEn\":\"On
-        March 31, 2023, the January 2023 data have been corrected, and the February
-        2023 data have been removed.\",\"correctionNoteFr\":\"Le 31 mars 2023, les
-        donn\xE9es de janvier 2023 ont \xE9t\xE9 corrig\xE9es, et les donn\xE9es de
-        f\xE9vrier 2023 ont \xE9t\xE9 retir\xE9es.\"},{\"correctionId\":\"3526\",\"correctionDate\":\"2022-11-09\",\"correctionNoteEn\":\"On
-        November 9, 2022, the total non-intermodal traffic loaded for the month of
-        June 2022 has been corrected for the number of rail cars for Canada and Eastern
-        division.\",\"correctionNoteFr\":\"Le 9 novembre 2022, le total du trafic
-        non-intermodal charg\xE9 (nombre de wagons) pour le mois de juin 2022 a \xE9t\xE9
-        corrig\xE9 pour les g\xE9ographies Division est et Canada.\"},{\"correctionId\":\"3391\",\"correctionDate\":\"2021-11-30\",\"correctionNoteEn\":\"On
-        December 1st, 2021, the September 2021 data have been corrected, and the October
-        2021 data have been removed.\",\"correctionNoteFr\":\"Le 1 d\xE9cembre 2021,
-        les donn\xE9es de septembre 2021 ont \xE9t\xE9 corrig\xE9es, et les donn\xE9es
-        d\u2019octobre 2021 ont \xE9t\xE9 retir\xE9es.  \"},{\"correctionId\":\"1269\",\"correctionDate\":\"2020-09-04\",\"correctionNoteEn\":\"On
-        September 4, 2020, the Total intermodal traffic loadings for the month of
-        February 2020 was corrected for Canada and for the Eastern division, in order
-        to reflect the true total of the sub-components.\",\"correctionNoteFr\":\"Le
-        4 septembre 2020, le Total des chargements de type intermodal pour le mois
-        de f\xE9vrier 2020 a \xE9t\xE9 corrig\xE9 pour le Canada et la Division est,
-        afin de refl\xE9ter le vrai total des sous-composantes.\"}]}}]"
+      string: !!binary |
+        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
+        sKZNBfquNra2NhYA4HrX/XxkAAA=
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -201,9 +144,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:25 GMT
+      - Tue, 05 Mar 2024 02:41:05 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:25 GMT
+      - Tue, 05 Mar 2024 03:11:05 GMT
       Pragma:
       - no-cache
       Server:
@@ -223,6 +166,9 @@ interactions:
       - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''
@@ -241,7 +187,9 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/23100216/en
   response:
     body:
-      string: '{"status":"SUCCESS","object":"https://www150.statcan.gc.ca/n1/tbl/csv/23100216-eng.zip"}'
+      string: !!binary |
+        H4sIAAAAAAAAA6tWKi5JLCktVrJSCg51dnYNDlbSUcpPykpNLlGyUsooKSkottLXLy8vNzQ10AMp
+        TU7M00tP1ktO1M8z1C9JytFPLi7TNzI2NDAwMjTTTc1L16vKLFCqBQDBAvFIWAAAAA==
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -275,9 +223,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:25 GMT
+      - Tue, 05 Mar 2024 02:41:05 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:25 GMT
+      - Tue, 05 Mar 2024 03:11:05 GMT
       Pragma:
       - no-cache
       Server:
@@ -299,6 +247,9 @@ interactions:
       - HIT
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''
@@ -30983,11 +30934,11 @@ interactions:
       Content-Type:
       - application/zip
       Date:
-      - Fri, 01 Mar 2024 02:41:25 GMT
+      - Tue, 05 Mar 2024 02:41:06 GMT
       ETag:
       - '"1aa609-611f872b6cbdc"'
       Expires:
-      - Fri, 01 Mar 2024 02:43:25 GMT
+      - Tue, 05 Mar 2024 02:43:06 GMT
       Last-Modified:
       - Thu, 22 Feb 2024 13:30:34 GMT
       Pragma:

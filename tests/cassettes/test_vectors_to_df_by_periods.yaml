@@ -18,7 +18,16 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorsAndLatestNPeriods
   response:
     body:
-      string: '[{"status":"SUCCESS","object":{"responseStatusCode":0,"productId":23100216,"coordinate":"1.2.1.0.0.0.0.0.0.0","vectorId":74804,"vectorDataPoint":[{"refPer":"2023-08-01","refPer2":"","refPerRaw":"2023-08-01","refPerRaw2":"","value":283912.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-22T08:30","frequencyCode":6},{"refPer":"2023-09-01","refPer2":"","refPerRaw":"2023-09-01","refPerRaw2":"","value":285127.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-22T08:30","frequencyCode":6},{"refPer":"2023-10-01","refPer2":"","refPerRaw":"2023-10-01","refPerRaw2":"","value":304676.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-22T08:30","frequencyCode":6},{"refPer":"2023-11-01","refPer2":"","refPerRaw":"2023-11-01","refPerRaw2":"","value":294349.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-22T08:30","frequencyCode":6},{"refPer":"2023-12-01","refPer2":"","refPerRaw":"2023-12-01","refPerRaw2":"","value":293326.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-22T08:30","frequencyCode":6}]}},{"status":"SUCCESS","object":{"responseStatusCode":0,"productId":18100004,"coordinate":"23.287.0.0.0.0.0.0.0.0","vectorId":41692457,"vectorDataPoint":[{"refPer":"2023-09-01","refPer2":"","refPerRaw":"2023-09-01","refPerRaw2":"","value":160.3,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-10-17T08:30","frequencyCode":6},{"refPer":"2023-10-01","refPer2":"","refPerRaw":"2023-10-01","refPerRaw2":"","value":160.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-11-21T08:30","frequencyCode":6},{"refPer":"2023-11-01","refPer2":"","refPerRaw":"2023-11-01","refPerRaw2":"","value":161.1,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-12-19T08:30","frequencyCode":6},{"refPer":"2023-12-01","refPer2":"","refPerRaw":"2023-12-01","refPerRaw2":"","value":161.6,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-01-16T08:30","frequencyCode":6},{"refPer":"2024-01-01","refPer2":"","refPerRaw":"2024-01-01","refPerRaw2":"","value":161.9,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2024-02-20T08:30","frequencyCode":6}]}}]'
+      string: !!binary |
+        H4sIAAAAAAAAA4uuViouSSwpLVayUgoOdXZ2DQ5W0lHKT8pKTS5RsqpWKkotLsjPK04NBityzk9J
+        VbIy0FEqKMpPKU0u8UxRsjIyNjQwMDI001FKzs8vSsnMSyxJBRpmqGekZ6hngAyBBpcBjc0vAmkz
+        N7EwMIEJuCSWJAbkZ+YBrYwG2ZkWkFoENMPIwMhY18BC18BQSQcqaqRkpQTnBCWWY1cFlIAqLEvM
+        KQU6x8jC2NLQSA/o8pTU5MzcxJxisDeKkxNzEovcEkFugPutuDI3KT8HwUX1eXFqcmlRZkmlT2pZ
+        ag5ctCg1JzWxODUkMzcV4iITXQMjXSOjEAMLK2OQx9OKUgtLU/OSKyFazGp1MPxpiewDnP5EUYXF
+        n6aGRuZ6BjqD15+GBsT4E1UVhj+NDUzMzM30BrU/DYmJT1RVmOnW0sTYxFJvUMenEVH+RFGFxZ/G
+        xkaDKj5ja2t1qqGGk102GloAy0YDAxO0stHIWM/Iwhy1cNQDuQJSGoJ0mhiaWRqZmJrDxFzwlZCW
+        xKQ0AiWHoZmBnjFy8BvSMvjBGdzQnJRkZkBUdsJfbIA8aUJPTxrqGhmS4klDojxpiKwKiycN9Qzp
+        6UkjXUNLehcYIE+a0c2TwNLCUNfQjGhPgtUTTK7oqrB60pKengQWiQa4PQksEmMBo9y5kTAKAAA=
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -52,9 +61,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:16 GMT
+      - Tue, 05 Mar 2024 02:40:56 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:16 GMT
+      - Tue, 05 Mar 2024 03:10:56 GMT
       Pragma:
       - no-cache
       Server:
@@ -74,6 +83,9 @@ interactions:
       - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''

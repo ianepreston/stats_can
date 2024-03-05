@@ -14,7 +14,9 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/27100022/en
   response:
     body:
-      string: '{"status":"SUCCESS","object":"https://www150.statcan.gc.ca/n1/tbl/csv/27100022-eng.zip"}'
+      string: !!binary |
+        H4sIAAAAAAAAA6tWKi5JLCktVrJSCg51dnYNDlbSUcpPykpNLlGyUsooKSkottLXLy8vNzQ10AMp
+        TU7M00tP1ktO1M8z1C9JytFPLi7TNzI3NDAwMDLSTc1L16vKLFCqBQA3MeKcWAAAAA==
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -48,9 +50,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:40:24 GMT
+      - Tue, 05 Mar 2024 02:40:43 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:10:24 GMT
+      - Tue, 05 Mar 2024 03:10:43 GMT
       Pragma:
       - no-cache
       Server:
@@ -72,6 +74,9 @@ interactions:
       - MISS
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''
@@ -90,7 +95,9 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadSDMX/27100022
   response:
     body:
-      string: '{"status":"SUCCESS","object":"https://www150.statcan.gc.ca/n1/tbl/sdmx/27100022-SDMX.zip"}'
+      string: !!binary |
+        H4sIAAAAAAAAA6tWKi5JLCktVrJSCg51dnYNDlbSUcpPykpNLlGyUsooKSkottLXLy8vNzQ10AMp
+        TU7M00tP1ktO1M8z1C9JytEvTsmt0DcyNzQwMDAy0g128Y3Qq8osUKoFAE5TMdBaAAAA
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -124,9 +131,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:40:25 GMT
+      - Tue, 05 Mar 2024 02:40:44 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:10:25 GMT
+      - Tue, 05 Mar 2024 03:10:44 GMT
       Pragma:
       - no-cache
       Server:
@@ -148,6 +155,9 @@ interactions:
       - MISS
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''

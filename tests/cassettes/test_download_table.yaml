@@ -18,45 +18,42 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata
   response:
     body:
-      string: "[{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":\"18100204\",\"cansimId\":\"329-0079\",\"cubeTitleEn\":\"Electric
-        power selling price index, monthly\",\"cubeTitleFr\":\"Indice des prix de
-        vente de l'\xE9nergie \xE9lectrique, mensuel\",\"cubeStartDate\":\"1981-01-01\",\"cubeEndDate\":\"2023-12-01\",\"frequencyCode\":6,\"nbSeriesCube\":26,\"nbDatapointsCube\":13416,\"releaseTime\":\"2024-02-06T08:30\",\"archiveStatusCode\":\"2\",\"archiveStatusEn\":\"CURRENT
-        - a cube available to the public and that is current\",\"archiveStatusFr\":\"ACTIF
-        - un cube qui est disponible au public et qui est toujours mise a jour\",\"subjectCode\":[\"2504\",\"180599\"],\"surveyCode\":[\"2325\"],\"dimension\":[{\"dimensionPositionId\":1,\"dimensionNameEn\":\"Geography\",\"dimensionNameFr\":\"G\xE9ographie\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Canada\",\"memberNameFr\":\"Canada\",\"classificationCode\":\"11124\",\"classificationTypeCode\":\"1\",\"geoLevel\":0,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Atlantic
-        Region\",\"memberNameFr\":\"R\xE9gion de l'Atlantique\",\"classificationCode\":\"1\",\"classificationTypeCode\":\"1\",\"geoLevel\":1,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":3,\"parentMemberId\":2,\"memberNameEn\":\"Newfoundland
-        and Labrador\",\"memberNameFr\":\"Terre-Neuve-et-Labrador\",\"classificationCode\":\"10\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":4,\"parentMemberId\":2,\"memberNameEn\":\"Prince
-        Edward Island\",\"memberNameFr\":\"\xCEle-du-Prince-\xC9douard\",\"classificationCode\":\"11\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":5,\"parentMemberId\":2,\"memberNameEn\":\"Nova
-        Scotia\",\"memberNameFr\":\"Nouvelle-\xC9cosse\",\"classificationCode\":\"12\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":6,\"parentMemberId\":2,\"memberNameEn\":\"New
-        Brunswick\",\"memberNameFr\":\"Nouveau-Brunswick\",\"classificationCode\":\"13\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":7,\"parentMemberId\":1,\"memberNameEn\":\"Quebec\",\"memberNameFr\":\"Qu\xE9bec\",\"classificationCode\":\"24\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":8,\"parentMemberId\":1,\"memberNameEn\":\"Ontario\",\"memberNameFr\":\"Ontario\",\"classificationCode\":\"35\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":9,\"parentMemberId\":1,\"memberNameEn\":\"Prairie
-        Region\",\"memberNameFr\":\"R\xE9gion des Prairies\",\"classificationCode\":\"4\",\"classificationTypeCode\":\"1\",\"geoLevel\":1,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":10,\"parentMemberId\":9,\"memberNameEn\":\"Manitoba\",\"memberNameFr\":\"Manitoba\",\"classificationCode\":\"46\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":11,\"parentMemberId\":9,\"memberNameEn\":\"Saskatchewan\",\"memberNameFr\":\"Saskatchewan\",\"classificationCode\":\"47\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":12,\"parentMemberId\":9,\"memberNameEn\":\"Alberta\",\"memberNameFr\":\"Alberta\",\"classificationCode\":\"48\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":13,\"parentMemberId\":1,\"memberNameEn\":\"British
-        Columbia\",\"memberNameFr\":\"Colombie-Britannique\",\"classificationCode\":\"59\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":2,\"dimensionNameEn\":\"Index\",\"dimensionNameFr\":\"Indice\",\"hasUom\":true,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Electric
-        power selling price indexes, national total\",\"memberNameFr\":\"Prix de vente
-        de l'\xE9nergie \xE9lectrique, total national\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":351},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Electric
-        power selling price over 5000kw\",\"memberNameFr\":\"Prix de vente de l'\xE9nergie
-        \xE9lectrique de plus de 5000kw\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":351},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Electric
-        power selling price under 5000kw\",\"memberNameFr\":\"Prix de vente de l'\xE9nergie
-        \xE9lectrique de moins de 5000kw\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":351}]}],\"footnote\":[{\"footnoteId\":1,\"footnotesEn\":\"For
-        data based on the 2009=100 index, please see CANSIM table 329-0073, which
-        is archived.\",\"footnotesFr\":\"Pour les donn\xE9es bas\xE9es sur l'indice
-        de 2009=100, s'il vous pla\xEEt vous r\xE9f\xE9rer au tableau CANSIM 329-0073,
-        ce tableau \xE9tant archiv\xE9.\",\"link\":{\"footnoteId\":1,\"dimensionPositionId\":0,\"memberId\":0}},{\"footnoteId\":2,\"footnotesEn\":\"On
-        August 12, 2016, the electric power selling price under 5000kw for the Atlantic
-        Region and for Nova Scotia (vectors v107792874 and v107792883) were suppressed
-        for data quality reasons. They will be published with the next release of
-        this table.\",\"footnotesFr\":\"Le 12 ao\xFBt 2016, le prix de vente de l'\xE9nergie
-        \xE9lectrique de moins de 5000kw pour la R\xE9gion de l'Atlantique et pour
-        la Nouvelle-\xC9cosse (vecteurs v107792874 et v107792883) ont \xE9t\xE9 supprim\xE9s
-        parce qu'il y avait un probl\xE8me avec la qualit\xE9 des donn\xE9es. Les
-        donn\xE9es seront publi\xE9es lors de la prochaine diffusion de ce tableau.\",\"link\":{\"footnoteId\":2,\"dimensionPositionId\":0,\"memberId\":0}}],\"correctionFootnote\":[],\"correction\":[{\"correctionId\":\"979\",\"correctionDate\":\"2016-08-12\",\"correctionNoteEn\":\"<p>On
-        August 12, 2016, the electric power selling price under 5000kw for the Atlantic
-        Region and for Nova Scotia (vectors v107792874 and v107792883) were suppressed
-        for data quality reasons. They will be published with the next release of
-        this table.<br></p>\",\"correctionNoteFr\":\"<p>Le 12 ao\xFBt 2016, le prix
-        de vente de l'\xE9nergie \xE9lectrique de moins de 5000kw pour la R\xE9gion
-        de l'Atlantique et pour la Nouvelle-\xC9cosse (vecteurs v107792874 et v107792883)
-        ont \xE9t\xE9 supprim\xE9s parce qu'il y avait un probl\xE8me avec la qualit\xE9
-        des donn\xE9es. Les donn\xE9es seront publi\xE9es lors de la prochaine diffusion
-        de ce tableau.<br></p>\"}]}}]"
+      string: !!binary |
+        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
+        67/aWAAESbko2RgAAA==
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -90,9 +87,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:17 GMT
+      - Tue, 05 Mar 2024 02:40:57 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:17 GMT
+      - Tue, 05 Mar 2024 03:10:57 GMT
       Pragma:
       - no-cache
       Server:
@@ -112,6 +109,9 @@ interactions:
       - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''
@@ -130,7 +130,9 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/18100204/en
   response:
     body:
-      string: '{"status":"SUCCESS","object":"https://www150.statcan.gc.ca/n1/tbl/csv/18100204-eng.zip"}'
+      string: !!binary |
+        H4sIAAAAAAAAA6tWKi5JLCktVrJSCg51dnYNDlbSUcpPykpNLlGyUsooKSkottLXLy8vNzQ10AMp
+        TU7M00tP1ktO1M8z1C9JytFPLi7TN7QwNDAwMjDRTc1L16vKLFCqBQAXPjTUWAAAAA==
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -164,9 +166,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:17 GMT
+      - Tue, 05 Mar 2024 02:40:57 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:17 GMT
+      - Tue, 05 Mar 2024 03:10:57 GMT
       Pragma:
       - no-cache
       Server:
@@ -188,6 +190,9 @@ interactions:
       - HIT
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''
@@ -1466,11 +1471,11 @@ interactions:
       Content-Type:
       - application/zip
       Date:
-      - Fri, 01 Mar 2024 02:41:18 GMT
+      - Tue, 05 Mar 2024 02:40:58 GMT
       ETag:
       - '"112b3-610b693fe39aa"'
       Expires:
-      - Fri, 01 Mar 2024 02:43:18 GMT
+      - Tue, 05 Mar 2024 02:42:58 GMT
       Last-Modified:
       - Tue, 06 Feb 2024 13:30:13 GMT
       Pragma:

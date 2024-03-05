@@ -14,7 +14,12 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getChangedCubeList/2023-09-05
   response:
     body:
-      string: '{"status":"SUCCESS","object":[{"responseStatusCode":0,"productId":33100163,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":10100139,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":33100036,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":10100113,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":16100017,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":16100046,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":18100245,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100471,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100470,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100469,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100468,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100467,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100466,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100465,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100464,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100463,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100462,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100461,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100460,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100459,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100458,"releaseTime":"2023-09-05T08:30"},{"responseStatusCode":0,"productId":32100457,"releaseTime":"2023-09-05T08:30"}]}'
+      string: !!binary |
+        H4sIAAAAAAAAA6tWKi5JLCktVrJSCg51dnYNDlbSUcpPykpNLlGyiq5WKkotLsjPK04NBqtyzk9J
+        VbIy0FEqKMpPKU0u8UxRsjI2NjQwMDQz1lEqSs1JTSxODcnMBSpSMjIwMtY1sNQ1MA0xsLAyNlCq
+        1SHGOEMDkHHGllQyDuw6A2MzqrrOkGqeNQO5ztCcqsaZUM2zFkDjjExMqWScsZEh0HHmhtQ1zoCq
+        xplRLd1BjLOgrnHUSihQ48yoaxx1E4qZCXWNM6aucUbUNY66ucLMgKrGmVI3V5haUNc4InJFbC0A
+        HOhAl+kGAAA=
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -48,9 +53,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:40:21 GMT
+      - Tue, 05 Mar 2024 02:40:40 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:10:21 GMT
+      - Tue, 05 Mar 2024 03:10:40 GMT
       Pragma:
       - no-cache
       Server:
@@ -72,6 +77,9 @@ interactions:
       - MISS
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''

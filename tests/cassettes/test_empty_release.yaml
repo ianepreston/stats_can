@@ -19,7 +19,10 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getBulkVectorDataByRange
   response:
     body:
-      string: '[{"status":"SUCCESS","object":{"responseStatusCode":0,"productId":18100004,"coordinate":"23.287.0.0.0.0.0.0.0.0","vectorId":41692457,"vectorDataPoint":[]}}]'
+      string: !!binary |
+        H4sIAAAAAAAAA4uuViouSSwpLVayUgoOdXZ2DQ5W0lHKT8pKTS5RsqpWKkotLsjPK04NBityzk9J
+        VbIy0FEqKMpPKU0u8UxRsjK0MDQAAhMdpeT8/KKUzLzEklSgYUbGekYW5noGegZ6SFhJR6ksNbkk
+        vwik08TQzNLIxNQcJuaSWJIYkJ+ZB7Q4Ora2NhYAVSJCPpwAAAA=
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -53,9 +56,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:15 GMT
+      - Tue, 05 Mar 2024 02:40:55 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:15 GMT
+      - Tue, 05 Mar 2024 03:10:55 GMT
       Pragma:
       - no-cache
       Server:
@@ -75,6 +78,9 @@ interactions:
       - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''
