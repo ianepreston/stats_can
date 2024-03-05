@@ -10,7 +10,6 @@ from functools import partial
 import pathlib
 import shutil
 
-from freezegun import freeze_time
 import pandas as pd
 from pandas.testing import assert_frame_equal
 import pytest
