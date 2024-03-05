@@ -18,10 +18,15 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getSeriesInfoFromVector
   response:
     body:
-      string: "[{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":23100216,\"coordinate\":\"1.2.1.0.0.0.0.0.0.0\",\"vectorId\":74804,\"frequencyCode\":6,\"scalarFactorCode\":0,\"decimals\":0,\"terminated\":0,\"SeriesTitleEn\":\"Canada;Total
-        non-intermodal traffic loaded;Number of rail cars\",\"SeriesTitleFr\":\"Canada;Total,
-        trafic non-intermodal charg\xE9;Nombre de wagons\",\"memberUomCode\":223}},{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":18100004,\"coordinate\":\"23.287.0.0.0.0.0.0.0.0\",\"vectorId\":41692457,\"frequencyCode\":6,\"scalarFactorCode\":0,\"decimals\":1,\"terminated\":0,\"SeriesTitleEn\":\"Alberta;All-items
-        excluding energy\",\"SeriesTitleFr\":\"Alberta;Ensemble excluant l'\xE9nergie\",\"memberUomCode\":17}}]"
+      string: !!binary |
+        H4sIAAAAAAAAA4uuViouSSwpLVayUgoOdXZ2DQ5W0lHKT8pKTS5RsqpWKkotLsjPK04NBityzk9J
+        VbIy0FEqKMpPKU0u8UxRsjIyNjQwMDI001FKzs8vSsnMSyxJBRpmqGekZ6hngAyBBpcBjc0vAmkz
+        N7EwMNFRSitKLSxNzUuuhBhtpqNUnJyYk1jklghSCBEE2peSmpyZm5hTDOaUpBblZoKsSQFzg1OL
+        MlOLQzJLclJd84A2OyfmJaYkWofklyTmKOTl5+lm5oF05KcAuSVFiWlpmckKOfmJKakp1n6luUmp
+        RQr5aQpFiZk5CsmJRcVKKAa6FaEZqAM2IjMZ3eDkjMSi9MMrrf3yc5OKUhVSUhXKE9Pz80DG5aaC
+        LAnNz4X4xsjIuLZWh+JgN7QwNDAwMDBBC3YjYz0jC3PUcEcLeRNDM0sjE1NzMgLfkGDgO+YA/VqS
+        aO2Yk6ObWZKaW6yQWpGcU5qSmZeukJqXWpReiSWAYZpc84pTc5NyUiF6EvNKFHLUD68E6cpMxQxI
+        Q/Pa2lgAbEqEncACAAA=
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -55,9 +60,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:14 GMT
+      - Tue, 05 Mar 2024 02:40:53 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:14 GMT
+      - Tue, 05 Mar 2024 03:10:53 GMT
       Pragma:
       - no-cache
       Server:
@@ -77,6 +82,9 @@ interactions:
       - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''

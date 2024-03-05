@@ -19,7 +19,21 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getBulkVectorDataByRange
   response:
     body:
-      string: '[{"status":"SUCCESS","object":{"responseStatusCode":0,"productId":23100216,"coordinate":"1.2.1.0.0.0.0.0.0.0","vectorId":74804,"vectorDataPoint":[{"refPer":"2021-12-01","refPer2":"","refPerRaw":"2021-12-01","refPerRaw2":"","value":252203.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-01-01","refPer2":"","refPerRaw":"2022-01-01","refPerRaw2":"","value":239174.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-02-01","refPer2":"","refPerRaw":"2022-02-01","refPerRaw2":"","value":240378.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-03-01","refPer2":"","refPerRaw":"2022-03-01","refPerRaw2":"","value":279770.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-04-01","refPer2":"","refPerRaw":"2022-04-01","refPerRaw2":"","value":278046.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-05-01","refPer2":"","refPerRaw":"2022-05-01","refPerRaw2":"","value":303638.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-06-01","refPer2":"","refPerRaw":"2022-06-01","refPerRaw2":"","value":271960.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-07-01","refPer2":"","refPerRaw":"2022-07-01","refPerRaw2":"","value":270704.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-08-01","refPer2":"","refPerRaw":"2022-08-01","refPerRaw2":"","value":279231.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-09-01","refPer2":"","refPerRaw":"2022-09-01","refPerRaw2":"","value":286849.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-10-01","refPer2":"","refPerRaw":"2022-10-01","refPerRaw2":"","value":305182.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-11-01","refPer2":"","refPerRaw":"2022-11-01","refPerRaw2":"","value":297765.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-24T08:30","frequencyCode":6},{"refPer":"2022-12-01","refPer2":"","refPerRaw":"2022-12-01","refPerRaw2":"","value":269340.0,"decimals":0,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-03-31T08:30","frequencyCode":6}]}},{"status":"SUCCESS","object":{"responseStatusCode":0,"productId":18100004,"coordinate":"23.287.0.0.0.0.0.0.0.0","vectorId":41692457,"vectorDataPoint":[{"refPer":"2018-12-01","refPer2":"","refPerRaw":"2018-12-01","refPerRaw2":"","value":138.8,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-06-27T08:30","frequencyCode":6},{"refPer":"2022-12-01","refPer2":"","refPerRaw":"2022-12-01","refPerRaw2":"","value":156.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-01-17T08:30","frequencyCode":6},{"refPer":"2023-01-01","refPer2":"","refPerRaw":"2023-01-01","refPerRaw2":"","value":157.1,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-02-21T08:30","frequencyCode":6},{"refPer":"2023-02-01","refPer2":"","refPerRaw":"2023-02-01","refPerRaw2":"","value":157.3,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-03-21T08:30","frequencyCode":6},{"refPer":"2023-03-01","refPer2":"","refPerRaw":"2023-03-01","refPerRaw2":"","value":158.2,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-04-18T08:30","frequencyCode":6},{"refPer":"2023-04-01","refPer2":"","refPerRaw":"2023-04-01","refPerRaw2":"","value":159.0,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-06-27T08:30","frequencyCode":6},{"refPer":"2023-05-01","refPer2":"","refPerRaw":"2023-05-01","refPerRaw2":"","value":159.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-06-27T08:30","frequencyCode":6},{"refPer":"2023-06-01","refPer2":"","refPerRaw":"2023-06-01","refPerRaw2":"","value":159.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-07-18T08:30","frequencyCode":6},{"refPer":"2023-07-01","refPer2":"","refPerRaw":"2023-07-01","refPerRaw2":"","value":160.5,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-08-15T08:30","frequencyCode":6},{"refPer":"2023-08-01","refPer2":"","refPerRaw":"2023-08-01","refPerRaw2":"","value":160.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-09-19T08:30","frequencyCode":6},{"refPer":"2023-09-01","refPer2":"","refPerRaw":"2023-09-01","refPerRaw2":"","value":160.3,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-10-17T08:30","frequencyCode":6},{"refPer":"2023-10-01","refPer2":"","refPerRaw":"2023-10-01","refPerRaw2":"","value":160.4,"decimals":1,"scalarFactorCode":0,"symbolCode":0,"statusCode":0,"securityLevelCode":0,"releaseTime":"2023-11-21T08:30","frequencyCode":6}]}}]'
+      string: !!binary |
+        H4sIAAAAAAAAA4uuViouSSwpLVayUgoOdXZ2DQ5W0lHKT8pKTS5RsqpWKkotLsjPK04NBityzk9J
+        VbIy0FEqKMpPKU0u8UxRsjIyNjQwMDI001FKzs8vSsnMSyxJBRpmqGekZ6hngAyBBpcBjc0vAmkz
+        N7EwMIEJuCSWJAbkZ+YBrYwG2ZkWkFoENMPIwMhQ19BI18BQSQcqaqRkpQTnBCWWY1cFlIAqLEvM
+        KQU6x8jUyMjAWA/o8pTU5MzcxJxisDeKkxNzEovcEkFugPutuDI3KT8HwUX1eXFqcmlRZkmlT2pZ
+        ag5ctCg1JzWxODUkMzcV4iJjXQMjXSOTEAMLK2OQx9OKUgtLU/OSKyFazGp1UP0Jcj6yD7D7E10V
+        pj+NLQ3NTfQMdAaxP42I8ieKKkx/mhgYm1voDWp/GhMVnyiqMP1pbmluDsxEOoPYnyZE+RNFFRZ/
+        WhiYmOkNan+aEhWfKKow/GlsYGxmPMjTrRlR/kRRhSU+DS3NBnm6NScqPlFUYfGngbmBid6gjk8L
+        ovyJogqLPy2B9bzeoPanJVHxiaIK058WZhYmlnqDOT4NDYjxJ6oqDH8aG5gaWhjpDWp/GhLlTxRV
+        mOkWWH2ameoN6vg0IsqfKKow/WlmaWxC5/LWWNfYELc/Y2trdaqhhpPdtzC0APYtDAxM0PoWRsZ6
+        RhbmekD/ImMlHSVIbwKk08TQzNLIxNQcJuaCq4dhaKFraEQwpWGowogBQ2MLPQvk4DfUUaJp8Jvp
+        GpnTO5kZmprpmdDTk4a6hsR70pioPhS6KiyeNNczpKcngQWGISmeJCIm0VVh9aQxPT1prEuaJ40J
+        J1d0VVg8aaFnRE9PmugaWpDiSROiPIm/62RoitZeoXVMklTwGBPVbzLWJdBvAnnSZDB70oyo5Iq/
+        00R3T5qTmFzNifIkiipMTwK7hab09CSw5jYlxZMWRHkSf3cJ5Em6xqSlrqElKZ60JComUVRh9aQx
+        HT1paKBraE6CJw0NiEmuqKqwepKeMWloiLeejK2tjQUAr0CgNbMXAAA=
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -53,9 +67,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:40:24 GMT
+      - Tue, 05 Mar 2024 02:40:43 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:10:24 GMT
+      - Tue, 05 Mar 2024 03:10:43 GMT
       Pragma:
       - no-cache
       Server:
@@ -75,6 +89,9 @@ interactions:
       - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''

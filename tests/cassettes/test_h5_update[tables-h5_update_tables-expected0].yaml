@@ -18,91 +18,73 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata
   response:
     body:
-      string: "[{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":\"18100204\",\"cansimId\":\"329-0079\",\"cubeTitleEn\":\"Electric
-        power selling price index, monthly\",\"cubeTitleFr\":\"Indice des prix de
-        vente de l'\xE9nergie \xE9lectrique, mensuel\",\"cubeStartDate\":\"1981-01-01\",\"cubeEndDate\":\"2023-12-01\",\"frequencyCode\":6,\"nbSeriesCube\":26,\"nbDatapointsCube\":13416,\"releaseTime\":\"2024-02-06T08:30\",\"archiveStatusCode\":\"2\",\"archiveStatusEn\":\"CURRENT
-        - a cube available to the public and that is current\",\"archiveStatusFr\":\"ACTIF
-        - un cube qui est disponible au public et qui est toujours mise a jour\",\"subjectCode\":[\"2504\",\"180599\"],\"surveyCode\":[\"2325\"],\"dimension\":[{\"dimensionPositionId\":1,\"dimensionNameEn\":\"Geography\",\"dimensionNameFr\":\"G\xE9ographie\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Canada\",\"memberNameFr\":\"Canada\",\"classificationCode\":\"11124\",\"classificationTypeCode\":\"1\",\"geoLevel\":0,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Atlantic
-        Region\",\"memberNameFr\":\"R\xE9gion de l'Atlantique\",\"classificationCode\":\"1\",\"classificationTypeCode\":\"1\",\"geoLevel\":1,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":3,\"parentMemberId\":2,\"memberNameEn\":\"Newfoundland
-        and Labrador\",\"memberNameFr\":\"Terre-Neuve-et-Labrador\",\"classificationCode\":\"10\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":4,\"parentMemberId\":2,\"memberNameEn\":\"Prince
-        Edward Island\",\"memberNameFr\":\"\xCEle-du-Prince-\xC9douard\",\"classificationCode\":\"11\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":5,\"parentMemberId\":2,\"memberNameEn\":\"Nova
-        Scotia\",\"memberNameFr\":\"Nouvelle-\xC9cosse\",\"classificationCode\":\"12\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":6,\"parentMemberId\":2,\"memberNameEn\":\"New
-        Brunswick\",\"memberNameFr\":\"Nouveau-Brunswick\",\"classificationCode\":\"13\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":7,\"parentMemberId\":1,\"memberNameEn\":\"Quebec\",\"memberNameFr\":\"Qu\xE9bec\",\"classificationCode\":\"24\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":8,\"parentMemberId\":1,\"memberNameEn\":\"Ontario\",\"memberNameFr\":\"Ontario\",\"classificationCode\":\"35\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":9,\"parentMemberId\":1,\"memberNameEn\":\"Prairie
-        Region\",\"memberNameFr\":\"R\xE9gion des Prairies\",\"classificationCode\":\"4\",\"classificationTypeCode\":\"1\",\"geoLevel\":1,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":10,\"parentMemberId\":9,\"memberNameEn\":\"Manitoba\",\"memberNameFr\":\"Manitoba\",\"classificationCode\":\"46\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":11,\"parentMemberId\":9,\"memberNameEn\":\"Saskatchewan\",\"memberNameFr\":\"Saskatchewan\",\"classificationCode\":\"47\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":12,\"parentMemberId\":9,\"memberNameEn\":\"Alberta\",\"memberNameFr\":\"Alberta\",\"classificationCode\":\"48\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":13,\"parentMemberId\":1,\"memberNameEn\":\"British
-        Columbia\",\"memberNameFr\":\"Colombie-Britannique\",\"classificationCode\":\"59\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":2,\"dimensionNameEn\":\"Index\",\"dimensionNameFr\":\"Indice\",\"hasUom\":true,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Electric
-        power selling price indexes, national total\",\"memberNameFr\":\"Prix de vente
-        de l'\xE9nergie \xE9lectrique, total national\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":351},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Electric
-        power selling price over 5000kw\",\"memberNameFr\":\"Prix de vente de l'\xE9nergie
-        \xE9lectrique de plus de 5000kw\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":351},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Electric
-        power selling price under 5000kw\",\"memberNameFr\":\"Prix de vente de l'\xE9nergie
-        \xE9lectrique de moins de 5000kw\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":351}]}],\"footnote\":[{\"footnoteId\":1,\"footnotesEn\":\"For
-        data based on the 2009=100 index, please see CANSIM table 329-0073, which
-        is archived.\",\"footnotesFr\":\"Pour les donn\xE9es bas\xE9es sur l'indice
-        de 2009=100, s'il vous pla\xEEt vous r\xE9f\xE9rer au tableau CANSIM 329-0073,
-        ce tableau \xE9tant archiv\xE9.\",\"link\":{\"footnoteId\":1,\"dimensionPositionId\":0,\"memberId\":0}},{\"footnoteId\":2,\"footnotesEn\":\"On
-        August 12, 2016, the electric power selling price under 5000kw for the Atlantic
-        Region and for Nova Scotia (vectors v107792874 and v107792883) were suppressed
-        for data quality reasons. They will be published with the next release of
-        this table.\",\"footnotesFr\":\"Le 12 ao\xFBt 2016, le prix de vente de l'\xE9nergie
-        \xE9lectrique de moins de 5000kw pour la R\xE9gion de l'Atlantique et pour
-        la Nouvelle-\xC9cosse (vecteurs v107792874 et v107792883) ont \xE9t\xE9 supprim\xE9s
-        parce qu'il y avait un probl\xE8me avec la qualit\xE9 des donn\xE9es. Les
-        donn\xE9es seront publi\xE9es lors de la prochaine diffusion de ce tableau.\",\"link\":{\"footnoteId\":2,\"dimensionPositionId\":0,\"memberId\":0}}],\"correctionFootnote\":[],\"correction\":[{\"correctionId\":\"979\",\"correctionDate\":\"2016-08-12\",\"correctionNoteEn\":\"<p>On
-        August 12, 2016, the electric power selling price under 5000kw for the Atlantic
-        Region and for Nova Scotia (vectors v107792874 and v107792883) were suppressed
-        for data quality reasons. They will be published with the next release of
-        this table.<br></p>\",\"correctionNoteFr\":\"<p>Le 12 ao\xFBt 2016, le prix
-        de vente de l'\xE9nergie \xE9lectrique de moins de 5000kw pour la R\xE9gion
-        de l'Atlantique et pour la Nouvelle-\xC9cosse (vecteurs v107792874 et v107792883)
-        ont \xE9t\xE9 supprim\xE9s parce qu'il y avait un probl\xE8me avec la qualit\xE9
-        des donn\xE9es. Les donn\xE9es seront publi\xE9es lors de la prochaine diffusion
-        de ce tableau.<br></p>\"}]}},{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":\"27100022\",\"cansimId\":\"358-0159\",\"cubeTitleEn\":\"Personnel
-        engaged in research and development by performing sector and occupational
-        category\",\"cubeTitleFr\":\"Personnel affect\xE9 \xE0 la recherche et d\xE9veloppement
-        selon le secteur d'ex\xE9cution et la cat\xE9gorie professionnelle\",\"cubeStartDate\":\"2000-01-01\",\"cubeEndDate\":\"2020-01-01\",\"frequencyCode\":12,\"nbSeriesCube\":85,\"nbDatapointsCube\":1511,\"releaseTime\":\"2023-03-29T08:30\",\"archiveStatusCode\":\"2\",\"archiveStatusEn\":\"CURRENT
-        - a cube available to the public and that is current\",\"archiveStatusFr\":\"ACTIF
-        - un cube qui est disponible au public et qui est toujours mise a jour\",\"subjectCode\":[\"2702\"],\"surveyCode\":[\"5193\"],\"dimension\":[{\"dimensionPositionId\":1,\"dimensionNameEn\":\"Geography\",\"dimensionNameFr\":\"G\xE9ographie\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Canada\",\"memberNameFr\":\"Canada\",\"classificationCode\":\"11124\",\"classificationTypeCode\":\"1\",\"geoLevel\":0,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":2,\"dimensionNameEn\":\"Performing
-        sector\",\"dimensionNameFr\":\"Secteur d'ex\xE9cution\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Total,
-        performing sectors\",\"memberNameFr\":\"Total, secteurs d'ex\xE9cution\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Federal
-        government\",\"memberNameFr\":\"Administration publique f\xE9d\xE9rale\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Provincial
-        government\",\"memberNameFr\":\"Administrations publiques provinciales\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":4,\"parentMemberId\":1,\"memberNameEn\":\"Business
-        enterprise\",\"memberNameFr\":\"Entreprises commerciales\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":5,\"parentMemberId\":1,\"memberNameEn\":\"Higher
-        education\",\"memberNameFr\":\"Enseignement sup\xE9rieur\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":6,\"parentMemberId\":1,\"memberNameEn\":\"Private
-        non-profit\",\"memberNameFr\":\"Organismes priv\xE9s sans but lucratif\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":3,\"dimensionNameEn\":\"Occupational
-        category\",\"dimensionNameFr\":\"Cat\xE9gorie professionnelle\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Total
-        personnel\",\"memberNameFr\":\"Total du personnel\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Researchers\",\"memberNameFr\":\"Chercheurs\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Technicians\",\"memberNameFr\":\"Techniciens\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":4,\"parentMemberId\":1,\"memberNameEn\":\"Support
-        staff\",\"memberNameFr\":\"Personnel de soutien\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":5,\"parentMemberId\":1,\"memberNameEn\":\"On-site
-        research consultants \",\"memberNameFr\":\"Consultants de recherche sur site
-        \",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":4,\"dimensionNameEn\":\"Type
-        of science\",\"dimensionNameFr\":\"Type de science\",\"hasUom\":true,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Total
-        sciences\",\"memberNameFr\":\"Total des sciences\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":223},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Natural
-        sciences and engineering\",\"memberNameFr\":\"Sciences naturelles et g\xE9nie\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":1,\"memberUomCode\":223},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Social
-        sciences and humanities\",\"memberNameFr\":\"Sciences sociales et humaines\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":1,\"memberUomCode\":223}]}],\"footnote\":[{\"footnoteId\":1,\"footnotesEn\":\"Personnel
-        counts are reported as full-time equivalents (rounded to the nearest 10).
-        Due to rounding, components may not add to the totals.\",\"footnotesFr\":\"Le
-        personnel est report\xE9 en \xE9quivalent temps plein (nombres arrondis \xE0
-        la dizaine).  En raison de l'arrondissement des donn\xE9es, les totaux ne
-        correspondent pas toujours \xE0 l'addition de leurs composantes.\",\"link\":{\"footnoteId\":1,\"dimensionPositionId\":0,\"memberId\":0}},{\"footnoteId\":5,\"footnotesEn\":\"From
-        2014 onwards, an occupation category for on-site research and development
-        consultants and contractors was initiated for the private non-profit sector
-        and business enterprise sector.\",\"footnotesFr\":\"\xC0 partir de 2014, une
-        cat\xE9gorie professionelle pour les conseillers et entrepreneurs travaillant
-        sur place en recherche et d\xE9veloppement \xE0 commenc\xE9e pour les organismes
-        priv\xE9s sans but  lucratif et les entreprises commerciales.\",\"link\":{\"footnoteId\":5,\"dimensionPositionId\":0,\"memberId\":0}},{\"footnoteId\":3,\"footnotesEn\":\"Provincial
-        government data includes provincial research organizations data. Provincial
-        research organizations data are in natural sciences and engineering only.\",\"footnotesFr\":\"Les
-        donn\xE9es du secteur des administrations provinciales inclut les organismes
-        de recherche provinciaux. Les donn\xE9es des organismes de recherche provinciaux
-        sont pour les sciences naturelles et g\xE9nie seulement.\",\"link\":{\"footnoteId\":3,\"dimensionPositionId\":2,\"memberId\":3}},{\"footnoteId\":4,\"footnotesEn\":\"Private
-        non-profit organization's personnel counts may fluctuate due to these organization's
-        intramural research and development activities\",\"footnotesFr\":\"Le personnel
-        des organismes priv\xE9s sans but lucratif peut fluctuer en raison des acitivit\xE9s
-        de recherche et d\xE9veloppement intramuros de ces organisations.\",\"link\":{\"footnoteId\":4,\"dimensionPositionId\":2,\"memberId\":6}},{\"footnoteId\":6,\"footnotesEn\":\"On-site
-        research consultants represents self-employed individuals or contractors who
-        are working on the site of the Research and Development (R&D) performer.\",\"footnotesFr\":\"Consultants
-        de recherche sur site signifie les conseillers et entrepreneurs en recherche
-        et d\xE9veloppement (R-D) qui travaillent sur le site de l\u2019ex\xE9cuteur
-        de la R-D.\",\"link\":{\"footnoteId\":6,\"dimensionPositionId\":3,\"memberId\":5}}],\"correctionFootnote\":[],\"correction\":[]}}]"
+      string: !!binary |
+        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
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -136,9 +118,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:29 GMT
+      - Tue, 05 Mar 2024 02:41:10 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:29 GMT
+      - Tue, 05 Mar 2024 03:11:10 GMT
       Pragma:
       - no-cache
       Server:
@@ -158,6 +140,9 @@ interactions:
       - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''
@@ -180,45 +165,42 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata
   response:
     body:
-      string: "[{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":\"18100204\",\"cansimId\":\"329-0079\",\"cubeTitleEn\":\"Electric
-        power selling price index, monthly\",\"cubeTitleFr\":\"Indice des prix de
-        vente de l'\xE9nergie \xE9lectrique, mensuel\",\"cubeStartDate\":\"1981-01-01\",\"cubeEndDate\":\"2023-12-01\",\"frequencyCode\":6,\"nbSeriesCube\":26,\"nbDatapointsCube\":13416,\"releaseTime\":\"2024-02-06T08:30\",\"archiveStatusCode\":\"2\",\"archiveStatusEn\":\"CURRENT
-        - a cube available to the public and that is current\",\"archiveStatusFr\":\"ACTIF
-        - un cube qui est disponible au public et qui est toujours mise a jour\",\"subjectCode\":[\"2504\",\"180599\"],\"surveyCode\":[\"2325\"],\"dimension\":[{\"dimensionPositionId\":1,\"dimensionNameEn\":\"Geography\",\"dimensionNameFr\":\"G\xE9ographie\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Canada\",\"memberNameFr\":\"Canada\",\"classificationCode\":\"11124\",\"classificationTypeCode\":\"1\",\"geoLevel\":0,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Atlantic
-        Region\",\"memberNameFr\":\"R\xE9gion de l'Atlantique\",\"classificationCode\":\"1\",\"classificationTypeCode\":\"1\",\"geoLevel\":1,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":3,\"parentMemberId\":2,\"memberNameEn\":\"Newfoundland
-        and Labrador\",\"memberNameFr\":\"Terre-Neuve-et-Labrador\",\"classificationCode\":\"10\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":4,\"parentMemberId\":2,\"memberNameEn\":\"Prince
-        Edward Island\",\"memberNameFr\":\"\xCEle-du-Prince-\xC9douard\",\"classificationCode\":\"11\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":5,\"parentMemberId\":2,\"memberNameEn\":\"Nova
-        Scotia\",\"memberNameFr\":\"Nouvelle-\xC9cosse\",\"classificationCode\":\"12\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":6,\"parentMemberId\":2,\"memberNameEn\":\"New
-        Brunswick\",\"memberNameFr\":\"Nouveau-Brunswick\",\"classificationCode\":\"13\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":7,\"parentMemberId\":1,\"memberNameEn\":\"Quebec\",\"memberNameFr\":\"Qu\xE9bec\",\"classificationCode\":\"24\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":8,\"parentMemberId\":1,\"memberNameEn\":\"Ontario\",\"memberNameFr\":\"Ontario\",\"classificationCode\":\"35\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":9,\"parentMemberId\":1,\"memberNameEn\":\"Prairie
-        Region\",\"memberNameFr\":\"R\xE9gion des Prairies\",\"classificationCode\":\"4\",\"classificationTypeCode\":\"1\",\"geoLevel\":1,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":10,\"parentMemberId\":9,\"memberNameEn\":\"Manitoba\",\"memberNameFr\":\"Manitoba\",\"classificationCode\":\"46\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":11,\"parentMemberId\":9,\"memberNameEn\":\"Saskatchewan\",\"memberNameFr\":\"Saskatchewan\",\"classificationCode\":\"47\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":12,\"parentMemberId\":9,\"memberNameEn\":\"Alberta\",\"memberNameFr\":\"Alberta\",\"classificationCode\":\"48\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":13,\"parentMemberId\":1,\"memberNameEn\":\"British
-        Columbia\",\"memberNameFr\":\"Colombie-Britannique\",\"classificationCode\":\"59\",\"classificationTypeCode\":\"1\",\"geoLevel\":2,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":2,\"dimensionNameEn\":\"Index\",\"dimensionNameFr\":\"Indice\",\"hasUom\":true,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Electric
-        power selling price indexes, national total\",\"memberNameFr\":\"Prix de vente
-        de l'\xE9nergie \xE9lectrique, total national\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":351},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Electric
-        power selling price over 5000kw\",\"memberNameFr\":\"Prix de vente de l'\xE9nergie
-        \xE9lectrique de plus de 5000kw\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":351},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Electric
-        power selling price under 5000kw\",\"memberNameFr\":\"Prix de vente de l'\xE9nergie
-        \xE9lectrique de moins de 5000kw\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":351}]}],\"footnote\":[{\"footnoteId\":1,\"footnotesEn\":\"For
-        data based on the 2009=100 index, please see CANSIM table 329-0073, which
-        is archived.\",\"footnotesFr\":\"Pour les donn\xE9es bas\xE9es sur l'indice
-        de 2009=100, s'il vous pla\xEEt vous r\xE9f\xE9rer au tableau CANSIM 329-0073,
-        ce tableau \xE9tant archiv\xE9.\",\"link\":{\"footnoteId\":1,\"dimensionPositionId\":0,\"memberId\":0}},{\"footnoteId\":2,\"footnotesEn\":\"On
-        August 12, 2016, the electric power selling price under 5000kw for the Atlantic
-        Region and for Nova Scotia (vectors v107792874 and v107792883) were suppressed
-        for data quality reasons. They will be published with the next release of
-        this table.\",\"footnotesFr\":\"Le 12 ao\xFBt 2016, le prix de vente de l'\xE9nergie
-        \xE9lectrique de moins de 5000kw pour la R\xE9gion de l'Atlantique et pour
-        la Nouvelle-\xC9cosse (vecteurs v107792874 et v107792883) ont \xE9t\xE9 supprim\xE9s
-        parce qu'il y avait un probl\xE8me avec la qualit\xE9 des donn\xE9es. Les
-        donn\xE9es seront publi\xE9es lors de la prochaine diffusion de ce tableau.\",\"link\":{\"footnoteId\":2,\"dimensionPositionId\":0,\"memberId\":0}}],\"correctionFootnote\":[],\"correction\":[{\"correctionId\":\"979\",\"correctionDate\":\"2016-08-12\",\"correctionNoteEn\":\"<p>On
-        August 12, 2016, the electric power selling price under 5000kw for the Atlantic
-        Region and for Nova Scotia (vectors v107792874 and v107792883) were suppressed
-        for data quality reasons. They will be published with the next release of
-        this table.<br></p>\",\"correctionNoteFr\":\"<p>Le 12 ao\xFBt 2016, le prix
-        de vente de l'\xE9nergie \xE9lectrique de moins de 5000kw pour la R\xE9gion
-        de l'Atlantique et pour la Nouvelle-\xC9cosse (vecteurs v107792874 et v107792883)
-        ont \xE9t\xE9 supprim\xE9s parce qu'il y avait un probl\xE8me avec la qualit\xE9
-        des donn\xE9es. Les donn\xE9es seront publi\xE9es lors de la prochaine diffusion
-        de ce tableau.<br></p>\"}]}}]"
+      string: !!binary |
+        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
+        67/aWAAESbko2RgAAA==
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -252,9 +234,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:30 GMT
+      - Tue, 05 Mar 2024 02:41:11 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:30 GMT
+      - Tue, 05 Mar 2024 03:11:11 GMT
       Pragma:
       - no-cache
       Server:
@@ -274,6 +256,9 @@ interactions:
       - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''
@@ -292,7 +277,9 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/18100204/en
   response:
     body:
-      string: '{"status":"SUCCESS","object":"https://www150.statcan.gc.ca/n1/tbl/csv/18100204-eng.zip"}'
+      string: !!binary |
+        H4sIAAAAAAAAA6tWKi5JLCktVrJSCg51dnYNDlbSUcpPykpNLlGyUsooKSkottLXLy8vNzQ10AMp
+        TU7M00tP1ktO1M8z1C9JytFPLi7TN7QwNDAwMjDRTc1L16vKLFCqBQAXPjTUWAAAAA==
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -326,9 +313,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:30 GMT
+      - Tue, 05 Mar 2024 02:41:12 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:30 GMT
+      - Tue, 05 Mar 2024 03:11:12 GMT
       Pragma:
       - no-cache
       Server:
@@ -350,6 +337,9 @@ interactions:
       - HIT
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''
@@ -1628,11 +1618,11 @@ interactions:
       Content-Type:
       - application/zip
       Date:
-      - Fri, 01 Mar 2024 02:41:31 GMT
+      - Tue, 05 Mar 2024 02:41:12 GMT
       ETag:
       - '"112b3-610b693fe39aa"'
       Expires:
-      - Fri, 01 Mar 2024 02:43:31 GMT
+      - Tue, 05 Mar 2024 02:43:12 GMT
       Last-Modified:
       - Tue, 06 Feb 2024 13:30:13 GMT
       Pragma:
@@ -1674,53 +1664,49 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata
   response:
     body:
-      string: "[{\"status\":\"SUCCESS\",\"object\":{\"responseStatusCode\":0,\"productId\":\"27100022\",\"cansimId\":\"358-0159\",\"cubeTitleEn\":\"Personnel
-        engaged in research and development by performing sector and occupational
-        category\",\"cubeTitleFr\":\"Personnel affect\xE9 \xE0 la recherche et d\xE9veloppement
-        selon le secteur d'ex\xE9cution et la cat\xE9gorie professionnelle\",\"cubeStartDate\":\"2000-01-01\",\"cubeEndDate\":\"2020-01-01\",\"frequencyCode\":12,\"nbSeriesCube\":85,\"nbDatapointsCube\":1511,\"releaseTime\":\"2023-03-29T08:30\",\"archiveStatusCode\":\"2\",\"archiveStatusEn\":\"CURRENT
-        - a cube available to the public and that is current\",\"archiveStatusFr\":\"ACTIF
-        - un cube qui est disponible au public et qui est toujours mise a jour\",\"subjectCode\":[\"2702\"],\"surveyCode\":[\"5193\"],\"dimension\":[{\"dimensionPositionId\":1,\"dimensionNameEn\":\"Geography\",\"dimensionNameFr\":\"G\xE9ographie\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Canada\",\"memberNameFr\":\"Canada\",\"classificationCode\":\"11124\",\"classificationTypeCode\":\"1\",\"geoLevel\":0,\"vintage\":2016,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":2,\"dimensionNameEn\":\"Performing
-        sector\",\"dimensionNameFr\":\"Secteur d'ex\xE9cution\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Total,
-        performing sectors\",\"memberNameFr\":\"Total, secteurs d'ex\xE9cution\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Federal
-        government\",\"memberNameFr\":\"Administration publique f\xE9d\xE9rale\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Provincial
-        government\",\"memberNameFr\":\"Administrations publiques provinciales\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":4,\"parentMemberId\":1,\"memberNameEn\":\"Business
-        enterprise\",\"memberNameFr\":\"Entreprises commerciales\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":5,\"parentMemberId\":1,\"memberNameEn\":\"Higher
-        education\",\"memberNameFr\":\"Enseignement sup\xE9rieur\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":6,\"parentMemberId\":1,\"memberNameEn\":\"Private
-        non-profit\",\"memberNameFr\":\"Organismes priv\xE9s sans but lucratif\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":3,\"dimensionNameEn\":\"Occupational
-        category\",\"dimensionNameFr\":\"Cat\xE9gorie professionnelle\",\"hasUom\":false,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Total
-        personnel\",\"memberNameFr\":\"Total du personnel\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Researchers\",\"memberNameFr\":\"Chercheurs\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Technicians\",\"memberNameFr\":\"Techniciens\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":4,\"parentMemberId\":1,\"memberNameEn\":\"Support
-        staff\",\"memberNameFr\":\"Personnel de soutien\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null},{\"memberId\":5,\"parentMemberId\":1,\"memberNameEn\":\"On-site
-        research consultants \",\"memberNameFr\":\"Consultants de recherche sur site
-        \",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":null}]},{\"dimensionPositionId\":4,\"dimensionNameEn\":\"Type
-        of science\",\"dimensionNameFr\":\"Type de science\",\"hasUom\":true,\"member\":[{\"memberId\":1,\"parentMemberId\":null,\"memberNameEn\":\"Total
-        sciences\",\"memberNameFr\":\"Total des sciences\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":0,\"memberUomCode\":223},{\"memberId\":2,\"parentMemberId\":1,\"memberNameEn\":\"Natural
-        sciences and engineering\",\"memberNameFr\":\"Sciences naturelles et g\xE9nie\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":1,\"memberUomCode\":223},{\"memberId\":3,\"parentMemberId\":1,\"memberNameEn\":\"Social
-        sciences and humanities\",\"memberNameFr\":\"Sciences sociales et humaines\",\"classificationCode\":null,\"classificationTypeCode\":null,\"geoLevel\":null,\"vintage\":null,\"terminated\":1,\"memberUomCode\":223}]}],\"footnote\":[{\"footnoteId\":1,\"footnotesEn\":\"Personnel
-        counts are reported as full-time equivalents (rounded to the nearest 10).
-        Due to rounding, components may not add to the totals.\",\"footnotesFr\":\"Le
-        personnel est report\xE9 en \xE9quivalent temps plein (nombres arrondis \xE0
-        la dizaine).  En raison de l'arrondissement des donn\xE9es, les totaux ne
-        correspondent pas toujours \xE0 l'addition de leurs composantes.\",\"link\":{\"footnoteId\":1,\"dimensionPositionId\":0,\"memberId\":0}},{\"footnoteId\":5,\"footnotesEn\":\"From
-        2014 onwards, an occupation category for on-site research and development
-        consultants and contractors was initiated for the private non-profit sector
-        and business enterprise sector.\",\"footnotesFr\":\"\xC0 partir de 2014, une
-        cat\xE9gorie professionelle pour les conseillers et entrepreneurs travaillant
-        sur place en recherche et d\xE9veloppement \xE0 commenc\xE9e pour les organismes
-        priv\xE9s sans but  lucratif et les entreprises commerciales.\",\"link\":{\"footnoteId\":5,\"dimensionPositionId\":0,\"memberId\":0}},{\"footnoteId\":3,\"footnotesEn\":\"Provincial
-        government data includes provincial research organizations data. Provincial
-        research organizations data are in natural sciences and engineering only.\",\"footnotesFr\":\"Les
-        donn\xE9es du secteur des administrations provinciales inclut les organismes
-        de recherche provinciaux. Les donn\xE9es des organismes de recherche provinciaux
-        sont pour les sciences naturelles et g\xE9nie seulement.\",\"link\":{\"footnoteId\":3,\"dimensionPositionId\":2,\"memberId\":3}},{\"footnoteId\":4,\"footnotesEn\":\"Private
-        non-profit organization's personnel counts may fluctuate due to these organization's
-        intramural research and development activities\",\"footnotesFr\":\"Le personnel
-        des organismes priv\xE9s sans but lucratif peut fluctuer en raison des acitivit\xE9s
-        de recherche et d\xE9veloppement intramuros de ces organisations.\",\"link\":{\"footnoteId\":4,\"dimensionPositionId\":2,\"memberId\":6}},{\"footnoteId\":6,\"footnotesEn\":\"On-site
-        research consultants represents self-employed individuals or contractors who
-        are working on the site of the Research and Development (R&D) performer.\",\"footnotesFr\":\"Consultants
-        de recherche sur site signifie les conseillers et entrepreneurs en recherche
-        et d\xE9veloppement (R-D) qui travaillent sur le site de l\u2019ex\xE9cuteur
-        de la R-D.\",\"link\":{\"footnoteId\":6,\"dimensionPositionId\":3,\"memberId\":5}}],\"correctionFootnote\":[],\"correction\":[]}}]"
+      string: !!binary |
+        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
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -1754,9 +1740,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:33 GMT
+      - Tue, 05 Mar 2024 02:41:13 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:33 GMT
+      - Tue, 05 Mar 2024 03:11:13 GMT
       Pragma:
       - no-cache
       Server:
@@ -1776,6 +1762,9 @@ interactions:
       - SAMEORIGIN
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''
@@ -1794,7 +1783,9 @@ interactions:
     uri: https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/27100022/en
   response:
     body:
-      string: '{"status":"SUCCESS","object":"https://www150.statcan.gc.ca/n1/tbl/csv/27100022-eng.zip"}'
+      string: !!binary |
+        H4sIAAAAAAAAA6tWKi5JLCktVrJSCg51dnYNDlbSUcpPykpNLlGyUsooKSkottLXLy8vNzQ10AMp
+        TU7M00tP1ktO1M8z1C9JytFPLi7TNzI3NDAwMDLSTc1L16vKLFCqBQA3MeKcWAAAAA==
     headers:
       Access-Control-Allow-Headers:
       - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
@@ -1828,9 +1819,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 01 Mar 2024 02:41:33 GMT
+      - Tue, 05 Mar 2024 02:41:14 GMT
       Expires:
-      - Fri, 01 Mar 2024 03:11:33 GMT
+      - Tue, 05 Mar 2024 03:11:14 GMT
       Pragma:
       - no-cache
       Server:
@@ -1852,6 +1843,9 @@ interactions:
       - HIT
       X-XSS-Protection:
       - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
     status:
       code: 200
       message: ''
@@ -2115,11 +2109,11 @@ interactions:
       Content-Type:
       - application/zip
       Date:
-      - Fri, 01 Mar 2024 02:41:33 GMT
+      - Tue, 05 Mar 2024 02:41:14 GMT
       ETag:
       - '"308f-5f8092356d6d0"'
       Expires:
-      - Fri, 01 Mar 2024 02:43:33 GMT
+      - Tue, 05 Mar 2024 02:43:14 GMT
       Last-Modified:
       - Wed, 29 Mar 2023 12:30:14 GMT
       Pragma:
