@@ -1,0 +1,125 @@
+interactions:
+- request:
+    body: '[{"productId": "27100022"}]'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '27'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.31.0
+    method: POST
+    uri: https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Access-Control-Allow-Headers:
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - DNT,X-Custom-Header,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range
+      Cache-Control:
+      - max-age=1800
+      - public
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - 'default-src ''self'' ''unsafe-inline'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net
+        *.omtrdc.net *.everesttech.net blob:; style-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca *.statcan.ca https://fonts.googleapis.com blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca *.googletagmanager.com
+        *.adobedtm.com *.jsdelivr.net *.mathjax.org cdnjs.cloudflare.com blob:; connect-src
+        ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        https://api.mapbox.com/ https://events.mapbox.com/ https://energy-information.canada.ca;
+        img-src ''self'' *.statcan.gc.ca *.statcan.ca *.stc.ca  *.demdex.net *.omtrdc.net
+        *.everesttech.net *.jsdelivr.net data: blob:; font-src ''self'' *.statcan.gc.ca
+        *.statcan.ca https://fonts.gstatic.com; worker-src ''self'' ''unsafe-inline''
+        ''unsafe-eval'' *.statcan.gc.ca *.statcan.ca blob:; frame-src ''self'' ''unsafe-inline''
+        *.statcan.gc.ca *.statcan.ca *.stc.ca https://dv-vd.shinyapps.io *.demdex.net
+        blob:;'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 26 Jun 2024 18:55:00 GMT
+      Expires:
+      - Wed, 26 Jun 2024 19:25:00 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.6
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      - accept-encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      - SAMEORIGIN
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - 1; mode=block
+      vary:
+      - Accept-Encoding
+      - accept-encoding
+    status:
+      code: 200
+      message: ''
+version: 1
