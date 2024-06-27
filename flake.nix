@@ -20,7 +20,7 @@
         pythonVersions = {
           python310 = pkgs.python310;
           python311 = pkgs.python311;
-          default = pkgs.python310;
+          default = pkgs.python311;
         };
         makePoetryEnvPyVer = pythonPackage:
           mkPoetryEnv {
