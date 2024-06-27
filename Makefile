@@ -2,7 +2,7 @@ test:
 	nix develop . -c pre-commit run --all-files --show-diff-on-failure
 	nix develop .#python310 -c coverage run -m pytest
 	nix develop .#python311 -c coverage run -m pytest
-	nix develop coverage report
+	nix develop . -c coverage report
 safety:
 	nix develop . -c safety check --file=poetry.lock --full-report
 docs:
