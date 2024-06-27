@@ -3,19 +3,9 @@ on: [pull_request]
 jobs:
   tests:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ['3.11', '3.10']
-    name: Python ${{ matrix.python-version }}
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-        architecture: x64
-    - run: pip install nox==2023.4.22
-    - run: pip install nox-poetry==1.0.3
-    - run: pip install poetry==1.7.1
-    - run: nox --python ${{ matrix.python-version }}
+    - uses: cachix/install-nix-action@v27
+    - run: make test
       env:
         CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
