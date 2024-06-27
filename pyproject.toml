@@ -17,6 +17,7 @@ h5py = ">=2.10"
 tables = ">=3.6"
 tqdm = ">=4.48"
 pandas = ">=1.1"
+numpy = "<2"
 importlib-metadata = ">=6.0.0"
 
 [tool.poetry.group.dev.dependencies]
