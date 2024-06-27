@@ -12,7 +12,7 @@ keywords = ["statistics", "Canada", "data", "API"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
-requests = ">=2.20"
+requests = "*"
 h5py = "*"
 tables = "*"
 tqdm = "*"
