@@ -1,5 +1,6 @@
 test:
 	nix develop . -c pre-commit run --all-files --show-diff-on-failure
+	nix develop . -c ruff check .
 	nix develop .#python310 -c coverage run -m pytest
 	nix develop .#python311 -c coverage run -m pytest
 	nix develop . -c coverage report
