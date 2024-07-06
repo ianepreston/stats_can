@@ -11,7 +11,6 @@ import pathlib
 import shutil
 
 import pandas as pd
-from pandas.testing import assert_frame_equal
 import pytest
 
 import stats_can
