@@ -29,7 +29,6 @@ import requests
 
 from stats_can.helpers import check_status, chunk_vectors, parse_tables
 
-
 SC_URL = "https://www150.statcan.gc.ca/t1/wds/rest/"
 
 
@@ -45,8 +44,11 @@ def get_changed_series_list():
     """
     url = SC_URL + "getChangedSeriesList"
     result = requests.get(url)
-    result = check_status(result)
-    return result["object"]
+    try:
+        result = check_status(result)
+        return result["object"]
+    except requests.exceptions.HTTPError:
+        return list()
 
 
 def get_changed_cube_list(date=None):
