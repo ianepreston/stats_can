@@ -25,7 +25,12 @@
         makePoetryEnvPyVer = pythonPackage:
           mkPoetryEnv {
             projectDir = self;
-            editablePackageSources = { my-app = ./src; };
+            editablePackageSources = {
+              stats_can = if builtins.getEnv "PROJECT_DIR" == "" then
+                ./src
+              else
+                "${builtins.getEnv "PROJECT_DIR"}/src";
+            };
             python = pythonPackage;
             preferWheels = true;
             groups = [ "dev" ];

@@ -6,15 +6,14 @@ Refactor a lot of this setup and teardown into its own setup functions
 """
 
 import datetime as dt
-from functools import partial
 import pathlib
 import shutil
+from functools import partial
 
 import pandas as pd
 import pytest
 
 import stats_can
-
 
 vs = ["v74804", "v41692457"]
 v = "41692452"
@@ -58,7 +57,6 @@ def class_fixture(class_folder):
     return stats_can.StatsCan(data_folder=class_folder)
 
 
-@pytest.mark.vcr()
 def test_class_tables_for_vectors(class_fixture):
     """Make sure we find vectors in the right tables.
 
@@ -75,7 +73,6 @@ def test_class_tables_for_vectors(class_fixture):
     }
 
 
-@pytest.mark.vcr()
 def test_class_update_tables(class_fixture):
     """Should always be empty since we're loading this data fresh.
 
@@ -88,7 +85,6 @@ def test_class_update_tables(class_fixture):
     assert class_fixture.update_tables() == []
 
 
-@pytest.mark.vcr()
 def test_class_table_list_download_delete(class_fixture):
     """Test loading and deleting tables.
 
@@ -122,7 +118,6 @@ def test_class_table_list_download_delete(class_fixture):
         ),
     ],
 )
-@pytest.mark.vcr()
 def test_vectors_mapping(mapping_func, expected):
     """Test mapping from vectors methods.
 
@@ -137,7 +132,6 @@ def test_vectors_mapping(mapping_func, expected):
     assert tv1 == expected, mapping_func.__name__
 
 
-@pytest.mark.vcr()
 def test_vectors_to_df_by_release():
     """Test one vector to df method."""
     r = stats_can.sc.vectors_to_df(
@@ -150,7 +144,6 @@ def test_vectors_to_df_by_release():
     assert isinstance(r.index, pd.DatetimeIndex)
 
 
-@pytest.mark.vcr()
 def test_empty_release():
     """Test requesting data from a period with no releases."""
     vec = "v41692457"
@@ -162,7 +155,6 @@ def test_empty_release():
     assert len(r) == 0
 
 
-@pytest.mark.vcr()
 def test_vectors_to_df_by_periods():
     """Test the other vector to df method."""
     r = stats_can.sc.vectors_to_df(vs, 5)
@@ -173,7 +165,6 @@ def test_vectors_to_df_by_periods():
     assert isinstance(r.index, pd.DatetimeIndex)
 
 
-@pytest.mark.vcr()
 def test_download_table(tmpdir):
     """Test downloading a table.
 
@@ -200,7 +191,6 @@ def test_download_table(tmpdir):
     "update_func",
     [stats_can.sc.zip_update_tables, partial(stats_can.sc.update_tables, h5file=None)],
 )
-@pytest.mark.vcr()
 def test_zip_update_tables(tmpdir, update_func):
     """Test updating a table from a zip file using a different function signature.
 
@@ -390,7 +380,6 @@ def test_metadata_from_h5_no_path(tmpdir):
         ),
     ],
 )
-@pytest.mark.vcr()
 def test_missing_data_from_h5(tmpdir, capsys, sc_h5_func, table_name, expected):
     """Test loading missing data from a h5 file, make sure it fails.
 
@@ -440,7 +429,6 @@ def test_missing_data_from_h5(tmpdir, capsys, sc_h5_func, table_name, expected):
         ),
     ],
 )
-@pytest.mark.vcr()
 def test_h5_update(tmpdir, test_name, sc_func, expected):
     """Download data in a h5 file.
 
@@ -468,7 +456,6 @@ def test_h5_update(tmpdir, test_name, sc_func, expected):
 @pytest.mark.parametrize(
     "update_func", [stats_can.sc.h5_update_tables, stats_can.sc.update_tables]
 )
-@pytest.mark.vcr()
 def test_update_tables_no_path(tmpdir, update_func):
     """Download updated versions of a subset of tables in a h5 file.
 
@@ -537,7 +524,6 @@ def test_vectors_to_df_local_defaults(tmpdir):
     assert df.shape == (454, 2)
 
 
-@pytest.mark.vcr()
 def test_vectors_to_df_local_missing_tables_no_h5(tmpdir):
     """Load certain vectors to a dataframe.
 

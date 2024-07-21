@@ -2,8 +2,6 @@
 
 import datetime as dt
 
-import pytest
-
 import stats_can
 
 vs = ["v74804", "v41692457"]
@@ -12,7 +10,6 @@ t = "271-000-22-01"
 ts = ["271-000-22-01", "18100204"]
 
 
-@pytest.mark.vcr()
 def test_gcsl():
     """Test get changed series list."""
     r = stats_can.get_changed_series_list()
@@ -27,7 +24,6 @@ def test_gcsl():
         ]
 
 
-@pytest.mark.vcr()
 def test_gccl():
     """Test get changed cube list."""
     r = stats_can.get_changed_cube_list(dt.date(2023, 9, 5))
@@ -36,7 +32,6 @@ def test_gccl():
         assert list(r[0].keys()) == ["responseStatusCode", "productId", "releaseTime"]
 
 
-@pytest.mark.vcr()
 def test_gcmd():
     """Test get cube metadata."""
     r = stats_can.get_cube_metadata(t)
@@ -65,13 +60,11 @@ def test_gcmd():
     ]
 
 
-@pytest.mark.vcr()
 def test_gsifcpc():
     """Test get series info from cube pid coord."""
     pass
 
 
-@pytest.mark.vcr()
 def test_gsifv():
     """Test get series info from vector."""
     r = stats_can.get_series_info_from_vector(v)
@@ -91,25 +84,21 @@ def test_gsifv():
     ]
 
 
-@pytest.mark.vcr()
 def test_gcsdfcpc():
     """Test get changed series data from cube pid coord."""
     pass
 
 
-@pytest.mark.vcr()
 def test_gcsdfv():
     """Test get get changed series data from vector."""
     pass
 
 
-@pytest.mark.vcr()
 def test_gdfcpcalnp():
     """Test get data from cube pid coord and latest n periods."""
     pass
 
 
-@pytest.mark.vcr()
 def test_gdfvalnp():
     """Test get data from vectors and latest n periods."""
     r = stats_can.scwds.get_data_from_vectors_and_latest_n_periods(vs, 5)
@@ -132,7 +121,6 @@ def test_gdfvalnp():
     ]
 
 
-@pytest.mark.vcr()
 def test_gbvdbr():
     """Test get bulk vector data by range."""
     r = stats_can.scwds.get_bulk_vector_data_by_range(
@@ -157,7 +145,6 @@ def test_gbvdbr():
     ]
 
 
-@pytest.mark.vcr()
 def test_gftd():
     """Test get full table download."""
     rc = stats_can.scwds.get_full_table_download(t, csv=True)
@@ -166,7 +153,6 @@ def test_gftd():
     assert rs == "https://www150.statcan.gc.ca/n1/tbl/sdmx/27100022-SDMX.zip"
 
 
-@pytest.mark.vcr()
 def test_gcs():
     """Test get code list."""
     r = stats_can.scwds.get_code_sets()
