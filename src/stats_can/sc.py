@@ -11,6 +11,7 @@ within a date range
 import json
 import pathlib
 import zipfile
+from warnings import warn
 
 import h5py
 import numpy as np
@@ -18,14 +19,15 @@ import pandas as pd
 import requests
 from tqdm import tqdm
 
-from stats_can.helpers import parse_tables
-from stats_can.helpers import parse_vectors
-from stats_can.scwds import get_bulk_vector_data_by_range
-from stats_can.scwds import get_code_sets
-from stats_can.scwds import get_cube_metadata
-from stats_can.scwds import get_data_from_vectors_and_latest_n_periods
-from stats_can.scwds import get_full_table_download
-from stats_can.scwds import get_series_info_from_vector
+from stats_can.helpers import parse_tables, parse_vectors
+from stats_can.scwds import (
+    get_bulk_vector_data_by_range,
+    get_code_sets,
+    get_cube_metadata,
+    get_data_from_vectors_and_latest_n_periods,
+    get_full_table_download,
+    get_series_info_from_vector,
+)
 
 
 def get_tables_for_vectors(vectors):
@@ -271,6 +273,11 @@ def tables_to_h5(tables, h5file="stats_can.h5", path=None):
     tables: list
         list of tables loaded into the file
     """
+    warn(
+        "This function will be deprecated in the v3 release. Please see the docs for details.",
+        FutureWarning,
+    )
+
     path = pathlib.Path(path) if path else pathlib.Path()
     h5file = path / h5file
     tables = parse_tables(tables)
@@ -316,6 +323,10 @@ def table_from_h5(table, h5file="stats_can.h5", path=None):
     df: pd.DataFrame
         table in dataframe format
     """
+    warn(
+        "This function will be deprecated in the v3 release. Please see the docs for details.",
+        FutureWarning,
+    )
     path = pathlib.Path(path) if path else pathlib.Path()
     table = "table_" + parse_tables(table)[0]
     h5 = path / h5file
@@ -346,6 +357,10 @@ def metadata_from_h5(tables, h5file="stats_can.h5", path=None):
     -------
     list of local table metadata
     """
+    warn(
+        "This function will be deprecated in the v3 release. Please see the docs for details.",
+        FutureWarning,
+    )
     path = pathlib.Path(path) if path else pathlib.Path()
     h5file = path / h5file
     tables = ["json_" + tbl for tbl in parse_tables(tables)]
@@ -378,6 +393,10 @@ def list_h5_tables(path=None, h5file="stats_can.h5"):
     jsons: list
         list of available tables json data
     """
+    warn(
+        "This function will be deprecated in the v3 release. Please see the docs for details.",
+        FutureWarning,
+    )
     keys = h5_included_keys(h5file=h5file, path=path)
     tables = parse_tables([k for k in keys if k.startswith("json_")])
     return metadata_from_h5(tables, h5file=h5file, path=path)
@@ -400,6 +419,10 @@ def list_downloaded_tables(path=None, h5file="stats_can.h5"):
     jsons: list
         list of available tables json data
     """
+    warn(
+        "This function will be deprecated in the v3 release. Please see the docs for details.",
+        FutureWarning,
+    )
     if h5file:
         jsons = list_h5_tables(path=path, h5file=h5file)
     else:
@@ -425,6 +448,10 @@ def h5_update_tables(h5file="stats_can.h5", path=None, tables=None):
     update_table_list: [str]
         List of tables that were updated
     """
+    warn(
+        "This function will be deprecated in the v3 release. Please see the docs for details.",
+        FutureWarning,
+    )
     if tables:
         local_jsons = metadata_from_h5(tables, h5file=h5file, path=path)
     else:
@@ -470,6 +497,10 @@ def update_tables(path=None, h5file="stats_can.h5", tables=None, csv=True):
     update_table_list: list of str
         list of updated tables
     """
+    warn(
+        "This function will be deprecated in the v3 release. Please see the docs for details.",
+        FutureWarning,
+    )
     if h5file:
         return h5_update_tables(h5file=h5file, path=path, tables=tables)
     else:
@@ -491,6 +522,10 @@ def h5_included_keys(h5file="stats_can.h5", path=None):
     keys: list
         list of keys in the hdf5 file
     """
+    warn(
+        "This function will be deprecated in the v3 release. Please see the docs for details.",
+        FutureWarning,
+    )
     h5file = pathlib.Path(path) / h5file if path else pathlib.Path(h5file)
     with h5py.File(h5file, "r") as f:
         keys = [key for key in f.keys()]
@@ -516,6 +551,10 @@ def delete_tables(tables, path=None, h5file="stats_can.h5", csv=True):
     to_delete: list
         list of deleted tables
     """
+    warn(
+        "This function will be deprecated in the v3 release. Please see the docs for details.",
+        FutureWarning,
+    )
     path = pathlib.Path(path) if path else pathlib.Path()
     clean_tables = parse_tables(tables)
     available_tables_jsons = list_downloaded_tables(path=path, h5file=h5file)
@@ -566,6 +605,10 @@ def table_to_df(table, path=None, h5file="stats_can.h5"):
     df: pd.DataFrame
         table in dataframe format
     """
+    warn(
+        "This function will be deprecated in the v3 release. Please see the docs for details.",
+        FutureWarning,
+    )
     if h5file:
         df = table_from_h5(table=table, h5file=h5file, path=path)
     else:
@@ -639,6 +682,10 @@ def vectors_to_df_local(vectors, path=None, start_date=None, h5file="stats_can.h
     final_df: pandas.DataFrame
         DataFrame of the vectors
     """
+    warn(
+        "This function will be deprecated in the v3 release. Please see the docs for details.",
+        FutureWarning,
+    )
     # Preserve an initial copy of the list for ordering, parsed and then
     # converted to string for consistency in naming
     vectors_ordered = parse_vectors(vectors)

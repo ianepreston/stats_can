@@ -1,9 +1,9 @@
 """Define a class wrapper for Stats Can functions."""
 
 from pathlib import Path
+from warnings import warn
 
-from stats_can import sc
-from stats_can import scwds
+from stats_can import sc, scwds
 
 
 class StatsCan:
@@ -21,6 +21,10 @@ class StatsCan:
             self.data_folder = Path.cwd()
         else:
             self.data_folder = Path(data_folder)  # Get a path object even if passed str
+        warn(
+            "This class will be deprecated in upcoming v3 release. Please see the docs for details",
+            FutureWarning,
+        )
 
     @property
     def downloaded_tables(self):
