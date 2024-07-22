@@ -1,3 +1,4 @@
+.PHONY: docs
 test:
 	nix develop . -c pre-commit run --all-files --show-diff-on-failure
 	nix develop . -c ruff check .
