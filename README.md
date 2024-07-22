@@ -2,7 +2,6 @@
 
 [![Tests](https://github.com/ianepreston/stats_can/workflows/Tests/badge.svg)](https://github.com/ianepreston/stats_can/actions?workflow=Tests)
 [![Documentation Status](https://readthedocs.org/projects/stats-can/badge/?version=latest)](https://stats-can.readthedocs.io/en/latest/?badge=latest)
-[![codecov](https://codecov.io/gh/ianepreston/stats_can/branch/master/graph/badge.svg)](https://codecov.io/gh/ianepreston/stats_can)
 [![PyPI version](https://badge.fury.io/py/stats-can.svg)](https://badge.fury.io/py/stats-can)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/stats_can/badges/version.svg)](https://anaconda.org/conda-forge/stats_can)
 
