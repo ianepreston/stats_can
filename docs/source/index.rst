@@ -21,6 +21,31 @@ Or:
 The code is also available on
 `github <https://github.com/ianepreston/stats_can>`_,
 
+Upcoming Change Warning
+=======================
+
+In the upcoming v3 release of this library I will be removing the StatsCan
+object, along with all functionality that relates to working with tables in hdfs.
+
+When I first developed this library I wanted it to be a one stop shop for managing
+StatsCan data. As time has gone on I've realized that's expanded the scope of this
+library beyond its core function. Reliance on HDFS has led to compatibility issues
+for some users, and unnecessarily increased the size of the library.
+
+Pandas has built in functionality to export dataframes to a number of persistent formats,
+so tightly coupling this library to HDFS is quite limiting. In the future I'd like
+to add (optional) capabilities to read tables into other common DataFrame structures
+like polars or spark, and having to make all those interoperate with HDFS would be
+limiting and confusing.
+
+If you rely on the HDFS functionality to persist StatsCan data please do not
+update to version 3, at least not before refactoring your code to remove that
+requirement. I won't release version 3 before 2025 to give people time
+to update to this current release and get the warnings I'm putting
+in the library for deprecated functions.
+
+If you want to check out the new version in advance you can install from the
+v3 branch in the project repo.
 
 Quickstart
 ==========
