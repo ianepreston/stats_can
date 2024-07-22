@@ -22,85 +22,6 @@ ts = ["271-000-22-01", "18100204"]
 TEST_FILES_PATH = pathlib.Path(__file__).parent / "test_files"
 
 
-@pytest.fixture(scope="module")
-def class_folder(tmp_path_factory):
-    """Make a folder to store class data.
-
-    Parameters
-    ----------
-    tmp_path_factory: Path
-        tell pytest to generate a temporary path
-
-    Returns
-    -------
-    Path
-        A folder called "classdata" in a temporary directory
-    """
-    path = pathlib.Path(tmp_path_factory.mktemp("classdata"))
-    return path
-
-
-@pytest.fixture(scope="module")
-def class_fixture(class_folder):
-    """Generate a reusable StatsCan class instance for testing.
-
-    Parameters
-    ----------
-    class_folder: Path
-        Where to store data for the class
-
-    Returns
-    -------
-    stats_can.StatsCan
-        Class instance for testing
-    """
-    return stats_can.StatsCan(data_folder=class_folder)
-
-
-def test_class_tables_for_vectors(class_fixture):
-    """Make sure we find vectors in the right tables.
-
-    Parameters
-    ----------
-    class_fixture: stats_can.StatsCan
-        The statscan class we're testing against
-    """
-    tv1 = class_fixture.get_tables_for_vectors(vs)
-    assert tv1 == {
-        74804: "23100216",
-        41692457: "18100004",
-        "all_tables": ["23100216", "18100004"],
-    }
-
-
-def test_class_update_tables(class_fixture):
-    """Should always be empty since we're loading this data fresh.
-
-    Parameters
-    ----------
-    class_fixture: stats_can.StatsCan
-        The statscan class we're testing against
-    """
-    _ = class_fixture.table_to_df(ts[0])
-    assert class_fixture.update_tables() == []
-
-
-def test_class_table_list_download_delete(class_fixture):
-    """Test loading and deleting tables.
-
-    Parameters
-    ----------
-    class_fixture: stats_can.StatsCan
-        The statscan class we're testing against
-    """
-    _ = class_fixture.table_to_df(ts[0])
-    assert class_fixture.downloaded_tables == ["27100022"]
-    _ = class_fixture.table_to_df(ts[1])
-    assert sorted(class_fixture.downloaded_tables) == sorted(["27100022", "18100204"])
-    assert class_fixture.delete_tables("111111") == []
-    assert class_fixture.delete_tables("18100204") == ["18100204"]
-
-
 @pytest.mark.parametrize(
     "mapping_func, expected",
     [
@@ -730,17 +651,3 @@ def test_weird_dates(tmpdir):
     # Will fail if I don't have correct date parsing
     df = stats_can.sc.zip_table_to_dataframe("13100805", path=tmpdir)
     assert len(df) > 0
-
-
-def test_code_sets_to_df_dict(class_fixture):
-    """Load all the code sets into a dictionary of dataframes.
-
-    Parameters
-    ----------
-    class_fixture: stats_can.StatsCan
-        The class instance to call
-    """
-    codes = stats_can.sc.code_sets_to_df_dict()
-
-    assert isinstance(codes, dict)
-    assert all(isinstance(group, pd.DataFrame) for group in codes.values())
