@@ -212,6 +212,40 @@ def get_bulk_vector_data_by_range(vectors, start_release_date, end_release_date)
     return final_list
 
 
+def get_bulk_vector_data_by_reference_period_range(
+    vectors, start_ref_date, end_ref_date
+):
+    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5a
+
+    Parameters
+    ----------
+    vectors: str or list of str
+        vector numbers to get info for
+    start_ref_date: datetime.date
+        start reference period date for the data
+    end_ref_date: datetime.date
+        end reference period date for the data
+
+    Returns
+    -------
+    List of dicts containing data for each vector
+    """
+    url = SC_URL + "getDataFromVectorByReferencePeriodRange"
+    # start_ref_date = str(start_ref_date)
+    # end_ref_date = str(end_ref_date)
+    chunks = chunk_vectors(vectors)
+    final_list = []
+    for vector_ids in chunks:
+        # I know the rest are .post, they changed it just for this one
+        v_string = ",".join(f"{v}" for v in vector_ids)
+        vector_param = f"vectorIds={v_string}"
+        full_url = f"{url}?{vector_param}&startRefPeriod={start_ref_date}&endReferencePeriod={end_ref_date}"
+        result = requests.get(full_url)
+        result = check_status(result)
+        final_list += [r["object"] for r in result]
+    return final_list
+
+
 def get_full_table_download(table, csv=True):
     """Take a table name and return a url to a zipped file of that table.
 

@@ -145,6 +145,30 @@ def test_gbvdbr():
     ]
 
 
+def test_gbvdbrpr():
+    """Test get bulk vector data by reference period range."""
+    r = stats_can.scwds.get_bulk_vector_data_by_reference_period_range(
+        vs, dt.date(2023, 1, 1), dt.date(2023, 12, 1)
+    )
+    assert len(r) == len(vs)
+    r0v = r[0]["vectorDataPoint"]
+    assert len(r0v) == 12
+    assert list(r0v[0].keys()) == [
+        "refPer",
+        "refPer2",
+        "refPerRaw",
+        "refPerRaw2",
+        "value",
+        "decimals",
+        "scalarFactorCode",
+        "symbolCode",
+        "statusCode",
+        "securityLevelCode",
+        "releaseTime",
+        "frequencyCode",
+    ]
+
+
 def test_gftd():
     """Test get full table download."""
     rc = stats_can.scwds.get_full_table_download(t, csv=True)
