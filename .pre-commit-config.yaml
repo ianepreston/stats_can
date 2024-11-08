@@ -7,13 +7,8 @@ repos:
     -   id: trailing-whitespace
 -   repo: local
     hooks:
-    -   id: black
-        name: black
-        entry: black
+    -   id: ruff
+        name: ruff
+        entry: ruff check .
         language: system
         types: [python]
-    # -   id: flake8
-    #     name: flake8
-    #     entry: flake8
-    #     language: system
-    #     types: [python]
