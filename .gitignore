@@ -125,3 +125,4 @@ dmypy.json
 
 #devenv
 .devenv
+.direnv
