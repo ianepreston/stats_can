@@ -49,77 +49,13 @@ v3 branch in the project repo.
 
 Quickstart
 ==========
-After installing the stats_can package, all of the core functionality
-is available by instantiating a StatsCan object:
 
-::
+Refer to the module index below for a list of the modules and the methods they contain.
 
-    from stats_can import StatsCan
-    sc = StatsCan()
+* :ref:`modindex`
 
-Without any arguments the StatsCan object will look for a file in the current
-working directory named "stats_can.h5". If it doesn't exist it will create one
-when it is first asked to load a table. You can also pass in a path in order
-to specify the location of the file. This is useful if you or a team want persistent
-access to certain tables.
-
-For example:
-::
-
-    sc = StatsCan(data_folder="~/stats_can_data")
-
-The most common use case for stats_can is simply to read in a table
-from Statistics Canada to a Pandas DataFrame. For example, table 271-000-22-01
-is "Personnel engaged in research and development by performing sector and occupational category"
-to read in that table (downloading it first if it's the first time accessing it) run:
-
-::
-
-    df = sc.table_to_df("271-000-22-01")
-
-If there are only a couple specific series of interest you can also
-read them into a dataframe (whether they're in different source tables or not) as follows:
-
-::
-
-    df = sc.vectors_to_df(["v74804", "v41692457"])
-
-The above command takes an optional start_date argument which will return
-a dataframe beginning with a reference date no earlier than the provided start date.
-By default it will return all available history for the V#s provided.
-
-You can check which tables you have stored locally by running
-
-::
-
-    sc.downloaded_tables
-
-Which will return a list of table numbers.
-
-If a table is locally stored, it will not automatically update if
-Statistics Canada releases an update. To update locally stored tables
-run:
-
-::
-
-    sc.update_tables()
-
-You can optionally pass in a list of tables if you only want a subset of the
-locally stored tables to be updated.
-
-Finally, if you want to delete any tables you've loaded you can run:
-
-::
-
-    sc.delete_tables("271-000-22-01")
-
-StatsCan class documentation
-============================
-Core functions outlined in the Quickstart along with some extra
-functionality are described here:
-
-.. autoclass:: stats_can.api_class.StatsCan
-    :members:
+Generally if you want to call any of the endpoints of the service you can find a corresponding function
+in the scwds module, and higher level functions to read tables or vectors into a DataFrame are in the sc module
 
 Contributing
 ============
@@ -127,10 +63,11 @@ Contributing
 Contributions to this project are welcome. Fork the repository from
 `github <https://github.com/ianepreston/stats_can>`_,
 
-You'll need a python environment with poetry and nox installed. A good guide for setting
+You'll need a python environment with poetry installed. A good guide for setting
 up an environment and project (that I used for this library) is `hypermodern python <https://cjolowicz.github.io/posts/hypermodern-python-01-setup/>`_.
 
-After making any changes you can run nox to make sure testing and linting went ok, and then you should be good to submit a PR.
+I've configured the project to use nix for environment creation. If you use nix then the makefile in the root of the project will let you create
+development environments and run tests. However you like to configure a poetry project should work though.
 
 I'd also welcome contributions to the docs, or anything else that would make this tool better for you or others.
 

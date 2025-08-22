@@ -57,6 +57,7 @@ def test_gcmd():
         "footnote",
         "correctionFootnote",
         "correction",
+        "issueDate",
     ]
 
 
