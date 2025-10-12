@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.10, <4.0"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -1205,8 +1205,8 @@ wheels = [
 ]
 
 [[package]]
-name = "stats-can"
-version = "3.0.0"
+name = "stats-can-ext"
+version = "0.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "numpy" },

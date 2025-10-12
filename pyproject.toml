@@ -1,8 +1,8 @@
 [project]
-name = "stats_can"
-version = "3.0.0"
-description = "Read StatsCan data into python, mostly pandas dataframes"
-authors = [{ name = "Ian Preston" }]
+name = "stats_can_ext"
+version = "0.0.1"
+description = "Interface ontop of StatsCan"
+authors = [{ name = "Eric Schles" }]
 requires-python = ">=3.10,<4.0"
 readme = "README.md"
 license = "GPL-3.0-or-later"
@@ -10,8 +10,8 @@ keywords = ["statistics", "Canada", "data", "API"]
 dependencies = ["requests", "tqdm", "pandas", "numpy"]
 
 [project.urls]
-Homepage = "https://github.com/ianepreston/stats_can"
-Repository = "https://github.com/ianepreston/stats_can"
+Homepage = "https://github.com/EricSchles/stats_can-ext"
+Repository = "https://github.com/EricSchles/stats_can-ext"
 Documentation = "https://stats-can.readthedocs.io"
 
 [dependency-groups]
