@@ -10,6 +10,6 @@ build:
     pre_install:
       - python -m pip install --upgrade pip
       - python -m pip install uv
-      - uv export --group docs --format requirements.txt --frozen --no-hashes --output /tmp/requirements-docs.txt
+      - uv export --group docs --format requirements.txt --frozen --no-hashes --output-file /tmp/requirements-docs.txt
       - python -m pip install -r /tmp/requirements-docs.txt
 formats: all
