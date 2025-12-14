@@ -1,12 +1,12 @@
 version: 2
-sphinx:
-  configuration: docs/source/conf.py
+mkdocs:
+  configuration: mkdocs.yml
+  fail_on_warning: false
 build:
   os: ubuntu-lts-latest
   tools:
-    python: "3.11"
+    python: "3.13"
+  jobs:
+    pre_install:
+      - uv sync --group docs
 formats: all
-python:
-  install:
-    - requirements: docs/requirements.txt
-    - path: .
