@@ -22,12 +22,14 @@ dev = [
   "coverage[toml]>=7.2",
   "pytest-cov>=4.0",
   "codecov>=2.1",
-  "sphinx>=6.1",
   "darglint>=1.7",
-  "xdoctest>=1.1",
-  "sphinx-autodoc-typehints>=1.23",
-  "sphinx_rtd_theme>=1.2",
   "safety>=3.2.4,<4",
+]
+docs = [
+  "markdown-include>=0.8.1",
+  "mkdocs>=1.6.1",
+  "mkdocs-material>=9.7.0",
+  "mkdocstrings[python]>=1.0.0",
 ]
 
 [tool.coverage.paths]

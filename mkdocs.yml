@@ -1,0 +1,16 @@
+site_name: StatsCan
+theme:
+  name: material
+plugins:
+  - mkdocstrings:
+      default_handler: python
+markdown_extensions:
+  - markdown_include.include:
+      base_path: .
+  - admonition
+  - fenced_code
+nav:
+  - Home: index.md
+  - API:
+      - scwds: api/scwds.md
+      - sc: api/sc.md
