@@ -1,6 +1,6 @@
 site_name: StatsCan
 theme:
-  name: material
+  name: mkdocs
 plugins:
   - mkdocstrings:
       default_handler: python
