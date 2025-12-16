@@ -24,6 +24,8 @@ dev = [
   "codecov>=2.1",
   "darglint>=1.7",
   "safety>=3.2.4,<4",
+  "basedpyright>=1.36.1",
+  "ipython>=8.37.0",
 ]
 docs = [
   "markdown-include>=0.8.1",
