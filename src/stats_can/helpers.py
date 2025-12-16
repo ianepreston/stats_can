@@ -1,45 +1,41 @@
 """Helper functions that shouldn't need to be directly called by an end user."""
 
 import re
+from typing import TypedDict
+from collections.abc import Sequence, Mapping
+from requests import Response
+
+JSONScalar = str | int | float | bool | None
+JSONValue = JSONScalar | Mapping[str, "JSONValue"] | Sequence["JSONValue"]
 
 
-def _check_one_status(result):
-    """Do the check on an individual result.
-
-    # noqa: DAR002
-    Parameters
-    ----------
-    result: list of dicts, or dict
-    """
-    if result["status"] != "SUCCESS":
-        raise RuntimeError(str(result["object"]))
+class ResponseJson(TypedDict):
+    status: str
+    object: dict[str, JSONValue]
 
 
-def check_status(results):
+def check_status(result: Response) -> ResponseJson:
     """Make sure list of results succeeded.
 
     Parameters
     ----------
-    results : list of dicts, or dict
-        JSON from an API call parsed as a dictionary
+    results : Response
+        API response from StatsCan
 
     Returns
     -------
-    results: list of dicts, or dict
+    ResponseJson
         JSON from an API call parsed as a dictionary
     """
-    results.raise_for_status()
-    results = results.json()
+    result.raise_for_status()
+    result_json: ResponseJson = result.json()
 
-    if isinstance(results, list):
-        for result in results:
-            _check_one_status(result)
-    else:
-        _check_one_status(results)
-    return results
+    if result_json["status"] != "SUCCESS":
+        raise RuntimeError(str(result_json["object"]))
+    return result_json
 
 
-def _parse_table(table):
+def _parse_table(table: str | int) -> str:
     """Clean up one table string.
 
     Parameters
@@ -49,10 +45,10 @@ def _parse_table(table):
 
     Returns
     -------
-    parse_table: str
+    str
         A single table stripped of all formatting
     """
-    parsed_table = re.sub(r"\D", "", table)[:8]
+    parsed_table: str = re.sub(r"\D", "", table)[:8]
     return parsed_table
 
 

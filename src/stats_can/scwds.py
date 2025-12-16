@@ -24,15 +24,34 @@ Missing api implementations:
 """
 
 import datetime as dt
+from typing import TypedDict, Mapping, Sequence
 
 import requests
+from requests import Response
 
 from stats_can.helpers import check_status, chunk_vectors, parse_tables
 
 SC_URL = "https://www150.statcan.gc.ca/t1/wds/rest/"
 
 
-def get_changed_series_list():
+JSONScalar = str | int | float | bool | None
+JSONValue = JSONScalar | Mapping[str, "JSONValue"] | Sequence["JSONValue"]
+
+
+class ChangedSeriesList(TypedDict):
+    responseStatusCode: int
+    vectorId: int
+    productId: int
+    coordinate: str
+    releaseTime: str
+
+
+class ResponseJson(TypedDict):
+    status: str
+    object: dict[str, JSONValue]
+
+
+def get_changed_series_list() -> list[ChangedSeriesList]:
     """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a10-1
 
     Gets all series that were updated today.
@@ -43,9 +62,9 @@ def get_changed_series_list():
         one for each vector and when it was released
     """
     url = SC_URL + "getChangedSeriesList"
-    result = requests.get(url)
+    result: Response = requests.get(url)
     try:
-        result = check_status(result)
+        result: Response = check_status(result)
         return result["object"]
     except requests.exceptions.HTTPError:
         return list()
