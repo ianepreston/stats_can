@@ -14,7 +14,19 @@ class ResponseJson(TypedDict):
     object: dict[str, JSONValue]
 
 
-def check_status(result: Response) -> ResponseJson:
+def _check_one_status(result: ResponseJson) -> None:
+    """Do the check on an individual result.
+
+    # noqa: DAR002
+    Parameters
+    ----------
+    result: list of dicts, or dict
+    """
+    if result["status"] != "SUCCESS":
+        raise RuntimeError(str(result["object"]))
+
+
+def check_status(results: Response) -> ResponseJson | list[ResponseJson]:
     """Make sure list of results succeeded.
 
     Parameters
@@ -27,12 +39,15 @@ def check_status(result: Response) -> ResponseJson:
     ResponseJson
         JSON from an API call parsed as a dictionary
     """
-    result.raise_for_status()
-    result_json: ResponseJson = result.json()
+    results.raise_for_status()
+    results_json: list[ResponseJson] | ResponseJson = results.json()
 
-    if result_json["status"] != "SUCCESS":
-        raise RuntimeError(str(result_json["object"]))
-    return result_json
+    if isinstance(results_json, list):
+        for result in results_json:
+            _check_one_status(result)
+    else:
+        _check_one_status(results_json)
+    return results_json
 
 
 def _parse_table(table: str | int) -> str:
