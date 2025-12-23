@@ -67,7 +67,7 @@ def _parse_table(table: str | int) -> str:
     return parsed_table
 
 
-def parse_tables(tables):
+def parse_tables(tables: str | list[str]) -> list[str]:
     """Parse string of table or tables to numeric.
 
     Strip out hyphens or other non-numeric characters from a list of tables
@@ -92,7 +92,7 @@ def parse_tables(tables):
     return [_parse_table(t) for t in tables]
 
 
-def _parse_vector(vector):
+def _parse_vector(vector: int | str) -> int:
     """Strip string to numeric elements only.
 
     Parameters
@@ -110,7 +110,7 @@ def _parse_vector(vector):
     return vector
 
 
-def parse_vectors(vectors):
+def parse_vectors(vectors: list[str] | str) -> list[int]:
     """Parse string of vector or vectors to numeric.
 
     Strip out V from V#s. Similar to parse tables, this by no means guarantees
@@ -131,7 +131,7 @@ def parse_vectors(vectors):
     return [_parse_vector(v) for v in vectors]
 
 
-def chunk_vectors(vectors):
+def chunk_vectors(vectors: list[str] | str) -> list[list[int]]:
     """Break vectors into chunks small enough for the API (300 limit).
 
     Parameters
@@ -145,6 +145,9 @@ def chunk_vectors(vectors):
         lists of vectors in chunks
     """
     MAX_CHUNK = 250
-    vectors = parse_vectors(vectors)
-    chunks = [vectors[i : i + MAX_CHUNK] for i in range(0, len(vectors), MAX_CHUNK)]
+    parsed_vectors = parse_vectors(vectors)
+    chunks = [
+        parsed_vectors[i : i + MAX_CHUNK]
+        for i in range(0, len(parsed_vectors), MAX_CHUNK)
+    ]
     return chunks
