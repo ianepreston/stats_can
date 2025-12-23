@@ -63,7 +63,7 @@ def _parse_table(table: str | int) -> str:
     str
         A single table stripped of all formatting
     """
-    parsed_table: str = re.sub(r"\D", "", table)[:8]
+    parsed_table: str = re.sub(r"\D", "", str(table))[:8]
     return parsed_table
 
 
