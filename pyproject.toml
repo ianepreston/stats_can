@@ -26,6 +26,7 @@ dev = [
   "safety>=3.2.4,<4",
   "basedpyright>=1.36.1",
   "ipython>=8.37.0",
+  "jupyter>=1.1.1",
 ]
 docs = [
   "markdown-include>=0.8.1",
