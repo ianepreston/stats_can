@@ -35,12 +35,12 @@ def get_tables_for_vectors(
 
     Parameters
     ----------
-    vectors : list of str or str
+    vectors
         Vectors to find tables for
 
     Returns
     -------
-    tables_list: list of dict
+    tables_list
         keys for each vector number return the table, plus a key for
         'all_tables' that has a list of unique tables used by vectors
     """
@@ -59,12 +59,12 @@ def table_subsets_from_vectors(vectors: str | list[str]) -> dict[str, list[str]]
 
     Parameters
     ----------
-    vectors : list of str or str
+    vectors
         Vectors to find tables for
 
     Returns
     -------
-    tables_dict: list of dict
+    tables_dict
         keys for each table used by the vectors, matched to a list of vectors
     """
     start_tables_dict = get_tables_for_vectors(vectors)
@@ -82,16 +82,16 @@ def download_tables(
 
     Parameters
     ----------
-    tables: list of str
+    tables
         tables to be downloaded
-    path: str or path object, default: None (will do current directory)
+    path
         Where to download the table and json
-    csv: boolean, default True
+    csv
         download in CSV format, if not download SDMX
 
     Returns
     -------
-    downloaded: list
+    downloaded
         list of tables that were downloaded
     """
     dl_path = pathlib.Path(path) if path else pathlib.Path()
@@ -138,14 +138,14 @@ def zip_update_tables(path: pathlib.Path | None = None, csv: bool = True) -> lis
 
     Parameters
     ----------
-    path: str or pathlib.Path, default: None
+    path
         where to look for tables to update
-    csv: boolean, default: True
+    csv
         Downloads updates in CSV form by default, SDMX if false
 
     Returns
     -------
-    update_table_list: list
+    update_table_list
         list of the tables that were updated
 
     """
@@ -171,14 +171,14 @@ def zip_table_to_dataframe(
 
     Parameters
     ----------
-    table: str
+    table
         the table to load to dataframe from zipped csv
-    path: str or pathlib.Path, default: current working directory when module is loaded
-        where to download the tables or load them
+    path
+        where to download the tables or load them, default will go to current working directory
 
     Returns
     -------
-    df: pandas.DataFrame
+    df
         the table as a dataframe
     """
     path = pathlib.Path(path) if path else pathlib.Path()
@@ -236,12 +236,12 @@ def list_zipped_tables(path: pathlib.Path | None = None) -> list[str]:
 
     Parameters
     ----------
-    path: string or path, default None
-        Where to look for zipped tables
+    path
+        Where to look for zipped tables, defaults to current working directory
 
     Returns
     -------
-    tables: list
+    tables
         list of available tables json data
     """
     # Find json files
@@ -274,18 +274,18 @@ def vectors_to_df(
 
     Parameters
     ----------
-    vectors: str or list of str
+    vectors
         vector numbers to get info for
-    periods: int
+    periods
         number of periods to retrieve data for
-    start_release_date: datetime.date
+    start_release_date
         start release date for the data
-    end_release_date: datetime.date
+    end_release_date
         end release date for the data
 
     Returns
     -------
-    df: DataFrame
+    df
         vectors as columns and ref_date as the index (not release date)
     """
     df = pd.DataFrame()
@@ -320,8 +320,7 @@ def code_sets_to_df_dict() -> dict[str, pd.DataFrame]:
 
     Returns
     -------
-    pandas.Dataframe: list
-        dictionary of dataframes
+    dictionary of dataframes
     """
     codes = get_code_sets()
     # Packs each code group in a dataframe for better lookup via dictionary

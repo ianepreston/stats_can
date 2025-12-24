@@ -103,7 +103,7 @@ def get_changed_cube_list(date: dt.date | None = None) -> list[ChangedCube]:
 
     Parameters
     ----------
-    date : datetime.date
+    date
         Date to check for table changes, defaults to current date
 
     Returns
@@ -184,7 +184,7 @@ def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata] | CubeMetad
 
     Parameters
     ----------
-    tables : str or list of str
+    tables
         IDs of tables to get metadata for
 
     Returns
@@ -227,7 +227,7 @@ def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:
 
     Parameters
     ----------
-    vectors: str or list of str
+    vectors
         vector numbers to get info for
 
     Returns
@@ -300,9 +300,9 @@ def get_data_from_vectors_and_latest_n_periods(
 
     Parameters
     ----------
-    vectors: str or list of str
+    vectors
         vector numbers to get info for
-    periods: int
+    periods
         number of periods (starting at latest) to retrieve data for
 
     Returns
@@ -327,11 +327,11 @@ def get_bulk_vector_data_by_range(
 
     Parameters
     ----------
-    vectors: str or list of str
+    vectors
         vector numbers to get info for
-    start_release_date: datetime.date
+    start_release_date
         start release date for the data
-    end_release_date: datetime.date
+    end_release_date
         end release date for the data
 
     Returns
@@ -365,11 +365,11 @@ def get_bulk_vector_data_by_reference_period_range(
 
     Parameters
     ----------
-    vectors: str or list of str
+    vectors
         vector numbers to get info for
-    start_ref_date: datetime.date
+    start_ref_date
         start reference period date for the data
-    end_ref_date: datetime.date
+    end_ref_date
         end reference period date for the data
 
     Returns
@@ -398,15 +398,14 @@ def get_full_table_download(table: str, csv: bool = True) -> str:
 
     Parameters
     ----------
-    table: str
+    table
         table name to download
-    csv: boolean, default True
+    csv
         download in CSV format, if not download SDMX
 
     Returns
     -------
-    str:
-        path to the file download
+    path to the file download
     """
     parsed_table = parse_tables(table)[0]
     if csv:
@@ -500,8 +499,7 @@ def get_code_sets() -> CodeSet:
 
     Returns
     -------
-    list of dicts
-        one dictionary for each group of information
+    one dictionary for each group of information
     """
     url = f"{SC_URL}getCodeSets"
     return _fetch_and_validate(url, schema=CodeSet)
