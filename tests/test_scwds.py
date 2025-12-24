@@ -55,8 +55,8 @@ def test_gcmd():
         "surveyCode",
         "dimension",
         "footnote",
-        "correctionFootnote",
         "correction",
+        "correctionFootnote",
         "issueDate",
     ]
 
