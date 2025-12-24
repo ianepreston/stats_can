@@ -11,6 +11,7 @@ within a date range
 import json
 import pathlib
 import zipfile
+import datetime as dt
 
 import pandas as pd
 import requests
@@ -27,7 +28,9 @@ from stats_can.scwds import (
 )
 
 
-def get_tables_for_vectors(vectors):
+def get_tables_for_vectors(
+    vectors: str | list[str],
+) -> dict[str | int, str | list[str]]:
     """Get a list of dicts mapping vectors to tables.
 
     Parameters
@@ -42,16 +45,16 @@ def get_tables_for_vectors(vectors):
         'all_tables' that has a list of unique tables used by vectors
     """
     v_json = get_series_info_from_vector(vectors)
-    vectors = [j["vectorId"] for j in v_json]
-    tables_list = {j["vectorId"]: str(j["productId"]) for j in v_json}
-    tables_list["all_tables"] = []
-    for vector in vectors:
-        if tables_list[vector] not in tables_list["all_tables"]:
-            tables_list["all_tables"].append(tables_list[vector])
+    clean_vectors = [j["vectorId"] for j in v_json]
+    tables_list: dict[int | str, str | list[str]] = {
+        j["vectorId"]: str(j["productId"]) for j in v_json
+    }
+    all_tables = {tables_list[vector] for vector in clean_vectors}
+    tables_list["all_tables"] = list(all_tables)
     return tables_list
 
 
-def table_subsets_from_vectors(vectors):
+def table_subsets_from_vectors(vectors: str | list[str]) -> dict[str, list[str]]:
     """Get a list of dicts mapping tables to vectors.
 
     Parameters
@@ -72,7 +75,9 @@ def table_subsets_from_vectors(vectors):
     return tables_dict
 
 
-def download_tables(tables, path=None, csv=True):
+def download_tables(
+    tables: str | list[str], path: pathlib.Path | None = None, csv: bool = True
+) -> list[int]:
     """Download a json file and zip of data for a list of tables to path.
 
     Parameters
@@ -89,15 +94,15 @@ def download_tables(tables, path=None, csv=True):
     downloaded: list
         list of tables that were downloaded
     """
-    path = pathlib.Path(path) if path else pathlib.Path()
+    dl_path = pathlib.Path(path) if path else pathlib.Path()
     metas = get_cube_metadata(tables)
     for meta in metas:
         product_id = meta["productId"]
         zip_url = get_full_table_download(product_id, csv=csv)
         zip_file_name = f"{product_id}{'-eng' if csv else ''}.zip"
         json_file_name = f"{product_id}.json"
-        zip_file = path / zip_file_name
-        json_file = path / json_file_name
+        zip_file = dl_path / zip_file_name
+        json_file = dl_path / json_file_name
 
         # Thanks http://evanhahn.com/python-requests-library-useragent/
         response = requests.get(zip_url, stream=True, headers={"user-agent": None})
@@ -121,7 +126,7 @@ def download_tables(tables, path=None, csv=True):
     return [meta["productId"] for meta in metas]
 
 
-def zip_update_tables(path=None, csv=True):
+def zip_update_tables(path: pathlib.Path | None = None, csv: bool = True) -> list[str]:
     """Check local json, update zips of outdated tables.
 
     Grabs the json files in path, checks them against the metadata on
@@ -157,7 +162,9 @@ def zip_update_tables(path=None, csv=True):
     return update_table_list
 
 
-def zip_table_to_dataframe(table, path=None):
+def zip_table_to_dataframe(
+    table: str, path: pathlib.Path | None = None
+) -> pd.DataFrame:
     """Read a StatsCan table into a pandas DataFrame.
 
     If a zip file of the table does not exist in path, downloads it
@@ -222,7 +229,7 @@ def zip_table_to_dataframe(table, path=None):
     return df
 
 
-def list_zipped_tables(path=None):
+def list_zipped_tables(path: pathlib.Path | None = None) -> list[str]:
     """List StatsCan tables available.
 
     defaults to looking in the current working directory and for zipped CSVs
@@ -253,7 +260,12 @@ def list_zipped_tables(path=None):
     return tables
 
 
-def vectors_to_df(vectors, periods=1, start_release_date=None, end_release_date=None):
+def vectors_to_df(
+    vectors: str | list[str],
+    periods: int = 1,
+    start_release_date: dt.date | None = None,
+    end_release_date: dt.date | None = None,
+) -> pd.DataFrame:
     """Get DataFrame of vectors with n periods data or over range of release dates.
 
     Wrapper on get_bulk_vector_data_by_range and
@@ -299,7 +311,7 @@ def vectors_to_df(vectors, periods=1, start_release_date=None, end_release_date=
     return df
 
 
-def code_sets_to_df_dict():
+def code_sets_to_df_dict() -> dict[str, pd.DataFrame]:
     """Get all code sets.
 
     Code sets provide additional metadata to describe
