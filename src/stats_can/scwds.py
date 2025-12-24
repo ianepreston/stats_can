@@ -1,6 +1,6 @@
 """Functions that allow the package to return exactly what the api gives.
 
-https://www.statcan.gc.ca/eng/developers/wds/user-guide
+[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide)
 
 Note: StatsCan uses cube/table interchangeably. I'm going to keep cube in my
 function names where it maps to their api but otherwise I will use table.
@@ -77,7 +77,7 @@ class ChangedSeries(TypedDict):
 
 
 def get_changed_series_list() -> list[ChangedSeries]:
-    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a10-1
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a10-1)
 
     Gets all series that were updated today.
 
@@ -99,7 +99,7 @@ class ChangedCube(TypedDict):
 
 
 def get_changed_cube_list(date: dt.date | None = None) -> list[ChangedCube]:
-    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a10-2
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a10-2)
 
     Parameters
     ----------
@@ -177,7 +177,7 @@ class CubeMetadata(TypedDict):
 
 
 def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata] | CubeMetadata:
-    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-1
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-1)
 
     Take a list of tables and return a list of dictionaries with their
     metadata
@@ -203,7 +203,7 @@ def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata] | CubeMetad
 def get_series_info_from_cube_pid_coord():
     """Not implemented yet
 
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-2
+    [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-2)
     """
     pass
 
@@ -223,7 +223,7 @@ class SeriesInfo(TypedDict):
 
 
 def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:
-    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-3
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-3)
 
     Parameters
     ----------
@@ -249,7 +249,7 @@ def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:
 def get_changed_series_data_from_cube_pid_coord():
     """Not implemented yet
 
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-1
+    [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-1)
     """
     pass
 
@@ -257,7 +257,7 @@ def get_changed_series_data_from_cube_pid_coord():
 def get_changed_series_data_from_vector():
     """Not implemented yet
 
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-2
+    [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-2)
     """
     pass
 
@@ -265,7 +265,7 @@ def get_changed_series_data_from_vector():
 def get_data_from_cube_pid_coord_and_latest_n_periods():
     """Not implemented yet
 
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-3
+    [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-3)
     """
     pass
 
@@ -296,7 +296,7 @@ class VectorData(TypedDict):
 def get_data_from_vectors_and_latest_n_periods(
     vectors: str | list[str], periods: int
 ) -> list[VectorData]:
-    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-4
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-4)
 
     Parameters
     ----------
@@ -323,7 +323,7 @@ def get_data_from_vectors_and_latest_n_periods(
 def get_bulk_vector_data_by_range(
     vectors: str | list[str], start_release_date: dt.date, end_release_date: dt.date
 ) -> list[VectorData]:
-    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5)
 
     Parameters
     ----------
@@ -361,7 +361,7 @@ def get_bulk_vector_data_by_range(
 def get_bulk_vector_data_by_reference_period_range(
     vectors: str | list[str], start_ref_date: dt.date, end_ref_date: dt.date
 ) -> list[VectorData]:
-    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5a
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-5a)
 
     Parameters
     ----------
@@ -392,8 +392,8 @@ def get_bulk_vector_data_by_reference_period_range(
 def get_full_table_download(table: str, csv: bool = True) -> str:
     """Take a table name and return a url to a zipped file of that table.
 
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-6
-    https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-7
+    [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-6)
+    [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-7)
 
 
     Parameters
@@ -492,7 +492,7 @@ class CodeSet(TypedDict):
 
 
 def get_code_sets() -> CodeSet:
-    """https://www.statcan.gc.ca/eng/developers/wds/user-guide#a13-1
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a13-1)
 
     Gets all code sets which provide additional information to describe
     information and are grouped into scales, frequencies, symbols etc.
