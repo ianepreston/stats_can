@@ -94,8 +94,8 @@ def download_tables(tables, path=None, csv=True):
     for meta in metas:
         product_id = meta["productId"]
         zip_url = get_full_table_download(product_id, csv=csv)
-        zip_file_name = product_id + ("-eng.zip" if csv else ".zip")
-        json_file_name = product_id + ".json"
+        zip_file_name = f"{product_id}{'-eng' if csv else ''}.zip"
+        json_file_name = f"{product_id}.json"
         zip_file = path / zip_file_name
         json_file = path / json_file_name
 

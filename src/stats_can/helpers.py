@@ -1,53 +1,6 @@
 """Helper functions that shouldn't need to be directly called by an end user."""
 
 import re
-from typing import TypedDict
-from collections.abc import Sequence, Mapping
-from requests import Response
-
-JSONScalar = str | int | float | bool | None
-JSONValue = JSONScalar | Mapping[str, "JSONValue"] | Sequence["JSONValue"]
-
-
-class ResponseJson(TypedDict):
-    status: str
-    object: dict[str, JSONValue]
-
-
-def _check_one_status(result: ResponseJson) -> None:
-    """Do the check on an individual result.
-
-    # noqa: DAR002
-    Parameters
-    ----------
-    result: list of dicts, or dict
-    """
-    if result["status"] != "SUCCESS":
-        raise RuntimeError(str(result["object"]))
-
-
-def check_status(results: Response) -> ResponseJson | list[ResponseJson]:
-    """Make sure list of results succeeded.
-
-    Parameters
-    ----------
-    results : Response
-        API response from StatsCan
-
-    Returns
-    -------
-    ResponseJson
-        JSON from an API call parsed as a dictionary
-    """
-    results.raise_for_status()
-    results_json: list[ResponseJson] | ResponseJson = results.json()
-
-    if isinstance(results_json, list):
-        for result in results_json:
-            _check_one_status(result)
-    else:
-        _check_one_status(results_json)
-    return results_json
 
 
 def _parse_table(table: str | int) -> str:
@@ -89,7 +42,10 @@ def parse_tables(tables: str | list[str]) -> list[str]:
     """
     if isinstance(tables, str):
         return [_parse_table(tables)]
-    return [_parse_table(t) for t in tables]
+    elif isinstance(tables, int):
+        return [str(tables)]
+    else:
+        return [_parse_table(t) for t in tables]
 
 
 def _parse_vector(vector: int | str) -> int:
