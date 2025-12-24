@@ -2501,6 +2501,7 @@ source = { editable = "." }
 dependencies = [
     { name = "numpy" },
     { name = "pandas" },
+    { name = "pydantic" },
     { name = "requests" },
     { name = "tqdm" },
 ]
@@ -2531,6 +2532,7 @@ docs = [
 requires-dist = [
     { name = "numpy" },
     { name = "pandas" },
+    { name = "pydantic", specifier = ">=2.9.2" },
     { name = "requests" },
     { name = "tqdm" },
 ]
