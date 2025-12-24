@@ -1,3 +1,10 @@
+"""Objects representing what's returned from the Statistics Canada Web Data Service.
+
+Having these created allows pydantic validation without doing crazy long
+type signatures. It should also help your editor pick up on what
+attributes are available, and its useful for referencing things in the docs.
+"""
+
 from typing import TypedDict, Any
 
 
