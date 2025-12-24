@@ -27,6 +27,7 @@ dev = [
   "basedpyright>=1.36.1",
   "ipython>=8.37.0",
   "jupyter>=1.1.1",
+  "pandas-stubs>=2.3.3.251219",
 ]
 docs = [
   "markdown-include>=0.8.1",
