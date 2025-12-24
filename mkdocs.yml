@@ -4,6 +4,21 @@ theme:
 plugins:
   - mkdocstrings:
       default_handler: python
+      handlers:
+        python:
+          import:
+            - https://docs.python.org/3/objects.inv
+          options:
+            docstring_section_style: table
+            members_order: source
+            docstring_style: numpy
+            show_root_headings: true
+            show_symbol_type_heading: true
+            heading_level: 3
+            show_source: true
+            merge_init_into_class: true
+            show_signature_annotations: true
+            signature_crossrefs: true
 markdown_extensions:
   - markdown_include.include:
       base_path: .
