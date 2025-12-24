@@ -1,13 +1,13 @@
 [project]
 name = "stats_can"
-version = "3.0.0"
+version = "3.1.0"
 description = "Read StatsCan data into python, mostly pandas dataframes"
 authors = [{ name = "Ian Preston" }]
 requires-python = ">=3.10,<4.0"
 readme = "README.md"
 license = "GPL-3.0-or-later"
 keywords = ["statistics", "Canada", "data", "API"]
-dependencies = ["requests", "tqdm", "pandas", "numpy"]
+dependencies = ["requests", "tqdm", "pandas", "numpy", "pydantic>=2.9.2"]
 
 [project.urls]
 Homepage = "https://github.com/ianepreston/stats_can"
@@ -24,6 +24,10 @@ dev = [
   "codecov>=2.1",
   "darglint>=1.7",
   "safety>=3.2.4,<4",
+  "basedpyright>=1.36.1",
+  "ipython>=8.37.0",
+  "jupyter>=1.1.1",
+  "pandas-stubs>=2.3.3.251219",
 ]
 docs = [
   "markdown-include>=0.8.1",

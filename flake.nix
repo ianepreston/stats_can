@@ -120,6 +120,8 @@
           shellHook = ''
             unset PYTHONPATH
             export REPO_ROOT=$(git rev-parse --show-toplevel)
+            # Explicitly add the virtualenv's bin directory to PATH
+            export PATH="${virtualenv}/bin:$PATH"
           '';
         };
 

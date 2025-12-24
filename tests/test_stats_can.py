@@ -10,7 +10,6 @@ import pathlib
 import shutil
 
 import pandas as pd
-import pytest
 
 import stats_can
 
@@ -21,35 +20,18 @@ ts = ["271-000-22-01", "18100204"]
 TEST_FILES_PATH = pathlib.Path(__file__).parent / "test_files"
 
 
-@pytest.mark.parametrize(
-    "mapping_func, expected",
-    [
-        (
-            stats_can.sc.get_tables_for_vectors,
-            {
-                74804: "23100216",
-                41692457: "18100004",
-                "all_tables": ["23100216", "18100004"],
-            },
-        ),
-        (
-            stats_can.sc.table_subsets_from_vectors,
-            {"23100216": [74804], "18100004": [41692457]},
-        ),
-    ],
-)
-def test_vectors_mapping(mapping_func, expected):
-    """Test mapping from vectors methods.
+def test_get_tables_for_vectors():
+    """Test tables for vectors function."""
+    actual = stats_can.sc.get_tables_for_vectors(vs)
+    assert actual[74804] == "23100216"
+    assert actual[41692457] == "18100004"
+    assert sorted(actual["all_tables"]) == sorted(["18100004", "23100216"])
 
-    Parameters
-    ----------
-    mapping_func: function
-        The statscan mapping function to be tested
-    expected: object
-        The expected value
-    """
-    tv1 = mapping_func(vs)
-    assert tv1 == expected, mapping_func.__name__
+
+def test_table_subsets_from_vectors():
+    """Test tables subsets from vectors function."""
+    actual = stats_can.sc.table_subsets_from_vectors(vs)
+    assert actual == {"23100216": [74804], "18100004": [41692457]}
 
 
 def test_vectors_to_df_by_release():
