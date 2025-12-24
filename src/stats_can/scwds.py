@@ -24,7 +24,7 @@ Missing api implementations:
 """
 
 import datetime as dt
-from typing import TypeVar, TypedDict, Any
+from typing import TypeVar
 from pydantic import TypeAdapter
 
 import requests
@@ -33,6 +33,14 @@ from requests import Response
 from stats_can.helpers import (
     chunk_vectors,
     parse_tables,
+)
+from stats_can.schemas import (
+    ChangedSeries,
+    ChangedCube,
+    CubeMetadata,
+    SeriesInfo,
+    VectorData,
+    CodeSet,
 )
 
 SC_URL = "https://www150.statcan.gc.ca/t1/wds/rest/"
@@ -68,14 +76,6 @@ def _fetch_and_validate(url: str, schema: type[T], method: str = "GET", **kwargs
         raise RuntimeError(f"data came back weird. We should never get here: {data}")
 
 
-class ChangedSeries(TypedDict):
-    responseStatusCode: int
-    vectorId: int
-    productId: int
-    coordinate: str
-    releaseTime: str
-
-
 def get_changed_series_list() -> list[ChangedSeries]:
     """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a10-1)
 
@@ -90,12 +90,6 @@ def get_changed_series_list() -> list[ChangedSeries]:
         url=f"{SC_URL}getChangedSeriesList",
         schema=list[ChangedSeries],
     )
-
-
-class ChangedCube(TypedDict):
-    responseStatusCode: int
-    productId: int
-    releaseTime: str
 
 
 def get_changed_cube_list(date: dt.date | None = None) -> list[ChangedCube]:
@@ -116,64 +110,6 @@ def get_changed_cube_list(date: dt.date | None = None) -> list[ChangedCube]:
     return _fetch_and_validate(
         url=f"{SC_URL}getChangedCubeList/{date}", schema=list[ChangedCube]
     )
-
-
-class Member(TypedDict):
-    memberId: int
-    parentMemberId: int | None
-    memberNameEn: str
-    memberNameFr: str
-    classificationCode: str | None
-    classificationTypeCode: str | None
-    geoLevel: int | None
-    vintage: int | None
-    terminated: int
-    memberUomCode: int | None
-
-
-class Dimension(TypedDict):
-    dimensionPositionId: int
-    dimensionNameEn: str
-    dimensionNameFr: str
-    hasUom: bool
-    member: list[Member]
-
-
-class FootNoteLink(TypedDict):
-    footnoteId: int
-    dimensionPositionId: int
-    memberId: int
-
-
-class Footnote(TypedDict):
-    footnoteId: int
-    footnotesEn: str
-    footnotesFr: str
-    link: FootNoteLink
-
-
-class CubeMetadata(TypedDict):
-    responseStatusCode: int
-    productId: int
-    cansimId: str
-    cubeTitleEn: str
-    cubeTitleFr: str
-    cubeStartDate: str
-    cubeEndDate: str
-    frequencyCode: int
-    nbSeriesCube: int
-    nbDatapointsCube: int
-    releaseTime: str
-    archiveStatusCode: str
-    archiveStatusEn: str
-    archiveStatusFr: str
-    subjectCode: list[str]
-    surveyCode: list[str]
-    dimension: list[Dimension]
-    footnote: list[Footnote]
-    correction: list[Any]
-    correctionFootnote: list[Any]
-    issueDate: str
 
 
 def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata] | CubeMetadata:
@@ -206,20 +142,6 @@ def get_series_info_from_cube_pid_coord():
     [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-2)
     """
     pass
-
-
-class SeriesInfo(TypedDict):
-    responseStatusCode: int
-    productId: int
-    coordinate: str
-    vectorId: int
-    frequencyCode: int
-    scalarFactorCode: int
-    decimals: int
-    terminated: int
-    SeriesTitleEn: str
-    SeriesTitleFr: str
-    memberUomCode: int
 
 
 def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:
@@ -269,29 +191,6 @@ def get_data_from_cube_pid_coord_and_latest_n_periods():
     [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-3)
     """
     pass
-
-
-class VectorDataPoint(TypedDict):
-    refPer: str
-    refPer2: str
-    refPerRaw: str
-    refPerRaw2: str
-    value: str | int | float
-    decimals: int
-    scalarFactorCode: int
-    symbolCode: int
-    statusCode: int
-    securityLevelCode: int
-    releaseTime: str
-    frequencyCode: int
-
-
-class VectorData(TypedDict):
-    responseStatusCode: int
-    productId: int
-    coordinate: str
-    vectorId: int
-    vectorDataPoint: list[VectorDataPoint]
 
 
 def get_data_from_vectors_and_latest_n_periods(
@@ -418,82 +317,6 @@ def get_full_table_download(table: str, csv: bool = True) -> str:
     else:
         url = f"{SC_URL}getFullTableDownloadSDMX/{parsed_table}"
     return _fetch_and_validate(url, schema=str)
-
-
-class ScalarFactor(TypedDict):
-    scalarFactorCode: int
-    scalarFactorDescEn: str
-    scalarFactorDescFr: str
-
-
-class FrequencyCode(TypedDict):
-    frequencyCode: int
-    frequencyDescEn: str
-    frequencyDescFr: str
-
-
-class SymbolCode(TypedDict):
-    symbolCode: int
-    symbolDescEn: str
-    symbolDescFr: str
-
-
-class StatusCode(TypedDict):
-    statusCode: int
-    statusDescEn: str
-    statusDescFr: str
-
-
-class UomCode(TypedDict):
-    memberUomCode: int
-    memberUomEn: str | None
-    memberUomFr: str | None
-
-
-class SurveyCode(TypedDict):
-    surveyCode: int
-    surveyEn: str | None
-    surveyFr: str | None
-
-
-class SubjectCode(TypedDict):
-    subjectCode: int
-    subjectEn: str | None
-    subjectFr: str | None
-
-
-class ClassificationTypeCode(TypedDict):
-    classificationTypeCode: int
-    classificationTypeEn: str | None
-    classificationTypeFr: str | None
-
-
-class SecurityLevelCode(TypedDict):
-    securityLevelCode: int
-    securityLevelRepresentationEn: str | None
-    securityLevelRepresentationFr: str | None
-    securityLevelDescEn: str
-    securityLevelDescFr: str
-
-
-class CodeCode(TypedDict):
-    codeId: int
-    codeTextEn: str
-    codeTextFr: str
-
-
-class CodeSet(TypedDict):
-    scalar: list[ScalarFactor]
-    frequency: list[FrequencyCode]
-    symbol: list[SymbolCode]
-    status: list[StatusCode]
-    uom: list[UomCode]
-    survey: list[SurveyCode]
-    subject: list[SubjectCode]
-    classificationType: list[ClassificationTypeCode]
-    securityLevel: list[SecurityLevelCode]
-    terminated: list[CodeCode]
-    wdsResponseStatus: list[CodeCode]
 
 
 def get_code_sets() -> CodeSet:

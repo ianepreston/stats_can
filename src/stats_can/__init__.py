@@ -21,6 +21,7 @@ except PackageNotFoundError:  # pragma: no cover
     __version__ = "unknown"
 __all__ = [
     "sc",
+    "schemas",
     "code_sets_to_df_dict",
     "zip_table_to_dataframe",
     "vectors_to_df",
@@ -30,7 +31,7 @@ __all__ = [
     "get_cube_metadata",
     "get_series_info_from_vector",
 ]
-from stats_can import sc, scwds
+from stats_can import sc, scwds, schemas
 from stats_can.sc import code_sets_to_df_dict, vectors_to_df, zip_table_to_dataframe
 from stats_can.scwds import (
     get_changed_cube_list,

@@ -6,10 +6,16 @@ plugins:
       default_handler: python
       handlers:
         python:
-          import:
+          paths: [src]
+          inventories:
             - https://docs.python.org/3/objects.inv
+            - https://pandas.pydata.org/docs/objects.inv
+            - https://numpy.org/doc/stable/objects.inv
           options:
             docstring_section_style: table
+            preload_modules:
+              - typing
+              - stats_can
             members_order: source
             docstring_style: numpy
             show_root_headings: true
@@ -19,7 +25,11 @@ plugins:
             merge_init_into_class: true
             show_signature_annotations: true
             signature_crossrefs: true
+            inheritance: true
+            unwrap_annotated: true
 markdown_extensions:
+  - pymdownx.magiclink # Helps with auto-linking URLs
+  - pymdownx.betterem # Minor styling improvement
   - markdown_include.include:
       base_path: .
   - admonition
@@ -29,3 +39,4 @@ nav:
   - API:
       - scwds: api/scwds.md
       - sc: api/sc.md
+      - schemas: api/schemas.md
