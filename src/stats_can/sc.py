@@ -40,7 +40,7 @@ def get_tables_for_vectors(
 
     Returns
     -------
-    tables_list
+    :
         keys for each vector number return the table, plus a key for
         'all_tables' that has a list of unique tables used by vectors
     """
@@ -64,7 +64,7 @@ def table_subsets_from_vectors(vectors: str | list[str]) -> dict[str, list[str]]
 
     Returns
     -------
-    tables_dict
+    :
         keys for each table used by the vectors, matched to a list of vectors
     """
     start_tables_dict = get_tables_for_vectors(vectors)
@@ -91,7 +91,7 @@ def download_tables(
 
     Returns
     -------
-    downloaded
+    :
         list of tables that were downloaded
     """
     dl_path = pathlib.Path(path) if path else pathlib.Path()
@@ -145,7 +145,7 @@ def zip_update_tables(path: pathlib.Path | None = None, csv: bool = True) -> lis
 
     Returns
     -------
-    update_table_list
+    :
         list of the tables that were updated
 
     """
@@ -178,7 +178,7 @@ def zip_table_to_dataframe(
 
     Returns
     -------
-    df
+    :
         the table as a dataframe
     """
     path = pathlib.Path(path) if path else pathlib.Path()
@@ -241,7 +241,7 @@ def list_zipped_tables(path: pathlib.Path | None = None) -> list[str]:
 
     Returns
     -------
-    tables
+    :
         list of available tables json data
     """
     # Find json files
@@ -285,7 +285,7 @@ def vectors_to_df(
 
     Returns
     -------
-    df
+    :
         vectors as columns and ref_date as the index (not release date)
     """
     df = pd.DataFrame()
@@ -320,7 +320,8 @@ def code_sets_to_df_dict() -> dict[str, pd.DataFrame]:
 
     Returns
     -------
-    dictionary of dataframes
+    :
+        dictionary of dataframes
     """
     codes = get_code_sets()
     # Packs each code group in a dataframe for better lookup via dictionary
