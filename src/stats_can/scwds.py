@@ -83,8 +83,8 @@ def get_changed_series_list() -> list[ChangedSeries]:
 
     Returns
     -------
-    list of changed series
-        one for each vector and when it was released
+    :
+        list of changed series, one for each vector and when it was released
     """
     return _fetch_and_validate(
         url=f"{SC_URL}getChangedSeriesList",
@@ -108,8 +108,8 @@ def get_changed_cube_list(date: dt.date | None = None) -> list[ChangedCube]:
 
     Returns
     -------
-    list of dicts
-        one for each table and when it was updated
+    :
+        list of changed cubes, one for each table and when it was updated
     """
     if date is None:
         date = dt.date.today()
@@ -189,7 +189,7 @@ def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata] | CubeMetad
 
     Returns
     -------
-    list of dicts
+    :
         one for each table with its metadata
     """
     tables = parse_tables(tables)
@@ -232,7 +232,8 @@ def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:
 
     Returns
     -------
-    List of dicts containing metadata for each v#
+    :
+        List of dicts containing metadata for each v#
     """
     url = f"{SC_URL}getSeriesInfoFromVector"
     chunks = chunk_vectors(vectors)
@@ -307,7 +308,8 @@ def get_data_from_vectors_and_latest_n_periods(
 
     Returns
     -------
-    List of dicts containing data for each vector
+    :
+        List of dicts containing data for each vector
     """
     url = f"{SC_URL}getDataFromVectorsAndLatestNPeriods"
     chunks = chunk_vectors(vectors)
@@ -336,7 +338,8 @@ def get_bulk_vector_data_by_range(
 
     Returns
     -------
-    List of dicts containing data for each vector
+    :
+        List of dicts containing data for each vector
     """
     url = f"{SC_URL}getBulkVectorDataByRange"
     start_release_date_str = str(start_release_date) + "T13:00"
@@ -374,7 +377,8 @@ def get_bulk_vector_data_by_reference_period_range(
 
     Returns
     -------
-    List of dicts containing data for each vector
+    :
+        List of dicts containing data for each vector
     """
     url = f"{SC_URL}getDataFromVectorByReferencePeriodRange"
     chunks = chunk_vectors(vectors)
@@ -405,7 +409,8 @@ def get_full_table_download(table: str, csv: bool = True) -> str:
 
     Returns
     -------
-    path to the file download
+    :
+        path to the file download
     """
     parsed_table = parse_tables(table)[0]
     if csv:
@@ -499,7 +504,8 @@ def get_code_sets() -> CodeSet:
 
     Returns
     -------
-    one dictionary for each group of information
+    :
+        one dictionary for each group of information
     """
     url = f"{SC_URL}getCodeSets"
     return _fetch_and_validate(url, schema=CodeSet)
