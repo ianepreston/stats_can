@@ -9,5 +9,3 @@ test:
 	nix develop --impure . -c coverage report
 safety:
 	nix develop --impure . -c safety check --file=uv.lock --full-report
-docs:
-	nix develop --impure . -c sphinx-build docs/source docs/_build
