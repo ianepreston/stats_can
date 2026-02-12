@@ -225,7 +225,7 @@ def zip_table_to_dataframe(
     ]
     actual_cats = [col for col in possible_cats if col in col_names]
     df[actual_cats] = df[actual_cats].astype("category")
-    df["REF_DATE"] = pd.to_datetime(df["REF_DATE"], errors="ignore")
+    df["REF_DATE"] = pd.to_datetime(df["REF_DATE"],  format="%Y-%m-%d", errors="coerce")
     return df
 
 
@@ -302,7 +302,7 @@ def vectors_to_df(
             continue
         ser = (
             pd.DataFrame(vec["vectorDataPoint"])
-            .assign(refPer=lambda x: pd.to_datetime(x["refPer"], errors="ignore"))
+            .assign(refPer=lambda x: pd.to_datetime(x["refPer"], format="%Y-%m-%d", errors="coerce"))
             .set_index("refPer")
             .rename(columns={"value": name})
             .filter([name])
