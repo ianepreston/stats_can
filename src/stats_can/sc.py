@@ -9,6 +9,7 @@ within a date range
 """
 
 import json
+import logging
 import pathlib
 import zipfile
 import datetime as dt
@@ -26,6 +27,8 @@ from stats_can.scwds import (
     get_full_table_download,
     get_series_info_from_vector,
 )
+
+logger = logging.getLogger(__name__)
 
 
 def get_tables_for_vectors(
@@ -255,9 +258,8 @@ def list_zipped_tables(path: pathlib.Path | None = None) -> list[str]:
                 result = json.load(json_file)
                 if "productId" in result:
                     tables.append(result)
-        except ValueError as e:
-            print("failed to read json file" + j)
-            print(e)
+        except ValueError:
+            logger.warning("failed to read json file %s", j)
     return tables
 
 
