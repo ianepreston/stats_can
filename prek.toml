@@ -1,0 +1,29 @@
+[[repos]]
+repo = "builtin"
+hooks = [
+  { id = "trailing-whitespace" },
+  { id = "end-of-file-fixer" },
+  { id = "check-yaml" },
+  { id = "check-added-large-files", args = [
+    "--maxkb=1000",
+  ] },
+]
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "ruff"
+name = "ruff check (local)"
+language = "system"
+entry = "ruff check --force-exclude"
+types_or = ["python", "pyi", "jupyter", "pyproject"]
+require_serial = true
+
+[[repos.hooks]]
+id = "ruff-format"
+name = "ruff format (local)"
+language = "system"
+entry = "ruff format --force-exclude"
+types_or = ["python", "pyi", "jupyter"]
+require_serial = true
