@@ -30,6 +30,8 @@ from pydantic import TypeAdapter
 
 import requests
 from requests import Response
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from stats_can.helpers import (
     chunk_vectors,
@@ -50,8 +52,18 @@ _USER_AGENT = f"stats_can/{version('stats_can')}"
 
 T = TypeVar("T")
 
+_retry = Retry(
+    total=3,
+    backoff_factor=1,
+    status_forcelist=[429, 500, 502, 503, 504],
+    allowed_methods=["GET", "POST"],
+)
+_adapter = HTTPAdapter(max_retries=_retry)
+
 _session = requests.Session()
 _session.headers["User-Agent"] = _USER_AGENT
+_session.mount("https://", _adapter)
+_session.mount("http://", _adapter)
 
 
 def _fetch_and_validate(url: str, schema: type[T], method: str = "GET", **kwargs) -> T:
