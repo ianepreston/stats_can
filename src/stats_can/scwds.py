@@ -44,6 +44,7 @@ from stats_can.schemas import (
 )
 
 SC_URL = "https://www150.statcan.gc.ca/t1/wds/rest/"
+DEFAULT_TIMEOUT = 30
 
 T = TypeVar("T")
 
@@ -56,6 +57,7 @@ def _fetch_and_validate(url: str, schema: type[T], method: str = "GET", **kwargs
     3. JSON Extraction
     4. Pydantic Runtime Validation
     """
+    kwargs.setdefault("timeout", DEFAULT_TIMEOUT)
     response: Response = requests.request(method, url, **kwargs)
     response.raise_for_status()
     data = response.json()

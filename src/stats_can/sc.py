@@ -105,7 +105,9 @@ def download_tables(
         json_file = dl_path / json_file_name
 
         # Thanks http://evanhahn.com/python-requests-library-useragent/
-        response = requests.get(zip_url, stream=True, headers={"user-agent": None})
+        response = requests.get(
+            zip_url, stream=True, headers={"user-agent": None}, timeout=120
+        )
 
         progress_bar = tqdm(
             desc=zip_file_name,
