@@ -24,6 +24,7 @@ Missing api implementations:
 """
 
 import datetime as dt
+import functools
 import time
 from importlib.metadata import version
 from typing import TypeVar
@@ -348,11 +349,15 @@ def get_full_table_download(table: str, csv: bool = True) -> str:
     return _fetch_and_validate(url, schema=str)
 
 
+@functools.lru_cache(maxsize=1)
 def get_code_sets() -> CodeSet:
     """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a13-1)
 
     Gets all code sets which provide additional information to describe
     information and are grouped into scales, frequencies, symbols etc.
+
+    Results are cached after the first call. Call
+    ``get_code_sets.cache_clear()`` to force a refresh.
 
     Returns
     -------
