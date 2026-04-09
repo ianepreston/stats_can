@@ -24,6 +24,7 @@ Missing api implementations:
 """
 
 import datetime as dt
+import time
 from importlib.metadata import version
 from typing import TypeVar
 from pydantic import TypeAdapter
@@ -48,6 +49,7 @@ from stats_can.schemas import (
 
 SC_URL = "https://www150.statcan.gc.ca/t1/wds/rest/"
 DEFAULT_TIMEOUT = 30
+_CHUNK_DELAY = 0.1
 _USER_AGENT = f"stats_can/{version('stats_can')}"
 
 T = TypeVar("T")
@@ -179,7 +181,9 @@ def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:
     url = f"{SC_URL}getSeriesInfoFromVector"
     chunks = chunk_vectors(vectors)
     final_list = []
-    for chunk in chunks:
+    for i, chunk in enumerate(chunks):
+        if i > 0:
+            time.sleep(_CHUNK_DELAY)
         vector_dict = [{"vectorId": v} for v in chunk]
         result = _fetch_and_validate(
             url, schema=SeriesInfo, method="POST", json=vector_dict
@@ -232,7 +236,9 @@ def get_data_from_vectors_and_latest_n_periods(
     url = f"{SC_URL}getDataFromVectorsAndLatestNPeriods"
     chunks = chunk_vectors(vectors)
     final_list = []
-    for chunk in chunks:
+    for i, chunk in enumerate(chunks):
+        if i > 0:
+            time.sleep(_CHUNK_DELAY)
         periods_l = [periods for i in range(len(chunk))]
         json = [{"vectorId": v, "latestN": n} for v, n in zip(chunk, periods_l)]
         result = _fetch_and_validate(url, schema=VectorData, method="POST", json=json)
@@ -264,7 +270,9 @@ def get_bulk_vector_data_by_range(
     end_release_date_str = str(end_release_date) + "T13:00"
     chunks = chunk_vectors(vectors)
     final_list = []
-    for vector_ids in chunks:
+    for i, vector_ids in enumerate(chunks):
+        if i > 0:
+            time.sleep(_CHUNK_DELAY)
         result = _fetch_and_validate(
             url,
             schema=VectorData,
@@ -301,7 +309,9 @@ def get_bulk_vector_data_by_reference_period_range(
     url = f"{SC_URL}getDataFromVectorByReferencePeriodRange"
     chunks = chunk_vectors(vectors)
     final_list = []
-    for vector_ids in chunks:
+    for i, vector_ids in enumerate(chunks):
+        if i > 0:
+            time.sleep(_CHUNK_DELAY)
         # I know the rest are .post, they changed it just for this one
         v_string = ",".join(f"{v}" for v in vector_ids)
         vector_param = f"vectorIds={v_string}"
