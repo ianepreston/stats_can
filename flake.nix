@@ -45,22 +45,18 @@
         # Implement build fixups here.
       };
 
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
 
-      pythonVersions = {
-        python310 = pkgs.python310;
-        python311 = pkgs.python311;
-        python312 = pkgs.python312;
-        python313 = pkgs.python313;
-        default = pkgs.python313; # This will create a 'default' shell
-      };
+      forAllSystems = lib.genAttrs supportedSystems;
 
-      # --- CHANGED: A function to generate a dev shell for a given Python version ---
-      # This function encapsulates all the logic that was previously hardcoded for a single Python version.
       mkPythonDevShell =
-        python:
+        pkgs: python:
         let
-          # 'pythonSet' is now defined inside this function, using the 'python' argument.
           pythonSet =
             (pkgs.callPackage pyproject-nix.build.packages {
               inherit python;
@@ -108,6 +104,7 @@
           packages = [
             virtualenv
             pkgs.uv
+            pkgs.prek
           ];
 
           env = {
@@ -127,9 +124,18 @@
 
     in
     {
-      # --- CHANGED: Generate multiple dev shells using lib.mapAttrs ---
-      # We map over the 'pythonVersions' set. For each entry, we call our 'mkPythonDevShell' function.
-      # The key of the entry (e.g., "python312") becomes the name of the shell.
-      devShells.x86_64-linux = lib.mapAttrs (_name: pythonPkg: mkPythonDevShell pythonPkg) pythonVersions;
+      devShells = forAllSystems (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          pythonVersions = {
+            python310 = pkgs.python310;
+            python311 = pkgs.python311;
+            python312 = pkgs.python312;
+            python313 = pkgs.python313;
+            default = pkgs.python313;
+          };
+        in
+        lib.mapAttrs (_name: pythonPkg: mkPythonDevShell pkgs pythonPkg) pythonVersions
+      );
     };
 }
