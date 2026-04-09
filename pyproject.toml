@@ -36,6 +36,11 @@ docs = [
   "mkdocstrings[python]>=1.0.0",
 ]
 
+[tool.pytest.ini_options]
+markers = [
+    "integration: tests that hit the live Statistics Canada API",
+]
+
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
 
