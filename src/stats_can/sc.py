@@ -14,11 +14,11 @@ import zipfile
 import datetime as dt
 
 import pandas as pd
-import requests
 from tqdm import tqdm
 
 from stats_can.helpers import parse_tables
 from stats_can.scwds import (
+    _session,
     get_bulk_vector_data_by_range,
     get_code_sets,
     get_cube_metadata,
@@ -105,9 +105,7 @@ def download_tables(
         json_file = dl_path / json_file_name
 
         # Thanks http://evanhahn.com/python-requests-library-useragent/
-        response = requests.get(
-            zip_url, stream=True, headers={"user-agent": None}, timeout=120
-        )
+        response = _session.get(zip_url, stream=True, timeout=120)
         response.raise_for_status()
 
         progress_bar = tqdm(

@@ -24,6 +24,7 @@ Missing api implementations:
 """
 
 import datetime as dt
+from importlib.metadata import version
 from typing import TypeVar
 from pydantic import TypeAdapter
 
@@ -45,8 +46,12 @@ from stats_can.schemas import (
 
 SC_URL = "https://www150.statcan.gc.ca/t1/wds/rest/"
 DEFAULT_TIMEOUT = 30
+_USER_AGENT = f"stats_can/{version('stats_can')}"
 
 T = TypeVar("T")
+
+_session = requests.Session()
+_session.headers["User-Agent"] = _USER_AGENT
 
 
 def _fetch_and_validate(url: str, schema: type[T], method: str = "GET", **kwargs) -> T:
@@ -58,7 +63,7 @@ def _fetch_and_validate(url: str, schema: type[T], method: str = "GET", **kwargs
     4. Pydantic Runtime Validation
     """
     kwargs.setdefault("timeout", DEFAULT_TIMEOUT)
-    response: Response = requests.request(method, url, **kwargs)
+    response: Response = _session.request(method, url, **kwargs)
     response.raise_for_status()
     data = response.json()
 
