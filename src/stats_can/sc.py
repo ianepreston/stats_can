@@ -108,6 +108,7 @@ def download_tables(
         response = requests.get(
             zip_url, stream=True, headers={"user-agent": None}, timeout=120
         )
+        response.raise_for_status()
 
         progress_bar = tqdm(
             desc=zip_file_name,
