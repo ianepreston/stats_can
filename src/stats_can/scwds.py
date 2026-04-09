@@ -68,13 +68,13 @@ _session.mount("https://", _adapter)
 _session.mount("http://", _adapter)
 
 
-def _fetch_and_validate(url: str, schema: type[T], method: str = "GET", **kwargs) -> T:
-    """
-    Centralized handler for:
-    1. HTTP Request
-    2. Status Checking
-    3. JSON Extraction
-    4. Pydantic Runtime Validation
+def _fetch_and_validate(
+    url: str, schema: type[T], method: str = "GET", **kwargs
+) -> T | list[T]:
+    """Fetch from the StatsCan API, check status, and validate with Pydantic.
+
+    Returns a single ``T`` when the API responds with a dict wrapper, or
+    ``list[T]`` when the API responds with a list of wrappers (bulk endpoints).
     """
     kwargs.setdefault("timeout", DEFAULT_TIMEOUT)
     response: Response = _session.request(method, url, **kwargs)
@@ -133,7 +133,7 @@ def get_changed_cube_list(date: dt.date | None = None) -> list[ChangedCube]:
     )
 
 
-def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata] | CubeMetadata:
+def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata]:
     """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-1)
 
     Take a list of tables and return a list of dictionaries with their
