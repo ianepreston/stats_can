@@ -16,7 +16,6 @@ Documentation = "https://stats-can.readthedocs.io"
 
 [dependency-groups]
 dev = [
-  "pre-commit>=2",
   "pytest>=8",
   "ruff",
   "coverage[toml]>=7.2",
