@@ -124,11 +124,11 @@
 
     in
     {
-      devShells = forAllSystems (system:
+      devShells = forAllSystems (
+        system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
           pythonVersions = {
-            python310 = pkgs.python310;
             python311 = pkgs.python311;
             python312 = pkgs.python312;
             python313 = pkgs.python313;
