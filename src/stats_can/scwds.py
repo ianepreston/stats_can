@@ -106,12 +106,20 @@ def get_changed_series_list() -> list[ChangedSeries]:
     Returns
     -------
     :
-        list of changed series, one for each vector and when it was released
+        list of changed series, one for each vector and when it was released.
+        Returns an empty list if no series have been released yet today.
     """
-    return _fetch_and_validate(
-        url=f"{SC_URL}getChangedSeriesList",
-        schema=list[ChangedSeries],
-    )
+    try:
+        return _fetch_and_validate(
+            url=f"{SC_URL}getChangedSeriesList",
+            schema=list[ChangedSeries],
+        )
+    except requests.HTTPError as exc:
+        # The API returns 409 when no series have been released yet today,
+        # which is a normal condition, not an error.
+        if exc.response is not None and exc.response.status_code == 409:
+            return []
+        raise
 
 
 def get_changed_cube_list(date: dt.date | None = None) -> list[ChangedCube]:
