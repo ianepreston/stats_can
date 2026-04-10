@@ -9,16 +9,17 @@ within a date range
 """
 
 import json
+import logging
 import pathlib
 import zipfile
 import datetime as dt
 
 import pandas as pd
-import requests
 from tqdm import tqdm
 
 from stats_can.helpers import parse_tables
 from stats_can.scwds import (
+    _session,
     get_bulk_vector_data_by_range,
     get_code_sets,
     get_cube_metadata,
@@ -26,6 +27,8 @@ from stats_can.scwds import (
     get_full_table_download,
     get_series_info_from_vector,
 )
+
+logger = logging.getLogger(__name__)
 
 
 def get_tables_for_vectors(
@@ -105,7 +108,8 @@ def download_tables(
         json_file = dl_path / json_file_name
 
         # Thanks http://evanhahn.com/python-requests-library-useragent/
-        response = requests.get(zip_url, stream=True, headers={"user-agent": None})
+        response = _session.get(zip_url, stream=True, timeout=120)
+        response.raise_for_status()
 
         progress_bar = tqdm(
             desc=zip_file_name,
@@ -225,7 +229,7 @@ def zip_table_to_dataframe(
     ]
     actual_cats = [col for col in possible_cats if col in col_names]
     df[actual_cats] = df[actual_cats].astype("category")
-    df["REF_DATE"] = pd.to_datetime(df["REF_DATE"],  format="%Y-%m-%d", errors="coerce")
+    df["REF_DATE"] = pd.to_datetime(df["REF_DATE"], format="%Y-%m-%d", errors="coerce")
     return df
 
 
@@ -254,9 +258,8 @@ def list_zipped_tables(path: pathlib.Path | None = None) -> list[str]:
                 result = json.load(json_file)
                 if "productId" in result:
                     tables.append(result)
-        except ValueError as e:
-            print("failed to read json file" + j)
-            print(e)
+        except ValueError:
+            logger.warning("failed to read json file %s", j)
     return tables
 
 
@@ -302,7 +305,11 @@ def vectors_to_df(
             continue
         ser = (
             pd.DataFrame(vec["vectorDataPoint"])
-            .assign(refPer=lambda x: pd.to_datetime(x["refPer"], format="%Y-%m-%d", errors="coerce"))
+            .assign(
+                refPer=lambda x: pd.to_datetime(
+                    x["refPer"], format="%Y-%m-%d", errors="coerce"
+                )
+            )
             .set_index("refPer")
             .rename(columns={"value": name})
             .filter([name])

@@ -24,11 +24,16 @@ Missing api implementations:
 """
 
 import datetime as dt
+import functools
+import time
+from importlib.metadata import version
 from typing import TypeVar
 from pydantic import TypeAdapter
 
 import requests
 from requests import Response
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from stats_can.helpers import (
     chunk_vectors,
@@ -44,19 +49,36 @@ from stats_can.schemas import (
 )
 
 SC_URL = "https://www150.statcan.gc.ca/t1/wds/rest/"
+DEFAULT_TIMEOUT = 30
+_CHUNK_DELAY = 0.1
+_USER_AGENT = f"stats_can/{version('stats_can')}"
 
 T = TypeVar("T")
 
+_retry = Retry(
+    total=3,
+    backoff_factor=1,
+    status_forcelist=[429, 500, 502, 503, 504],
+    allowed_methods=["GET", "POST"],
+)
+_adapter = HTTPAdapter(max_retries=_retry)
 
-def _fetch_and_validate(url: str, schema: type[T], method: str = "GET", **kwargs) -> T:
+_session = requests.Session()
+_session.headers["User-Agent"] = _USER_AGENT
+_session.mount("https://", _adapter)
+_session.mount("http://", _adapter)
+
+
+def _fetch_and_validate(
+    url: str, schema: type[T], method: str = "GET", **kwargs
+) -> T | list[T]:
+    """Fetch from the StatsCan API, check status, and validate with Pydantic.
+
+    Returns a single ``T`` when the API responds with a dict wrapper, or
+    ``list[T]`` when the API responds with a list of wrappers (bulk endpoints).
     """
-    Centralized handler for:
-    1. HTTP Request
-    2. Status Checking
-    3. JSON Extraction
-    4. Pydantic Runtime Validation
-    """
-    response: Response = requests.request(method, url, **kwargs)
+    kwargs.setdefault("timeout", DEFAULT_TIMEOUT)
+    response: Response = _session.request(method, url, **kwargs)
     response.raise_for_status()
     data = response.json()
 
@@ -84,12 +106,20 @@ def get_changed_series_list() -> list[ChangedSeries]:
     Returns
     -------
     :
-        list of changed series, one for each vector and when it was released
+        list of changed series, one for each vector and when it was released.
+        Returns an empty list if no series have been released yet today.
     """
-    return _fetch_and_validate(
-        url=f"{SC_URL}getChangedSeriesList",
-        schema=list[ChangedSeries],
-    )
+    try:
+        return _fetch_and_validate(
+            url=f"{SC_URL}getChangedSeriesList",
+            schema=list[ChangedSeries],
+        )
+    except requests.HTTPError as exc:
+        # The API returns 409 when no series have been released yet today,
+        # which is a normal condition, not an error.
+        if exc.response is not None and exc.response.status_code == 409:
+            return []
+        raise
 
 
 def get_changed_cube_list(date: dt.date | None = None) -> list[ChangedCube]:
@@ -112,7 +142,7 @@ def get_changed_cube_list(date: dt.date | None = None) -> list[ChangedCube]:
     )
 
 
-def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata] | CubeMetadata:
+def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata]:
     """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-1)
 
     Take a list of tables and return a list of dictionaries with their
@@ -160,7 +190,9 @@ def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:
     url = f"{SC_URL}getSeriesInfoFromVector"
     chunks = chunk_vectors(vectors)
     final_list = []
-    for chunk in chunks:
+    for i, chunk in enumerate(chunks):
+        if i > 0:
+            time.sleep(_CHUNK_DELAY)
         vector_dict = [{"vectorId": v} for v in chunk]
         result = _fetch_and_validate(
             url, schema=SeriesInfo, method="POST", json=vector_dict
@@ -213,7 +245,9 @@ def get_data_from_vectors_and_latest_n_periods(
     url = f"{SC_URL}getDataFromVectorsAndLatestNPeriods"
     chunks = chunk_vectors(vectors)
     final_list = []
-    for chunk in chunks:
+    for i, chunk in enumerate(chunks):
+        if i > 0:
+            time.sleep(_CHUNK_DELAY)
         periods_l = [periods for i in range(len(chunk))]
         json = [{"vectorId": v, "latestN": n} for v, n in zip(chunk, periods_l)]
         result = _fetch_and_validate(url, schema=VectorData, method="POST", json=json)
@@ -245,7 +279,9 @@ def get_bulk_vector_data_by_range(
     end_release_date_str = str(end_release_date) + "T13:00"
     chunks = chunk_vectors(vectors)
     final_list = []
-    for vector_ids in chunks:
+    for i, vector_ids in enumerate(chunks):
+        if i > 0:
+            time.sleep(_CHUNK_DELAY)
         result = _fetch_and_validate(
             url,
             schema=VectorData,
@@ -282,7 +318,9 @@ def get_bulk_vector_data_by_reference_period_range(
     url = f"{SC_URL}getDataFromVectorByReferencePeriodRange"
     chunks = chunk_vectors(vectors)
     final_list = []
-    for vector_ids in chunks:
+    for i, vector_ids in enumerate(chunks):
+        if i > 0:
+            time.sleep(_CHUNK_DELAY)
         # I know the rest are .post, they changed it just for this one
         v_string = ",".join(f"{v}" for v in vector_ids)
         vector_param = f"vectorIds={v_string}"
@@ -319,11 +357,15 @@ def get_full_table_download(table: str, csv: bool = True) -> str:
     return _fetch_and_validate(url, schema=str)
 
 
+@functools.lru_cache(maxsize=1)
 def get_code_sets() -> CodeSet:
     """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a13-1)
 
     Gets all code sets which provide additional information to describe
     information and are grouped into scales, frequencies, symbols etc.
+
+    Results are cached after the first call. Call
+    ``get_code_sets.cache_clear()`` to force a refresh.
 
     Returns
     -------

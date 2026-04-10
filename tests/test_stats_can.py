@@ -10,6 +10,7 @@ import pathlib
 import shutil
 
 import pandas as pd
+import pytest
 
 import stats_can
 
@@ -20,6 +21,7 @@ ts = ["271-000-22-01", "18100204"]
 TEST_FILES_PATH = pathlib.Path(__file__).parent / "test_files"
 
 
+@pytest.mark.integration
 def test_get_tables_for_vectors():
     """Test tables for vectors function."""
     actual = stats_can.sc.get_tables_for_vectors(vs)
@@ -28,12 +30,14 @@ def test_get_tables_for_vectors():
     assert sorted(actual["all_tables"]) == sorted(["18100004", "23100216"])
 
 
+@pytest.mark.integration
 def test_table_subsets_from_vectors():
     """Test tables subsets from vectors function."""
     actual = stats_can.sc.table_subsets_from_vectors(vs)
     assert actual == {"23100216": [74804], "18100004": [41692457]}
 
 
+@pytest.mark.integration
 def test_vectors_to_df_by_release():
     """Test one vector to df method."""
     r = stats_can.sc.vectors_to_df(
@@ -46,6 +50,7 @@ def test_vectors_to_df_by_release():
     assert isinstance(r.index, pd.DatetimeIndex)
 
 
+@pytest.mark.integration
 def test_empty_release():
     """Test requesting data from a period with no releases."""
     vec = "v41692457"
@@ -57,6 +62,7 @@ def test_empty_release():
     assert len(r) == 0
 
 
+@pytest.mark.integration
 def test_vectors_to_df_by_periods():
     """Test the other vector to df method."""
     r = stats_can.sc.vectors_to_df(vs, 5)
@@ -67,6 +73,7 @@ def test_vectors_to_df_by_periods():
     assert isinstance(r.index, pd.DatetimeIndex)
 
 
+@pytest.mark.integration
 def test_download_table(tmpdir):
     """Test downloading a table.
 
@@ -89,6 +96,7 @@ def test_download_table(tmpdir):
     assert t_zip.exists()
 
 
+@pytest.mark.integration
 def test_zip_update_tables(tmpdir):
     """Test updating a table from a zip file using a different function signature.
 
