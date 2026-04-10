@@ -2,7 +2,11 @@
 
 import datetime as dt
 
+import pytest
+
 import stats_can
+
+pytestmark = pytest.mark.integration
 
 vs = ["v74804", "v41692457"]
 v = "41692452"
