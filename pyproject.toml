@@ -1,6 +1,6 @@
 [project]
 name = "stats_can"
-version = "3.2.2"
+version = "3.2.3"
 description = "Read StatsCan data into python, mostly pandas dataframes"
 authors = [{ name = "Ian Preston" }]
 requires-python = ">=3.10,<4.0"
