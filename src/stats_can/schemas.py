@@ -60,7 +60,7 @@ class Footnote(TypedDict):
 class CubeMetadata(TypedDict):
     responseStatusCode: int
     productId: int
-    cansimId: str
+    cansimId: str | None
     cubeTitleEn: str
     cubeTitleFr: str
     cubeStartDate: str

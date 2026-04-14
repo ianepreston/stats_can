@@ -113,6 +113,61 @@ class TestDownloadTableErrors:
                 stats_can.sc.download_tables("99999999", path=tmpdir)
 
 
+class TestCubeMetadataValidation:
+    """Tests for CubeMetadata schema validation."""
+
+    _CUBE_METADATA_BASE = {
+        "responseStatusCode": 0,
+        "productId": 34100292,
+        "cubeTitleEn": "Building permits",
+        "cubeTitleFr": "Permis de bâtir",
+        "cubeStartDate": "2018-01-01",
+        "cubeEndDate": "2026-02-01",
+        "frequencyCode": 6,
+        "nbSeriesCube": 375864,
+        "nbDatapointsCube": 36834672,
+        "releaseTime": "2026-04-13T08:30",
+        "archiveStatusCode": "2",
+        "archiveStatusEn": "CURRENT",
+        "archiveStatusFr": "ACTIF",
+        "subjectCode": ["3409"],
+        "surveyCode": ["2802"],
+        "dimension": [],
+        "footnote": [],
+        "correction": [],
+        "correctionFootnote": [],
+        "issueDate": "2026-04-13",
+    }
+
+    def test_null_cansim_id_validates(self):
+        """Tables without a CANSIM ID return cansimId=null from the API."""
+        mock_resp = _mock_response(
+            json_data=[
+                {
+                    "status": "SUCCESS",
+                    "object": {**self._CUBE_METADATA_BASE, "cansimId": None},
+                }
+            ]
+        )
+        with patch.object(scwds._session, "request", return_value=mock_resp):
+            result = scwds.get_cube_metadata("34100292")
+        assert result[0]["cansimId"] is None
+
+    def test_string_cansim_id_validates(self):
+        """Tables with a CANSIM ID should still validate normally."""
+        mock_resp = _mock_response(
+            json_data=[
+                {
+                    "status": "SUCCESS",
+                    "object": {**self._CUBE_METADATA_BASE, "cansimId": "271-0022"},
+                }
+            ]
+        )
+        with patch.object(scwds._session, "request", return_value=mock_resp):
+            result = scwds.get_cube_metadata("27100022")
+        assert result[0]["cansimId"] == "271-0022"
+
+
 class TestVectorsToDfEdgeCases:
     """Tests for vectors_to_df edge cases."""
 
