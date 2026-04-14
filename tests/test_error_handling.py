@@ -167,6 +167,99 @@ class TestCubeMetadataValidation:
             result = scwds.get_cube_metadata("27100022")
         assert result[0]["cansimId"] == "271-0022"
 
+    def test_null_issue_date_validates(self):
+        """Tables like 36100402 return issueDate=null from the API."""
+        mock_resp = _mock_response(
+            json_data=[
+                {
+                    "status": "SUCCESS",
+                    "object": {
+                        **self._CUBE_METADATA_BASE,
+                        "cansimId": None,
+                        "issueDate": None,
+                    },
+                }
+            ]
+        )
+        with patch.object(scwds._session, "request", return_value=mock_resp):
+            result = scwds.get_cube_metadata("36100402")
+        assert result[0]["issueDate"] is None
+
+    def test_null_cube_start_date_validates(self):
+        """cubeStartDate can be null for tables with no data yet."""
+        mock_resp = _mock_response(
+            json_data=[
+                {
+                    "status": "SUCCESS",
+                    "object": {
+                        **self._CUBE_METADATA_BASE,
+                        "cansimId": None,
+                        "cubeStartDate": None,
+                    },
+                }
+            ]
+        )
+        with patch.object(scwds._session, "request", return_value=mock_resp):
+            result = scwds.get_cube_metadata("34100292")
+        assert result[0]["cubeStartDate"] is None
+
+    def test_null_cube_end_date_validates(self):
+        """cubeEndDate can be null for tables with no data yet."""
+        mock_resp = _mock_response(
+            json_data=[
+                {
+                    "status": "SUCCESS",
+                    "object": {
+                        **self._CUBE_METADATA_BASE,
+                        "cansimId": None,
+                        "cubeEndDate": None,
+                    },
+                }
+            ]
+        )
+        with patch.object(scwds._session, "request", return_value=mock_resp):
+            result = scwds.get_cube_metadata("34100292")
+        assert result[0]["cubeEndDate"] is None
+
+    def test_null_release_time_validates(self):
+        """releaseTime can be null for unreleased tables."""
+        mock_resp = _mock_response(
+            json_data=[
+                {
+                    "status": "SUCCESS",
+                    "object": {
+                        **self._CUBE_METADATA_BASE,
+                        "cansimId": None,
+                        "releaseTime": None,
+                    },
+                }
+            ]
+        )
+        with patch.object(scwds._session, "request", return_value=mock_resp):
+            result = scwds.get_cube_metadata("34100292")
+        assert result[0]["releaseTime"] is None
+
+    def test_multiple_null_fields_validate(self):
+        """Multiple nullable fields can be null simultaneously."""
+        metadata = {
+            **self._CUBE_METADATA_BASE,
+            "cansimId": None,
+            "cubeStartDate": None,
+            "cubeEndDate": None,
+            "releaseTime": None,
+            "issueDate": None,
+        }
+        mock_resp = _mock_response(
+            json_data=[{"status": "SUCCESS", "object": metadata}]
+        )
+        with patch.object(scwds._session, "request", return_value=mock_resp):
+            result = scwds.get_cube_metadata("36100402")
+        assert result[0]["cansimId"] is None
+        assert result[0]["cubeStartDate"] is None
+        assert result[0]["cubeEndDate"] is None
+        assert result[0]["releaseTime"] is None
+        assert result[0]["issueDate"] is None
+
 
 class TestVectorsToDfEdgeCases:
     """Tests for vectors_to_df edge cases."""
