@@ -281,3 +281,70 @@ class TestVectorsToDfEdgeCases:
         ):
             df = stats_can.sc.vectors_to_df("v74804", periods=5)
             assert len(df) == 0
+
+
+class TestGetSeriesInfoFromCubePidCoord:
+    """Tests for get_series_info_from_cube_pid_coord."""
+
+    _SERIES_INFO = {
+        "responseStatusCode": 0,
+        "productId": 25100015,
+        "coordinate": "1.12.0.0.0.0.0.0.0.0",
+        "vectorId": 1234567,
+        "frequencyCode": 6,
+        "scalarFactorCode": 0,
+        "decimals": 2,
+        "terminated": 0,
+        "SeriesTitleEn": "Series",
+        "SeriesTitleFr": "Serie",
+        "memberUomCode": 0,
+    }
+
+    def test_single_pair_accepted(self):
+        """A single (productId, coordinate) tuple should be wrapped into a list."""
+        mock_resp = _mock_response(
+            json_data=[{"status": "SUCCESS", "object": self._SERIES_INFO}]
+        )
+        with patch.object(
+            scwds._session, "request", return_value=mock_resp
+        ) as mocked:
+            result = scwds.get_series_info_from_cube_pid_coord(("25-10-0015-01", "1.12"))
+        assert len(result) == 1
+        # Verify the body StatsCan received was parsed and padded.
+        sent_json = mocked.call_args.kwargs["json"]
+        assert sent_json == [
+            {"productId": "25100015", "coordinate": "1.12.0.0.0.0.0.0.0.0"}
+        ]
+
+    def test_list_of_pairs_accepted(self):
+        """A list of pairs should produce one body entry per pair."""
+        mock_resp = _mock_response(
+            json_data=[
+                {"status": "SUCCESS", "object": self._SERIES_INFO},
+                {"status": "SUCCESS", "object": self._SERIES_INFO},
+            ]
+        )
+        with patch.object(
+            scwds._session, "request", return_value=mock_resp
+        ) as mocked:
+            result = scwds.get_series_info_from_cube_pid_coord(
+                [("25100015", "1.12"), (25100015, "2")]
+            )
+        assert len(result) == 2
+        sent_json = mocked.call_args.kwargs["json"]
+        assert sent_json == [
+            {"productId": "25100015", "coordinate": "1.12.0.0.0.0.0.0.0.0"},
+            {"productId": "25100015", "coordinate": "2.0.0.0.0.0.0.0.0.0"},
+        ]
+
+    def test_chunks_large_input(self):
+        """Inputs over 250 pairs should be split across multiple POSTs."""
+        pairs = [("25100015", "1")] * 251
+        mock_resp = _mock_response(
+            json_data=[{"status": "SUCCESS", "object": self._SERIES_INFO}]
+        )
+        with patch.object(
+            scwds._session, "request", return_value=mock_resp
+        ) as mocked, patch("stats_can.scwds.time.sleep"):
+            scwds.get_series_info_from_cube_pid_coord(pairs)
+        assert mocked.call_count == 2

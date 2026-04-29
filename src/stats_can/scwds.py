@@ -16,7 +16,6 @@ SC_URL : str
 TODO
 ----
 Missing api implementations:
-    GetSeriesInfoFromCubePidCoord
     GetChangedSeriesDataFromCubePidCoord
     GetChangedSeriesDataFromVector
     GetDataFromCubePidCoordAndLatestNPeriods
@@ -38,6 +37,7 @@ from urllib3.util.retry import Retry
 from stats_can.helpers import (
     chunk_vectors,
     parse_tables,
+    pad_coordinate
 )
 from stats_can.schemas import (
     ChangedSeries,
@@ -166,12 +166,54 @@ def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata]:
     )
 
 
-def get_series_info_from_cube_pid_coord():
-    """Not implemented yet
 
-    [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-2)
+def get_series_info_from_cube_pid_coord(
+    pairs: tuple[str | int, str] | list[tuple[str | int, str]],
+) -> list[SeriesInfo]:
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a11-2)
+
+    Get series metadata for one or more (productId, coordinate) pairs.
+
+    Parameters
+    ----------
+    pairs
+        One pair, or a list of pairs, where each pair is
+        ``(productId, coordinate)``. ``productId`` accepts the same forms
+        as :func:`stats_can.helpers.parse_tables`
+        (e.g. ``"25-10-0015-01"``, ``"25100015"``, ``25100015``).
+        ``coordinate`` is the dot-delimited dimension member id string;
+        it is right-padded with ``.0`` to the 10 positions the API requires.
+
+    Returns
+    -------
+    :
+        One :class:`SeriesInfo` per requested pair, in the order returned
+        by the API.
     """
-    pass
+    MAX_CHUNK = 250
+
+    if isinstance(pairs, tuple):
+        pairs = [pairs]
+
+    body = [
+        {
+            "productId": parse_tables(product_id)[0],
+            "coordinate": pad_coordinate(coord),
+        }
+        for product_id, coord in pairs
+    ]
+
+    url = f"{SC_URL}getSeriesInfoFromCubePidCoord"
+    chunks = [body[i : i + MAX_CHUNK] for i in range(0, len(body), MAX_CHUNK)]
+    final_list: list[SeriesInfo] = []
+    for i, chunk in enumerate(chunks):
+        if i > 0:
+            time.sleep(_CHUNK_DELAY)
+        result = _fetch_and_validate(
+            url, schema=SeriesInfo, method="POST", json=chunk
+        )
+        final_list += result
+    return final_list
 
 
 def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:

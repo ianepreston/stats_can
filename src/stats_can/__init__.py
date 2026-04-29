@@ -29,6 +29,7 @@ __all__ = [
     "get_changed_cube_list",
     "get_changed_series_list",
     "get_cube_metadata",
+    "get_series_info_from_cube_pid_coord",
     "get_series_info_from_vector",
 ]
 from stats_can import sc, scwds, schemas
@@ -37,5 +38,6 @@ from stats_can.scwds import (
     get_changed_cube_list,
     get_changed_series_list,
     get_cube_metadata,
+    get_series_info_from_cube_pid_coord,
     get_series_info_from_vector,
 )
