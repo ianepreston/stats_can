@@ -91,17 +91,29 @@ def test_gsifv():
 
 def test_gcsdfcpc():
     """Test get changed series data from cube pid coord."""
-    pass
+    r = stats_can.scwds.get_changed_series_data_from_cube_pid_coord(
+        ("35100003", "1.12")
+    )
+    assert isinstance(r, list)
+    assert len(r) == 1
+    assert r[0]["productId"] == 35100003
 
 
 def test_gcsdfv():
     """Test get get changed series data from vector."""
-    pass
+    r = stats_can.scwds.get_changed_series_data_from_vector(v)
+    assert isinstance(r, list)
+    assert len(r) == 1
 
 
 def test_gdfcpcalnp():
     """Test get data from cube pid coord and latest n periods."""
-    pass
+    r = stats_can.scwds.get_data_from_cube_pid_coord_and_latest_n_periods(
+        ("35100003", "1.12"), periods=3
+    )
+    assert isinstance(r, list)
+    assert len(r) == 1
+    assert len(r[0]["vectorDataPoint"]) == 3
 
 
 def test_gdfvalnp():

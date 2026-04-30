@@ -13,13 +13,6 @@ Attributes
 SC_URL : str
     URL for the Statistics Canada REST api
 
-TODO
-----
-Missing api implementations:
-    GetChangedSeriesDataFromCubePidCoord
-    GetChangedSeriesDataFromVector
-    GetDataFromCubePidCoordAndLatestNPeriods
-    GetFullTableDownloadSDMX
 """
 
 import datetime as dt
@@ -37,6 +30,7 @@ from urllib3.util.retry import Retry
 from stats_can.helpers import (
     chunk_vectors,
     parse_tables,
+    parse_vectors,
     pad_coordinate
 )
 from stats_can.schemas import (
@@ -51,6 +45,7 @@ from stats_can.schemas import (
 SC_URL = "https://www150.statcan.gc.ca/t1/wds/rest/"
 DEFAULT_TIMEOUT = 30
 _CHUNK_DELAY = 0.1
+_MAX_CHUNK = 250
 _USER_AGENT = f"stats_can/{version('stats_can')}"
 
 T = TypeVar("T")
@@ -96,6 +91,26 @@ def _fetch_and_validate(
         return [adapter.validate_python(p) for p in payload]
     else:
         raise RuntimeError(f"data came back weird. We should never get here: {data}")
+
+
+def _post_in_chunks(
+    url: str, body: list[dict], schema: type[T]
+) -> list[T]:
+    """POST ``body`` to ``url`` in chunks of ``_MAX_CHUNK`` items.
+
+    Validates each chunk's response against ``schema`` and concatenates the
+    results. Sleeps ``_CHUNK_DELAY`` seconds between chunks.
+    """
+    chunks = [body[i : i + _MAX_CHUNK] for i in range(0, len(body), _MAX_CHUNK)]
+    final_list: list[T] = []
+    for i, chunk in enumerate(chunks):
+        if i > 0:
+            time.sleep(_CHUNK_DELAY)
+        result = _fetch_and_validate(
+            url, schema=schema, method="POST", json=chunk
+        )
+        final_list += result
+    return final_list
 
 
 def get_changed_series_list() -> list[ChangedSeries]:
@@ -190,8 +205,6 @@ def get_series_info_from_cube_pid_coord(
         One :class:`SeriesInfo` per requested pair, in the order returned
         by the API.
     """
-    MAX_CHUNK = 250
-
     if isinstance(pairs, tuple):
         pairs = [pairs]
 
@@ -202,18 +215,9 @@ def get_series_info_from_cube_pid_coord(
         }
         for product_id, coord in pairs
     ]
-
-    url = f"{SC_URL}getSeriesInfoFromCubePidCoord"
-    chunks = [body[i : i + MAX_CHUNK] for i in range(0, len(body), MAX_CHUNK)]
-    final_list: list[SeriesInfo] = []
-    for i, chunk in enumerate(chunks):
-        if i > 0:
-            time.sleep(_CHUNK_DELAY)
-        result = _fetch_and_validate(
-            url, schema=SeriesInfo, method="POST", json=chunk
-        )
-        final_list += result
-    return final_list
+    return _post_in_chunks(
+        f"{SC_URL}getSeriesInfoFromCubePidCoord", body, SeriesInfo
+    )
 
 
 def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:
@@ -229,42 +233,111 @@ def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:
     :
         List of dicts containing metadata for each v#
     """
-    url = f"{SC_URL}getSeriesInfoFromVector"
-    chunks = chunk_vectors(vectors)
-    final_list = []
-    for i, chunk in enumerate(chunks):
-        if i > 0:
-            time.sleep(_CHUNK_DELAY)
-        vector_dict = [{"vectorId": v} for v in chunk]
-        result = _fetch_and_validate(
-            url, schema=SeriesInfo, method="POST", json=vector_dict
-        )
-        final_list += result
-    return final_list
+    body = [{"vectorId": v} for v in parse_vectors(vectors)]
+    return _post_in_chunks(
+        f"{SC_URL}getSeriesInfoFromVector", body, SeriesInfo
+    )
 
 
-def get_changed_series_data_from_cube_pid_coord():
-    """Not implemented yet
+def get_changed_series_data_from_cube_pid_coord(
+    pairs: tuple[str | int, str] | list[tuple[str | int, str]],
+) -> list[VectorData]:
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-1)
 
-    [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-1)
+    Get changed-series data for one or more (productId, coordinate) pairs.
+
+    Parameters
+    ----------
+    pairs
+        One pair, or a list of pairs, where each pair is
+        ``(productId, coordinate)``. ``productId`` accepts the same forms
+        as :func:`stats_can.helpers.parse_tables`. ``coordinate`` is the
+        dot-delimited dimension member id string; it is right-padded with
+        ``.0`` to the 10 positions the API requires.
+
+    Returns
+    -------
+    :
+        One :class:`VectorData` per requested pair, in the order returned
+        by the API.
     """
-    pass
+    if isinstance(pairs, tuple):
+        pairs = [pairs]
+
+    body = [
+        {
+            "productId": parse_tables(product_id)[0],
+            "coordinate": pad_coordinate(coord),
+        }
+        for product_id, coord in pairs
+    ]
+    return _post_in_chunks(
+        f"{SC_URL}getChangedSeriesDataFromCubePidCoord", body, VectorData
+    )
 
 
-def get_changed_series_data_from_vector():
-    """Not implemented yet
+def get_changed_series_data_from_vector(
+    vectors: str | list[str],
+) -> list[VectorData]:
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-2)
 
-    [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-2)
+    Parameters
+    ----------
+    vectors
+        vector numbers to get changed data for
+
+    Returns
+    -------
+    :
+        List of dicts containing changed data for each vector
     """
-    pass
+    body = [{"vectorId": v} for v in parse_vectors(vectors)]
+    return _post_in_chunks(
+        f"{SC_URL}getChangedSeriesDataFromVector", body, VectorData
+    )
 
 
-def get_data_from_cube_pid_coord_and_latest_n_periods():
-    """Not implemented yet
+def get_data_from_cube_pid_coord_and_latest_n_periods(
+    pairs: tuple[str | int, str] | list[tuple[str | int, str]],
+    periods: int,
+) -> list[VectorData]:
+    """[api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-3)
 
-    [api reference](https://www.statcan.gc.ca/eng/developers/wds/user-guide#a12-3)
+    Get the latest ``periods`` reference periods of data for one or more
+    (productId, coordinate) pairs.
+
+    Parameters
+    ----------
+    pairs
+        One pair, or a list of pairs, where each pair is
+        ``(productId, coordinate)``. ``productId`` accepts the same forms
+        as :func:`stats_can.helpers.parse_tables`. ``coordinate`` is the
+        dot-delimited dimension member id string; it is right-padded with
+        ``.0`` to the 10 positions the API requires.
+    periods
+        number of periods (starting at latest) to retrieve data for; applied
+        to every pair.
+
+    Returns
+    -------
+    :
+        One :class:`VectorData` per requested pair, in the order returned
+        by the API.
     """
-    pass
+    if isinstance(pairs, tuple):
+        pairs = [pairs]
+
+    body = [
+        {
+            "productId": parse_tables(product_id)[0],
+            "coordinate": pad_coordinate(coord),
+            "latestN": periods,
+        }
+        for product_id, coord in pairs
+    ]
+    return _post_in_chunks(
+        f"{SC_URL}getDataFromCubePidCoordAndLatestNPeriods", body, VectorData
+    )
 
 
 def get_data_from_vectors_and_latest_n_periods(
@@ -284,17 +357,12 @@ def get_data_from_vectors_and_latest_n_periods(
     :
         List of dicts containing data for each vector
     """
-    url = f"{SC_URL}getDataFromVectorsAndLatestNPeriods"
-    chunks = chunk_vectors(vectors)
-    final_list = []
-    for i, chunk in enumerate(chunks):
-        if i > 0:
-            time.sleep(_CHUNK_DELAY)
-        periods_l = [periods for i in range(len(chunk))]
-        json = [{"vectorId": v, "latestN": n} for v, n in zip(chunk, periods_l)]
-        result = _fetch_and_validate(url, schema=VectorData, method="POST", json=json)
-        final_list += result
-    return final_list
+    body = [
+        {"vectorId": v, "latestN": periods} for v in parse_vectors(vectors)
+    ]
+    return _post_in_chunks(
+        f"{SC_URL}getDataFromVectorsAndLatestNPeriods", body, VectorData
+    )
 
 
 def get_bulk_vector_data_by_range(
