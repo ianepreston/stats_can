@@ -27,12 +27,7 @@ from requests import Response
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-from stats_can.helpers import (
-    chunk_vectors,
-    parse_tables,
-    parse_vectors,
-    pad_coordinate
-)
+from stats_can.helpers import chunk_vectors, parse_tables, parse_vectors, pad_coordinate
 from stats_can.schemas import (
     ChangedSeries,
     ChangedCube,
@@ -93,9 +88,7 @@ def _fetch_and_validate(
         raise RuntimeError(f"data came back weird. We should never get here: {data}")
 
 
-def _post_in_chunks(
-    url: str, body: list[dict], schema: type[T]
-) -> list[T]:
+def _post_in_chunks(url: str, body: list[dict], schema: type[T]) -> list[T]:
     """POST ``body`` to ``url`` in chunks of ``_MAX_CHUNK`` items.
 
     Validates each chunk's response against ``schema`` and concatenates the
@@ -106,9 +99,7 @@ def _post_in_chunks(
     for i, chunk in enumerate(chunks):
         if i > 0:
             time.sleep(_CHUNK_DELAY)
-        result = _fetch_and_validate(
-            url, schema=schema, method="POST", json=chunk
-        )
+        result = _fetch_and_validate(url, schema=schema, method="POST", json=chunk)
         final_list += result
     return final_list
 
@@ -181,7 +172,6 @@ def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata]:
     )
 
 
-
 def get_series_info_from_cube_pid_coord(
     pairs: tuple[str | int, str] | list[tuple[str | int, str]],
 ) -> list[SeriesInfo]:
@@ -215,9 +205,7 @@ def get_series_info_from_cube_pid_coord(
         }
         for product_id, coord in pairs
     ]
-    return _post_in_chunks(
-        f"{SC_URL}getSeriesInfoFromCubePidCoord", body, SeriesInfo
-    )
+    return _post_in_chunks(f"{SC_URL}getSeriesInfoFromCubePidCoord", body, SeriesInfo)
 
 
 def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:
@@ -234,9 +222,7 @@ def get_series_info_from_vector(vectors: str | list[str]) -> list[SeriesInfo]:
         List of dicts containing metadata for each v#
     """
     body = [{"vectorId": v} for v in parse_vectors(vectors)]
-    return _post_in_chunks(
-        f"{SC_URL}getSeriesInfoFromVector", body, SeriesInfo
-    )
+    return _post_in_chunks(f"{SC_URL}getSeriesInfoFromVector", body, SeriesInfo)
 
 
 def get_changed_series_data_from_cube_pid_coord(
@@ -292,9 +278,7 @@ def get_changed_series_data_from_vector(
         List of dicts containing changed data for each vector
     """
     body = [{"vectorId": v} for v in parse_vectors(vectors)]
-    return _post_in_chunks(
-        f"{SC_URL}getChangedSeriesDataFromVector", body, VectorData
-    )
+    return _post_in_chunks(f"{SC_URL}getChangedSeriesDataFromVector", body, VectorData)
 
 
 def get_data_from_cube_pid_coord_and_latest_n_periods(
@@ -357,9 +341,7 @@ def get_data_from_vectors_and_latest_n_periods(
     :
         List of dicts containing data for each vector
     """
-    body = [
-        {"vectorId": v, "latestN": periods} for v in parse_vectors(vectors)
-    ]
+    body = [{"vectorId": v, "latestN": periods} for v in parse_vectors(vectors)]
     return _post_in_chunks(
         f"{SC_URL}getDataFromVectorsAndLatestNPeriods", body, VectorData
     )

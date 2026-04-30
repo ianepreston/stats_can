@@ -108,6 +108,7 @@ def chunk_vectors(vectors: list[str] | str) -> list[list[int]]:
     ]
     return chunks
 
+
 def pad_coordinate(coord: str) -> str:
     """Right-pad a dot-delimited coordinate to 10 positions.
 

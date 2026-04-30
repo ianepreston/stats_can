@@ -305,10 +305,10 @@ class TestGetSeriesInfoFromCubePidCoord:
         mock_resp = _mock_response(
             json_data=[{"status": "SUCCESS", "object": self._SERIES_INFO}]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked:
-            result = scwds.get_series_info_from_cube_pid_coord(("25-10-0015-01", "1.12"))
+        with patch.object(scwds._session, "request", return_value=mock_resp) as mocked:
+            result = scwds.get_series_info_from_cube_pid_coord(
+                ("25-10-0015-01", "1.12")
+            )
         assert len(result) == 1
         # Verify the body StatsCan received was parsed and padded.
         sent_json = mocked.call_args.kwargs["json"]
@@ -324,9 +324,7 @@ class TestGetSeriesInfoFromCubePidCoord:
                 {"status": "SUCCESS", "object": self._SERIES_INFO},
             ]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked:
+        with patch.object(scwds._session, "request", return_value=mock_resp) as mocked:
             result = scwds.get_series_info_from_cube_pid_coord(
                 [("25100015", "1.12"), (25100015, "2")]
             )
@@ -343,9 +341,10 @@ class TestGetSeriesInfoFromCubePidCoord:
         mock_resp = _mock_response(
             json_data=[{"status": "SUCCESS", "object": self._SERIES_INFO}]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked, patch("stats_can.scwds.time.sleep"):
+        with (
+            patch.object(scwds._session, "request", return_value=mock_resp) as mocked,
+            patch("stats_can.scwds.time.sleep"),
+        ):
             scwds.get_series_info_from_cube_pid_coord(pairs)
         assert mocked.call_count == 2
 
@@ -367,17 +366,13 @@ class TestGetChangedSeriesDataFromCubePidCoord:
         mock_resp = _mock_response(
             json_data=[{"status": "SUCCESS", "object": _VECTOR_DATA}]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked:
+        with patch.object(scwds._session, "request", return_value=mock_resp) as mocked:
             result = scwds.get_changed_series_data_from_cube_pid_coord(
                 ("35-10-0003-01", "1.12")
             )
         assert len(result) == 1
         assert mocked.call_args.args[0] == "POST"
-        assert mocked.call_args.args[1].endswith(
-            "getChangedSeriesDataFromCubePidCoord"
-        )
+        assert mocked.call_args.args[1].endswith("getChangedSeriesDataFromCubePidCoord")
         assert mocked.call_args.kwargs["json"] == [
             {"productId": "35100003", "coordinate": "1.12.0.0.0.0.0.0.0.0"}
         ]
@@ -390,9 +385,7 @@ class TestGetChangedSeriesDataFromCubePidCoord:
                 {"status": "SUCCESS", "object": _VECTOR_DATA},
             ]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked:
+        with patch.object(scwds._session, "request", return_value=mock_resp) as mocked:
             result = scwds.get_changed_series_data_from_cube_pid_coord(
                 [("35100003", "1.12"), (35100003, "2")]
             )
@@ -408,9 +401,10 @@ class TestGetChangedSeriesDataFromCubePidCoord:
         mock_resp = _mock_response(
             json_data=[{"status": "SUCCESS", "object": _VECTOR_DATA}]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked, patch("stats_can.scwds.time.sleep"):
+        with (
+            patch.object(scwds._session, "request", return_value=mock_resp) as mocked,
+            patch("stats_can.scwds.time.sleep"),
+        ):
             scwds.get_changed_series_data_from_cube_pid_coord(pairs)
         assert mocked.call_count == 2
 
@@ -423,9 +417,7 @@ class TestGetChangedSeriesDataFromVector:
         mock_resp = _mock_response(
             json_data=[{"status": "SUCCESS", "object": _VECTOR_DATA}]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked:
+        with patch.object(scwds._session, "request", return_value=mock_resp) as mocked:
             result = scwds.get_changed_series_data_from_vector("v32164132")
         assert len(result) == 1
         assert mocked.call_args.args[1].endswith("getChangedSeriesDataFromVector")
@@ -439,12 +431,8 @@ class TestGetChangedSeriesDataFromVector:
                 {"status": "SUCCESS", "object": _VECTOR_DATA},
             ]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked:
-            result = scwds.get_changed_series_data_from_vector(
-                ["v32164132", "74804"]
-            )
+        with patch.object(scwds._session, "request", return_value=mock_resp) as mocked:
+            result = scwds.get_changed_series_data_from_vector(["v32164132", "74804"])
         assert len(result) == 2
         assert mocked.call_args.kwargs["json"] == [
             {"vectorId": 32164132},
@@ -457,9 +445,10 @@ class TestGetChangedSeriesDataFromVector:
         mock_resp = _mock_response(
             json_data=[{"status": "SUCCESS", "object": _VECTOR_DATA}]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked, patch("stats_can.scwds.time.sleep"):
+        with (
+            patch.object(scwds._session, "request", return_value=mock_resp) as mocked,
+            patch("stats_can.scwds.time.sleep"),
+        ):
             scwds.get_changed_series_data_from_vector(vectors)
         assert mocked.call_count == 2
 
@@ -472,9 +461,7 @@ class TestGetDataFromCubePidCoordAndLatestNPeriods:
         mock_resp = _mock_response(
             json_data=[{"status": "SUCCESS", "object": _VECTOR_DATA}]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked:
+        with patch.object(scwds._session, "request", return_value=mock_resp) as mocked:
             result = scwds.get_data_from_cube_pid_coord_and_latest_n_periods(
                 ("35-10-0003-01", "1.12"), periods=3
             )
@@ -498,9 +485,7 @@ class TestGetDataFromCubePidCoordAndLatestNPeriods:
                 {"status": "SUCCESS", "object": _VECTOR_DATA},
             ]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked:
+        with patch.object(scwds._session, "request", return_value=mock_resp) as mocked:
             result = scwds.get_data_from_cube_pid_coord_and_latest_n_periods(
                 [("35100003", "1.12"), (35100003, "2")], periods=5
             )
@@ -524,10 +509,9 @@ class TestGetDataFromCubePidCoordAndLatestNPeriods:
         mock_resp = _mock_response(
             json_data=[{"status": "SUCCESS", "object": _VECTOR_DATA}]
         )
-        with patch.object(
-            scwds._session, "request", return_value=mock_resp
-        ) as mocked, patch("stats_can.scwds.time.sleep"):
-            scwds.get_data_from_cube_pid_coord_and_latest_n_periods(
-                pairs, periods=3
-            )
+        with (
+            patch.object(scwds._session, "request", return_value=mock_resp) as mocked,
+            patch("stats_can.scwds.time.sleep"),
+        ):
+            scwds.get_data_from_cube_pid_coord_and_latest_n_periods(pairs, periods=3)
         assert mocked.call_count == 2
