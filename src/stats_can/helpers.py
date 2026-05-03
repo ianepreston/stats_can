@@ -107,3 +107,37 @@ def chunk_vectors(vectors: list[str] | str) -> list[list[int]]:
         for i in range(0, len(parsed_vectors), MAX_CHUNK)
     ]
     return chunks
+
+
+def pad_coordinate(coord: str) -> str:
+    """Right-pad a dot-delimited coordinate to 10 positions.
+
+    For example, ``"1.12"`` becomes ``"1.12.0.0.0.0.0.0.0.0"``.
+
+    Parameters
+    ----------
+    coord : str
+        A dot-delimited coordinate string with up to 10 dimensions.
+
+    Returns
+    -------
+    str
+        The coordinate padded with trailing ``.0`` entries to 10 dimensions.
+
+    Raises
+    ------
+    ValueError
+        If ``coord`` is empty, has more than 10 dimensions, or contains
+        a non-integer dimension member.
+    """
+    if not coord:
+        raise ValueError("Coordinate must be a non-empty string")
+    parts = str(coord).split(".")
+    if len(parts) > 10:
+        raise ValueError(f"Coordinate has more than 10 dimensions: {coord}")
+    for part in parts:
+        if not part.isdigit():
+            raise ValueError(
+                f"Coordinate dimensions must be non-negative integers: {coord}"
+            )
+    return ".".join(parts + ["0"] * (10 - len(parts)))

@@ -27,15 +27,23 @@ __all__ = [
     "vectors_to_df",
     "scwds",
     "get_changed_cube_list",
+    "get_changed_series_data_from_cube_pid_coord",
+    "get_changed_series_data_from_vector",
     "get_changed_series_list",
     "get_cube_metadata",
+    "get_data_from_cube_pid_coord_and_latest_n_periods",
+    "get_series_info_from_cube_pid_coord",
     "get_series_info_from_vector",
 ]
 from stats_can import sc, scwds, schemas
 from stats_can.sc import code_sets_to_df_dict, vectors_to_df, zip_table_to_dataframe
 from stats_can.scwds import (
     get_changed_cube_list,
+    get_changed_series_data_from_cube_pid_coord,
+    get_changed_series_data_from_vector,
     get_changed_series_list,
     get_cube_metadata,
+    get_data_from_cube_pid_coord_and_latest_n_periods,
+    get_series_info_from_cube_pid_coord,
     get_series_info_from_vector,
 )
