@@ -408,6 +408,22 @@ class TestGetChangedSeriesDataFromCubePidCoord:
             scwds.get_changed_series_data_from_cube_pid_coord(pairs)
         assert mocked.call_count == 2
 
+    def test_404_returns_empty_list(self):
+        """HTTP 404 ("no changes today" or invalid pair) should yield ``[]``."""
+        err_resp = MagicMock(spec=requests.Response)
+        err_resp.status_code = 404
+        mock_resp = _mock_response(
+            status_code=404,
+            raise_for_status=requests.exceptions.HTTPError(
+                "404 Not Found", response=err_resp
+            ),
+        )
+        with patch.object(scwds._session, "request", return_value=mock_resp):
+            result = scwds.get_changed_series_data_from_cube_pid_coord(
+                ("35100003", "1.12")
+            )
+        assert result == []
+
 
 class TestGetChangedSeriesDataFromVector:
     """Tests for get_changed_series_data_from_vector."""
@@ -451,6 +467,52 @@ class TestGetChangedSeriesDataFromVector:
         ):
             scwds.get_changed_series_data_from_vector(vectors)
         assert mocked.call_count == 2
+
+    def test_404_returns_empty_list(self):
+        """HTTP 404 ("no changes today" or invalid vector) should yield ``[]``."""
+        err_resp = MagicMock(spec=requests.Response)
+        err_resp.status_code = 404
+        mock_resp = _mock_response(
+            status_code=404,
+            raise_for_status=requests.exceptions.HTTPError(
+                "404 Not Found", response=err_resp
+            ),
+        )
+        with patch.object(scwds._session, "request", return_value=mock_resp):
+            result = scwds.get_changed_series_data_from_vector("v32164132")
+        assert result == []
+
+
+class TestGetChangedCubeList:
+    """Tests for get_changed_cube_list status-code handling."""
+
+    def test_409_returns_empty_list(self):
+        """HTTP 409 (release window not open yet) should yield ``[]``."""
+        err_resp = MagicMock(spec=requests.Response)
+        err_resp.status_code = 409
+        mock_resp = _mock_response(
+            status_code=409,
+            raise_for_status=requests.exceptions.HTTPError(
+                "409 Conflict", response=err_resp
+            ),
+        )
+        with patch.object(scwds._session, "request", return_value=mock_resp):
+            result = scwds.get_changed_cube_list()
+        assert result == []
+
+    def test_404_propagates(self):
+        """HTTP 404 (e.g. future date) is a caller error and should raise."""
+        err_resp = MagicMock(spec=requests.Response)
+        err_resp.status_code = 404
+        mock_resp = _mock_response(
+            status_code=404,
+            raise_for_status=requests.exceptions.HTTPError(
+                "404 Not Found", response=err_resp
+            ),
+        )
+        with patch.object(scwds._session, "request", return_value=mock_resp):
+            with pytest.raises(requests.exceptions.HTTPError):
+                scwds.get_changed_cube_list()
 
 
 class TestGetDataFromCubePidCoordAndLatestNPeriods:

@@ -139,13 +139,24 @@ def get_changed_cube_list(date: dt.date | None = None) -> list[ChangedCube]:
     Returns
     -------
     :
-        list of changed cubes, one for each table and when it was updated
+        list of changed cubes, one for each table and when it was updated.
+        Returns an empty list when ``date`` is the current day but the daily
+        release window has not opened yet (the API returns HTTP 409 in that
+        case). HTTP 404 (e.g. for a future ``date``) is propagated as it
+        indicates a caller error.
     """
     if date is None:
         date = dt.date.today()
-    return _fetch_and_validate(
-        url=f"{SC_URL}getChangedCubeList/{date}", schema=list[ChangedCube]
-    )
+    try:
+        return _fetch_and_validate(
+            url=f"{SC_URL}getChangedCubeList/{date}", schema=list[ChangedCube]
+        )
+    except requests.HTTPError as exc:
+        # 409 means "today's release window hasn't opened yet" -- a normal
+        # condition, not an error. 404 (future date) is still a real error.
+        if exc.response is not None and exc.response.status_code == 409:
+            return []
+        raise
 
 
 def get_cube_metadata(tables: str | list[str]) -> list[CubeMetadata]:
@@ -245,7 +256,11 @@ def get_changed_series_data_from_cube_pid_coord(
     -------
     :
         One :class:`VectorData` per requested pair, in the order returned
-        by the API.
+        by the API. Returns an empty list when none of the requested pairs
+        have changes today (the API returns HTTP 404 in that case). Note
+        that the API does not distinguish "valid pair but unchanged" from
+        "invalid pair" -- both produce a 404. Use
+        :func:`get_series_info_from_cube_pid_coord` to validate a pair.
     """
     if isinstance(pairs, tuple):
         pairs = [pairs]
@@ -257,9 +272,14 @@ def get_changed_series_data_from_cube_pid_coord(
         }
         for product_id, coord in pairs
     ]
-    return _post_in_chunks(
-        f"{SC_URL}getChangedSeriesDataFromCubePidCoord", body, VectorData
-    )
+    try:
+        return _post_in_chunks(
+            f"{SC_URL}getChangedSeriesDataFromCubePidCoord", body, VectorData
+        )
+    except requests.HTTPError as exc:
+        if exc.response is not None and exc.response.status_code == 404:
+            return []
+        raise
 
 
 def get_changed_series_data_from_vector(
@@ -275,10 +295,22 @@ def get_changed_series_data_from_vector(
     Returns
     -------
     :
-        List of dicts containing changed data for each vector
+        List of dicts containing changed data for each vector. Returns an
+        empty list when none of the requested vectors have changes today
+        (the API returns HTTP 404 in that case). Note that the API does not
+        distinguish "valid vector but unchanged" from "invalid vector" --
+        both produce a 404. Use :func:`get_series_info_from_vector` to
+        validate a vector id.
     """
     body = [{"vectorId": v} for v in parse_vectors(vectors)]
-    return _post_in_chunks(f"{SC_URL}getChangedSeriesDataFromVector", body, VectorData)
+    try:
+        return _post_in_chunks(
+            f"{SC_URL}getChangedSeriesDataFromVector", body, VectorData
+        )
+    except requests.HTTPError as exc:
+        if exc.response is not None and exc.response.status_code == 404:
+            return []
+        raise
 
 
 def get_data_from_cube_pid_coord_and_latest_n_periods(
