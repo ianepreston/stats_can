@@ -90,18 +90,53 @@ def test_gsifv():
 
 
 def test_gcsdfcpc():
-    """Test get changed series data from cube pid coord."""
-    pass
+    """Test get changed series data from cube pid coord.
+
+    The API returns data only for series that changed today, so this may
+    legitimately come back empty.
+    """
+    r = stats_can.scwds.get_changed_series_data_from_cube_pid_coord(
+        ("35100003", "1.12")
+    )
+    assert isinstance(r, list)
+    if r:
+        assert r[0]["productId"] == 35100003
+
+
+def test_gcsdfcpc_invalid_pair():
+    """Invalid (productId, coordinate) pairs return [] (the API does not
+    distinguish them from valid-but-unchanged pairs -- both come back as 404).
+    """
+    r = stats_can.scwds.get_changed_series_data_from_cube_pid_coord(("99999999", "1"))
+    assert r == []
 
 
 def test_gcsdfv():
-    """Test get get changed series data from vector."""
-    pass
+    """Test get get changed series data from vector.
+
+    The API returns data only for vectors that changed today, so this may
+    legitimately come back empty.
+    """
+    r = stats_can.scwds.get_changed_series_data_from_vector(v)
+    assert isinstance(r, list)
+
+
+def test_gcsdfv_invalid_vector():
+    """Invalid vector ids return [] (the API does not distinguish them
+    from valid-but-unchanged vectors -- both come back as 404).
+    """
+    r = stats_can.scwds.get_changed_series_data_from_vector("9")
+    assert r == []
 
 
 def test_gdfcpcalnp():
     """Test get data from cube pid coord and latest n periods."""
-    pass
+    r = stats_can.scwds.get_data_from_cube_pid_coord_and_latest_n_periods(
+        ("35100003", "1.12"), periods=3
+    )
+    assert isinstance(r, list)
+    assert len(r) == 1
+    assert len(r[0]["vectorDataPoint"]) == 3
 
 
 def test_gdfvalnp():

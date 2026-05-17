@@ -100,7 +100,7 @@ class VectorDataPoint(TypedDict):
     refPer2: str
     refPerRaw: str
     refPerRaw2: str
-    value: str | int | float
+    value: str | int | float | None
     decimals: int
     scalarFactorCode: int
     symbolCode: int
