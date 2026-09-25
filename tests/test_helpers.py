@@ -1,5 +1,7 @@
 """Test the helpers moduled of the stats_can package."""
 
+import pytest
+
 from stats_can import helpers
 
 vs = ["v74804", "v41692457"]
@@ -54,3 +56,37 @@ def test_chunks():
     assert len(chunks) == 2
     for chunk in chunks:
         assert len(chunk) <= 250
+
+
+def test_pad_coordinate_short():
+    """Short coordinates should be right-padded with .0 to 10 dimensions."""
+    assert helpers.pad_coordinate("1.12") == "1.12.0.0.0.0.0.0.0.0"
+
+
+def test_pad_coordinate_single_dimension():
+    """A single dimension should still pad to 10 positions."""
+    assert helpers.pad_coordinate("1") == "1.0.0.0.0.0.0.0.0.0"
+
+
+def test_pad_coordinate_already_full():
+    """A coordinate already at 10 dimensions should be returned unchanged."""
+    full = "1.2.3.4.5.6.7.8.9.10"
+    assert helpers.pad_coordinate(full) == full
+
+
+def test_pad_coordinate_too_many_dimensions():
+    """More than 10 dimensions should raise ValueError."""
+    with pytest.raises(ValueError, match="more than 10 dimensions"):
+        helpers.pad_coordinate("1.2.3.4.5.6.7.8.9.10.11")
+
+
+def test_pad_coordinate_empty_string():
+    """An empty string should raise ValueError rather than over-padding."""
+    with pytest.raises(ValueError, match="non-empty"):
+        helpers.pad_coordinate("")
+
+
+def test_pad_coordinate_non_numeric():
+    """Non-integer dimension members should raise ValueError."""
+    with pytest.raises(ValueError, match="non-negative integers"):
+        helpers.pad_coordinate("1.a.3")
