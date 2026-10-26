@@ -6,5 +6,5 @@ test:
 	nix develop --impure .#python312 -c coverage run -m pytest
 	nix develop --impure .#python313 -c coverage run -m pytest
 	nix develop --impure . -c coverage report
-safety:
-	nix develop --impure . -c safety check --file=uv.lock --full-report
+audit:
+	nix develop --impure . -c pip-audit
