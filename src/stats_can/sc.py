@@ -8,11 +8,11 @@ Extend getChangedCubeList with a function that returns all tables updated
 within a date range
 """
 
+import datetime as dt
 import json
 import logging
 import pathlib
 import zipfile
-import datetime as dt
 
 import pandas as pd
 from tqdm import tqdm
@@ -332,5 +332,5 @@ def code_sets_to_df_dict() -> dict[str, pd.DataFrame]:
     """
     codes = get_code_sets()
     # Packs each code group in a dataframe for better lookup via dictionary
-    codes_df_lookup = {key: pd.DataFrame(codes[key]) for key in codes.keys()}
+    codes_df_lookup = {key: pd.DataFrame(codes[key]) for key in codes}
     return codes_df_lookup
