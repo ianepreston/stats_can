@@ -23,7 +23,7 @@ dev = [
   "pytest-cov>=4.0",
   "codecov>=2.1",
   "darglint>=1.7",
-  "safety>=3.2.4,<4",
+  "pip-audit",
   "basedpyright>=1.36.1",
   "ipython>=8.37.0",
   "jupyter>=1.1.1",
