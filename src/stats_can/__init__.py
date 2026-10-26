@@ -8,11 +8,15 @@ French support
 """
 
 try:
-    from importlib.metadata import PackageNotFoundError  # type: ignore
-    from importlib.metadata import version
+    from importlib.metadata import (
+        PackageNotFoundError,  # type: ignore
+        version,
+    )
 except ImportError:  # pragma: no cover
-    from importlib_metadata import PackageNotFoundError  # type: ignore
-    from importlib_metadata import version
+    from importlib_metadata import (
+        PackageNotFoundError,  # type: ignore
+        version,
+    )
 
 
 try:
@@ -20,12 +24,7 @@ try:
 except PackageNotFoundError:  # pragma: no cover
     __version__ = "unknown"
 __all__ = [
-    "sc",
-    "schemas",
     "code_sets_to_df_dict",
-    "zip_table_to_dataframe",
-    "vectors_to_df",
-    "scwds",
     "get_changed_cube_list",
     "get_changed_series_data_from_cube_pid_coord",
     "get_changed_series_data_from_vector",
@@ -34,8 +33,13 @@ __all__ = [
     "get_data_from_cube_pid_coord_and_latest_n_periods",
     "get_series_info_from_cube_pid_coord",
     "get_series_info_from_vector",
+    "sc",
+    "schemas",
+    "scwds",
+    "vectors_to_df",
+    "zip_table_to_dataframe",
 ]
-from stats_can import sc, scwds, schemas
+from stats_can import sc, schemas, scwds
 from stats_can.sc import code_sets_to_df_dict, vectors_to_df, zip_table_to_dataframe
 from stats_can.scwds import (
     get_changed_cube_list,

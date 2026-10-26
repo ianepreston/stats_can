@@ -20,21 +20,21 @@ import functools
 import time
 from importlib.metadata import version
 from typing import TypeVar
-from pydantic import TypeAdapter
 
 import requests
+from pydantic import TypeAdapter
 from requests import Response
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-from stats_can.helpers import chunk_vectors, parse_tables, parse_vectors, pad_coordinate
+from stats_can.helpers import chunk_vectors, pad_coordinate, parse_tables, parse_vectors
 from stats_can.schemas import (
-    ChangedSeries,
     ChangedCube,
+    ChangedSeries,
+    CodeSet,
     CubeMetadata,
     SeriesInfo,
     VectorData,
-    CodeSet,
 )
 
 SC_URL = "https://www150.statcan.gc.ca/t1/wds/rest/"
@@ -85,7 +85,7 @@ def _fetch_and_validate(
         payload = [d.get("object") for d in data]
         return [adapter.validate_python(p) for p in payload]
     else:
-        raise RuntimeError(f"data came back weird. We should never get here: {data}")
+        raise TypeError(f"data came back weird. We should never get here: {data}")
 
 
 def _post_in_chunks(url: str, body: list[dict], schema: type[T]) -> list[T]:

@@ -67,7 +67,6 @@ def test_gcmd():
 
 def test_gsifcpc():
     """Test get series info from cube pid coord."""
-    pass
 
 
 def test_gsifv():

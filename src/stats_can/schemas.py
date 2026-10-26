@@ -6,6 +6,7 @@ attributes are available, and its useful for referencing things in the docs.
 """
 
 from typing import Any
+
 from typing_extensions import TypedDict
 
 

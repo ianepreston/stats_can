@@ -1,6 +1,7 @@
 """Tests for error handling paths that don't require the live API."""
 
-from unittest.mock import patch, MagicMock
+from typing import ClassVar
+from unittest.mock import MagicMock, patch
 
 import pytest
 import requests
@@ -30,57 +31,57 @@ class TestFetchAndValidateErrors:
             status_code=500,
             raise_for_status=requests.exceptions.HTTPError("500 Server Error"),
         )
-        with patch.object(scwds._session, "request", return_value=mock_resp):
-            with pytest.raises(requests.exceptions.HTTPError):
-                scwds._fetch_and_validate(
-                    "https://example.com", schema=str, method="GET"
-                )
+        with (
+            patch.object(scwds._session, "request", return_value=mock_resp),
+            pytest.raises(requests.exceptions.HTTPError),
+        ):
+            scwds._fetch_and_validate("https://example.com", schema=str, method="GET")
 
     def test_api_failure_status_raises_runtime_error(self):
         """Non-SUCCESS status in response body should raise RuntimeError."""
         mock_resp = _mock_response(
             json_data={"status": "FAILED", "object": "Vector not found"}
         )
-        with patch.object(scwds._session, "request", return_value=mock_resp):
-            with pytest.raises(RuntimeError, match="Vector not found"):
-                scwds._fetch_and_validate(
-                    "https://example.com", schema=str, method="GET"
-                )
+        with (
+            patch.object(scwds._session, "request", return_value=mock_resp),
+            pytest.raises(RuntimeError, match="Vector not found"),
+        ):
+            scwds._fetch_and_validate("https://example.com", schema=str, method="GET")
 
     def test_api_failure_in_list_raises_runtime_error(self):
         """Non-SUCCESS in a list response should raise RuntimeError."""
         mock_resp = _mock_response(
             json_data=[{"status": "FAILED", "object": "Bad request"}]
         )
-        with patch.object(scwds._session, "request", return_value=mock_resp):
-            with pytest.raises(RuntimeError, match="Bad request"):
-                scwds._fetch_and_validate(
-                    "https://example.com", schema=str, method="GET"
-                )
+        with (
+            patch.object(scwds._session, "request", return_value=mock_resp),
+            pytest.raises(RuntimeError, match="Bad request"),
+        ):
+            scwds._fetch_and_validate("https://example.com", schema=str, method="GET")
 
     def test_timeout_raises(self):
         """Request timeout should propagate as ReadTimeout."""
-        with patch.object(
-            scwds._session,
-            "request",
-            side_effect=requests.exceptions.ReadTimeout("timed out"),
+        with (
+            patch.object(
+                scwds._session,
+                "request",
+                side_effect=requests.exceptions.ReadTimeout("timed out"),
+            ),
+            pytest.raises(requests.exceptions.ReadTimeout),
         ):
-            with pytest.raises(requests.exceptions.ReadTimeout):
-                scwds._fetch_and_validate(
-                    "https://example.com", schema=str, method="GET"
-                )
+            scwds._fetch_and_validate("https://example.com", schema=str, method="GET")
 
     def test_connection_error_raises(self):
         """Network failure should propagate as ConnectionError."""
-        with patch.object(
-            scwds._session,
-            "request",
-            side_effect=requests.exceptions.ConnectionError("DNS failed"),
+        with (
+            patch.object(
+                scwds._session,
+                "request",
+                side_effect=requests.exceptions.ConnectionError("DNS failed"),
+            ),
+            pytest.raises(requests.exceptions.ConnectionError),
         ):
-            with pytest.raises(requests.exceptions.ConnectionError):
-                scwds._fetch_and_validate(
-                    "https://example.com", schema=str, method="GET"
-                )
+            scwds._fetch_and_validate("https://example.com", schema=str, method="GET")
 
 
 class TestDownloadTableErrors:
@@ -108,15 +109,15 @@ class TestDownloadTableErrors:
                 return_value="https://example.com/fake.zip",
             ),
             patch.object(scwds._session, "get", return_value=mock_download_resp),
+            pytest.raises(requests.exceptions.HTTPError),
         ):
-            with pytest.raises(requests.exceptions.HTTPError):
-                stats_can.sc.download_tables("99999999", path=tmpdir)
+            stats_can.sc.download_tables("99999999", path=tmpdir)
 
 
 class TestCubeMetadataValidation:
     """Tests for CubeMetadata schema validation."""
 
-    _CUBE_METADATA_BASE = {
+    _CUBE_METADATA_BASE: ClassVar[dict[str, object]] = {
         "responseStatusCode": 0,
         "productId": 34100292,
         "cubeTitleEn": "Building permits",
@@ -286,7 +287,7 @@ class TestVectorsToDfEdgeCases:
 class TestGetSeriesInfoFromCubePidCoord:
     """Tests for get_series_info_from_cube_pid_coord."""
 
-    _SERIES_INFO = {
+    _SERIES_INFO: ClassVar[dict[str, object]] = {
         "responseStatusCode": 0,
         "productId": 25100015,
         "coordinate": "1.12.0.0.0.0.0.0.0.0",
@@ -510,9 +511,11 @@ class TestGetChangedCubeList:
                 "404 Not Found", response=err_resp
             ),
         )
-        with patch.object(scwds._session, "request", return_value=mock_resp):
-            with pytest.raises(requests.exceptions.HTTPError):
-                scwds.get_changed_cube_list()
+        with (
+            patch.object(scwds._session, "request", return_value=mock_resp),
+            pytest.raises(requests.exceptions.HTTPError),
+        ):
+            scwds.get_changed_cube_list()
 
 
 class TestGetDataFromCubePidCoordAndLatestNPeriods:
