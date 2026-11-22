@@ -8,6 +8,7 @@ Refactor a lot of this setup and teardown into its own setup functions
 import datetime as dt
 import pathlib
 import shutil
+from unittest.mock import patch
 
 import pandas as pd
 import pytest
@@ -118,6 +119,47 @@ def test_zip_update_tables(tmpdir):
         assert dest_file.exists()
     updater = stats_can.sc.zip_update_tables(path=tmpdir)
     assert updater == ["18100204"]
+
+
+def test_zip_update_tables_missing_zip(tmpdir):
+    """A table whose json is current but whose zip is missing gets downloaded.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where the table json lives
+    """
+    tmpdir = pathlib.Path(tmpdir)
+    shutil.copyfile(TEST_FILES_PATH / "18100204.json", tmpdir / "18100204.json")
+    local_meta = stats_can.sc.list_zipped_tables(path=tmpdir)
+    with (
+        patch("stats_can.sc.get_cube_metadata", return_value=local_meta),
+        patch("stats_can.sc.download_tables") as mock_download,
+    ):
+        updater = stats_can.sc.zip_update_tables(path=tmpdir)
+    assert updater == ["18100204"]
+    mock_download.assert_called_once_with(["18100204"], tmpdir, csv=True)
+
+
+def test_zip_update_tables_up_to_date(tmpdir):
+    """A table with a current json and its zip present is not downloaded again.
+
+    Parameters
+    ----------
+    tmpdir: Path
+        Where the table json and zip live
+    """
+    tmpdir = pathlib.Path(tmpdir)
+    for f in ["18100204.json", "18100204-eng.zip"]:
+        shutil.copyfile(TEST_FILES_PATH / f, tmpdir / f)
+    local_meta = stats_can.sc.list_zipped_tables(path=tmpdir)
+    with (
+        patch("stats_can.sc.get_cube_metadata", return_value=local_meta),
+        patch("stats_can.sc.download_tables") as mock_download,
+    ):
+        updater = stats_can.sc.zip_update_tables(path=tmpdir)
+    assert updater == []
+    mock_download.assert_called_once()
 
 
 def test_zip_table_to_dataframe(tmpdir):

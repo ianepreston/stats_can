@@ -138,7 +138,8 @@ def zip_update_tables(path: pathlib.Path | None = None, csv: bool = True) -> lis
     There isn't actually a "last modified date" part to the metadata
     What I'm doing is comparing the latest reference period. Almost all
     data changes will at least include incremental releases, so this should
-    capture what I want
+    capture what I want. Tables whose zip file is missing from path are
+    downloaded again even if their metadata hasn't changed.
 
     Parameters
     ----------
@@ -153,6 +154,7 @@ def zip_update_tables(path: pathlib.Path | None = None, csv: bool = True) -> lis
         list of the tables that were updated
 
     """
+    dl_path = pathlib.Path(path) if path else pathlib.Path()
     local_jsons = list_zipped_tables(path=path)
     tables = [j["productId"] for j in local_jsons]
     remote_jsons = get_cube_metadata(tables)
@@ -160,6 +162,7 @@ def zip_update_tables(path: pathlib.Path | None = None, csv: bool = True) -> lis
         local["productId"]
         for local, remote in zip(local_jsons, remote_jsons)
         if local["cubeEndDate"] != remote["cubeEndDate"]
+        or not (dl_path / f"{local['productId']}{'-eng' if csv else ''}.zip").is_file()
     ]
 
     download_tables(update_table_list, path, csv=csv)
